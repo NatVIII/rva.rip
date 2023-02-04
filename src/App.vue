@@ -6,6 +6,7 @@ import listPlugin from '@fullcalendar/list';
 
 const calendarViewSelection = 'dayGridMonth';
 const calendarHeight = ref(window.innerHeight);
+const pageWidth = ref(window.innerWidth);
 const isUsingDayMaxEventRows = ref(true);
 
 const updateWeekNumbers = () => { return window.innerWidth < 350 ? false : true };
@@ -53,6 +54,7 @@ const calendarOptions = ref({
 });
 
 const updateCalendarHeight = () => {
+  pageWidth.value = window.innerWidth - 100;
   calendarHeight.value = window.innerHeight;
   calendarOptions.value = {
     ...calendarOptions.value,
@@ -61,32 +63,42 @@ const updateCalendarHeight = () => {
   };
 };
 
-onMounted(() => {
-  window.addEventListener("resize", updateCalendarHeight);
-  console.log(isUsingDayMaxEventRows.value);
-
-})
+onMounted(() => window.addEventListener("resize", updateCalendarHeight));
 onUnmounted(() => window.removeEventListener('resize', updateWeekNumbers));
-
 </script>
 
 <template>
-
   <div class="calendar-container">
+    <div class="title">Events board for SF Bay, but mostly the girls, gays, and theys!</div>
+    <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
+    <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth />
     <FullCalendar :options='calendarOptions' />
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-    <div>rnps</div>
-  </div>
 
+    <div style="display: flex; align-items: center;">
+      <img class="gifs" src="shark.gif" alt="shark dancing" :width='Math.min(pageWidth / 3, 600)' />
+      <img class="gifs" src="balloons.gif" alt="balloons and words that say 'INTERNET PARTY'"
+        :width='Math.min(pageWidth / 3, 600)' />
+      <img class="gifs" src="bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 600)' />
+    </div>
+
+    <div class="desc">
+      <p><strong>This board was made because I felt events in the Bay were hard to find! The events here are scraped
+          from various venue event listings.</strong> Before
+        making plans, consider checking with venue staff or event organizers directly. Come out and dance!
+      </p>
+      <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- to who I owe
+        the
+        inspiration.</p>
+      <p><strong>Want your event listed here?</strong> You must be publishing a machine-readable feed of event data
+        formatted in <a href="https://fullcalendar.io/docs/event-source">a compatible Event Source format</a>. (This
+        can
+        be as simple as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once
+        published, request inclusion of your event feed by <a
+          href="https://github.com/ivyraine/bay.lgbt/issues">submitting
+          your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or
+        improvements there!</p>
+    </div>
+  </div>
 </template>
 
 <style scoped>

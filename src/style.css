@@ -91,9 +91,13 @@ button:focus-visible {
   /* Safari, Android, iOS */
 }
 
+@font-face {
+  font-family: 'LDFComicSans';
+  src: url('fonts/LDFComicSans.ttf') format('truetype');
+}
+
 :root {
-  background-image: linear-gradient(rgb(199, 116, 232), rgb(148, 208, 255));
-  background: linear-gradient(#C774E8, #94D0FF);
+  background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));
   background-attachment: fixed;
   --button-box-shadow:
     inset -1px -1px 0px 0px #777,
@@ -113,6 +117,7 @@ button:focus-visible {
 
 html,
 body {
+  margin-top: 0;
   -moz-user-select: none;
   -webkit-user-select: none;
   background-image: url("img/patterns/128.png");
@@ -135,7 +140,6 @@ a {
 ::-moz-focus-inner {
   border: 0;
 }
-
 
 /* Window layout */
 
@@ -347,4 +351,26 @@ fc-theme-standard td,
 
 .fc-theme-standard .fc-day-today {
   background: yellow;
+}
+
+.title {
+  font-family: 'LDFComicSans';
+  font-size: min(3.5vw, 1.75em);
+
+  position: absolute;
+  padding: min(1vw, 1.75em);
+}
+
+.desc {
+  padding: 18px;
+  font-size: min(4vw, 1.0em);
+  opacity: 5;
+}
+
+.cat {
+  overflow: hidden;
+}
+
+.gifs {
+  padding-top: 2vh;
 }
