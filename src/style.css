@@ -154,8 +154,14 @@ fc-theme-standard td,
   text-align: center;
 }
 
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 4px;
+}
+
 .fc-toolbar-chunk {
-  margin: 4px 4px 4px 4px;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 
@@ -197,7 +203,6 @@ fc-theme-standard td,
   text-align: center;
   font-size: inherit;
   font-weight: inherit;
-  padding: 1px 0;
   background-size: 3px 2px;
   margin: 0 0 0 0;
 }
@@ -276,19 +281,20 @@ fc-theme-standard td,
 
 .fc .fc-button {
   color: black;
-  font-size: min(4vw, 1.2em);
+  font-size: min(3.5vw, 1.2em);
   background-color: #dedede;
   display: inline-block;
-  margin-bottom: 7px;
+  margin-bottom: 0px;
   border-radius: 3px;
   border: 1px solid #000;
   box-shadow: var(--button-box-shadow);
 }
 
+
 .fc-button:hover {
-  box-shadow:
+  /* box-shadow:
     var(--button-box-shadow),
-    var(--button-hover-bezel);
+    var(--button-hover-bezel); */
 }
 
 .fc-button-active {
@@ -330,4 +336,13 @@ fc-theme-standard td,
 
 .fc .fc-toolbar-title {
   font-size: min(5vw, 1.75em);
+}
+
+/* Night-time seems to be different? */
+.fc-h-event .fc-event-main {
+  color: black;
+}
+
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  overflow-x: hidden;
 }
