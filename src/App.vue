@@ -9,6 +9,7 @@ const calendarHeight = ref(window.innerHeight);
 const isUsingDayMaxEventRows = ref(true);
 
 const updateWeekNumbers = () => { return window.innerWidth < 350 ? false : true };
+// -1 indicates that there is no limit.
 const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(window.innerHeight / 75) };
 
 const calendarOptions = ref({
@@ -67,8 +68,6 @@ onMounted(() => {
 })
 onUnmounted(() => window.removeEventListener('resize', updateWeekNumbers));
 
-</script>
-<script>
 </script>
 
 <template>

@@ -75,11 +75,8 @@ button:focus-visible {
   background-color: #000000;
 }
 
-.fc-theme-standard .fc-day-today {
-  background: yellow;
-} */
-
 /* apply a natural box layout model to all elements */
+
 *,
 *:before,
 *:after {
@@ -95,8 +92,9 @@ button:focus-visible {
 }
 
 :root {
-  background: linear-gradient(#C774E8, #94D0FF);
   background-image: linear-gradient(rgb(199, 116, 232), rgb(148, 208, 255));
+  background: linear-gradient(#C774E8, #94D0FF);
+  background-attachment: fixed;
   --button-box-shadow:
     inset -1px -1px 0px 0px #777,
     inset -2px -2px 0px 0px #aaa,
@@ -345,4 +343,8 @@ fc-theme-standard td,
 
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
   overflow-x: hidden;
+}
+
+.fc-theme-standard .fc-day-today {
+  background: yellow;
 }
