@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -77,7 +77,7 @@ button:focus-visible {
 
 .fc-theme-standard .fc-day-today {
   background: yellow;
-}
+} */
 
 /* apply a natural box layout model to all elements */
 *,
@@ -95,6 +95,8 @@ button:focus-visible {
 }
 
 :root {
+  background: linear-gradient(#C774E8, #94D0FF);
+  background-image: linear-gradient(rgb(199, 116, 232), rgb(148, 208, 255));
   --button-box-shadow:
     inset -1px -1px 0px 0px #777,
     inset -2px -2px 0px 0px #aaa,
@@ -117,7 +119,6 @@ body {
   font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
   font-size: 12px;
   font-weight: normal;
-  overflow: hidden;
 }
 
 button {
@@ -138,14 +139,37 @@ a {
   border: 0;
 }
 
+
 /* Window layout */
-.content {
-  position: relative;
+
+.calendar-container {
+  height: 100vh;
+}
+
+fc-theme-standard td,
+.fc-theme-standard th {
+  border: 1px solid #111;
+}
+
+.fc-header-toolbar {
+  text-align: center;
+}
+
+.fc-toolbar-chunk {
+  margin: 4px 4px 4px 4px;
+}
+
+
+.fc-media-screen {
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.fc-media-screen,
+.fc .fc-popover {
   z-index: 2;
   font-size: 12px;
   font-weight: normal;
-  width: 260px;
-  margin: 100px auto 0;
   border: 1px solid #111;
   background: #ccc;
   box-shadow:
@@ -154,7 +178,9 @@ a {
     inset -1px -1px 0px 0px #999;
 }
 
-.content .inner {
+/* The daily content */
+.fc-view-harness,
+.fc-popover-body {
   margin: 2px 4px 4px 4px;
   border: 1px solid #111;
   background-color: #ddd;
@@ -165,7 +191,8 @@ a {
     inset -1px -1px 0px 0px #999;
 }
 
-.title {
+.fc-header-toolbar,
+.fc-popover-header {
   width: 100%;
   text-align: center;
   font-size: inherit;
@@ -247,8 +274,7 @@ a {
   border-bottom: 1px solid #000;
 }
 
-.content .command_button {
-  height: 22px;
+.fc-button {
   background-color: #dedede;
   display: inline-block;
   margin-bottom: 7px;
@@ -295,4 +321,8 @@ a {
 
 .clearfix:after {
   clear: both;
+}
+
+.fc-daygrid-day {
+  --fc-border-color: black;
 }
