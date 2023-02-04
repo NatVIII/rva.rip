@@ -2,24 +2,26 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 
 // timeGrid, 
 const calendarViewSelection = 'dayGridMonth';
 const calendarHeight = ref(window.innerHeight);
 
-const updateCalendarHeight = () => calendarHeight.value = window.innerHeight;
-
-onMounted(() => {
-  window.addEventListener("resize", updateCalendarHeight);
-})
-onUnmounted(() => window.removeEventListener('resize', updateCalendarHeight));
-
-const calendarOptions = {
-  plugins: [dayGridPlugin, timeGridPlugin],
+const updateWeekNumbers = () => { return window.innerWidth < 350 ? false : true };
+const calendarOptions = ref({
+  plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
   initialView: calendarViewSelection,
-  height: calendarHeight.value,
+  headerToolbar: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth timeGridDay,listDay'
+  },
+  nowIndicator: true,
+  height: '100vh',
   dayMaxEventRows: 8,
-  // moreLinkClick: "day",
+  navLinks: true,
+  weekNumbers: updateWeekNumbers(),
   events: [
     { title: 'nrspr', start: new Date() },
     { title: 'nrspr', start: new Date() },
@@ -33,7 +35,17 @@ const calendarOptions = {
     { title: 'nrspr', start: new Date() }
   ],
   stickyHeaderDates: true,
+});
+
+const updateCalendarHeight = () => {
+  calendarHeight.value = window.innerHeight;
+  calendarOptions.value = { ...calendarOptions.value, weekNumbers: window.innerWidth < 350 ? false : true };
 };
+
+onMounted(() => {
+  window.addEventListener("resize", updateCalendarHeight);
+})
+onUnmounted(() => window.removeEventListener('resize', updateWeekNumbers));
 
 </script>
 <script>
