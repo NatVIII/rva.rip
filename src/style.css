@@ -97,6 +97,7 @@ button:focus-visible {
 }
 
 :root {
+  /* linear rainbow gradient, pastel */
   background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));
   background-attachment: fixed;
   --button-box-shadow:
@@ -354,10 +355,29 @@ fc-theme-standard td,
 }
 
 .title {
+  padding-top: min(1vw, 1.75em);
+    padding-bottom: min(1.5vw, 1.75em);
+    padding-left: min(1vw, 1.75em);
+    font-size: min(3.5vw, 3em);
+    font-family: sans-serif;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0.3vw #ef3550,
+      0 0.6vw #f48fb1,
+      0 0.9vw #7e57c2,
+      0 1.2vw #2196f3,
+      0 1.5vw #26c6da,
+      0 1.8vw #43a047,
+      0 2.1vw #eeff41,
+      0 2.4vw #f9a825,
+      0 2.7vw #ff5722;
+  }
+  
+  .blurb {
   font-family: 'LDFComicSans';
-  font-size: min(3.5vw, 1.75em);
+  font-size: min(2.5vw, 1.75em);
 
-  position: absolute;
   padding: min(1vw, 1.75em);
 }
 
@@ -368,6 +388,7 @@ fc-theme-standard td,
 }
 
 .cat {
+  bottom: 10vh;
   overflow: hidden;
 }
 

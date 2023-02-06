@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, onUpdated } from 'vue'
+import { ref, onMounted, onUnmounted, onUpdated, callWithAsyncErrorHandling } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import iCalendarPlugin from '@fullcalendar/icalendar';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import ICAL from 'ical.js';
 
 // The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
 interface Event {
@@ -22,7 +25,10 @@ interface EventSource {
   events: Event[];
 }
 
-const eventSources = ref([]);
+interface EventGoogleCalendarSource {
+  googleCalendarId: string;
+}
+
 const calendarViewSelection = 'dayGridMonth';
 const calendarHeight = ref(window.innerHeight);
 const pageWidth = ref(window.innerWidth);
@@ -33,7 +39,7 @@ const updateWeekNumbers = () => { return window.innerWidth < 350 ? false : true 
 const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(window.innerHeight / 75) };
 
 const calendarOptions = ref({
-  plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
+  plugins: [dayGridPlugin, timeGridPlugin, listPlugin, iCalendarPlugin, googleCalendarPlugin],
   initialView: calendarViewSelection,
   customButtons: {
     less: {
@@ -57,7 +63,8 @@ const calendarOptions = ref({
   dayMaxEventRows: updateDayMaxEventRows(),
   navLinks: true,
   weekNumbers: updateWeekNumbers(),
-  eventSources: eventSources.value,
+  googleCalendarApiKey: 'AIzaSyDS35k9d6_Ch4MtSEzcqJqA5Zw9f5TGNZ0',
+  eventSources: [],
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
 });
@@ -113,11 +120,11 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 };
 
 // Updates calendarOptions' eventSources and triggers a re-render of the calendar.
-function addEventSource(eventSource: EventSource) {
+function addEventSource(newEventSources: EventSource[] | EventGoogleCalendarSource[]) {
   // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
   calendarOptions.value = {
     ...calendarOptions.value,
-    eventSources: eventSources.value.concat(eventSource)
+    eventSources: calendarOptions.value.eventSources.concat(newEventSources)
   };
 }
 
@@ -126,8 +133,16 @@ async function loadEvents() {
   const domParser = new DOMParser();
   const eventSourcesFromFile = await (await fetch('event_sources.json')).json();
 
+  // Google Calendar
+  const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {
+    return {
+      googleCalendarId: source.googleCalendarId,
+    } as EventGoogleCalendarSource
+  });
+  addEventSource(googleCalendarSources);
+
   // Eventbrite
-  let eventBriteSources = await Promise.all(
+  let eventbriteSources = await Promise.all(
     eventSourcesFromFile.eventbrite.map(async (source: Event) =>
       await fetch(toCorsProxy(source.url))
         .then(res => res.text())
@@ -142,9 +157,7 @@ async function loadEvents() {
         })
     )
   );
-  addEventSource(eventBriteSources);
-
-
+  addEventSource(eventbriteSources);
 }
 
 loadEvents()
@@ -152,9 +165,16 @@ loadEvents()
 
 <template>
   <div class="calendar-container">
-    <div class="title">Events board for SF Bay, but mostly the girls, gays, and theys!</div>
+    <div style="display: flex; position:relative;">
+      <div class="title">
+        bay.lgbt
+      </div>
+      <div style="display:flex; flex-direction: column; align-items: center;">
+        <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
+        <div class="blurb">Events board for SF Bay- mostly the girls, gays, and theys!</div>
+      </div>
+    </div>
     <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
-    <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth />
     <FullCalendar :options='calendarOptions' />
 
     <div style="display: flex; align-items: center; flex-direction: row;">
