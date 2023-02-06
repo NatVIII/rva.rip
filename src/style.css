@@ -350,9 +350,22 @@ fc-theme-standard td,
   overflow-x: hidden;
 }
 
-.fc-theme-standard .fc-day-today {
-  background: yellow;
+.fc .fc-daygrid-day.fc-day-today {
+  /* The following is just for a simple background color */
+  /* --fc-today-bg-color: yellow; */
+  background:
+    /* On "top" */
+    repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      #eee 10px,
+      #eee 20px),
+    /* on "bottom" */
+    linear-gradient(to bottom,
+      white,
+      white);
 }
+
 
 .title {
   padding-top: min(1vw, 1.75em);
@@ -363,15 +376,15 @@ fc-theme-standard td,
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     color: #fff;
-    text-shadow: 0 0.3vw #ef3550,
-      0 0.6vw #f48fb1,
-      0 0.9vw #7e57c2,
-      0 1.2vw #2196f3,
-      0 1.5vw #26c6da,
-      0 1.8vw #43a047,
-      0 2.1vw #eeff41,
-      0 2.4vw #f9a825,
-      0 2.7vw #ff5722;
+    text-shadow: 0 0.25vw #ef3550,
+        0 0.5vw #f48fb1,
+        0 0.75vw #7e57c2,
+        0 1vw #2196f3,
+        0 1.25vw #26c6da,
+        0 1.5vw #43a047,
+        0 1.75vw #eeff41,
+        0 2vw #f9a825,
+        0 2.25vw #ff5722;
   }
   
   .blurb {

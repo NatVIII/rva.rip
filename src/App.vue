@@ -170,11 +170,11 @@ loadEvents()
         bay.lgbt
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
+        <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
         <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
-        <div class="blurb">Events board for SF Bay- mostly the girls, gays, and theys!</div>
+        <div class="blurb">A curated events board for SF Bay- mostly the girls, gays, and theys!</div>
       </div>
     </div>
-    <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
     <FullCalendar :options='calendarOptions' />
 
     <div style="display: flex; align-items: center; flex-direction: row;">
@@ -183,7 +183,7 @@ loadEvents()
       <!-- :width='Math.min(pageWidth / 3, 600)' /> -->
       <div class="desc">
         <p><strong>The events here are scraped
-            from various venue event listings.</strong> Before
+            from various venue event listings that I find trustworthy. Venue feedback is encouraged! </strong> Before
           making plans, consider checking with venue staff or event organizers directly. Come out and dance!
         </p>
         <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- to who I owe
@@ -197,7 +197,7 @@ loadEvents()
             your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or
           improvements there!</p>
       </div>
-      <img class="gifs" src="bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 400)' />
+      <img class="gifs" src="/bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 400)' />
     </div>
   </div>
 </template>
