@@ -36,6 +36,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
         
       - name: Build project
         run: npm run build
