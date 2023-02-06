@@ -21,7 +21,7 @@ interface Event {
   extendedProps?: Object;
 }
 
-interface EventSource {
+interface EventNormalSource {
   events: Event[];
 }
 
@@ -56,7 +56,7 @@ const calendarOptions = ref({
   headerToolbar: {
     left: 'prev,next today,less',
     center: 'title',
-    right: 'dayGridMonth timeGridDay,listDay'
+    right: 'dayGridMonth timeGridDay,listWeek'
   },
   nowIndicator: true,
   height: '100vh',
@@ -120,7 +120,12 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 };
 
 // Updates calendarOptions' eventSources and triggers a re-render of the calendar.
-function addEventSource(newEventSources: EventSource[] | EventGoogleCalendarSource[]) {
+function addEventSource(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
+  if (newEventSources.length < 1) return;
+  // Cut out events without times, but typecheck for types that can have invalid times.
+  if (Object.hasOwn(newEventSources[0], 'events')) {
+    newEventSources = newEventSources.filter((event) => event.start !== undefined);
+  };
   // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
   calendarOptions.value = {
     ...calendarOptions.value,
@@ -153,7 +158,7 @@ async function loadEvents() {
           ).map(convertSchemaDotOrgEventToFullCalendarEvent);
           return {
             events
-          } as EventSource;
+          } as EventNormalSource;
         })
     )
   );
