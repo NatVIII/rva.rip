@@ -5,7 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import ICAL from 'ical.js';
+import json from './event_sources.json';
 
 // The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
 interface Event {
@@ -131,7 +131,7 @@ function addEventSource(newEventSources: EventSource[] | EventGoogleCalendarSour
 async function loadEvents() {
   const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
   const domParser = new DOMParser();
-  const eventSourcesFromFile = await (await fetch('event_sources.json')).json();
+  const eventSourcesFromFile = json;
 
   // Google Calendar
   const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {

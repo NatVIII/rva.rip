@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  assetsInclude: ['**/*.ttf'],
+  base: './',
   plugins: [
     vue(),
     // basicSsl() // Disable in production. Used for localhost HTTPS testing.

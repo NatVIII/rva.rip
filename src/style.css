@@ -87,13 +87,13 @@ button:focus-visible {
 
 @font-face {
   font-family: 'ChicagoFLF';
-  src: url('fonts/ChicagoFLF.ttf') format('truetype');
+  src: url('./assets/ChicagoFLF.ttf') format('truetype');
   /* Safari, Android, iOS */
 }
 
 @font-face {
   font-family: 'LDFComicSans';
-  src: url('fonts/LDFComicSans.ttf') format('truetype');
+  src: url('./assets/LDFComicSans.ttf') format('truetype');
 }
 
 :root {
