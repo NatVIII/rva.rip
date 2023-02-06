@@ -121,7 +121,6 @@ body {
   margin-top: 0;
   -moz-user-select: none;
   -webkit-user-select: none;
-  background-image: url("img/patterns/128.png");
   background-repeat: repeat;
   margin: 0;
   height: 100%;
@@ -145,7 +144,7 @@ a {
 /* Window layout */
 
 .calendar-container {
-  height: 100vh;
+  height: 95vh;
 }
 
 fc-theme-standard td,
@@ -158,7 +157,7 @@ fc-theme-standard td,
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
-  margin-bottom: 4px;
+  margin-bottom: min(0.75vh, 4px);
 }
 
 .fc-toolbar-chunk {
@@ -389,7 +388,7 @@ fc-theme-standard td,
   
   .blurb {
   font-family: 'LDFComicSans';
-  font-size: min(2.5vw, 1.75em);
+  font-size: min(2.7vw, 1.75em);
 
   padding: min(1vw, 1.75em);
 }
