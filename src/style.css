@@ -157,7 +157,7 @@ fc-theme-standard td,
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
-  margin-bottom: min(0.75vh, 4px);
+  margin-bottom: min(0.75vh, 4px) !important;
 }
 
 .fc-toolbar-chunk {
