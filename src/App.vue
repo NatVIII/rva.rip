@@ -29,7 +29,6 @@ interface EventGoogleCalendarSource {
   googleCalendarId: string;
 }
 
-const calendarViewSelection = 'dayGridMonth';
 const calendarHeight = ref(window.innerHeight);
 const pageWidth = ref(window.innerWidth);
 const isUsingDayMaxEventRows = ref(true);
@@ -40,7 +39,7 @@ const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 :
 
 const calendarOptions = ref({
   plugins: [dayGridPlugin, timeGridPlugin, listPlugin, iCalendarPlugin, googleCalendarPlugin],
-  initialView: calendarViewSelection,
+  initialView: window.innerWidth <= 600 ? 'listMonth' : 'dayGridMonth',
   customButtons: {
     less: {
       text: 'less',
@@ -54,9 +53,13 @@ const calendarOptions = ref({
     }
   },
   headerToolbar: {
-    left: 'prev,next today,less',
+    left: 'prev today,less',
     center: 'title',
-    right: 'dayGridMonth timeGridDay,listWeek'
+    right: 'dayGridMonth,listMonth next'
+  },
+  buttonText: {
+    month: 'grid', // Feels clearar than 'month' and 'list'
+    list: 'list'
   },
   nowIndicator: true,
   height: '100vh',

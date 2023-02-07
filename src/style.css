@@ -281,7 +281,8 @@ fc-theme-standard td,
   border-bottom: 1px solid #000;
 }
 
-.fc .fc-button {
+.fc .fc-button-primary,
+.fc .fc-button-primary:not(:disabled) {
   color: black;
   font-size: min(3.5vw, 1.2em);
   background-color: #dedede;
@@ -365,12 +366,11 @@ fc-theme-standard td,
       white);
 }
 
-
 .title {
   padding-top: min(1vw, 1.75em);
     padding-bottom: min(1.5vw, 1.75em);
     padding-left: min(1vw, 1.75em);
-    font-size: min(3.5vw, 3em);
+    font-size: min(5vw, 3em);
     font-family: sans-serif;
     letter-spacing: 0.15rem;
     text-transform: uppercase;
@@ -388,7 +388,7 @@ fc-theme-standard td,
   
   .blurb {
   font-family: 'LDFComicSans';
-  font-size: min(2.7vw, 1.75em);
+  font-size: min(2.9vw, 1.75em);
 
   padding: min(1vw, 1.75em);
 }
