@@ -24,6 +24,8 @@ interface Event {
 
 interface EventNormalSource {
   events: Event[];
+  display: string;
+  area: string;
 }
 
 interface EventGoogleCalendarSource {
@@ -206,15 +208,30 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
       return (event.start && isShorterThan3DaysLong);
     });
     return {
-      events: newEvents
+      ...eventSource,
+      events: newEvents,
     } as EventNormalSource;
   });
-    // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
+  // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
 
   calendarOptions.value = {
     ...calendarOptions.value,
     eventSources: calendarOptions.value.eventSources.concat(newEventSources)
   };
+}
+
+function isDisplayingBasedOnFilterSettings(area: string) {
+  switch (area) {
+    case 'SF Bay':
+      return isSfBayEnabled.value ? 'auto' : 'none';
+    case 'East Bay':
+      return isEastBayEnabled.value ? 'auto' : 'none';
+    case 'South Bay':
+      return isSouthBayEnabled.value ? 'auto' : 'none';
+    case 'Santa Cruz County':
+      return isSantaCruzCountyEnabled.value ? 'auto' : 'none';
+  }
+  return 'auto';
 }
 
 async function loadEvents() {
@@ -226,6 +243,8 @@ async function loadEvents() {
   const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {
     return {
       googleCalendarId: source.googleCalendarId,
+      display: isDisplayingBasedOnFilterSettings(source.area),
+      area: source.area
     } as EventGoogleCalendarSource
   });
   addEventSources(googleCalendarSources);
@@ -241,7 +260,9 @@ async function loadEvents() {
               .querySelectorAll('script[type="application/ld+json"]')[1].innerHTML
           ).map(convertSchemaDotOrgEventToFullCalendarEvent);
           return {
-            events
+            events,
+            display: isDisplayingBasedOnFilterSettings(source.area),
+            area: source.area
           } as EventNormalSource;
         })
     )
@@ -260,11 +281,25 @@ async function loadEvents() {
         wpEvents = wpEvents.concat(wpJson.events);
       }
       return {
-        events: wpEvents.map(convertWordpressTribeEventToFullCalendarEvent)
+        events: wpEvents.map(convertWordpressTribeEventToFullCalendarEvent),
+        display: isDisplayingBasedOnFilterSettings(source.area),
+        area: source.area
       } as EventNormalSource;
     }
     ));
   addEventSources(wordpressTribeSources);
+}
+
+function onFilterUpdate(event, area: string) {
+  const newEventSources = calendarOptions.value.eventSources.map((source: EventNormalSource | EventGoogleCalendarSource) => {
+    return {
+      ...source,
+      // Updated filtered area.
+      display: source.area === area ?
+        (event.target.checked ? 'auto' : 'none') : source.display
+    } as EventSource;
+  });
+  calendarOptions.value = { ...calendarOptions.value, eventSources: newEventSources };
 }
 
 loadEvents()
@@ -278,19 +313,20 @@ loadEvents()
     <div class="popper-box">
       <div class="popper-box-inner">
         <label>
-          <input v-model="isSfBayEnabled" type="checkbox"> SF Bay
+          <input v-model="isSfBayEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'SF Bay')"> SF Bay
         </label>
         <label>
-          <input v-model="isEastBayEnabled" type="checkbox"> East Bay
+          <input v-model="isEastBayEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'East Bay')"> East Bay
         </label>
         <label>
-          <input v-model="isSouthBayEnabled" type="checkbox"> South Bay
+          <input v-model="isSouthBayEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'South Bay')"> South Bay
         </label>
         <label>
-          <input v-model="isSantaCruzCountyEnabled" type="checkbox"> Santa Cruz County
+          <input v-model="isSantaCruzCountyEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'Santa Cruz County')">
+          Santa Cruz County
         </label>
       </div>
-      <div style="text-align:center"><button v-if="isMobile" @click="hide()">Done</button></div>
+      <div style="text-align:center"><button v-if="isMobile" @click.passive="hide()">Done</button></div>
     </div>
 
   </template>
