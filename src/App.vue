@@ -68,6 +68,13 @@ const calendarOptions = ref({
   weekNumbers: updateWeekNumbers(),
   googleCalendarApiKey: 'AIzaSyDS35k9d6_Ch4MtSEzcqJqA5Zw9f5TGNZ0',
   eventSources: [],
+  // Open in a new tab.
+  eventClick: function (event) {
+    if (event.event.url) {
+      event.jsEvent.preventDefault();
+      window.open(event.event.url, "_blank");
+    }
+  },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
 });
