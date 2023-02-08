@@ -6,6 +6,7 @@ import listPlugin from '@fullcalendar/list';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from './event_sources.json';
+import 'floating-vue/dist/style.css';
 
 // The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
 interface Event {
@@ -29,6 +30,14 @@ interface EventGoogleCalendarSource {
   googleCalendarId: string;
 }
 
+const isFilterDropdownShown = ref(false);
+const isSfBayEnabled = ref(true);
+const isEastBayEnabled = ref(true);
+const isSouthBayEnabled = ref(true);
+const isSantaCruzCountyEnabled = ref(true);
+
+const count = ref(0);
+const isMobile = ref(true);
 const calendarHeight = ref(window.innerHeight);
 const pageWidth = ref(window.innerWidth);
 const isUsingDayMaxEventRows = ref(true);
@@ -50,10 +59,16 @@ const calendarOptions = ref({
           dayMaxEventRows: updateDayMaxEventRows()
         };
       }
-    }
+    },
+    filter: {
+      text: 'filter',
+      click: function () {
+        isFilterDropdownShown.value = true;
+      }
+    },
   },
   headerToolbar: {
-    left: 'prev today,less',
+    left: 'prev today,filter',
     center: 'title',
     right: 'dayGridMonth,listMonth next'
   },
@@ -92,6 +107,15 @@ const updateCalendarHeight = () => {
 onMounted(() => window.addEventListener("resize", updateCalendarHeight));
 // onUpdated(() => {});
 onUnmounted(() => window.removeEventListener('resize', updateWeekNumbers));
+
+function onShow() {
+  document.body.classList.add('no-scroll')
+}
+
+function onHide() {
+  document.body.classList.remove('no-scroll')
+  isFilterDropdownShown.value = false;
+}
 
 // Converts a schema.org event to a FullCalendar event.
 function convertSchemaDotOrgEventToFullCalendarEvent(item) {
@@ -170,7 +194,7 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
   // Cut out events without times, but typecheck for types that can have invalid times.
   newEventSources = newEventSources.map(eventSource => {
     // Skip events that can't be invalid.
-    if (!Object.hasOwn(eventSource, 'events')) { console.log("skipping", eventSource); return eventSource };
+    if (!Object.hasOwn(eventSource, 'events')) return eventSource;
 
     // Filter events.
     const newEvents = eventSource.events.filter((event) => {
@@ -179,8 +203,7 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
       Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
       rate limits pretty quickly during peak hours. */
       const isShorterThan3DaysLong = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) <= 3;
-      return (event.start && event.end
-        && isShorterThan3DaysLong);
+      return (event.start && isShorterThan3DaysLong);
     });
     return {
       events: newEvents
@@ -248,7 +271,31 @@ loadEvents()
 </script>
 
 <template>
-  <div class="calendar-container">
+<VDropdown :positioning-disabled="isMobile" @apply-show="isMobile && onShow()" @apply-hide="isMobile && onHide()"
+  :trigger="[]" :shown="isFilterDropdownShown">
+
+  <template #popper="{ hide }">
+    <div class="popper-box">
+      <div class="popper-box-inner">
+        <label>
+          <input v-model="isSfBayEnabled" type="checkbox"> SF Bay
+        </label>
+        <label>
+          <input v-model="isEastBayEnabled" type="checkbox"> East Bay
+        </label>
+        <label>
+          <input v-model="isSouthBayEnabled" type="checkbox"> South Bay
+        </label>
+        <label>
+          <input v-model="isSantaCruzCountyEnabled" type="checkbox"> Santa Cruz County
+        </label>
+      </div>
+      <div style="text-align:center"><button v-if="isMobile" @click="hide()">Done</button></div>
+    </div>
+
+  </template>
+</VDropdown>
+<div class="calendar-container">
     <div style="display: flex; position:relative;">
       <div class="title">
         bay.lgbt

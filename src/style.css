@@ -174,7 +174,8 @@ fc-theme-standard td,
 }
 
 .fc-media-screen,
-.fc .fc-popover {
+.fc .fc-popover,
+.v-popper__popper--no-positioning .popper-box {
   z-index: 2;
   font-size: 12px;
   font-weight: normal;
@@ -242,8 +243,8 @@ fc-theme-standard td,
   left: 4px;
 }
 
-.control-box-inner {
-  display: block;
+.control-box-inner,
+.popper-box input {
   height: 12px;
   width: 12px;
   background-image:
@@ -282,8 +283,10 @@ fc-theme-standard td,
 }
 
 .fc .fc-button-primary,
-.fc .fc-button-primary:not(:disabled) {
+.fc .fc-button-primary:not(:disabled),
+.popper-box button {
   color: black;
+  font-family: 'ChicagoFLF';
   font-size: min(3.5vw, 1.2em);
   background-color: #dedede;
   display: inline-block;
@@ -377,15 +380,15 @@ fc-theme-standard td,
     letter-spacing: 0.15rem;
     text-transform: uppercase;
     color: #fff;
-    text-shadow: 0 0.25vw #ef3550,
-        0 0.5vw #f48fb1,
-        0 0.75vw #7e57c2,
-        0 1vw #2196f3,
-        0 1.25vw #26c6da,
-        0 1.5vw #43a047,
-        0 1.75vw #eeff41,
-        0 2vw #f9a825,
-        0 2.25vw #ff5722;
+    text-shadow: 0 min(0.25vw, 3.5px) #ef3550,
+        0 min(0.5vw, 7px) #f48fb1,
+        0 min(0.75vw, 10.5px) #7e57c2,
+        0 min(1vw, 14px) #2196f3,
+        0 min(1.25vw, 17.5px) #26c6da,
+        0 min(1.5vw, 21px) #43a047,
+        0 min(1.75vw, 24.5px) #eeff41,
+        0 min(2vw, 28px) #f9a825,
+        0 min(2.25vw, 31.5px) #ff5722;
   }
   
   .blurb {
@@ -408,4 +411,46 @@ fc-theme-standard td,
 
 .gifs {
   /* padding-top: 2vh; */
+}
+body.no-scroll {
+  overflow: hidden;
+}
+
+.v-popper__popper--no-positioning {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.v-popper__popper--no-positioning .popper-box {
+  padding: 5vh;
+  border-radius: 0;
+}
+
+.v-popper__popper--no-positioning .popper-box .popper-box-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.v-popper__popper--no-positioning .v-popper__backdrop {
+  display: block;
+  background: rgba(0 0 0 / 90%);
+}
+
+.v-popper__popper--no-positioning .v-popper__wrapper {
+  width: min(100vw, 600px);
+  pointer-events: auto;
+  transition: transform .15s ease-out;
+  /* Center box */
+  transform: translate(calc(50vw - 50%), calc(-50vh + 50%));
+  padding: 5vh;
+}
+
+.v-popper__popper--no-positioning.v-popper__popper--hidden .v-popper__wrapper {
+  transform: translateY(100%);
 }

@@ -2,23 +2,27 @@
 	"eventbrite": [
 		{
 			"name": "Comfort & Joy",
-			"url": "https://www.eventbrite.com/o/comfort-amp-joy-517953471#events"
+			"url": "https://www.eventbrite.com/o/comfort-amp-joy-517953471#events",
+			"area": "SF Bay"
 		},
 		{
 			"name": "Church Of 8 Wheels - D. Miles Jr. The GodFather of Skate",
-			"url": "https://www.eventbrite.com/o/d-miles-jr-the-godfather-of-skate-31722333747#events"
+			"url": "https://www.eventbrite.com/o/d-miles-jr-the-godfather-of-skate-31722333747#events",
+			"area": "SF Bay"
 		}
 	],
 	"googleCalendar": [
 		{
 			"name": "Noisebridge",
-			"googleCalendarId": "v4694n2t0jmpg2i9i2fck7uiuq2oo8f7@import.calendar.google.com"
+			"googleCalendarId": "v4694n2t0jmpg2i9i2fck7uiuq2oo8f7@import.calendar.google.com",
+			"area": "SF Bay"
 		}
 	],
 	"wordpressTribe": [
 		{
 			"name": "The Knockout",
-			"url": "https://theknockoutsf.com/wp-json/tribe/events/v1/events?per_page=50"
+			"url": "https://theknockoutsf.com/wp-json/tribe/events/v1/events?per_page=50",
+			"area": "SF Bay"
 		}
 	]
 }
