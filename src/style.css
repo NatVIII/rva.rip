@@ -367,6 +367,8 @@ fc-theme-standard td,
 }
 
 .title {
+    color: white;
+      text-decoration: none !important;
   padding-top: min(1vw, 1.75em);
     padding-bottom: min(1.5vw, 1.75em);
     padding-left: min(1vw, 1.75em);

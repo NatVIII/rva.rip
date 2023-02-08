@@ -14,5 +14,11 @@
 			"name": "Noisebridge",
 			"googleCalendarId": "v4694n2t0jmpg2i9i2fck7uiuq2oo8f7@import.calendar.google.com"
 		}
+	],
+	"wordpressTribe": [
+		{
+			"name": "The Knockout",
+			"url": "https://theknockoutsf.com/wp-json/tribe/events/v1/events?per_page=50"
+		}
 	]
 }

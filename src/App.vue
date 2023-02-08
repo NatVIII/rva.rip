@@ -96,10 +96,11 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
       item.location.geo.latitude
     ]
   } : null; // Otherwise, set it to null.
+
   return {
     title: item.name,
-    start: item.startDate,
-    end: item.endDate,
+    start: new Date(item.startDate),
+    end: new Date(item.endDate),
     url: item.url,
     extendedProps: {
       description: item.description || null,
@@ -122,14 +123,64 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
   };
 };
 
-// Updates calendarOptions' eventSources and triggers a re-render of the calendar.
-function addEventSource(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
-  if (newEventSources.length < 1) return;
-  // Cut out events without times, but typecheck for types that can have invalid times.
-  if (Object.hasOwn(newEventSources[0], 'events')) {
-    newEventSources = newEventSources.filter((event) => event.start !== undefined);
+function convertWordpressTribeEventToFullCalendarEvent(e) {
+  var geoJSON = (e.venue.geo_lat && e.venue.geo_lng)
+    ? {
+      type: "Point",
+      coordinates: [e.venue.geo_lng, e.venue.geo_lat]
+    }
+    : null;
+  return {
+    title: e.title,
+    start: new Date(e.utc_start_date + 'Z'),
+    end: new Date(e.utc_end_date + 'Z'),
+    url: e.url,
+    extendedProps: {
+      description: e.description,
+      image: e.image.url,
+      location: {
+        geoJSON: geoJSON,
+        eventVenue: {
+          name: e.venue.venue,
+          address: {
+            streetAddress: e.venue.address,
+            addressLocality: e.venue.city,
+            postalCode: e.venue.zip,
+            addressCountry: e.venue.country
+          },
+          geo: {
+            latitude: e.venue.geo_lat,
+            longitude: e.venue.geo_lng
+          }
+        }
+      }
+    }
   };
-  // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
+}
+
+// Updates calendarOptions' eventSources and triggers a re-render of the calendar.
+function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
+  // Cut out events without times, but typecheck for types that can have invalid times.
+  newEventSources = newEventSources.map(eventSource => {
+    // Skip events that can't be invalid.
+    if (!Object.hasOwn(eventSource, 'events')) { console.log("skipping", eventSource); return eventSource };
+
+    // Filter events.
+    const newEvents = eventSource.events.filter((event) => {
+      /* Remove events that last longer than 3 days.
+      Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
+      Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
+      rate limits pretty quickly during peak hours. */
+      const isShorterThan3DaysLong = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) <= 3;
+      return (event.start && event.end
+        && isShorterThan3DaysLong);
+    });
+    return {
+      events: newEvents
+    } as EventNormalSource;
+  });
+    // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
+
   calendarOptions.value = {
     ...calendarOptions.value,
     eventSources: calendarOptions.value.eventSources.concat(newEventSources)
@@ -147,9 +198,9 @@ async function loadEvents() {
       googleCalendarId: source.googleCalendarId,
     } as EventGoogleCalendarSource
   });
-  addEventSource(googleCalendarSources);
+  addEventSources(googleCalendarSources);
 
-  // Eventbrite
+  // Eventbrite.
   let eventbriteSources = await Promise.all(
     eventSourcesFromFile.eventbrite.map(async (source: Event) =>
       await fetch(toCorsProxy(source.url))
@@ -165,7 +216,25 @@ async function loadEvents() {
         })
     )
   );
-  addEventSource(eventbriteSources);
+  addEventSources(eventbriteSources);
+
+  // Wordpress tribe API.
+  const wordpressTribeSources = await Promise.all(
+    eventSourcesFromFile.wordpressTribe.map(async (source: Event) => {
+      let wpJson = await (await fetch(source.url)).json();
+      let wpEvents = wpJson.events;
+      // Get events from each page.
+      while (Object.hasOwn(wpJson, 'next_rest_url')) {
+        let next_page_url = wpJson.next_rest_url;
+        wpJson = await (await fetch(next_page_url)).json();
+        wpEvents = wpEvents.concat(wpJson.events);
+      }
+      return {
+        events: wpEvents.map(convertWordpressTribeEventToFullCalendarEvent)
+      } as EventNormalSource;
+    }
+    ));
+  addEventSources(wordpressTribeSources);
 }
 
 loadEvents()
