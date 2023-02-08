@@ -339,7 +339,7 @@ loadEvents()
           Santa Cruz County
         </label>
       </div>
-      <div style="text-align:center"><button v-if="isMobile" @click.passive="hide()">Done</button></div>
+      <div class="bottom" style=""><button v-if="isMobile" @click.passive="hide()">Done</button></div>
     </div>
 
   </template>

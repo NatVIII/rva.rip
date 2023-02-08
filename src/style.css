@@ -245,8 +245,8 @@ fc-theme-standard td,
 
 .control-box-inner,
 .popper-box input {
-  height: 12px;
-  width: 12px;
+  height: 20px;
+    width: 20px;
   background-image:
     linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff);
   border: 1px solid #222;
@@ -296,13 +296,13 @@ fc-theme-standard td,
   box-shadow: var(--button-box-shadow);
 }
 
-
 .fc-button:hover {
   /* box-shadow:
     var(--button-box-shadow),
     var(--button-hover-bezel); */
 }
 
+label {}
 .fc-button-active {
   color: #fff;
   box-shadow:
@@ -338,7 +338,6 @@ fc-theme-standard td,
 .fc-daygrid-day {
   --fc-border-color: black;
 }
-
 
 .fc .fc-toolbar-title {
   font-size: min(5vw, 1.75em);
@@ -437,9 +436,24 @@ body.no-scroll {
   flex-direction: column;
 }
 
+.v-popper__popper--no-positioning .popper-box .popper-box-inner label {
+  font-size: 13px;
+  vertical-align: middle;
+  float: right;
+  line-height: 20px;
+}
+
+.v-popper__popper--no-positioning .popper-box .bottom {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.v-popper__popper--no-positioning .popper-box .bottom button {
+  font-size: 14px;
+}
 .v-popper__popper--no-positioning .v-popper__backdrop {
   display: block;
-  background: rgba(0 0 0 / 90%);
+  background: rgba(0 0 0 / 30%);
 }
 
 .v-popper__popper--no-positioning .v-popper__wrapper {
