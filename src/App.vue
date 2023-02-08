@@ -33,10 +33,10 @@ interface EventGoogleCalendarSource {
 }
 
 const isFilterDropdownShown = ref(false);
-const isSfBayEnabled = ref(true);
-const isEastBayEnabled = ref(true);
-const isSouthBayEnabled = ref(true);
-const isSantaCruzCountyEnabled = ref(true);
+const isSfBayEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('SF Bay')) || 'true'));
+const isEastBayEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('East Bay')) || 'true'));
+const isSouthBayEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('South Bay')) || 'true'));
+const isSantaCruzCountyEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('Santa Cruz County')) || 'true'));
 
 const count = ref(0);
 const isMobile = ref(true);
@@ -231,6 +231,7 @@ function isDisplayingBasedOnFilterSettings(area: string) {
     case 'Santa Cruz County':
       return isSantaCruzCountyEnabled.value ? 'auto' : 'none';
   }
+  console.error('Err: Could not invalid naming chosen!')
   return 'auto';
 }
 
@@ -250,7 +251,7 @@ async function loadEvents() {
   addEventSources(googleCalendarSources);
 
   // Eventbrite.
-  let eventbriteSources = await Promise.all(
+  const eventbriteSources = await Promise.all(
     eventSourcesFromFile.eventbrite.map(async (source: Event) =>
       await fetch(toCorsProxy(source.url))
         .then(res => res.text())
@@ -290,7 +291,19 @@ async function loadEvents() {
   addEventSources(wordpressTribeSources);
 }
 
+function getFilterVarFromAreaName(area: string) {
+  const converter = {
+    'SF Bay': 'isSfBayEnabled',
+    'East Bay': 'isEastBayEnabled',
+    'South Bay': 'isSouthBayEnabled',
+    'Santa Cruz County': 'isSantaCruzCountyEnabled'
+  };
+  console.assert(Object.hasOwn(converter, area));
+  return converter[area]!;
+}
+
 function onFilterUpdate(event, area: string) {
+  localStorage.setItem(getFilterVarFromAreaName(area), event.target.checked);
   const newEventSources = calendarOptions.value.eventSources.map((source: EventNormalSource | EventGoogleCalendarSource) => {
     return {
       ...source,
