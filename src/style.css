@@ -412,7 +412,7 @@ label {}
   
   .blurb {
   font-family: 'LDFComicSans';
-  font-size: min(2.9vw, 1.75em);
+  font-size: min(4vw, 1.75em);
 
   padding: min(1vw, 1.75em);
 }

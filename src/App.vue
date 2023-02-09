@@ -526,14 +526,17 @@ document.getElementById("error-main").style.visibility = "hidden";
   </template>
 </VDropdown>
 <div class="calendar-container">
-    <div style="display: flex; position:relative;">
+    <div style="display: flex; flex-direction:column; position:relative;">
       <div class="title">
         bay.lgbt
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
         <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
         <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
-        <div class="blurb">A curated events board for SF Bay- mostly the girls, gays, and theys!</div>
+        <div class="blurb">A curated (LGBT-leaning) events board for SF Bay! Currently in open beta- please provide venue
+          suggestions to me on <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
+            href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/bytewife/">Instagram!</a>
+        </div>
       </div>
     </div>
     <FullCalendar :options='calendarOptions' />
