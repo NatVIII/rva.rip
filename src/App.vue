@@ -7,6 +7,8 @@ import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from './event_sources.json';
 import 'floating-vue/dist/style.css';
+import CountyFilterItem from './components/CountyFilterItem.vue';
+import CityFilterItem from './components/CityFilterItem.vue';
 
 // The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
 interface Event {
@@ -25,20 +27,154 @@ interface Event {
 interface EventNormalSource {
   events: Event[];
   display: string;
-  area: string;
+  city: string;
 }
 
 interface EventGoogleCalendarSource {
   googleCalendarId: string;
 }
 
-const isFilterDropdownShown = ref(false);
-const isSfBayEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('SF Bay')) || 'true'));
-const isEastBayEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('East Bay')) || 'true'));
-const isSouthBayEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('South Bay')) || 'true'));
-const isSantaCruzCountyEnabled = ref(JSON.parse(localStorage.getItem(getFilterVarFromAreaName('Santa Cruz County')) || 'true'));
+const ALL_ID = 'All';
 
-const count = ref(0);
+const MARIN_COUNTY_ID = 'Marin County';
+const SF_SAN_MATEO_COUNTY_ID = 'SF-San Mateo County';
+const ALAMEDA_COUNTY_ID = 'Alameda County';
+const SANTA_CLARA_COUNTY_ID = 'Santa Clara County';
+const SANTA_CRUZ_COUNTY_ID = 'Santa Cruz County';
+
+const ALL_CITIES_IN_MARIN_COUNTY_ID = 'All cities in Marin County';
+
+const OTHERS_IN_SF_SAN_MATEO_COUNTY_ID = 'Others in SF-San Mateo County';
+const OTHERS_IN_ALAMEDA_COUNTY_ID = 'Others in Alameda County';
+const OTHERS_IN_SANTA_CLARA_COUNTY_ID = 'Others in Santa Clara County';
+const OTHERS_IN_SANTA_CRUZ_COUNTY_ID = 'Others in Santa Cruz County';
+
+// SF-San Mateo County Cities.
+const SAN_FRANCISCO_ID = 'San Francisco';
+
+// Alameda County Cities.
+const OAKLAND_ID = 'Oakland';
+const BERKELEY_ID = 'Berkeley';
+
+// Santa Clara County Cities.
+const SAN_JOSE_ID = 'San Jose';
+const SUNNYVALE_ID = 'Sunnyvale';
+
+// Santa Cruz County Cities.
+const SANTA_CRUZ_ID = 'Santa Cruz';
+
+interface County {
+  enabled: any;
+  cities: any;
+}
+
+const getLocalStorageIsAreaEnabled = (areaName: string) => {
+  return JSON.parse(localStorage.getItem(areaName) || 'true');
+};
+
+const isAllEnabled = ref(getLocalStorageIsAreaEnabled(ALL_ID));
+
+const isAllCitiesInMarinCountyEnabled = ref(getLocalStorageIsAreaEnabled(ALL_CITIES_IN_MARIN_COUNTY_ID));
+
+// SF-San Mateo County Cities.
+const isSanFranciscoEnabled = ref(getLocalStorageIsAreaEnabled(SAN_FRANCISCO_ID));
+const isOthersInSFSanMateoCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_SF_SAN_MATEO_COUNTY_ID));
+
+// Alameda County Cities.
+const isOaklandEnabled = ref(getLocalStorageIsAreaEnabled(OAKLAND_ID));
+const isBerkeleyEnabled = ref(getLocalStorageIsAreaEnabled(BERKELEY_ID));
+const isOthersInAlamedaCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_ALAMEDA_COUNTY_ID));
+
+// Santa Clara County Cities.
+const isSanJoseEnabled = ref(getLocalStorageIsAreaEnabled(SAN_JOSE_ID));
+const isSunnyvaleEnabled = ref(getLocalStorageIsAreaEnabled(SUNNYVALE_ID));
+const isOthersInSantaClaraCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_SANTA_CLARA_COUNTY_ID));
+
+// Santa Cruz County Cities.
+const isSantaCruzEnabled = ref(getLocalStorageIsAreaEnabled(SANTA_CRUZ_ID));
+const isOthersInSantaCruzCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_SANTA_CRUZ_COUNTY_ID));
+
+const citiesToCounty = {
+  [ALL_CITIES_IN_MARIN_COUNTY_ID]: MARIN_COUNTY_ID,
+  [SAN_FRANCISCO_ID]: SF_SAN_MATEO_COUNTY_ID,
+  [OAKLAND_ID]: ALAMEDA_COUNTY_ID,
+  [BERKELEY_ID]: ALAMEDA_COUNTY_ID,
+  [SAN_JOSE_ID]: SANTA_CLARA_COUNTY_ID,
+  [SUNNYVALE_ID]: SANTA_CLARA_COUNTY_ID,
+  [SANTA_CRUZ_ID]: SANTA_CRUZ_COUNTY_ID,
+};
+
+function isCity(city: string) {
+  return Object.keys(citiesToCounty).includes(city);
+}
+
+function getCounty(city: string) {
+  return citiesToCounty[city];
+}
+
+function isCounty(county: string) {
+  return Object.keys(countiesToCities).includes(county);
+}
+
+const countiesToCities = {
+  // Make an exception for Marin County: cluster all cities into one.
+  [MARIN_COUNTY_ID]: {
+    cities: {
+      [ALL_CITIES_IN_MARIN_COUNTY_ID]: {
+        enabled: isAllCitiesInMarinCountyEnabled,
+      },
+    }
+  } as County,
+  [SF_SAN_MATEO_COUNTY_ID]: {
+    cities: {
+      [SAN_FRANCISCO_ID]: {
+        enabled: isSanFranciscoEnabled,
+      },
+      [OTHERS_IN_SF_SAN_MATEO_COUNTY_ID]: {
+        enabled: isOthersInSFSanMateoCountyEnabled
+      },
+    }
+  } as County,
+  [ALAMEDA_COUNTY_ID]: {
+    cities: {
+      [OAKLAND_ID]: {
+        enabled: isOaklandEnabled,
+      },
+      [BERKELEY_ID]: {
+        enabled: isBerkeleyEnabled,
+      },
+      [OTHERS_IN_ALAMEDA_COUNTY_ID]: {
+        enabled: isOthersInAlamedaCountyEnabled,
+      },
+    }
+  } as County,
+  [SANTA_CLARA_COUNTY_ID]: {
+    cities: {
+      [SAN_JOSE_ID]: {
+        enabled: isSanJoseEnabled,
+      },
+      [SUNNYVALE_ID]: {
+        enabled: isSunnyvaleEnabled,
+      },
+      [OTHERS_IN_SANTA_CLARA_COUNTY_ID]: {
+        enabled: isOthersInSantaClaraCountyEnabled,
+      },
+    }
+  } as County,
+  [SANTA_CRUZ_COUNTY_ID]: {
+    cities: {
+      [SANTA_CRUZ_ID]: {
+        enabled: isSantaCruzEnabled,
+      },
+      [OTHERS_IN_SANTA_CRUZ_COUNTY_ID]: {
+        enabled: isOthersInSantaCruzCountyEnabled,
+      },
+    }
+  } as County,
+};
+
+const isFilterDropdownShown = ref(false);
+
 const isMobile = ref(true);
 const calendarHeight = ref(window.innerHeight);
 const pageWidth = ref(window.innerWidth);
@@ -220,18 +356,13 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
   };
 }
 
-function isDisplayingBasedOnFilterSettings(area: string) {
-  switch (area) {
-    case 'SF Bay':
-      return isSfBayEnabled.value ? 'auto' : 'none';
-    case 'East Bay':
-      return isEastBayEnabled.value ? 'auto' : 'none';
-    case 'South Bay':
-      return isSouthBayEnabled.value ? 'auto' : 'none';
-    case 'Santa Cruz County':
-      return isSantaCruzCountyEnabled.value ? 'auto' : 'none';
-  }
-  console.error('Err: Could not invalid naming chosen!')
+function isDisplayingBasedOnFilterSettings(city: string) {
+  if (city === ALL_ID) return isAllEnabled.value ? 'auto' : 'none';
+  if (isCity(city)) {
+    const county = getCounty(city);
+    return countiesToCities[county].cities[city].enabled.value ? 'auto' : 'none';
+  } 
+  console.error(citiesToCounty[city], `Err: Invalid area name "${city} "chosen! You should only provide city names to event sources.`)
   return 'auto';
 }
 
@@ -244,8 +375,8 @@ async function loadEvents() {
   const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {
     return {
       googleCalendarId: source.googleCalendarId,
-      display: isDisplayingBasedOnFilterSettings(source.area),
-      area: source.area
+      display: isDisplayingBasedOnFilterSettings(source.city),
+      city: source.city
     } as EventGoogleCalendarSource
   });
   addEventSources(googleCalendarSources);
@@ -262,8 +393,8 @@ async function loadEvents() {
           ).map(convertSchemaDotOrgEventToFullCalendarEvent);
           return {
             events,
-            display: isDisplayingBasedOnFilterSettings(source.area),
-            area: source.area
+            display: isDisplayingBasedOnFilterSettings(source.city),
+            city: source.city
           } as EventNormalSource;
         })
     )
@@ -283,36 +414,51 @@ async function loadEvents() {
       }
       return {
         events: wpEvents.map(convertWordpressTribeEventToFullCalendarEvent),
-        display: isDisplayingBasedOnFilterSettings(source.area),
-        area: source.area
+        display: isDisplayingBasedOnFilterSettings(source.city),
+        city: source.city
       } as EventNormalSource;
     }
     ));
   addEventSources(wordpressTribeSources);
 }
 
-function getFilterVarFromAreaName(area: string) {
-  const converter = {
-    'SF Bay': 'isSfBayEnabled',
-    'East Bay': 'isEastBayEnabled',
-    'South Bay': 'isSouthBayEnabled',
-    'Santa Cruz County': 'isSantaCruzCountyEnabled'
-  };
-  console.assert(Object.hasOwn(converter, area));
-  return converter[area]!;
+function setCityIsEnabled(settingId, vueRef, value) {
+  localStorage.setItem(settingId, value);
+  vueRef.value = value;
 }
 
-function onFilterUpdate(event, area: string) {
-  localStorage.setItem(getFilterVarFromAreaName(area), event.target.checked);
+function updateAllIsEnabledSetting(newIsEnabled: boolean) {
+  Object.keys(countiesToCities).forEach(county => {
+    updateCountyIsEnabledSetting(newIsEnabled, county);
+  });
+  updateEventSourcesEnabled();
+}
+
+function updateCountyIsEnabledSetting(newIsEnabled: boolean, county: string) {
+  Object.keys(countiesToCities[county].cities).forEach(cityId => {
+    setCityIsEnabled(cityId, countiesToCities[county].cities[cityId].enabled, newIsEnabled);
+  });
+  updateEventSourcesEnabled();
+}
+
+// Re-calculates event sources w.r.t. whether should be displayed or not, and updates the calendarOptions (re-render).
+// Warning: Might be expensive for only changing a single city.
+function updateEventSourcesEnabled() {
   const newEventSources = calendarOptions.value.eventSources.map((source: EventNormalSource | EventGoogleCalendarSource) => {
+    const isEnabled = countiesToCities[getCounty(source.city)].cities[source.city].enabled.value;
     return {
       ...source,
       // Updated filtered area.
-      display: source.area === area ?
-        (event.target.checked ? 'auto' : 'none') : source.display
+      display: isEnabled ? 'auto' : 'none'
     } as EventSource;
   });
   calendarOptions.value = { ...calendarOptions.value, eventSources: newEventSources };
+}
+
+function updateCityIsEnabledSetting(newIsEnabled, cityId: string) {
+  const isEnabledRef = countiesToCities[getCounty(cityId)].cities[cityId].enabled;
+  setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
+  updateEventSourcesEnabled();
 }
 
 loadEvents()
@@ -325,21 +471,55 @@ loadEvents()
   <template #popper="{ hide }">
     <div class="popper-box">
       <div class="popper-box-inner">
-        <label>
-          <input v-model="isSfBayEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'SF Bay')"> SF Bay
-        </label>
-        <label>
-          <input v-model="isEastBayEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'East Bay')"> East Bay
-        </label>
-        <label>
-          <input v-model="isSouthBayEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'South Bay')"> South Bay
-        </label>
-        <label>
-          <input v-model="isSantaCruzCountyEnabled" type="checkbox" @click.passive="onFilterUpdate($event, 'Santa Cruz County')">
-          Santa Cruz County
-        </label>
+          <CountyFilterItem :label="ALL_ID" @on-yes="updateAllIsEnabledSetting(true)" @on-no="updateAllIsEnabledSetting(false)">
+          </CountyFilterItem>
+          <CountyFilterItem :label="MARIN_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, MARIN_COUNTY_ID)"
+            @on-no="updateCountyIsEnabledSetting(false, MARIN_COUNTY_ID)"></CountyFilterItem>
+          <CityFilterItem v-model="isAllCitiesInMarinCountyEnabled" :label="ALL_CITIES_IN_MARIN_COUNTY_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, ALL_CITIES_IN_MARIN_COUNTY_ID)">
+          </CityFilterItem>
+          
+          <CountyFilterItem :label="SF_SAN_MATEO_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, SF_SAN_MATEO_COUNTY_ID)"
+            @on-no="updateCountyIsEnabledSetting(false, SF_SAN_MATEO_COUNTY_ID)"></CountyFilterItem>
+          <CityFilterItem v-model="isSanFranciscoEnabled" :label="SAN_FRANCISCO_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, SAN_FRANCISCO_ID)">
+          </CityFilterItem>
+          <CityFilterItem v-model="isOthersInSFSanMateoCountyEnabled" :label="OTHERS_IN_SF_SAN_MATEO_COUNTY_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_SF_SAN_MATEO_COUNTY_ID)">
+          </CityFilterItem>
+          
+          <CountyFilterItem :label="ALAMEDA_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, ALAMEDA_COUNTY_ID)"
+            @on-no="updateCountyIsEnabledSetting(false, ALAMEDA_COUNTY_ID)"></CountyFilterItem>
+          <CityFilterItem v-model="isOaklandEnabled" :label="OAKLAND_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, OAKLAND_ID)">
+          </CityFilterItem>
+          <CityFilterItem v-model="isBerkeleyEnabled" :label="BERKELEY_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, BERKELEY_ID)">
+          </CityFilterItem>
+          <CityFilterItem v-model="isOthersInAlamedaCountyEnabled" :label="OTHERS_IN_ALAMEDA_COUNTY_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_ALAMEDA_COUNTY_ID)">
+          </CityFilterItem>
+          
+          <CountyFilterItem :label="SANTA_CLARA_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, SANTA_CLARA_COUNTY_ID)"
+            @on-no="updateCountyIsEnabledSetting(false, SANTA_CLARA_COUNTY_ID)"></CountyFilterItem>
+          <CityFilterItem v-model="isSanJoseEnabled" :label="SAN_JOSE_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, SAN_JOSE_ID)">
+          </CityFilterItem>
+          <CityFilterItem v-model="isOthersInSantaClaraCountyEnabled" :label="OTHERS_IN_SANTA_CLARA_COUNTY_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_SANTA_CLARA_COUNTY_ID)">
+          </CityFilterItem>
+          
+          <CountyFilterItem :label="SANTA_CRUZ_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, SANTA_CRUZ_COUNTY_ID)"
+            @on-no="updateCountyIsEnabledSetting(false, SANTA_CRUZ_COUNTY_ID)"></CountyFilterItem>
+          <CityFilterItem v-model="isSantaCruzEnabled" :label="SANTA_CRUZ_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, SANTA_CRUZ_ID)">
+          </CityFilterItem>
+          <CityFilterItem v-model="isOthersInSantaCruzCountyEnabled" :label="OTHERS_IN_SANTA_CRUZ_COUNTY_ID"
+            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_SANTA_CRUZ_COUNTY_ID)">
+          </CityFilterItem>
+
       </div>
-      <div class="bottom" style=""><button v-if="isMobile" @click.passive="hide()">Done</button></div>
+    <div class="bottom"><button v-if="isMobile" @click.passive="hide()">Done</button></div>
     </div>
 
   </template>
@@ -358,9 +538,6 @@ loadEvents()
     <FullCalendar :options='calendarOptions' />
 
     <div style="display: flex; align-items: center; flex-direction: row;">
-      <!-- <img class="gifs" src="shark.gif" alt="shark dancing" :width='Math.min(pageWidth / 3, 600)' /> -->
-      <!-- <img class="gifs" src="balloons.gif" alt="balloons and words that say 'INTERNET PARTY'" -->
-      <!-- :width='Math.min(pageWidth / 3, 600)' /> -->
       <div class="desc">
         <p><strong>The events here are scraped
             from various venue event listings that I find trustworthy. Venue feedback is encouraged! </strong> Before

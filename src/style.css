@@ -245,8 +245,7 @@ fc-theme-standard td,
 
 .control-box-inner,
 .popper-box input {
-  height: 20px;
-    width: 20px;
+  transform: scale(1.55);
   background-image:
     linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff);
   border: 1px solid #222;
@@ -256,6 +255,27 @@ fc-theme-standard td,
   text-indent: -99999em;
 }
 
+.popper-box .county-input {
+  margin: 2px;
+  font-size: 12px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  text-indent: -1.6px;
+  /* background-image:
+    linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff); */
+  border: 1px solid #222;
+}
+
+.popper-box .county-input:active {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  /* Start transition for longer press. Note: since the popper itself has a transition it is probably using that. */
+  transition: 0s;
+  background-image:
+    linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00);
+}
 .control-box-inner:active {
   box-shadow: none;
 }
@@ -427,7 +447,7 @@ body.no-scroll {
 }
 
 .v-popper__popper--no-positioning .popper-box {
-  padding: 5vh;
+  padding: 2vh;
   border-radius: 0;
 }
 
@@ -436,11 +456,26 @@ body.no-scroll {
   flex-direction: column;
 }
 
-.v-popper__popper--no-positioning .popper-box .popper-box-inner label {
-  font-size: 13px;
-  vertical-align: middle;
-  float: right;
-  line-height: 20px;
+.v-popper__popper--no-positioning .popper-box .popper-box-inner .county-header {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2px;
+}
+
+.v-popper__popper--no-positioning .popper-box .popper-box-inner .city-header {
+  /* font-size: 13px; */
+  /* vertical-align: middle; */
+  /* float: right; */
+  /* line-height: 20px; */
+  margin-left: 25px;
+}
+
+.v-popper__popper--no-positioning .popper-box .popper-box-inner .city-header input {
+  /* font-size: 13px; */
+  /* vertical-align: middle; */
+  /* float: right; */
+  /* line-height: 20px; */
+  margin-right: 6px;
 }
 
 .v-popper__popper--no-positioning .popper-box .bottom {
@@ -451,9 +486,14 @@ body.no-scroll {
 .v-popper__popper--no-positioning .popper-box .bottom button {
   font-size: 14px;
 }
+.v-popper__popper--no-positioning .popper-box .bottom button:active {
+  transition: 0s 1s;
+  background-image:
+    linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00);
+}
 .v-popper__popper--no-positioning .v-popper__backdrop {
   display: block;
-  background: rgba(0 0 0 / 30%);
+  background: rgba(0 0 0 / 35%);
 }
 
 .v-popper__popper--no-positioning .v-popper__wrapper {
