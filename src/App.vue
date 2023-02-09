@@ -462,6 +462,7 @@ function updateCityIsEnabledSetting(newIsEnabled, cityId: string) {
 }
 
 loadEvents()
+document.getElementById("error-main").style.visibility = "hidden";
 </script>
 
 <template>
@@ -540,7 +541,9 @@ loadEvents()
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p><strong>The events here are scraped
-            from various venue event listings that I find trustworthy. Venue feedback is encouraged! </strong> Before
+            from various venue event listings that contributors (thank you!) & I collectively find trustworthy. Venue feedback is
+            encouraged!
+            </strong> Before
           making plans, consider checking with venue staff or event organizers directly. Come out and dance!
         </p>
         <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- to who I owe
