@@ -534,7 +534,7 @@ document.getElementById("error-main").style.visibility = "hidden";
         <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
         <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
         <div class="blurb">A curated (LGBT-leaning) events board for SF Bay! Currently in open beta- please provide venue
-          suggestions to me on <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
+          suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
             href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/bytewife/">Instagram!</a>
         </div>
       </div>
@@ -544,7 +544,7 @@ document.getElementById("error-main").style.visibility = "hidden";
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p><strong>The events here are scraped
-            from various venue event listings that contributors (thank you!) & I collectively find trustworthy. Venue feedback is
+            from various venue event listings that contributors (thank you!) & Ivy collectively find trustworthy. Venue feedback is
             encouraged!
             </strong> Before
           making plans, consider checking with venue staff or event organizers directly. Come out and dance!
