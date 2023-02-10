@@ -369,6 +369,42 @@ function convertTockifyEventToFullCalendarEvent(e, url) {
   };
 }
 
+
+function convertSquarespaceEventToFullCalendarEvent(e, url) {
+  return {
+    title: e.title,
+    start: new Date(e.startDate),
+    end: new Date(e.endDate),
+    url: new URL(url).origin + e.fullUrl,
+    extendedProps: {
+      description: e.body,
+      image: e.assetUrl,
+      location: {
+        geoJSON: {
+          type: "Point",
+          coordinates: [e.location.mapLng, e.location.mapLat]
+        },
+        eventVenue: {
+          name: e.location.addressTitle,
+          address: {
+            streetAddress: e.location.addressLine1,
+            // TODO: Some of these are not provided.
+            //                        addressLocality: e.location.addressLine2.split(',')[0].trim(),
+            //                        addressRegion: e.location.addressLine2.split(',')[1].trim(),
+            //                        postalCode: e.location.addressLine2.split(',')[2].trim(),
+            addressCountry: e.location.addressCountry
+          },
+          geo: {
+            latitude: e.location.mapLat,
+            longitude: e.location.mapLng,
+          }
+        },
+      },
+      raw: e
+    }
+  };
+}
+
 // Updates calendarOptions' eventSources and triggers a re-render of the calendar.
 function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
   // Cut out events without times, but typecheck for types that can have invalid times.
@@ -403,7 +439,7 @@ function isDisplayingBasedOnFilterSettings(city: string) {
   if (isCity(city)) {
     const county = getCounty(city);
     return countiesToCities[county].cities[city].enabled.value ? 'auto' : 'none';
-  } 
+  }
   console.error(citiesToCounty[city], `Err: Invalid area name "${city} "chosen! You should only provide city names to event sources.`)
   return 'auto';
 }
@@ -478,10 +514,23 @@ async function loadEvents() {
     }
     )
   );
-  console.log(tockifySources);
-
   addEventSources(tockifySources);
 
+  // Squarespace API.
+  const squarespaceSources = await Promise.all(
+    eventSourcesFromFile.squarespace.map(async (source: Event) => {
+      // Add current date in milliseconds to the URL to get events starting from this moment.
+      let squarespaceJson = await (await fetch(toCorsProxy(source.url))).json();
+      let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
+      return {
+        events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
+        display: isDisplayingBasedOnFilterSettings(source.city),
+        city: source.city
+      } as EventNormalSource;
+    }
+    )
+  );
+  addEventSources(squarespaceSources);
 }
 
 function setCityIsEnabled(settingId, vueRef, value) {

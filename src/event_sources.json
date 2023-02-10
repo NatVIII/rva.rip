@@ -31,5 +31,12 @@
 			"url": "https://tockify.com/api/ngevent?max=100&calname=elriosf2&start-inclusive=true&longForm=true&showAll=true",
 			"city": "San Francisco"
 		}
+	],
+	"squarespace": [
+		{
+			"name": "Casements",
+			"url": "https://casementsbar.com/calendar?format=json",
+			"city": "San Francisco"
+		}
 	]
 }
