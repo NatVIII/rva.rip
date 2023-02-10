@@ -418,8 +418,9 @@ label {}
 }
 
 .desc {
+  font-family: 'LDFComicSans';
   padding: 18px;
-  font-size: min(4vw, 1.0em);
+  font-size: min(4vw, 1.4em);
   opacity: 5;
 }
 

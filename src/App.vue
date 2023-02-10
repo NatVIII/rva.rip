@@ -673,9 +673,9 @@ document.getElementById("error-main").style.visibility = "hidden";
 
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
-        <p><strong>The events here are scraped
-            from various venue event listings that contributors (thank you!). Venue feedback is
-            encouraged!
+        <p><strong>The events here are drawn
+            from various venue listings that contributors (thank you!) have provided. The venues are in a constant state of
+            community-based vetting; don't hesitate to provide feedback!
             </strong> Before
           making plans, consider checking with venue staff or event organizers directly. This site is not affiliated with ANY
           venues or events listed here.
