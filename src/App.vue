@@ -413,12 +413,28 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
 
     // Filter events.
     const newEvents = eventSource.events.filter((event) => {
-      /* Remove events that last longer than 3 days.
+
+      /* REMOVED TEMPORARILY, replaced with the hack below: Remove events that last longer than 3 days.
       Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
       Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
       rate limits pretty quickly during peak hours. */
       const isShorterThan3DaysLong = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) <= 3;
-      return (event.start && isShorterThan3DaysLong);
+
+      // This is a hack where we set the end day to match start day. This is to get around the issue of
+      // Eventbrite events that have 'Multiple Dates' spanning 'All Day'. The downside is that this hack 
+      // removes all event dates except the first, but it is better than nothing.
+      if (!isShorterThan3DaysLong) {
+        event.end.setFullYear(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
+        // If the event's starting hour is greater than the event's ending hour, the ending day should be 1 day ahead of the 
+        // the start. Here we increment the day by 1.
+        if (event.start.getHours() > event.end.getHours()) {
+          event.end.setDate(event.end.getDate() + 1);
+        }
+      }
+      return (
+        event.start
+        // && isShorterThan3DaysLong
+      );
     });
     return {
       ...eventSource,
@@ -530,7 +546,6 @@ async function loadEvents() {
     }
     )
   );
-
   addEventSources(squarespaceSources);
 }
 
