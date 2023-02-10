@@ -492,6 +492,8 @@ async function loadEvents() {
         })
     )
   );
+  console.log(eventbriteSources);
+
   addEventSources(eventbriteSources);
 
   // Wordpress tribe API.

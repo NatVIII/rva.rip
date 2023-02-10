@@ -9,6 +9,11 @@
 			"name": "SF LGBT Center",
 			"url": "https://www.eventbrite.com/o/sf-lgbt-center-20048668121#events",
 			"city": "San Francisco"
+		},
+		{
+			"name": "The Neighbor's Pub",
+			"url": "https://www.eventbrite.com/o/the-neighbors-pub-34850557093#events",
+			"city": "Santa Cruz"
 		}
 	],
 	"googleCalendar": [
@@ -16,6 +21,11 @@
 			"name": "Noisebridge",
 			"googleCalendarId": "v4694n2t0jmpg2i9i2fck7uiuq2oo8f7@import.calendar.google.com",
 			"city": "San Francisco"
+		},
+		{
+			"name": "Greater Brewing Company",
+			"googleCalendarId": "c_aiork42cpqlb1t487q65gslmqk@group.calendar.google.com",
+			"city": "Santa Cruz"
 		}
 	],
 	"wordpressTribe": [],
