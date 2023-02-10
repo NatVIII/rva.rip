@@ -662,7 +662,7 @@ document.getElementById("error-main").style.visibility = "hidden";
       <div style="display:flex; flex-direction: column; align-items: center;">
         <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
         <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
-        <div class="blurb">The missing events board for SF Bay! Curated & LGBT-leaning. Currently in open beta- please provide
+        <div class="blurb">The missing LGBT+-leaning events board for SF Bay! Currently in open beta- please provide
           venue
           suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
             href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/bytewife/">Instagram!</a>
@@ -674,10 +674,11 @@ document.getElementById("error-main").style.visibility = "hidden";
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p><strong>The events here are scraped
-            from various venue event listings that contributors (thank you!) & Ivy collectively find trustworthy. Venue feedback is
+            from various venue event listings that contributors (thank you!). Venue feedback is
             encouraged!
             </strong> Before
-          making plans, consider checking with venue staff or event organizers directly. Come out and dance!
+          making plans, consider checking with venue staff or event organizers directly. This site is not affiliated with ANY
+          venues or events listed here.
         </p>
         <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- to who I owe
           the

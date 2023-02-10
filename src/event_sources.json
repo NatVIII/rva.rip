@@ -14,6 +14,21 @@
 			"name": "The Neighbor's Pub",
 			"url": "https://www.eventbrite.com/o/the-neighbors-pub-34850557093#events",
 			"city": "Santa Cruz"
+		},
+		{
+			"name": "Polyglamorous",
+			"url": "https://www.eventbrite.com/o/polyglamorous-11856137047#events",
+			"city": "San Francisco"
+		},
+		{
+			"name": "Gemini",
+			"url": "https://www.eventbrite.com/o/gemini-39419436933#events",
+			"city": "San Francisco"
+		},
+		{
+			"name": "queer expression",
+			"url": "https://www.eventbrite.com/o/queer-expression-oakland-34271650919#events",
+			"city": "Oakland"
 		}
 	],
 	"googleCalendar": [
