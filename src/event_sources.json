@@ -24,5 +24,12 @@
 			"url": "https://theknockoutsf.com/wp-json/tribe/events/v1/events?per_page=50",
 			"city": "San Francisco"
 		}
+	],
+	"tockify": [
+		{
+			"name": "El Rio",
+			"url": "https://tockify.com/api/ngevent?max=100&calname=elriosf2&start-inclusive=true&longForm=true&showAll=true",
+			"city": "San Francisco"
+		}
 	]
 }

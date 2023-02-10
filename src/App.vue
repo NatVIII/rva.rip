@@ -327,6 +327,48 @@ function convertWordpressTribeEventToFullCalendarEvent(e) {
   };
 }
 
+function convertTockifyEventToFullCalendarEvent(e, url) {
+  var url = (e.content.customButtonLink)
+    ? e.content.customButtonLink
+    : `${url.origin}/${url.searchParams.get('calname')}/detail/${e.eid.uid}/${e.eid.tid}`;
+  var geoJSON = (e.content.location?.latitude && e.content.location?.longitude)
+    ? {
+      type: "Point",
+      coordinates: [
+        e.content.location.longitude,
+        e.content.location.latitude
+      ]
+    } : null;
+  return {
+    title: e.content.summary.text,
+    start: new Date(e.when.start.millis),
+    end: new Date(e.when.end.millis),
+    url: url,
+    extendedProps: {
+      description: e.content.description.text,
+      image: null,
+      location: {
+        geoJSON: geoJSON,
+        eventVenue: {
+          name: e.content.place,
+          address: {
+            streetAddress: e.content?.location?.c_street,
+            addressLocality: e.content?.location?.c_locality,
+            addressRegion: e.content?.location?.c_region,
+            postalCode: e.content?.location?.c_postcode,
+            addressCountry: e.content?.location?.c_country
+          },
+          geo: {
+            latitude: e.content?.location?.latitude,
+            longitude: e.content?.location?.longitude
+          }
+        }
+      },
+      raw: e
+    }
+  };
+}
+
 // Updates calendarOptions' eventSources and triggers a re-render of the calendar.
 function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
   // Cut out events without times, but typecheck for types that can have invalid times.
@@ -406,7 +448,6 @@ async function loadEvents() {
     eventSourcesFromFile.wordpressTribe.map(async (source: Event) => {
       let wpJson = await (await fetch(source.url)).json();
       let wpEvents = wpJson.events;
-      // Get events from each page.
       while (Object.hasOwn(wpJson, 'next_rest_url')) {
         let next_page_url = wpJson.next_rest_url;
         wpJson = await (await fetch(next_page_url)).json();
@@ -420,6 +461,27 @@ async function loadEvents() {
     }
     ));
   addEventSources(wordpressTribeSources);
+
+  // Tockify API.
+  const tockifySources = await Promise.all(
+    eventSourcesFromFile.tockify.map(async (source: Event) => {
+      const url = new URL(source.url);
+      // Add current date in milliseconds to the URL to get events starting from this moment.
+      url.searchParams.append('startms', Date.now().toString());
+      let tockifyJson = await (await fetch(url)).json();
+      let tockifyEvents = tockifyJson.events;
+      return {
+        events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),
+        display: isDisplayingBasedOnFilterSettings(source.city),
+        city: source.city
+      } as EventNormalSource;
+    }
+    )
+  );
+  console.log(tockifySources);
+
+  addEventSources(tockifySources);
+
 }
 
 function setCityIsEnabled(settingId, vueRef, value) {
@@ -533,7 +595,8 @@ document.getElementById("error-main").style.visibility = "hidden";
       <div style="display:flex; flex-direction: column; align-items: center;">
         <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
         <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
-        <div class="blurb">A curated (LGBT-leaning) events board for SF Bay! Currently in open beta- please provide venue
+        <div class="blurb">The missing events board for SF Bay! Curated & LGBT-leaning. Currently in open beta- please provide
+          venue
           suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
             href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/bytewife/">Instagram!</a>
         </div>
