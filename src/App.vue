@@ -255,7 +255,7 @@ function onHide() {
   isFilterDropdownShown.value = false;
 }
 
-// Converts a schema.org event to a FullCalendar event.
+// The following conversion functions are basically ripped from anarchism.nyc.
 function convertSchemaDotOrgEventToFullCalendarEvent(item) {
   // If we have a `geo` object, format it to geoJSON.
   var geoJSON = (item.location.geo) ? {
@@ -368,7 +368,6 @@ function convertTockifyEventToFullCalendarEvent(e, url) {
     }
   };
 }
-
 
 function convertSquarespaceEventToFullCalendarEvent(e, url) {
   return {

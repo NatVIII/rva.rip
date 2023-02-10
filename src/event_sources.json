@@ -37,6 +37,11 @@
 			"name": "Casements",
 			"url": "https://casementsbar.com/calendar?format=json",
 			"city": "San Francisco"
+		},
+		{
+			"name": "Guildhouse",
+			"url": "https://www.guildhouse.gg/events?format=json",
+			"city": "San Jose"
 		}
 	]
 }
