@@ -18,13 +18,7 @@
 			"city": "San Francisco"
 		}
 	],
-	"wordpressTribe": [
-		{
-			"name": "The Knockout",
-			"url": "https://theknockoutsf.com/wp-json/tribe/events/v1/events?per_page=50",
-			"city": "San Francisco"
-		}
-	],
+	"wordpressTribe": [],
 	"tockify": [
 		{
 			"name": "El Rio",

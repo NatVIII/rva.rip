@@ -521,6 +521,7 @@ async function loadEvents() {
       // Add current date in milliseconds to the URL to get events starting from this moment.
       let squarespaceJson = await (await fetch(toCorsProxy(source.url))).json();
       let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
+
       return {
         events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
         display: isDisplayingBasedOnFilterSettings(source.city),
@@ -529,6 +530,7 @@ async function loadEvents() {
     }
     )
   );
+
   addEventSources(squarespaceSources);
 }
 
