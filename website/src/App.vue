@@ -463,6 +463,9 @@ async function loadEvents() {
   const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
   const domParser = new DOMParser();
   const eventSourcesFromFile = json;
+  const headers = new Headers({
+    'Cache-Control': 'max-age=5400'
+  });
 
   // Google Calendar
   const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {
@@ -477,9 +480,12 @@ async function loadEvents() {
   // Eventbrite.
   const eventbriteSources = await Promise.all(
     eventSourcesFromFile.eventbrite.map(async (source: Event) =>
-      await fetch(toCorsProxy(source.url))
+      await fetch(toCorsProxy(source.url, { headers }))
         .then(res => res.text())
         .then(html => {
+          // console.log(source.name, JSON.parse(
+          //   domParser.parseFromString(html, 'text/html')
+          //     .querySelectorAll('script[type="application/ld+json"]')[1].innerHTML));
           const events = JSON.parse(
             domParser.parseFromString(html, 'text/html')
               .querySelectorAll('script[type="application/ld+json"]')[1].innerHTML
@@ -499,7 +505,7 @@ async function loadEvents() {
   // Wordpress tribe API.
   const wordpressTribeSources = await Promise.all(
     eventSourcesFromFile.wordpressTribe.map(async (source: Event) => {
-      let wpJson = await (await fetch(source.url)).json();
+      let wpJson = await (await fetch(source.url, { headers })).json();
       let wpEvents = wpJson.events;
       while (Object.hasOwn(wpJson, 'next_rest_url')) {
         let next_page_url = wpJson.next_rest_url;
@@ -521,7 +527,7 @@ async function loadEvents() {
       const url = new URL(source.url);
       // Add current date in milliseconds to the URL to get events starting from this moment.
       url.searchParams.append('startms', Date.now().toString());
-      let tockifyJson = await (await fetch(url)).json();
+      let tockifyJson = await (await fetch(url, { headers })).json();
       let tockifyEvents = tockifyJson.events;
       return {
         events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),
@@ -537,7 +543,7 @@ async function loadEvents() {
   const squarespaceSources = await Promise.all(
     eventSourcesFromFile.squarespace.map(async (source: Event) => {
       // Add current date in milliseconds to the URL to get events starting from this moment.
-      let squarespaceJson = await (await fetch(toCorsProxy(source.url))).json();
+      let squarespaceJson = await (await fetch(toCorsProxy(source.url), { headers })).json();
       let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
 
       return {
