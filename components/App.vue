@@ -5,10 +5,12 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import json from './event_sources.json';
+import json from 'public/event_sources.json';
 import 'floating-vue/dist/style.css';
-import CountyFilterItem from './components/CountyFilterItem.vue';
-import CityFilterItem from './components/CityFilterItem.vue';
+
+import 'assets/style.css';
+import FullCalendar from '@fullcalendar/vue3'
+import { Dropdown } from 'floating-vue'
 
 // The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
 interface Event {
@@ -69,7 +71,12 @@ interface County {
 }
 
 const getLocalStorageIsAreaEnabled = (areaName: string) => {
-  return JSON.parse(localStorage.getItem(areaName) || 'true');
+  if (process.client) {
+    return JSON.parse(localStorage.getItem(areaName) || 'true');
+  }
+  else {
+    return false;
+  }
 };
 
 const isAllEnabled = ref(getLocalStorageIsAreaEnabled(ALL_ID));
@@ -175,18 +182,30 @@ const countiesToCities = {
 
 const isFilterDropdownShown = ref(false);
 
+const getWindowHeight = () => {
+  if (process.client) return window.innerHeight;
+  return 0;
+};
+
+const getWindowWidth = () => {
+  if (process.client) return window.innerWidth;
+  return 0;
+};
+
 const isMobile = ref(true);
-const calendarHeight = ref(window.innerHeight);
-const pageWidth = ref(window.innerWidth);
+const calendarHeight = ref(getWindowHeight());
+const pageWidth = ref(getWindowWidth());
 const isUsingDayMaxEventRows = ref(true);
 
-const updateWeekNumbers = () => { return window.innerWidth < 350 ? false : true };
+const updateWeekNumbers = () => { 
+  return getWindowWidth() < 350 ? false : true 
+};
 // -1 indicates that there is no limit.
-const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(window.innerHeight / 75) };
+const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(getWindowHeight() / 75) };
 
 const calendarOptions = ref({
   plugins: [dayGridPlugin, timeGridPlugin, listPlugin, iCalendarPlugin, googleCalendarPlugin],
-  initialView: window.innerWidth <= 600 ? 'listMonth' : 'dayGridMonth',
+  initialView: getWindowWidth() <= 600 ? 'listMonth' : 'dayGridMonth',
   customButtons: {
     less: {
       text: 'less',
@@ -233,65 +252,33 @@ const calendarOptions = ref({
 });
 
 const updateCalendarHeight = () => {
-  pageWidth.value = window.innerWidth - 100;
-  calendarHeight.value = window.innerHeight;
+  pageWidth.value = getWindowWidth() - 100;
+  calendarHeight.value = getWindowHeight();
   calendarOptions.value = {
     ...calendarOptions.value,
-    weekNumbers: window.innerWidth < 350 ? false : true,
+    weekNumbers: getWindowWidth() < 350 ? false : true,
     dayMaxEventRows: updateDayMaxEventRows()
   };
 };
 
-onMounted(() => window.addEventListener("resize", updateCalendarHeight));
+onMounted(() => { 
+  if (process.client) window.addEventListener("resize", updateCalendarHeight)
+});
 // onUpdated(() => {});
-onUnmounted(() => window.removeEventListener('resize', updateWeekNumbers));
+onUnmounted(() => {
+  if (process.client) window.removeEventListener('resize', updateWeekNumbers)
+});
 
 function onShow() {
-  document.body.classList.add('no-scroll')
+  if (process.client) document.body.classList.add('no-scroll')
 }
 
 function onHide() {
-  document.body.classList.remove('no-scroll')
+  if (process.client) document.body.classList.remove('no-scroll')
   isFilterDropdownShown.value = false;
 }
 
 // The following conversion functions are basically ripped from anarchism.nyc.
-function convertSchemaDotOrgEventToFullCalendarEvent(item) {
-  // If we have a `geo` object, format it to geoJSON.
-  var geoJSON = (item.location.geo) ? {
-    type: "Point",
-    coordinates: [
-      item.location.geo.longitude,
-      item.location.geo.latitude
-    ]
-  } : null; // Otherwise, set it to null.
-
-  return {
-    title: item.name,
-    start: new Date(item.startDate),
-    end: new Date(item.endDate),
-    url: item.url,
-    extendedProps: {
-      description: item.description || null,
-      image: item.image,
-      location: {
-        geoJSON: geoJSON,
-        eventVenue: {
-          name: item.location.name,
-          address: {
-            streetAddress: item.location.streetAddress,
-            addressLocality: item.location.addressLocality,
-            addressRegion: item.location.addressRegion,
-            postalCode: item.location.postalCode,
-            addressCountry: item.location.addressCountry
-          },
-          geo: item.location?.geo
-        }
-      }
-    }
-  };
-};
-
 function convertWordpressTribeEventToFullCalendarEvent(e) {
   var geoJSON = (e.venue.geo_lat && e.venue.geo_lng)
     ? {
@@ -326,6 +313,43 @@ function convertWordpressTribeEventToFullCalendarEvent(e) {
     }
   };
 }
+
+function convertSchemaDotOrgEventToFullCalendarEvent(item) {
+	// If we have a `geo` object, format it to geoJSON.
+	var geoJSON = (item.location.geo) ? {
+		type: "Point",
+		coordinates: [
+			item.location.geo.longitude,
+			item.location.geo.latitude
+		]
+	} : null; // Otherwise, set it to null.
+
+	return {
+		title: item.name,
+		start: new Date(item.startDate),
+		end: new Date(item.endDate),
+		url: item.url,
+		extendedProps: {
+			description: item.description || null,
+			image: item.image,
+			location: {
+				geoJSON: geoJSON,
+				eventVenue: {
+					name: item.location.name,
+					address: {
+						streetAddress: item.location.streetAddress,
+						addressLocality: item.location.addressLocality,
+						addressRegion: item.location.addressRegion,
+						postalCode: item.location.postalCode,
+						addressCountry: item.location.addressCountry
+					},
+					geo: item.location?.geo
+				}
+			}
+		}
+	};
+};
+
 
 function convertTockifyEventToFullCalendarEvent(e, url) {
   var url = (e.content.customButtonLink)
@@ -460,6 +484,14 @@ function isDisplayingBasedOnFilterSettings(city: string) {
 }
 
 async function loadEvents() {
+  // await fetch('http://localhost:3000')
+  //   .then(res => res.text())
+  //   .then(text => {
+  //     console.log(text);
+  //     return text;
+  //   })
+  //   .catch(err => console.error(err));
+
   const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
   const domParser = new DOMParser();
   const eventSourcesFromFile = json;
@@ -498,7 +530,6 @@ async function loadEvents() {
         })
     )
   );
-  console.log(eventbriteSources);
 
   addEventSources(eventbriteSources);
 
@@ -597,11 +628,11 @@ function updateCityIsEnabledSetting(newIsEnabled, cityId: string) {
 }
 
 loadEvents()
-document.getElementById("error-main").style.visibility = "hidden";
+// if(process.client){ document.getElementById("error-main").style.visibility = "hidden"};
 </script>
 
 <template>
-<VDropdown :positioning-disabled="isMobile" @apply-show="isMobile && onShow()" @apply-hide="isMobile && onHide()"
+<Dropdown :positioning-disabled="isMobile" @apply-show="isMobile && onShow()" @apply-hide="isMobile && onHide()"
   :trigger="[]" :shown="isFilterDropdownShown">
 
   <template #popper="{ hide }">
@@ -659,7 +690,7 @@ document.getElementById("error-main").style.visibility = "hidden";
     </div>
 
   </template>
-</VDropdown>
+</Dropdown>
 <div class="calendar-container">
     <div style="display: flex; flex-direction:column; position:relative;">
       <div class="title">
@@ -701,6 +732,3 @@ document.getElementById("error-main").style.visibility = "hidden";
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>

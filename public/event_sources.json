@@ -3,36 +3,43 @@
 		{
 			"name": "Comfort & Joy",
 			"url": "https://www.eventbrite.com/o/comfort-amp-joy-517953471#events",
+			"id": "517953471",
 			"city": "San Francisco"
 		},
 		{
 			"name": "SF LGBT Center",
 			"url": "https://www.eventbrite.com/o/sf-lgbt-center-20048668121#events",
+			"id": "20048668121",
 			"city": "San Francisco"
 		},
 		{
 			"name": "Polyglamorous",
 			"url": "https://www.eventbrite.com/o/polyglamorous-11856137047#events",
+			"id": "11856137047",
 			"city": "San Francisco"
 		},
 		{
 			"name": "Gemini",
 			"url": "https://www.eventbrite.com/o/gemini-39419436933#events",
+			"id": "39419436933",
 			"city": "San Francisco"
 		},
 		{
 			"name": "Hysteria Comedy",
 			"url": "https://www.eventbrite.com/o/hysteria-comedy-21754687241#events",
+			"id": "21754687241",
 			"city": "San Francisco"
 		},
 		{
 			"name": "queer expression",
 			"url": "https://www.eventbrite.com/o/queer-expression-oakland-34271650919#events",
+			"id": "34271650919",
 			"city": "Oakland"
 		},
 		{
 			"name": "The Neighbor's Pub",
 			"url": "https://www.eventbrite.com/o/the-neighbors-pub-34850557093#events",
+			"id": "34850557093",
 			"city": "Santa Cruz"
 		}
 	],
