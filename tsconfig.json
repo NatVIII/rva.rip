@@ -4,5 +4,6 @@
   "compilerOptions": {
     "noEmit": false,
     "noEmitOnError": false,
+    "checkJs": false,
   },
 }

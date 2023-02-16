@@ -2,7 +2,5 @@
 </script>
 
 <template>
-  <div>
-    <App />
-  </div>
+  <App />
 </template>

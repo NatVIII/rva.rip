@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, onUpdated, callWithAsyncErrorHandling } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -11,30 +11,6 @@ import 'floating-vue/dist/style.css';
 import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
 import { Dropdown } from 'floating-vue'
-
-// The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
-interface Event {
-  title: string | null;
-  start: Date | null;
-  end: Date | null;
-  url: string;
-  display?: string;
-  backgroundColor?: string;
-  borderColor?: string;
-  textColor?: string;
-  classNames?: string[];
-  extendedProps?: Object;
-}
-
-interface EventNormalSource {
-  events: Event[];
-  display: string;
-  city: string;
-}
-
-interface EventGoogleCalendarSource {
-  googleCalendarId: string;
-}
 
 const ALL_ID = 'All';
 
@@ -70,45 +46,44 @@ interface County {
   cities: any;
 }
 
-const getLocalStorageIsAreaEnabled = (areaName: string) => {
-  if (process.client) {
-    return JSON.parse(localStorage.getItem(areaName) || 'true');
-  }
-  else {
-    return false;
-  }
+const getCookieDefaultValue = (areaName: string) => {
+  return true;
 };
 
-const isAllEnabled = ref(getLocalStorageIsAreaEnabled(ALL_ID));
-
-const isAllCitiesInMarinCountyEnabled = ref(getLocalStorageIsAreaEnabled(ALL_CITIES_IN_MARIN_COUNTY_ID));
+// Note: cannot use LocalStorage due to SSR not having LocalStorage. Using LocalStorage would thus cause a hydration mismatch.
+const isAllCitiesInMarinCountyEnabled = useCookie(ALL_CITIES_IN_MARIN_COUNTY_ID, { default: () => getCookieDefaultValue(ALL_CITIES_IN_MARIN_COUNTY_ID) });
 
 // SF-San Mateo County Cities.
-const isSanFranciscoEnabled = ref(getLocalStorageIsAreaEnabled(SAN_FRANCISCO_ID));
-const isOthersInSFSanMateoCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_SF_SAN_MATEO_COUNTY_ID));
+const isSanFranciscoEnabled = useCookie(SAN_FRANCISCO_ID, { default: () => getCookieDefaultValue(SAN_FRANCISCO_ID) });
+const isOthersInSFSanMateoCountyEnabled = useCookie(OTHERS_IN_SF_SAN_MATEO_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_SF_SAN_MATEO_COUNTY_ID) });
 
 // Alameda County Cities.
-const isOaklandEnabled = ref(getLocalStorageIsAreaEnabled(OAKLAND_ID));
-const isBerkeleyEnabled = ref(getLocalStorageIsAreaEnabled(BERKELEY_ID));
-const isOthersInAlamedaCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_ALAMEDA_COUNTY_ID));
+const isOaklandEnabled = useCookie(OAKLAND_ID, { default: () => getCookieDefaultValue(OAKLAND_ID) });
+const isBerkeleyEnabled = useCookie(BERKELEY_ID, { default: () => getCookieDefaultValue(BERKELEY_ID) });
+
+const isOthersInAlamedaCountyEnabled = useCookie(OTHERS_IN_ALAMEDA_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_ALAMEDA_COUNTY_ID) });
 
 // Santa Clara County Cities.
-const isSanJoseEnabled = ref(getLocalStorageIsAreaEnabled(SAN_JOSE_ID));
-const isSunnyvaleEnabled = ref(getLocalStorageIsAreaEnabled(SUNNYVALE_ID));
-const isOthersInSantaClaraCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_SANTA_CLARA_COUNTY_ID));
+const isSanJoseEnabled = useCookie(SAN_JOSE_ID, { default: () => getCookieDefaultValue(SAN_JOSE_ID) });
+const isSunnyvaleEnabled = useCookie(SUNNYVALE_ID, { default: () => getCookieDefaultValue(SUNNYVALE_ID) });
+const isOthersInSantaClaraCountyEnabled = useCookie(OTHERS_IN_SANTA_CLARA_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_SANTA_CLARA_COUNTY_ID) });
 
 // Santa Cruz County Cities.
-const isSantaCruzEnabled = ref(getLocalStorageIsAreaEnabled(SANTA_CRUZ_ID));
-const isOthersInSantaCruzCountyEnabled = ref(getLocalStorageIsAreaEnabled(OTHERS_IN_SANTA_CRUZ_COUNTY_ID));
+const isSantaCruzEnabled = useCookie(SANTA_CRUZ_ID, { default: () => getCookieDefaultValue(SANTA_CRUZ_ID) });
+const isOthersInSantaCruzCountyEnabled = useCookie(OTHERS_IN_SANTA_CRUZ_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_SANTA_CRUZ_COUNTY_ID) });
 
 const citiesToCounty = {
   [ALL_CITIES_IN_MARIN_COUNTY_ID]: MARIN_COUNTY_ID,
   [SAN_FRANCISCO_ID]: SF_SAN_MATEO_COUNTY_ID,
+  [OTHERS_IN_SF_SAN_MATEO_COUNTY_ID]: SF_SAN_MATEO_COUNTY_ID,
   [OAKLAND_ID]: ALAMEDA_COUNTY_ID,
   [BERKELEY_ID]: ALAMEDA_COUNTY_ID,
+  [OTHERS_IN_ALAMEDA_COUNTY_ID]: ALAMEDA_COUNTY_ID,
   [SAN_JOSE_ID]: SANTA_CLARA_COUNTY_ID,
   [SUNNYVALE_ID]: SANTA_CLARA_COUNTY_ID,
+  [OTHERS_IN_SANTA_CLARA_COUNTY_ID]: SANTA_CLARA_COUNTY_ID,
   [SANTA_CRUZ_ID]: SANTA_CRUZ_COUNTY_ID,
+  [OTHERS_IN_SANTA_CRUZ_COUNTY_ID]: SANTA_CRUZ_COUNTY_ID,
 };
 
 function isCity(city: string) {
@@ -180,22 +155,25 @@ const countiesToCities = {
   } as County,
 };
 
-const isFilterDropdownShown = ref(false);
+const isFilterDropdownShown = useState('isFilterDropdownShown', () => false);
 
 const getWindowHeight = () => {
   if (process.client) return window.innerHeight;
-  return 0;
+  return 600;
 };
 
 const getWindowWidth = () => {
   if (process.client) return window.innerWidth;
-  return 0;
+  return 350;
 };
 
-const isMobile = ref(true);
-const calendarHeight = ref(getWindowHeight());
-const pageWidth = ref(getWindowWidth());
-const isUsingDayMaxEventRows = ref(true);
+const isMobile = useState('isMobile', () => true);
+const calendarHeight = useCookie('calendarHeight', { default: 100 });
+if (process.client) calendarHeight.value = window.innerHeight;
+const pageWidth = useCookie('pageWidth', { default: 100 });
+if (process.client) pageWidth.value = window.innerWidth;
+
+const isUsingDayMaxEventRows = useState('isUsingDayMaxEventRows', () => true);
 
 const updateWeekNumbers = () => { 
   return getWindowWidth() < 350 ? false : true 
@@ -262,7 +240,7 @@ const updateCalendarHeight = () => {
 };
 
 onMounted(() => { 
-  if (process.client) window.addEventListener("resize", updateCalendarHeight)
+  window.addEventListener("resize", updateCalendarHeight)
 });
 // onUpdated(() => {});
 onUnmounted(() => {
@@ -279,41 +257,6 @@ function onHide() {
 }
 
 // The following conversion functions are basically ripped from anarchism.nyc.
-function convertWordpressTribeEventToFullCalendarEvent(e) {
-  var geoJSON = (e.venue.geo_lat && e.venue.geo_lng)
-    ? {
-      type: "Point",
-      coordinates: [e.venue.geo_lng, e.venue.geo_lat]
-    }
-    : null;
-  return {
-    title: e.title,
-    start: new Date(e.utc_start_date + 'Z'),
-    end: new Date(e.utc_end_date + 'Z'),
-    url: e.url,
-    extendedProps: {
-      description: e.description,
-      image: e.image.url,
-      location: {
-        geoJSON: geoJSON,
-        eventVenue: {
-          name: e.venue.venue,
-          address: {
-            streetAddress: e.venue.address,
-            addressLocality: e.venue.city,
-            postalCode: e.venue.zip,
-            addressCountry: e.venue.country
-          },
-          geo: {
-            latitude: e.venue.geo_lat,
-            longitude: e.venue.geo_lng
-          }
-        }
-      }
-    }
-  };
-}
-
 function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 	// If we have a `geo` object, format it to geoJSON.
 	var geoJSON = (item.location.geo) ? {
@@ -350,6 +293,88 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 	};
 };
 
+
+// Updates calendarOptions' eventSources and triggers a re-render of the calendar.
+function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
+  // Cut out events without times, but typecheck for types that can have invalid times.
+  newEventSources = newEventSources.map(eventSource => {
+    // Skip events that can't be invalid.
+    if (!Object.hasOwn(eventSource, 'events')) return eventSource;
+
+
+
+    // Filter events.
+    const newEvents = eventSource.events.filter((event) => {
+
+
+      /* REMOVED TEMPORARILY, replaced with the hack below: Remove events that last longer than 3 days.
+      Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
+      Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
+      rate limits pretty quickly during peak hours. */
+      const isShorterThan3DaysLong = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) <= 3;
+
+      // This is a hack where we set the end day to match start day. This is to get around the issue of
+      // Eventbrite events that have 'Multiple Dates' spanning 'All Day'. The downside is that this hack 
+      // removes all event dates except the first, but it is better than nothing.
+      if (!isShorterThan3DaysLong) {
+        event.end.setFullYear(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
+        // If the event's starting hour is greater than the event's ending hour, the ending day should be 1 day ahead of the 
+        // the start. Here we increment the day by 1.
+        if (event.start.getHours() > event.end.getHours()) {
+          event.end.setDate(event.end.getDate() + 1);
+        }
+      }
+      return (
+        event.start
+        // && isShorterThan3DaysLong
+      );
+    });
+    return {
+      ...eventSource,
+      events: newEvents,
+    } as EventNormalSource;
+  });
+  // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
+
+  calendarOptions.value = {
+    ...calendarOptions.value,
+    eventSources: calendarOptions.value.eventSources.concat(newEventSources)
+  };
+}
+
+function isDisplayingBasedOnFilterSettings(city: string) {
+  if (isCity(city)) {
+    const county = getCounty(city);
+    return countiesToCities[county].cities[city].enabled.value ? 'auto' : 'none';
+  }
+  console.error(citiesToCounty[city], `Err: Invalid area name "${city} "chosen! You should only provide city names to event sources.`)
+  return 'auto';
+}
+
+const eventSourcesFromFile = json;
+const clientHeaders = {
+  'Cache-Control': 'max-age=5400'
+};
+
+const transformEventSourcesResponse = (eventSources) => {
+  const eventsSourcesWithoutProxy = toRaw(eventSources.value.body)
+  const datesAdded = eventsSourcesWithoutProxy.map(eventSource => {
+    return {
+      ...eventSource,
+      // Set the `display` property, since the endpoints don't add it.
+      display: isDisplayingBasedOnFilterSettings(eventSource.city),
+      events: eventSource.events.map(event => {
+        return {
+          ...event,
+          // Convert date strings to Date objects.
+          start: new Date(event.start),
+          end: new Date(event.end)
+        }
+      })
+    }
+  })
+  return datesAdded;
+}
 
 function convertTockifyEventToFullCalendarEvent(e, url) {
   var url = (e.content.customButtonLink)
@@ -393,113 +418,19 @@ function convertTockifyEventToFullCalendarEvent(e, url) {
   };
 }
 
-function convertSquarespaceEventToFullCalendarEvent(e, url) {
-  return {
-    title: e.title,
-    start: new Date(e.startDate),
-    end: new Date(e.endDate),
-    url: new URL(url).origin + e.fullUrl,
-    extendedProps: {
-      description: e.body,
-      image: e.assetUrl,
-      location: {
-        geoJSON: {
-          type: "Point",
-          coordinates: [e.location.mapLng, e.location.mapLat]
-        },
-        eventVenue: {
-          name: e.location.addressTitle,
-          address: {
-            streetAddress: e.location.addressLine1,
-            // TODO: Some of these are not provided.
-            //                        addressLocality: e.location.addressLine2.split(',')[0].trim(),
-            //                        addressRegion: e.location.addressLine2.split(',')[1].trim(),
-            //                        postalCode: e.location.addressLine2.split(',')[2].trim(),
-            addressCountry: e.location.addressCountry
-          },
-          geo: {
-            latitude: e.location.mapLat,
-            longitude: e.location.mapLng,
-          }
-        },
-      },
-      raw: e
-    }
-  };
-}
+const { data: eventbriteSourcesResponse } = await useFetch('/api/events/eventbrite', { headers: clientHeaders });
+addEventSources(transformEventSourcesResponse(eventbriteSourcesResponse));
+const { data: wordPressTribeSourcesResponse } = await useFetch('/api/events/wordpress-tribe', { headers: clientHeaders });
+addEventSources(transformEventSourcesResponse(wordPressTribeSourcesResponse));
+const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', { headers: clientHeaders });
+addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
+const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace');
+addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
+loadGoogleCalendarEvents();
 
-// Updates calendarOptions' eventSources and triggers a re-render of the calendar.
-function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
-  // Cut out events without times, but typecheck for types that can have invalid times.
-  newEventSources = newEventSources.map(eventSource => {
-    // Skip events that can't be invalid.
-    if (!Object.hasOwn(eventSource, 'events')) return eventSource;
-
-    // Filter events.
-    const newEvents = eventSource.events.filter((event) => {
-
-      /* REMOVED TEMPORARILY, replaced with the hack below: Remove events that last longer than 3 days.
-      Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
-      Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
-      rate limits pretty quickly during peak hours. */
-      const isShorterThan3DaysLong = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) <= 3;
-
-      // This is a hack where we set the end day to match start day. This is to get around the issue of
-      // Eventbrite events that have 'Multiple Dates' spanning 'All Day'. The downside is that this hack 
-      // removes all event dates except the first, but it is better than nothing.
-      if (!isShorterThan3DaysLong) {
-        event.end.setFullYear(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
-        // If the event's starting hour is greater than the event's ending hour, the ending day should be 1 day ahead of the 
-        // the start. Here we increment the day by 1.
-        if (event.start.getHours() > event.end.getHours()) {
-          event.end.setDate(event.end.getDate() + 1);
-        }
-      }
-      return (
-        event.start
-        // && isShorterThan3DaysLong
-      );
-    });
-    return {
-      ...eventSource,
-      events: newEvents,
-    } as EventNormalSource;
-  });
-  // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
-
-  calendarOptions.value = {
-    ...calendarOptions.value,
-    eventSources: calendarOptions.value.eventSources.concat(newEventSources)
-  };
-}
-
-function isDisplayingBasedOnFilterSettings(city: string) {
-  if (city === ALL_ID) return isAllEnabled.value ? 'auto' : 'none';
-  if (isCity(city)) {
-    const county = getCounty(city);
-    return countiesToCities[county].cities[city].enabled.value ? 'auto' : 'none';
-  }
-  console.error(citiesToCounty[city], `Err: Invalid area name "${city} "chosen! You should only provide city names to event sources.`)
-  return 'auto';
-}
-
-async function loadEvents() {
-  // await fetch('http://localhost:3000')
-  //   .then(res => res.text())
-  //   .then(text => {
-  //     console.log(text);
-  //     return text;
-  //   })
-  //   .catch(err => console.error(err));
-
-  const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
-  const domParser = new DOMParser();
-  const eventSourcesFromFile = json;
-  const headers = new Headers({
-    'Cache-Control': 'max-age=5400'
-  });
-
-  // Google Calendar
+async function loadGoogleCalendarEvents() {
+  // Note: Google Calendar has integration with FullCalendar, which allows us to avoid calling it on the server, at
+  // the cost of some waterfalling (but it's minimal since the API is fast).
   const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {
     return {
       googleCalendarId: source.googleCalendarId,
@@ -508,84 +439,6 @@ async function loadEvents() {
     } as EventGoogleCalendarSource
   });
   addEventSources(googleCalendarSources);
-
-  // Eventbrite.
-  const eventbriteSources = await Promise.all(
-    eventSourcesFromFile.eventbrite.map(async (source: Event) =>
-      await fetch(toCorsProxy(source.url, { headers }))
-        .then(res => res.text())
-        .then(html => {
-          // console.log(source.name, JSON.parse(
-          //   domParser.parseFromString(html, 'text/html')
-          //     .querySelectorAll('script[type="application/ld+json"]')[1].innerHTML));
-          const events = JSON.parse(
-            domParser.parseFromString(html, 'text/html')
-              .querySelectorAll('script[type="application/ld+json"]')[1].innerHTML
-          ).map(convertSchemaDotOrgEventToFullCalendarEvent);
-          return {
-            events,
-            display: isDisplayingBasedOnFilterSettings(source.city),
-            city: source.city
-          } as EventNormalSource;
-        })
-    )
-  );
-
-  addEventSources(eventbriteSources);
-
-  // Wordpress tribe API.
-  const wordpressTribeSources = await Promise.all(
-    eventSourcesFromFile.wordpressTribe.map(async (source: Event) => {
-      let wpJson = await (await fetch(source.url, { headers })).json();
-      let wpEvents = wpJson.events;
-      while (Object.hasOwn(wpJson, 'next_rest_url')) {
-        let next_page_url = wpJson.next_rest_url;
-        wpJson = await (await fetch(next_page_url)).json();
-        wpEvents = wpEvents.concat(wpJson.events);
-      }
-      return {
-        events: wpEvents.map(convertWordpressTribeEventToFullCalendarEvent),
-        display: isDisplayingBasedOnFilterSettings(source.city),
-        city: source.city
-      } as EventNormalSource;
-    }
-    ));
-  addEventSources(wordpressTribeSources);
-
-  // Tockify API.
-  const tockifySources = await Promise.all(
-    eventSourcesFromFile.tockify.map(async (source: Event) => {
-      const url = new URL(source.url);
-      // Add current date in milliseconds to the URL to get events starting from this moment.
-      url.searchParams.append('startms', Date.now().toString());
-      let tockifyJson = await (await fetch(url, { headers })).json();
-      let tockifyEvents = tockifyJson.events;
-      return {
-        events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),
-        display: isDisplayingBasedOnFilterSettings(source.city),
-        city: source.city
-      } as EventNormalSource;
-    }
-    )
-  );
-  addEventSources(tockifySources);
-
-  // Squarespace API.
-  const squarespaceSources = await Promise.all(
-    eventSourcesFromFile.squarespace.map(async (source: Event) => {
-      // Add current date in milliseconds to the URL to get events starting from this moment.
-      let squarespaceJson = await (await fetch(toCorsProxy(source.url), { headers })).json();
-      let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
-
-      return {
-        events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
-        display: isDisplayingBasedOnFilterSettings(source.city),
-        city: source.city
-      } as EventNormalSource;
-    }
-    )
-  );
-  addEventSources(squarespaceSources);
 }
 
 function setCityIsEnabled(settingId, vueRef, value) {
@@ -626,9 +479,6 @@ function updateCityIsEnabledSetting(newIsEnabled, cityId: string) {
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
 }
-
-loadEvents()
-// if(process.client){ document.getElementById("error-main").style.visibility = "hidden"};
 </script>
 
 <template>
