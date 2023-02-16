@@ -10,7 +10,8 @@ import 'floating-vue/dist/style.css';
 
 import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
-import { Dropdown } from 'floating-vue'
+import floatingVuePkg from 'floating-vue';
+const { Dropdown } = floatingVuePkg;
 
 const ALL_ID = 'All';
 
@@ -168,9 +169,9 @@ const getWindowWidth = () => {
 };
 
 const isMobile = useState('isMobile', () => true);
-const calendarHeight = useCookie('calendarHeight', { default: 100 });
+const calendarHeight = useCookie('calendarHeight', { default: () => 100 });
 if (process.client) calendarHeight.value = window.innerHeight;
-const pageWidth = useCookie('pageWidth', { default: 100 });
+const pageWidth = useCookie('pageWidth', { default: () => 100 });
 if (process.client) pageWidth.value = window.innerWidth;
 
 const isUsingDayMaxEventRows = useState('isUsingDayMaxEventRows', () => true);

@@ -2,8 +2,6 @@ import eventSourcesJSON from 'public/event_sources.json';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchTockifyEvents();
-	console.log(body);
-
 	return {
 		body
 	}
