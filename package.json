@@ -18,6 +18,7 @@
     "@vercel/analytics": "^0.1.9",
     "ical.js": "^1.5.0",
     "jsdom": "^21.1.0",
+    "nuxt-security": "^0.10.2",
     "vue-final-modal": "^4.0.4",
     "vue-tsc": "^1.0.24"
   },
