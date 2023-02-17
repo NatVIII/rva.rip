@@ -3,5 +3,6 @@ export default defineNuxtConfig({
 	typescript: {
 		// This ignores errors on build too.
 		typeCheck: false
-	}
+	},
+	css: ['vue-final-modal/style.css'],
 })

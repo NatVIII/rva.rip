@@ -10,5 +10,6 @@ defineProps({
 			<button class="county-input" @click.passive="$emit('onNo')">N</button>
 			{{ label }}
 		</span>
+			<slot></slot>
 	</div>
 </template>

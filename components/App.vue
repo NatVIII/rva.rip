@@ -6,72 +6,35 @@ import listPlugin from '@fullcalendar/list';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from 'public/event_sources.json';
-import 'floating-vue/dist/style.css';
 
 import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
-import floatingVuePkg from 'floating-vue';
-const { Dropdown } = floatingVuePkg;
-
-const ALL_ID = 'All';
-
-const MARIN_COUNTY_ID = 'Marin County';
-const SF_SAN_MATEO_COUNTY_ID = 'SF-San Mateo County';
-const ALAMEDA_COUNTY_ID = 'Alameda County';
-const SANTA_CLARA_COUNTY_ID = 'Santa Clara County';
-const SANTA_CRUZ_COUNTY_ID = 'Santa Cruz County';
-
-const ALL_CITIES_IN_MARIN_COUNTY_ID = 'All cities in Marin County';
-
-const OTHERS_IN_SF_SAN_MATEO_COUNTY_ID = 'Others in SF-San Mateo County';
-const OTHERS_IN_ALAMEDA_COUNTY_ID = 'Others in Alameda County';
-const OTHERS_IN_SANTA_CLARA_COUNTY_ID = 'Others in Santa Clara County';
-const OTHERS_IN_SANTA_CRUZ_COUNTY_ID = 'Others in Santa Cruz County';
-
-// SF-San Mateo County Cities.
-const SAN_FRANCISCO_ID = 'San Francisco';
-
-// Alameda County Cities.
-const OAKLAND_ID = 'Oakland';
-const BERKELEY_ID = 'Berkeley';
-
-// Santa Clara County Cities.
-const SAN_JOSE_ID = 'San Jose';
-const SUNNYVALE_ID = 'Sunnyvale';
-
-// Santa Cruz County Cities.
-const SANTA_CRUZ_ID = 'Santa Cruz';
+import { ModalsContainer, useModal } from 'vue-final-modal'
+import FilterModal from './FilterModal.vue'
 
 interface County {
   enabled: any;
   cities: any;
 }
 
-const getCookieDefaultValue = (areaName: string) => {
-  return true;
-};
-
 // Note: cannot use LocalStorage due to SSR not having LocalStorage. Using LocalStorage would thus cause a hydration mismatch.
-const isAllCitiesInMarinCountyEnabled = useCookie(ALL_CITIES_IN_MARIN_COUNTY_ID, { default: () => getCookieDefaultValue(ALL_CITIES_IN_MARIN_COUNTY_ID) });
-
+const isAllCitiesInMarinCountyEnabled = useIsAllCitiesInMarinCountyEnabled();
 // SF-San Mateo County Cities.
-const isSanFranciscoEnabled = useCookie(SAN_FRANCISCO_ID, { default: () => getCookieDefaultValue(SAN_FRANCISCO_ID) });
-const isOthersInSFSanMateoCountyEnabled = useCookie(OTHERS_IN_SF_SAN_MATEO_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_SF_SAN_MATEO_COUNTY_ID) });
+const isSanFranciscoEnabled = useIsSanFranciscoEnabled();
+const isOthersInSFSanMateoCountyEnabled = useIsOthersInSFSanMateoCountyEnabled();
 
 // Alameda County Cities.
-const isOaklandEnabled = useCookie(OAKLAND_ID, { default: () => getCookieDefaultValue(OAKLAND_ID) });
-const isBerkeleyEnabled = useCookie(BERKELEY_ID, { default: () => getCookieDefaultValue(BERKELEY_ID) });
-
-const isOthersInAlamedaCountyEnabled = useCookie(OTHERS_IN_ALAMEDA_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_ALAMEDA_COUNTY_ID) });
+const isOaklandEnabled = useIsOaklandEnabled();
+const isBerkeleyEnabled = useIsBerkeleyEnabled();
+const isOthersInAlamedaCountyEnabled = useIsOthersInAlamedaCountyEnabled();
 
 // Santa Clara County Cities.
-const isSanJoseEnabled = useCookie(SAN_JOSE_ID, { default: () => getCookieDefaultValue(SAN_JOSE_ID) });
-const isSunnyvaleEnabled = useCookie(SUNNYVALE_ID, { default: () => getCookieDefaultValue(SUNNYVALE_ID) });
-const isOthersInSantaClaraCountyEnabled = useCookie(OTHERS_IN_SANTA_CLARA_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_SANTA_CLARA_COUNTY_ID) });
-
+const isSanJoseEnabled = useIsSanJoseEnabled();
+const isSunnyvaleEnabled = useIsSunnyvaleEnabled();
+const isOthersInSantaClaraCountyEnabled = useIsOthersInSantaClaraCountyEnabled();
 // Santa Cruz County Cities.
-const isSantaCruzEnabled = useCookie(SANTA_CRUZ_ID, { default: () => getCookieDefaultValue(SANTA_CRUZ_ID) });
-const isOthersInSantaCruzCountyEnabled = useCookie(OTHERS_IN_SANTA_CRUZ_COUNTY_ID, { default: () => getCookieDefaultValue(OTHERS_IN_SANTA_CRUZ_COUNTY_ID) });
+const isSantaCruzEnabled = useIsSantaCruzEnabled();
+const isOthersInSantaCruzCountyEnabled = useIsOthersInSantaCruzCountyEnabled();
 
 const citiesToCounty = {
   [ALL_CITIES_IN_MARIN_COUNTY_ID]: MARIN_COUNTY_ID,
@@ -156,8 +119,6 @@ const countiesToCities = {
   } as County,
 };
 
-const isFilterDropdownShown = useState('isFilterDropdownShown', () => false);
-
 const getWindowHeight = () => {
   if (process.client) return window.innerHeight;
   return 600;
@@ -168,7 +129,6 @@ const getWindowWidth = () => {
   return 350;
 };
 
-const isMobile = useState('isMobile', () => true);
 const calendarHeight = useCookie('calendarHeight', { default: () => 100 });
 if (process.client) calendarHeight.value = window.innerHeight;
 const pageWidth = useCookie('pageWidth', { default: () => 100 });
@@ -181,6 +141,22 @@ const updateWeekNumbers = () => {
 };
 // -1 indicates that there is no limit.
 const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(getWindowHeight() / 75) };
+
+const { open: openFilterModal, close: closeFilterModal } = useModal({
+  component: FilterModal,
+  attrs: {
+    title: 'Hello World!',
+    allCallback: updateAllIsEnabledSetting,
+    countyCallback: updateCountyIsEnabledSetting,
+    cityCallback: updateCityIsEnabledSetting,
+    onConfirm() {
+      closeFilterModal()
+    },
+  },
+  slots: {
+    default: '<p>The content of the modal</p>',
+  },
+})
 
 const calendarOptions = ref({
   plugins: [dayGridPlugin, timeGridPlugin, listPlugin, iCalendarPlugin, googleCalendarPlugin],
@@ -198,9 +174,7 @@ const calendarOptions = ref({
     },
     filter: {
       text: 'filter',
-      click: function () {
-        isFilterDropdownShown.value = true;
-      }
+      click: openFilterModal,
     },
   },
   headerToolbar: {
@@ -248,52 +222,6 @@ onUnmounted(() => {
   if (process.client) window.removeEventListener('resize', updateWeekNumbers)
 });
 
-function onShow() {
-  if (process.client) document.body.classList.add('no-scroll')
-}
-
-function onHide() {
-  if (process.client) document.body.classList.remove('no-scroll')
-  isFilterDropdownShown.value = false;
-}
-
-// The following conversion functions are basically ripped from anarchism.nyc.
-function convertSchemaDotOrgEventToFullCalendarEvent(item) {
-	// If we have a `geo` object, format it to geoJSON.
-	var geoJSON = (item.location.geo) ? {
-		type: "Point",
-		coordinates: [
-			item.location.geo.longitude,
-			item.location.geo.latitude
-		]
-	} : null; // Otherwise, set it to null.
-
-	return {
-		title: item.name,
-		start: new Date(item.startDate),
-		end: new Date(item.endDate),
-		url: item.url,
-		extendedProps: {
-			description: item.description || null,
-			image: item.image,
-			location: {
-				geoJSON: geoJSON,
-				eventVenue: {
-					name: item.location.name,
-					address: {
-						streetAddress: item.location.streetAddress,
-						addressLocality: item.location.addressLocality,
-						addressRegion: item.location.addressRegion,
-						postalCode: item.location.postalCode,
-						addressCountry: item.location.addressCountry
-					},
-					geo: item.location?.geo
-				}
-			}
-		}
-	};
-};
-
 
 // Updates calendarOptions' eventSources and triggers a re-render of the calendar.
 function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
@@ -302,11 +230,8 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
     // Skip events that can't be invalid.
     if (!Object.hasOwn(eventSource, 'events')) return eventSource;
 
-
-
     // Filter events.
     const newEvents = eventSource.events.filter((event) => {
-
 
       /* REMOVED TEMPORARILY, replaced with the hack below: Remove events that last longer than 3 days.
       Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
@@ -377,55 +302,13 @@ const transformEventSourcesResponse = (eventSources) => {
   return datesAdded;
 }
 
-function convertTockifyEventToFullCalendarEvent(e, url) {
-  var url = (e.content.customButtonLink)
-    ? e.content.customButtonLink
-    : `${url.origin}/${url.searchParams.get('calname')}/detail/${e.eid.uid}/${e.eid.tid}`;
-  var geoJSON = (e.content.location?.latitude && e.content.location?.longitude)
-    ? {
-      type: "Point",
-      coordinates: [
-        e.content.location.longitude,
-        e.content.location.latitude
-      ]
-    } : null;
-  return {
-    title: e.content.summary.text,
-    start: new Date(e.when.start.millis),
-    end: new Date(e.when.end.millis),
-    url: url,
-    extendedProps: {
-      description: e.content.description.text,
-      image: null,
-      location: {
-        geoJSON: geoJSON,
-        eventVenue: {
-          name: e.content.place,
-          address: {
-            streetAddress: e.content?.location?.c_street,
-            addressLocality: e.content?.location?.c_locality,
-            addressRegion: e.content?.location?.c_region,
-            postalCode: e.content?.location?.c_postcode,
-            addressCountry: e.content?.location?.c_country
-          },
-          geo: {
-            latitude: e.content?.location?.latitude,
-            longitude: e.content?.location?.longitude
-          }
-        }
-      },
-      raw: e
-    }
-  };
-}
-
 const { data: eventbriteSourcesResponse } = await useFetch('/api/events/eventbrite', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(eventbriteSourcesResponse));
 const { data: wordPressTribeSourcesResponse } = await useFetch('/api/events/wordpress-tribe', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(wordPressTribeSourcesResponse));
 const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
-const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace');
+const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
 loadGoogleCalendarEvents();
 
@@ -443,7 +326,6 @@ async function loadGoogleCalendarEvents() {
 }
 
 function setCityIsEnabled(settingId, vueRef, value) {
-  localStorage.setItem(settingId, value);
   vueRef.value = value;
 }
 
@@ -475,7 +357,7 @@ function updateEventSourcesEnabled() {
   calendarOptions.value = { ...calendarOptions.value, eventSources: newEventSources };
 }
 
-function updateCityIsEnabledSetting(newIsEnabled, cityId: string) {
+function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   const isEnabledRef = countiesToCities[getCounty(cityId)].cities[cityId].enabled;
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
@@ -483,73 +365,13 @@ function updateCityIsEnabledSetting(newIsEnabled, cityId: string) {
 </script>
 
 <template>
-<Dropdown :positioning-disabled="isMobile" @apply-show="isMobile && onShow()" @apply-hide="isMobile && onHide()"
-  :trigger="[]" :shown="isFilterDropdownShown">
-
-  <template #popper="{ hide }">
-    <div class="popper-box">
-      <div class="popper-box-inner">
-          <CountyFilterItem :label="ALL_ID" @on-yes="updateAllIsEnabledSetting(true)" @on-no="updateAllIsEnabledSetting(false)">
-          </CountyFilterItem>
-          <CountyFilterItem :label="MARIN_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, MARIN_COUNTY_ID)"
-            @on-no="updateCountyIsEnabledSetting(false, MARIN_COUNTY_ID)"></CountyFilterItem>
-          <CityFilterItem v-model="isAllCitiesInMarinCountyEnabled" :label="ALL_CITIES_IN_MARIN_COUNTY_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, ALL_CITIES_IN_MARIN_COUNTY_ID)">
-          </CityFilterItem>
-          
-          <CountyFilterItem :label="SF_SAN_MATEO_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, SF_SAN_MATEO_COUNTY_ID)"
-            @on-no="updateCountyIsEnabledSetting(false, SF_SAN_MATEO_COUNTY_ID)"></CountyFilterItem>
-          <CityFilterItem v-model="isSanFranciscoEnabled" :label="SAN_FRANCISCO_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, SAN_FRANCISCO_ID)">
-          </CityFilterItem>
-          <CityFilterItem v-model="isOthersInSFSanMateoCountyEnabled" :label="OTHERS_IN_SF_SAN_MATEO_COUNTY_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_SF_SAN_MATEO_COUNTY_ID)">
-          </CityFilterItem>
-          
-          <CountyFilterItem :label="ALAMEDA_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, ALAMEDA_COUNTY_ID)"
-            @on-no="updateCountyIsEnabledSetting(false, ALAMEDA_COUNTY_ID)"></CountyFilterItem>
-          <CityFilterItem v-model="isOaklandEnabled" :label="OAKLAND_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, OAKLAND_ID)">
-          </CityFilterItem>
-          <CityFilterItem v-model="isBerkeleyEnabled" :label="BERKELEY_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, BERKELEY_ID)">
-          </CityFilterItem>
-          <CityFilterItem v-model="isOthersInAlamedaCountyEnabled" :label="OTHERS_IN_ALAMEDA_COUNTY_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_ALAMEDA_COUNTY_ID)">
-          </CityFilterItem>
-          
-          <CountyFilterItem :label="SANTA_CLARA_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, SANTA_CLARA_COUNTY_ID)"
-            @on-no="updateCountyIsEnabledSetting(false, SANTA_CLARA_COUNTY_ID)"></CountyFilterItem>
-          <CityFilterItem v-model="isSanJoseEnabled" :label="SAN_JOSE_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, SAN_JOSE_ID)">
-          </CityFilterItem>
-          <CityFilterItem v-model="isOthersInSantaClaraCountyEnabled" :label="OTHERS_IN_SANTA_CLARA_COUNTY_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_SANTA_CLARA_COUNTY_ID)">
-          </CityFilterItem>
-          
-          <CountyFilterItem :label="SANTA_CRUZ_COUNTY_ID" @on-yes="updateCountyIsEnabledSetting(true, SANTA_CRUZ_COUNTY_ID)"
-            @on-no="updateCountyIsEnabledSetting(false, SANTA_CRUZ_COUNTY_ID)"></CountyFilterItem>
-          <CityFilterItem v-model="isSantaCruzEnabled" :label="SANTA_CRUZ_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, SANTA_CRUZ_ID)">
-          </CityFilterItem>
-          <CityFilterItem v-model="isOthersInSantaCruzCountyEnabled" :label="OTHERS_IN_SANTA_CRUZ_COUNTY_ID"
-            @on-input="updateCityIsEnabledSetting($event.target.checked, OTHERS_IN_SANTA_CRUZ_COUNTY_ID)">
-          </CityFilterItem>
-
-      </div>
-    <div class="bottom"><button v-if="isMobile" @click.passive="hide()">Done</button></div>
-    </div>
-
-  </template>
-</Dropdown>
+  <ModalsContainer />
 <div class="calendar-container">
     <div style="display: flex; flex-direction:column; position:relative;">
       <div class="title">
         bay.lgbt
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
-        <!-- Note: Cat causes some weirdness with resizing, almost all bugs down the line stem from them. -->
-        <!-- <img class="cat" src="cat.gif" alt="cat moving" v-bind:width=pageWidth/1.5 /> -->
         <div class="blurb">The missing LGBT+-leaning events board for SF Bay! Currently in open beta- please provide
           venue
           suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
