@@ -1,5 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchTockifyEvents();
@@ -18,7 +18,7 @@ async function fetchTockifyEvents() {
 			const url = new URL(source.url);
 			// Add current date in milliseconds to the URL to get events starting from this moment.
 			url.searchParams.append('startms', Date.now().toString());
-			let tockifyJson = await (await fetch(url)).json();
+			let tockifyJson = await (await fetch(url, { headers: serverFetchHeaders })).json();
 			let tockifyEvents = tockifyJson.events;
 			return {
 				events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),

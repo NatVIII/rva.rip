@@ -1,5 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchSquarespaceEvents();
@@ -16,7 +16,7 @@ async function fetchSquarespaceEvents() {
 	return await Promise.all(
 		eventSourcesJSON.squarespace.map(async (source) => {
 			// Add current date in milliseconds to the URL to get events starting from this moment.
-			let squarespaceJson = await (await fetch(source.url)).json();
+			let squarespaceJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
 			let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
 			return {
 				events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),

@@ -1,5 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchWordPressTribeEvents();
@@ -15,11 +15,11 @@ async function fetchWordPressTribeEvents() {
 	console.log('Fetching WordPress Tribe events...')
 	return await Promise.all(
 		eventSourcesJSON.wordPressTribe.map(async (source) => {
-			let wpJson = await (await fetch(source.url)).json();
+			let wpJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
 			let wpEvents = wpJson.events;
 			while (Object.hasOwn(wpJson, 'next_rest_url')) {
 				let next_page_url = wpJson.next_rest_url;
-				wpJson = await (await fetch(next_page_url)).json();
+				wpJson = await (await fetch(next_page_url, { headers: serverFetchHeaders })).json();
 				wpEvents = wpEvents.concat(wpJson.events);
 			}
 			return {

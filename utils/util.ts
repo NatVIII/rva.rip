@@ -32,3 +32,7 @@ export const serverCacheMaxAgeSeconds = 4 * 3600;
 // But it appears that the Nitro server (Nuxt's backend) supports a specific flag for always using stale-while-revalidating if set to -1.
 // https://nitro.unjs.io/guide/introduction/cache
 export const serverStaleWhileInvalidateSeconds = -1; /* 24 * 3600; */
+
+export const serverFetchHeaders = {
+	'Cache-Control': `max-age=${serverCacheMaxAgeSeconds}, stale-while-revalidate=${serverStaleWhileInvalidateSeconds}`,
+};

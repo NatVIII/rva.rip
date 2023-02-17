@@ -1,5 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { JSDOM } from 'jsdom';
 
 export default defineCachedEventHandler(async (event) => {
@@ -16,7 +16,7 @@ async function fetchEventbriteEvents() {
 	console.log('Fetching Eventbrite events...');
 	const eventbriteSources = await Promise.all(
 		eventSourcesJSON.eventbrite.map(async (source) => {
-			return await fetch(source.url)
+			return await fetch(source.url, { headers: serverFetchHeaders })
 				.then(res => res.text())
 				.then(async html => {
 					const dom = new JSDOM(html);
@@ -46,7 +46,7 @@ async function fetchEventbriteEvents() {
 async function getEventSeries(event_url: string) {
 	// Split URL by '-' and get the last part.
 	const series_id = event_url.split('-').pop();
-	const res = await fetch(`https://www.eventbriteapi.com/v3/series/${series_id}/events/?token=${process.env.EVENTBRITE_API_KEY}`)
+	const res = await fetch(`https://www.eventbriteapi.com/v3/series/${series_id}/events/?token=${process.env.EVENTBRITE_API_KEY}`, { headers: serverFetchHeaders })
 		.then((res) => {
 			return res.json();
 		});
