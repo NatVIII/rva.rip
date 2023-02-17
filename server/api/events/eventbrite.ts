@@ -11,7 +11,7 @@ export default defineCachedEventHandler(async (event) => {
 	maxAge: serverCacheMaxAgeSeconds,
 });
 
-refreshCacheCallback(fetchEventbriteEvents);
+refreshCacheCallback(fetchEventbriteEvents, 'Eventbrite');
 
 async function fetchEventbriteEvents() {
 	const eventbriteSources = await Promise.all(

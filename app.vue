@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { AppConfigInput } from '@nuxt/schema'
+
 const app = useAppConfig() as AppConfigInput
 useHead({
   title: 'bay.lgbt',
@@ -15,6 +16,7 @@ useHead({
   script: [
     {
       src: 'https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces6%2Ces5',
+      crossorigin: 'anonymous',
     },
   ],
 })

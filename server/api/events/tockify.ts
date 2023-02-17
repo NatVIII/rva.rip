@@ -10,7 +10,7 @@ export default defineCachedEventHandler(async (event) => {
 	maxAge: serverCacheMaxAgeSeconds,
 });
 
-refreshCacheCallback(fetchTockifyEvents);
+refreshCacheCallback(fetchTockifyEvents, 'Tockify');
 
 async function fetchTockifyEvents() {
 	return await Promise.all(

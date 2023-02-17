@@ -10,7 +10,7 @@ export default defineCachedEventHandler(async (event) => {
 	maxAge: serverCacheMaxAgeSeconds,
 });
 
-refreshCacheCallback(fetchWordPressTribeEvents);
+refreshCacheCallback(fetchWordPressTribeEvents, 'WordPress Tribe');
 
 async function fetchWordPressTribeEvents() {
 	return await Promise.all(

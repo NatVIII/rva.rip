@@ -10,7 +10,7 @@ export default defineCachedEventHandler(async (event) => {
 	maxAge: serverCacheMaxAgeSeconds,
 });
 
-refreshCacheCallback(fetchSquarespaceEvents);
+refreshCacheCallback(fetchSquarespaceEvents, 'Squarespace');
 
 async function fetchSquarespaceEvents() {
 	return await Promise.all(

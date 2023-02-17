@@ -25,10 +25,12 @@ interface EventGoogleCalendarSource {
 export const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
 
 export const serverCacheMaxAgeSeconds = 14400;
+// export const serverCacheMaxAgeSeconds = 10;
 export const serverCacheRefreshIntermissionSeconds = 10;
 
-export const refreshCacheCallback = (callback: () => void) => {
+export const refreshCacheCallback = (callback: () => void, logName: string) => {
 	setInterval(() => {
+		console.log('refreshing cache for ', logName, '.');
 		callback();
 	}, 1000 * (serverCacheRefreshIntermissionSeconds + serverCacheMaxAgeSeconds));
 }
