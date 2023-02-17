@@ -1,7 +1,8 @@
 import eventSourcesJSON from 'public/event_sources.json';
 import { JSDOM } from 'jsdom';
 
-export default defineCachedEventHandler(async (event) => {
+// export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
 	const body = await fetchEventbriteEvents();
 	return {
 		body
@@ -17,7 +18,22 @@ async function fetchEventbriteEvents() {
 				.then(res => res.text())
 				.then(html => {
 					const dom = new JSDOM(html);
-					const events = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML).map(convertSchemaDotOrgEventToFullCalendarEvent);
+					const eventsRaw = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML).map(convertSchemaDotOrgEventToFullCalendarEvent);
+					// Since public & private Eventbrite endpoints provides a series of events as a single event, we need to split them up using their API.
+					let events = new Array();
+					eventsRaw.forEach(async (event) => {
+						const isLongerThan3Days = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) > 3;
+						if (isLongerThan3Days) {
+							const eventSeries = (await getEventSeries(event.url));
+							eventSeries.forEach(event => {
+								events.push(convertEventbriteAPIEventToFullCalendarEvent(event));
+							});
+						} else {
+							events.push(event);
+						}
+					});
+					console.log(events);
+
 					return {
 						events,
 						city: source.city
@@ -26,6 +42,17 @@ async function fetchEventbriteEvents() {
 		}))
 	return eventbriteSources;
 };
+
+async function getEventSeries(event_url: string) {
+	// Split URL by '-' and get the last part.
+	const series_id = event_url.split('-').pop();
+	const res = await fetch(`https://www.eventbriteapi.com/v3/series/${series_id}/events/?token=${process.env.EVENTBRITE_API_KEY}`)
+		.then((res) => {
+			return res.json();
+		});
+	// Sometimes the response returns 404 for whatever reason. I imagine for events with information set to private. Ignore those.
+	return res.events || [];
+}
 
 function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 	// If we have a `geo` object, format it to geoJSON.
@@ -64,3 +91,12 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 	};
 };
 
+// The problem with the Eventbrite developer API format is that it lacks geolocation.
+function convertEventbriteAPIEventToFullCalendarEvent(item) {
+	return {
+		title: item.name.text,
+		start: new Date(item.start.local),
+		end: new Date(item.end.local),
+		url: item.url,
+	};
+};

@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 	security: {
 		rateLimiter: {
 			value: {
-				tokensPerInterval: 18,
+				tokensPerInterval: process.dev ? 999999 : 30,
 				interval: "hour",
 				fireImmediately: false
 			},
