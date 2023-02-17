@@ -5,4 +5,5 @@ export default defineNuxtConfig({
 		typeCheck: false
 	},
 	css: ['vue-final-modal/style.css'],
+	plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
 })
