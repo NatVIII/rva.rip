@@ -24,6 +24,8 @@ interface EventGoogleCalendarSource {
 
 export const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
 
+export const clientCacheMaxAgeSeconds = 4 * 3600;
+export const clientStaleWhileInvalidateSeconds = 12 * 3600;
 
 export const serverCacheMaxAgeSeconds = 4 * 3600;
 // For how long can a server use an invalidated response (during which it will revalidate for the next request).

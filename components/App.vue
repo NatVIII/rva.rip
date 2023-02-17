@@ -11,6 +11,7 @@ import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
+import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 interface County {
   enabled: any;
@@ -278,7 +279,7 @@ function isDisplayingBasedOnFilterSettings(city: string) {
 
 const eventSourcesFromFile = json;
 const clientHeaders = {
-  'Cache-Control': 'max-age=5400'
+  'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
 };
 
 const transformEventSourcesResponse = (eventSources) => {
