@@ -1,5 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, refreshCacheCallback } from '~~/utils/util';
+import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchWordPressTribeEvents();
@@ -8,9 +8,8 @@ export default defineCachedEventHandler(async (event) => {
 	}
 }, {
 	maxAge: serverCacheMaxAgeSeconds,
+	staleMaxAge: serverStaleWhileInvalidateSeconds,
 });
-
-refreshCacheCallback(fetchWordPressTribeEvents, 'WordPress Tribe');
 
 async function fetchWordPressTribeEvents() {
 	return await Promise.all(

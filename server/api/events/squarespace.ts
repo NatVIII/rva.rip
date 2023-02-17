@@ -1,5 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, refreshCacheCallback } from '~~/utils/util';
+import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchSquarespaceEvents();
@@ -8,9 +8,8 @@ export default defineCachedEventHandler(async (event) => {
 	}
 }, {
 	maxAge: serverCacheMaxAgeSeconds,
+	staleMaxAge: serverStaleWhileInvalidateSeconds,
 });
-
-refreshCacheCallback(fetchSquarespaceEvents, 'Squarespace');
 
 async function fetchSquarespaceEvents() {
 	return await Promise.all(
