@@ -1,4 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
+import { serverCacheMaxAgeSeconds, refreshCacheCallback } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchSquarespaceEvents();
@@ -6,8 +7,10 @@ export default defineCachedEventHandler(async (event) => {
 		body
 	}
 }, {
-	maxAge: 3600,
+	maxAge: serverCacheMaxAgeSeconds,
 });
+
+refreshCacheCallback(fetchSquarespaceEvents);
 
 async function fetchSquarespaceEvents() {
 	return await Promise.all(
@@ -19,8 +22,7 @@ async function fetchSquarespaceEvents() {
 				events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
 				city: source.city
 			} as EventNormalSource;
-		}
-		)
+		})
 	);
 };
 

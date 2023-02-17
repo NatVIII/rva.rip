@@ -1,4 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
+import { serverCacheMaxAgeSeconds, refreshCacheCallback } from '~~/utils/util';
 import { JSDOM } from 'jsdom';
 
 export default defineCachedEventHandler(async (event) => {
@@ -7,8 +8,10 @@ export default defineCachedEventHandler(async (event) => {
 		body
 	}
 }, {
-	maxAge: 3600,
+	maxAge: serverCacheMaxAgeSeconds,
 });
+
+refreshCacheCallback(fetchEventbriteEvents);
 
 async function fetchEventbriteEvents() {
 	const eventbriteSources = await Promise.all(

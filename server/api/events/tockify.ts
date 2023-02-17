@@ -1,4 +1,5 @@
 import eventSourcesJSON from 'public/event_sources.json';
+import { serverCacheMaxAgeSeconds, refreshCacheCallback } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchTockifyEvents();
@@ -6,8 +7,10 @@ export default defineCachedEventHandler(async (event) => {
 		body
 	}
 }, {
-	maxAge: 3600,
+	maxAge: serverCacheMaxAgeSeconds,
 });
+
+refreshCacheCallback(fetchTockifyEvents);
 
 async function fetchTockifyEvents() {
 	return await Promise.all(

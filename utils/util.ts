@@ -23,3 +23,12 @@ interface EventGoogleCalendarSource {
 }
 
 export const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
+
+export const serverCacheMaxAgeSeconds = 14400;
+export const serverCacheRefreshIntermissionSeconds = 10;
+
+export const refreshCacheCallback = (callback: () => void) => {
+	setInterval(() => {
+		callback();
+	}, 1000 * (serverCacheRefreshIntermissionSeconds + serverCacheMaxAgeSeconds));
+}

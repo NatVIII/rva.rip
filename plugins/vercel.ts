@@ -3,5 +3,5 @@
 import { inject } from '@vercel/analytics';
 
 export default () => {
-	// if (!process.dev) inject();
+	inject();
 };
