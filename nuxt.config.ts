@@ -30,6 +30,13 @@ export default defineNuxtConfig({
 			value: ['GET'],
 			route: '',
 			throwError: false, // optional
+		},
+		corsHandler: {
+			value: {
+				origin: '*',
+				methods: '*',
+			},
+			route: ''
 		}
 	},
 	plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],

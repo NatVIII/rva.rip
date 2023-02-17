@@ -222,7 +222,6 @@ onUnmounted(() => {
   if (process.client) window.removeEventListener('resize', updateWeekNumbers)
 });
 
-
 // Updates calendarOptions' eventSources and triggers a re-render of the calendar.
 function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalendarSource[]) {
   // Cut out events without times, but typecheck for types that can have invalid times.
@@ -232,7 +231,6 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
 
     // Filter events.
     const newEvents = eventSource.events.filter((event) => {
-
       /* REMOVED TEMPORARILY, replaced with the hack below: Remove events that last longer than 3 days.
       Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
       Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
@@ -258,6 +256,7 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
     return {
       ...eventSource,
       events: newEvents,
+      // events: newEvents,
     } as EventNormalSource;
   });
   // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.

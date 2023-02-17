@@ -1,8 +1,7 @@
 import eventSourcesJSON from 'public/event_sources.json';
 import { JSDOM } from 'jsdom';
 
-// export default defineCachedEventHandler(async (event) => {
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
 	const body = await fetchEventbriteEvents();
 	return {
 		body
@@ -16,26 +15,24 @@ async function fetchEventbriteEvents() {
 		eventSourcesJSON.eventbrite.map(async (source) => {
 			return await fetch(source.url)
 				.then(res => res.text())
-				.then(html => {
+				.then(async html => {
 					const dom = new JSDOM(html);
 					const eventsRaw = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML).map(convertSchemaDotOrgEventToFullCalendarEvent);
+
 					// Since public & private Eventbrite endpoints provides a series of events as a single event, we need to split them up using their API.
-					let events = new Array();
-					eventsRaw.forEach(async (event) => {
-						const isLongerThan3Days = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) > 3;
+					const events = Promise.all(eventsRaw.map(async (rawEvent) => {
+						const isLongerThan3Days = (rawEvent.end.getTime() - rawEvent.start.getTime()) / (1000 * 3600 * 24) > 3;
 						if (isLongerThan3Days) {
-							const eventSeries = (await getEventSeries(event.url));
-							eventSeries.forEach(event => {
-								events.push(convertEventbriteAPIEventToFullCalendarEvent(event));
-							});
+							const eventSeries = await getEventSeries(rawEvent.url);
+							return eventSeries.map(convertEventbriteAPIEventToFullCalendarEvent);
 						} else {
-							events.push(event);
+							return rawEvent;
 						}
-					});
-					console.log(events);
+					}));
+					const newEvents = (await events).flat();
 
 					return {
-						events,
+						events: newEvents,
 						city: source.city
 					} as EventNormalSource;
 				});
@@ -51,7 +48,11 @@ async function getEventSeries(event_url: string) {
 			return res.json();
 		});
 	// Sometimes the response returns 404 for whatever reason. I imagine for events with information set to private. Ignore those.
-	return res.events || [];
+	if (!res.events) {
+		return [];
+	} else {
+		return res.events;
+	};
 }
 
 function convertSchemaDotOrgEventToFullCalendarEvent(item) {
