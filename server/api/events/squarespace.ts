@@ -12,6 +12,7 @@ export default defineCachedEventHandler(async (event) => {
 });
 
 async function fetchSquarespaceEvents() {
+	console.log('Fetching Squarespace events...')
 	return await Promise.all(
 		eventSourcesJSON.squarespace.map(async (source) => {
 			// Add current date in milliseconds to the URL to get events starting from this moment.

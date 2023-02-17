@@ -12,6 +12,7 @@ export default defineCachedEventHandler(async (event) => {
 });
 
 async function fetchTockifyEvents() {
+	console.log('Fetching Tockify events...')
 	return await Promise.all(
 		eventSourcesJSON.tockify.map(async (source) => {
 			const url = new URL(source.url);

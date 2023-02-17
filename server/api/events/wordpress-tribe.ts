@@ -12,6 +12,7 @@ export default defineCachedEventHandler(async (event) => {
 });
 
 async function fetchWordPressTribeEvents() {
+	console.log('Fetching WordPress Tribe events...')
 	return await Promise.all(
 		eventSourcesJSON.wordPressTribe.map(async (source) => {
 			let wpJson = await (await fetch(source.url)).json();

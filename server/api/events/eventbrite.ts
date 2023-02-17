@@ -13,6 +13,7 @@ export default defineCachedEventHandler(async (event) => {
 });
 
 async function fetchEventbriteEvents() {
+	console.log('Fetching Eventbrite events...');
 	const eventbriteSources = await Promise.all(
 		eventSourcesJSON.eventbrite.map(async (source) => {
 			return await fetch(source.url)
