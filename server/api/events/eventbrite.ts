@@ -10,6 +10,7 @@ export default defineCachedEventHandler(async (event) => {
 }, {
 	maxAge: serverCacheMaxAgeSeconds,
 	staleMaxAge: serverStaleWhileInvalidateSeconds,
+	swr: true,
 });
 
 async function fetchEventbriteEvents() {
