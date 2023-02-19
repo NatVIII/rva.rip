@@ -375,7 +375,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         <div class="blurb">The missing LGBT+-leaning events board for SF Bay! Currently in open beta- please provide
           venue
           suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
-            href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/bytewife/">Instagram!</a>
+            href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/ivyrainey/">Instagram!</a>
         </div>
       </div>
     </div>
