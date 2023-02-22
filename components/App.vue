@@ -310,8 +310,9 @@ const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', {
 addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
 const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
+const { data: instagramSourcesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
+addEventSources(transformEventSourcesResponse(instagramSourcesResponse));
 loadGoogleCalendarEvents();
-const { data: instagramSorucesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
 
 async function loadGoogleCalendarEvents() {
   // Note: Google Calendar has integration with FullCalendar, which allows us to avoid calling it on the server, at

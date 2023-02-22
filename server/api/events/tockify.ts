@@ -14,20 +14,28 @@ export default defineCachedEventHandler(async (event) => {
 
 async function fetchTockifyEvents() {
 	console.log('Fetching Tockify events...')
-	return await Promise.all(
-		eventSourcesJSON.tockify.map(async (source) => {
-			const url = new URL(source.url);
-			// Add current date in milliseconds to the URL to get events starting from this moment.
-			url.searchParams.append('startms', Date.now().toString());
-			let tockifyJson = await (await fetch(url, { headers: serverFetchHeaders })).json();
-			let tockifyEvents = tockifyJson.events;
-			return {
-				events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),
-				city: source.city
-			} as EventNormalSource;
-		}
-		)
-	);
+	let tockifySources = await useStorage().getItem('tockifySources');
+	try {
+		tockifySources = await Promise.all(
+			eventSourcesJSON.tockify.map(async (source) => {
+				const url = new URL(source.url);
+				// Add current date in milliseconds to the URL to get events starting from this moment.
+				url.searchParams.append('startms', Date.now().toString());
+				let tockifyJson = await (await fetch(url, { headers: serverFetchHeaders })).json();
+				let tockifyEvents = tockifyJson.events;
+				return {
+					events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),
+					city: source.city
+				} as EventNormalSource;
+			}
+			)
+		);
+		await useStorage().setItem('tockifySources', tockifySources);
+	}
+	catch (e) {
+		console.log('Error fetching Tockify events: ', e);
+	}
+	return tockifySources;
 };
 
 function convertTockifyEventToFullCalendarEvent(e, url) {
