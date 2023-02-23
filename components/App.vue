@@ -190,7 +190,6 @@ const calendarOptions = ref({
   dayMaxEventRows: updateDayMaxEventRows(),
   navLinks: true,
   weekNumbers: updateWeekNumbers(),
-  googleCalendarApiKey: 'AIzaSyDS35k9d6_Ch4MtSEzcqJqA5Zw9f5TGNZ0',
   eventSources: [],
   // Open in a new tab.
   eventClick: function (event) {
@@ -322,7 +321,9 @@ const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/sq
 addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
 const { data: instagramSourcesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(instagramSourcesResponse));
-loadGoogleCalendarEvents();
+const { data: googleCalendarSourcesResponse } = await useFetch('/api/events/google-calendar', { headers: clientHeaders });
+addEventSources(transformEventSourcesResponse(googleCalendarSourcesResponse));
+// loadGoogleCalendarEvents();
 
 async function loadGoogleCalendarEvents() {
   // Note: Google Calendar has integration with FullCalendar, which allows us to avoid calling it on the server, at
