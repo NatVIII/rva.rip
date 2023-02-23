@@ -6,6 +6,7 @@ import listPlugin from '@fullcalendar/list';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from 'public/event_sources.json';
+import $ from 'jquery';
 
 import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
@@ -146,16 +147,13 @@ const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 :
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
-    title: 'Hello World!',
+    title: 'County/City Filter',
     allCallback: updateAllIsEnabledSetting,
     countyCallback: updateCountyIsEnabledSetting,
     cityCallback: updateCityIsEnabledSetting,
     onConfirm() {
       closeFilterModal()
     },
-  },
-  slots: {
-    default: '<p>The content of the modal</p>',
   },
 })
 
@@ -203,6 +201,8 @@ const calendarOptions = ref({
   },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
+  // Event handlers.
+  viewDidMount: moveListViewScrollbarToToday,
 });
 
 const updateCalendarHeight = () => {
@@ -215,8 +215,16 @@ const updateCalendarHeight = () => {
   };
 };
 
+function moveListViewScrollbarToToday() {
+  const isInListMonthView = $('.fc-scroller.fc-scroller-liquid').length > 0;
+  const isInCurrentMonth = $('.fc-list-day.fc-day.fc-day-today').length > 0;
+  if (isInListMonthView && isInCurrentMonth) {
+    $('.fc-scroller.fc-scroller-liquid').scrollTop($('.fc-list-day.fc-day.fc-day-today').position().top);
+  }
+}
+
 onMounted(() => { 
-  window.addEventListener("resize", updateCalendarHeight)
+  window.addEventListener("resize", updateCalendarHeight);
 });
 // onUpdated(() => {});
 onUnmounted(() => {
@@ -363,6 +371,10 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   const isEnabledRef = countiesToCities[getCounty(cityId)].cities[cityId].enabled;
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
+}
+
+function test() {
+  console.log('test');
 }
 </script>
 
