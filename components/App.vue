@@ -6,6 +6,7 @@ import listPlugin from '@fullcalendar/list';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from 'public/event_sources.json';
+import $ from 'jquery';
 
 import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
@@ -146,16 +147,13 @@ const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 :
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
-    title: 'Hello World!',
+    title: 'County/City Filter',
     allCallback: updateAllIsEnabledSetting,
     countyCallback: updateCountyIsEnabledSetting,
     cityCallback: updateCityIsEnabledSetting,
     onConfirm() {
       closeFilterModal()
     },
-  },
-  slots: {
-    default: '<p>The content of the modal</p>',
   },
 })
 
@@ -203,6 +201,8 @@ const calendarOptions = ref({
   },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
+  // Event handlers.
+  viewDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
 const updateCalendarHeight = () => {
@@ -215,8 +215,18 @@ const updateCalendarHeight = () => {
   };
 };
 
+function moveListViewScrollbarToTodayAndColor() {
+  const isInListMonthView = $('.fc-scroller.fc-scroller-liquid').length > 0;
+  const isInCurrentMonth = $('.fc-list-day.fc-day.fc-day-today').length > 0;
+  if (isInListMonthView && isInCurrentMonth) {
+    $('.fc-scroller.fc-scroller-liquid').scrollTop($('.fc-list-day.fc-day.fc-day-today').position().top);
+    // Also change the color
+    $('.fc-list-day.fc-day.fc-day-today').css('--fc-neutral-bg-color', 'lightgreen');
+  }
+}
+
 onMounted(() => { 
-  window.addEventListener("resize", updateCalendarHeight)
+  window.addEventListener("resize", updateCalendarHeight);
 });
 // onUpdated(() => {});
 onUnmounted(() => {
@@ -310,6 +320,8 @@ const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', {
 addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
 const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace', { headers: clientHeaders });
 addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
+const { data: instagramSourcesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
+addEventSources(transformEventSourcesResponse(instagramSourcesResponse));
 loadGoogleCalendarEvents();
 
 async function loadGoogleCalendarEvents() {
@@ -362,6 +374,10 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
 }
+
+function test() {
+  console.log('test');
+}
 </script>
 
 <template>
@@ -372,10 +388,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         bay.lgbt
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
-        <div class="blurb">The missing LGBT+-leaning events board for SF Bay! Currently in open beta- please provide
-          venue
-          suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
-            href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/ivyrainey/">Instagram!</a>
+        <div class="blurb">The missing lgbt events board for all around SF bay! Currently in open beta! Please send event
+          & organizers to <a href="https://www.instagram.com/ivyrainey/">Ivy</a> ;3
         </div>
       </div>
     </div>
@@ -399,7 +413,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           be as simple as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once
           published, request inclusion of your event feed by <a href="https://github.com/ivyraine/bay.lgbt/issues">submitting
             your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or
-          improvements there!</p>
+          improvements there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes
+          at the expense of accuracy and Ivy's (lack of) budget 🥲</p>
       </div>
       <img class="gifs" src="/bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 400)' />
     </div>

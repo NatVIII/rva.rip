@@ -15,32 +15,44 @@ export default defineCachedEventHandler(async (event) => {
 
 async function fetchEventbriteEvents() {
 	console.log('Fetching Eventbrite events...');
-	const eventbriteSources = await Promise.all(
-		eventSourcesJSON.eventbrite.map(async (source) => {
-			return await fetch(source.url, { headers: serverFetchHeaders })
-				.then(res => res.text())
-				.then(async html => {
-					const dom = new JSDOM(html);
-					const eventsRaw = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML).map(convertSchemaDotOrgEventToFullCalendarEvent);
 
-					// Since public & private Eventbrite endpoints provides a series of events as a single event, we need to split them up using their API.
-					const events = Promise.all(eventsRaw.map(async (rawEvent) => {
-						const isLongerThan3Days = (rawEvent.end.getTime() - rawEvent.start.getTime()) / (1000 * 3600 * 24) > 3;
-						if (isLongerThan3Days) {
-							const eventSeries = await getEventSeries(rawEvent.url);
-							return eventSeries.map(convertEventbriteAPIEventToFullCalendarEvent);
-						} else {
-							return rawEvent;
-						}
-					}));
-					const newEvents = (await events).flat();
+	if (process.env.EVENTBRITE_API_KEY === undefined) {
+		console.error("No Eventbrite API key found. Please set the EVENTBRITE_API_KEY environment variable.");
+	}
 
-					return {
-						events: newEvents,
-						city: source.city
-					} as EventNormalSource;
-				});
-		}))
+	let eventbriteSources = await useStorage().getItem('eventbriteSources');
+	try {
+		eventbriteSources = await Promise.all(
+			eventSourcesJSON.eventbrite.map(async (source) => {
+				return await fetch(source.url, { headers: serverFetchHeaders })
+					.then(res => res.text())
+					.then(async html => {
+						const dom = new JSDOM(html);
+						const eventsRaw = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML).map(convertSchemaDotOrgEventToFullCalendarEvent);
+
+						// Since public & private Eventbrite endpoints provides a series of events as a single event, we need to split them up using their API.
+						const events = Promise.all(eventsRaw.map(async (rawEvent) => {
+							const isLongerThan3Days = (rawEvent.end.getTime() - rawEvent.start.getTime()) / (1000 * 3600 * 24) > 3;
+							if (isLongerThan3Days) {
+								const eventSeries = await getEventSeries(rawEvent.url);
+								return eventSeries.map(convertEventbriteAPIEventToFullCalendarEvent);
+							} else {
+								return rawEvent;
+							}
+						}));
+						const newEvents = (await events).flat();
+
+						return {
+							events: newEvents,
+							city: source.city
+						} as EventNormalSource;
+					});
+			}));
+		await useStorage().setItem('eventbriteSources', eventbriteSources);
+	}
+	catch (e) {
+		console.error("Error fetching Eventbrite events: ", e);
+	}
 	return eventbriteSources;
 };
 

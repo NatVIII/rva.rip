@@ -14,17 +14,24 @@ export default defineCachedEventHandler(async (event) => {
 
 async function fetchSquarespaceEvents() {
 	console.log('Fetching Squarespace events...')
-	return await Promise.all(
-		eventSourcesJSON.squarespace.map(async (source) => {
-			// Add current date in milliseconds to the URL to get events starting from this moment.
-			let squarespaceJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
-			let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
-			return {
-				events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
-				city: source.city
-			} as EventNormalSource;
-		})
-	);
+	let squarespaceSources = await useStorage().getItem('squarespaceSources');
+	try {
+		squarespaceSources = await Promise.all(
+			eventSourcesJSON.squarespace.map(async (source) => {
+				// Add current date in milliseconds to the URL to get events starting from this moment.
+				let squarespaceJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
+				let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
+				return {
+					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
+					city: source.city
+				} as EventNormalSource;
+			})
+		);
+		await useStorage().setItem('squarespaceSources', squarespaceSources);
+	} catch (e) {
+		console.log('Error fetching Squarespace events: ', e);
+	}
+	return squarespaceSources;
 };
 
 function convertSquarespaceEventToFullCalendarEvent(e, url) {

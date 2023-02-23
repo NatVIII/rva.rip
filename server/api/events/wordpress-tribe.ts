@@ -14,7 +14,9 @@ export default defineCachedEventHandler(async (event) => {
 
 async function fetchWordPressTribeEvents() {
 	console.log('Fetching WordPress Tribe events...')
-	return await Promise.all(
+	let wordPressTribeSources = await useStorage().getItem('wordPressTribeSources');
+	try {
+		wordPressTribeSources = await Promise.all(
 		eventSourcesJSON.wordPressTribe.map(async (source) => {
 			let wpJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
 			let wpEvents = wpJson.events;
@@ -29,6 +31,11 @@ async function fetchWordPressTribeEvents() {
 			} as EventNormalSource;
 		}
 		));
+		await useStorage().setItem('wordPressTribeSources', wordPressTribeSources);
+	} catch (error) {
+		console.error(error);
+	}
+	return wordPressTribeSources;
 };
 
 // The following conversion function is basically ripped from anarchism.nyc.
