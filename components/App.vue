@@ -388,8 +388,8 @@ function test() {
         bay.lgbt
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
-        <div class="blurb">The missing lgbt events board for all around SF bay! Currently in open beta! Please send event
-          & organizers to <a href="https://www.instagram.com/ivyrainey/">Ivy</a> ;3
+        <div class="blurb">An lgbt events aggregator for all around SF bay! Currently in open beta! Please DM event
+          & organizers recommendations <a href="https://www.instagram.com/ivyrainey/">here</a> ;3
         </div>
       </div>
     </div>
@@ -414,7 +414,8 @@ function test() {
           published, request inclusion of your event feed by <a href="https://github.com/ivyraine/bay.lgbt/issues">submitting
             your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or
           improvements there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes
-          at the expense of accuracy and Ivy's (lack of) budget 🥲</p>
+          at the expense of accuracy and Ivy's budget (nonexistent).</p>
+        <a href="https://github.com/ivyraine/bay.lgbt/">source code</a>
       </div>
       <img class="gifs" src="/bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 400)' />
     </div>
