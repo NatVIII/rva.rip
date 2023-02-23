@@ -401,7 +401,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           be as simple as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once
           published, request inclusion of your event feed by <a href="https://github.com/ivyraine/bay.lgbt/issues">submitting
             your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or
-          improvements there!</p>
+          improvements there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes
+          at the expense of accuracy and Ivy's (lack of) budget 🥲</p>
       </div>
       <img class="gifs" src="/bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 400)' />
     </div>

@@ -4,6 +4,6 @@ import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds } from './u
 
 export default defineNitroConfig({
 	routeRules: {
-		// '/': { cache: { swr: true, maxAge: serverCacheMaxAgeSeconds, staleMaxAge: serverStaleWhileInvalidateSeconds } }
+		'/': { cache: { swr: true, maxAge: serverCacheMaxAgeSeconds, staleMaxAge: serverStaleWhileInvalidateSeconds } }
 	},
 });

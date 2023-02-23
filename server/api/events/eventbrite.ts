@@ -16,6 +16,10 @@ export default defineCachedEventHandler(async (event) => {
 async function fetchEventbriteEvents() {
 	console.log('Fetching Eventbrite events...');
 
+	if (process.env.EVENTBRITE_API_KEY === undefined) {
+		console.error("No Eventbrite API key found. Please set the EVENTBRITE_API_KEY environment variable.");
+	}
+
 	let eventbriteSources = await useStorage().getItem('eventbriteSources');
 	try {
 		eventbriteSources = await Promise.all(

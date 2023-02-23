@@ -1,10 +1,11 @@
 import { Configuration, OpenAIApi } from 'openai';
 import eventSourcesJSON from 'public/event_sources.json';
-import { json } from 'stream/consumers';
 import { serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
+import vision from '@google-cloud/vision';
 
 export default defineCachedEventHandler(async (event) => {
+// export default defineEventHandler(async (event) => {
 	const body = await fetchInstagramEvents();
 	return {
 		body
@@ -15,9 +16,31 @@ export default defineCachedEventHandler(async (event) => {
 	swr: true,
 });
 
+async function doOCR(url: string) {
+	if (!process.env.GOOGLE_CLOUD_VISION_PRIVATE_KEY) {
+		console.error('GOOGLE_CLOUD_VISION_PRIVATE_KEY not found.');
+	}
+	if (!process.env.GOOGLE_CLOUD_VISION_CLIENT_EMAIL) {
+		console.error('GOOGLE_CLOUD_VISION_CLIENT_EMAIL not found.');
+	}
+	const client = new vision.ImageAnnotatorClient({
+		scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+		credentials: {
+			private_key: process.env.GOOGLE_CLOUD_VISION_PRIVATE_KEY.replace(/\\n/g, '\n'),
+			client_email: process.env.GOOGLE_CLOUD_VISION_CLIENT_EMAIL,
+		},
+	});
+	const [result] = await client.textDetection(url);
+
+	const annotations = (Object.hasOwn(result, 'textAnnotations') && result.textAnnotations.length > 0) ?
+		result.fullTextAnnotation.text : '';
+
+	return annotations;
+}
+
 function getInstagramQuery(sourceUsername: string) {
 	return `https://graph.facebook.com/v16.0/${process.env.INSTAGRAM_BUSINESS_USER_ID}?fields=`
-		+ `business_discovery.username(${sourceUsername}){biography,media_count,media.limit(1){caption,permalink,media_type,media_url,children{media_url}}}`
+		+ `business_discovery.username(${sourceUsername}){biography,media_count,media.limit(6){caption,permalink,media_type,media_url,children{media_url}}}`
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
@@ -78,22 +101,39 @@ async function fetchInstagramEvents() {
 		console.error('Could not zip events: ', err);
 	}
 
-	let unregisteredInstagramEventsAllSources = await useStorage().getItem('unregisteredInstagramEventsAllSources');
+	let unregisteredInstagramEventsAllSources = [];
 	try {
 		unregisteredInstagramEventsAllSources = eventsZippedAllSources.map((eventsZipped, sourceNum) => {
 			// Promise always returns false, so we filter here.
 			return eventsZipped.filter(([id, eventZip]) => eventZip.dbEntry === null)
 				.map(([id, eventZip]) => eventZip.newEntry);
 		});
-		await useStorage().setItem('unregisteredInstagramEventsAllSources', unregisteredInstagramEventsAllSources);
 	} catch (err) {
 		console.error('Could not filter events: ', err);
 	}
 
-	let openAIResponsesAllSources = await useStorage().getItem('openAIResponsesAllSources');
+	let unregisteredInstagramEventsWithOcrAllSources = unregisteredInstagramEventsAllSources;
+	try {
+		unregisteredInstagramEventsWithOcrAllSources = await Promise.all(
+			unregisteredInstagramEventsAllSources.map(async (unregisteredInstagramEvents) => {
+				return await Promise.all(unregisteredInstagramEvents.map(async (event) => {
+					const ocrResult = await doOCR(event.media_url);
+					return {
+						...event,
+						ocrResult
+					};
+				}
+				));
+			}));
+	}
+	catch (err) {
+		console.error('Could perform OCR: ', err);
+	}
+
+	let openAIResponsesAllSources = [];
 	try {
 		openAIResponsesAllSources = await Promise.all(
-			unregisteredInstagramEventsAllSources.map(async (unregisteredInstagramEvents, sourceNum) => {
+			unregisteredInstagramEventsWithOcrAllSources.map(async (unregisteredInstagramEvents, sourceNum) => {
 				const source = eventSourcesJSON.instagram[sourceNum];
 
 				return await Promise.all(unregisteredInstagramEvents.map(async (event) => {
@@ -101,11 +141,17 @@ async function fetchInstagramEvents() {
 					const tags_string = source.context_clues.join(' & ');
 
 					const caption = event.caption;
-					const prompt = `You're given a post from an Instagram account related to ${tags_string}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related)\n` +
-						"Here's all the information provided by the post:\n" +
+					const prompt = `You're given a post from an Instagram account related to ${tags_string}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
+						"Here's the caption provided by the post:\n" +
 						"```\n" +
-						`caption: ${caption}` + "\n" +
+						`${caption}` + "\n" +
 						"```\n" +
+						"\n" +
+						"Here's the result of an OCR AI that reads text from the post's image:\n" +
+						"```\n" +
+						`${event.ocrResult !== undefined ? "OCR Result: " + event.ocrResult : ''}` + "\n" +
+						"```\n" +
+						"\n" +
 						"Output the results in the following JSON format: \n" +
 						"```\n" +
 						`{ ` +
@@ -121,7 +167,13 @@ async function fetchInstagramEvents() {
 						`"endYear": number, ` +
 						` }\n` +
 						"```\n" +
+						"Here's some important information regarding the post information:\n" +
+						"-Information provided by the caption is guaranteed to be correct. However, the caption might be lacking information.\n" +
+						"-The OCR result is provided by an OCR AI & thus may contain errors. Use it as a supplement for the information provided in the caption! This is especially useful when the caption is lacking information. The OCR Result also may contain information that's not provided by the caption!\n" +
+						"-Sometimes a person or artist's username and their actual name can be found in the caption and OCR result; the username can be indicated by it being all lowercase and containing `.`s or `_`s. Their actual names would have very similar letters to the username, and might be provided by the OCR result. If the actual name is found, prefer using it for the JSON title, otherwise use the username.\n" +
 						"Here are some additional rules you should follow:\n" +
+						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
+						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
 						"-If no end day is explicitly provided by the post, assign it to null.\n" +
 						"-If no end hour is explicitly provided by the post, assign it to null.\n" +
 						"-If no end month is explicitly provided by the post, assign it to the same month as startMonth.\n" +
@@ -153,7 +205,7 @@ async function fetchInstagramEvents() {
 					const maxAttempts = 2;
 					while (attempts < maxAttempts) {
 						try {
-							return { event, response: await runResponse() };
+							return { event, data: (await runResponse()).data };
 						} catch (e) {
 							++attempts;
 							if (attempts === maxAttempts) {
@@ -163,22 +215,20 @@ async function fetchInstagramEvents() {
 					}
 				}));
 			}));
-		await useStorage().setItem('openAIResponsesAllSources', openAIResponsesAllSources);
 	}
 	catch (err) {
 		console.error('Could not get OpenAI responses: ', err);
 	}
 
-	let parsedOpenAIResponsesAllSources = await useStorage().getItem('parsedOpenAIResponsesAllSources');
+	let parsedOpenAIResponsesAllSources = [];
 	try {
 		parsedOpenAIResponsesAllSources = await Promise.all(
 			openAIResponsesAllSources.map(async (openAIResponses, sourceNum) => {
 				const source = eventSourcesJSON.instagram[sourceNum];
-				return Promise.all(openAIResponses.map(async ({ event, response }) => {
+				return Promise.all(openAIResponses.map(async ({ event, data }) => {
 					let jsonFromResponse = { isNull: true };
 					try {
-						const responseText = response.data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
-
+						const responseText = data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
 						console.log('Parsing the following into JSON: ', responseText)
 						const potentialResult = JSON.parse(await responseText);
 
@@ -199,11 +249,14 @@ async function fetchInstagramEvents() {
 						}
 						jsonFromResponse = potentialResult;
 					} catch (e) {
-						++attempts;
-						console.log(`JSON parse attempt #${attempts} failed`);
-						if (attempts === maxAttempts) {
-							return;
-						}
+						console.error(e);
+						throw new Error('Could not parse into JSON: ', responseText);
+					}
+					// Post-processing.
+
+					// Set to invalid if given insufficient information.
+					if (jsonFromResponse.startDay === null || jsonFromResponse.startHourMilitaryTime === null) {
+						jsonFromResponse.isNull = true;
 					}
 					if (jsonFromResponse.startYear === null) {
 						jsonFromResponse.startYear = new Date().getFullYear();
@@ -211,7 +264,6 @@ async function fetchInstagramEvents() {
 					if (jsonFromResponse.endYear === null) {
 						jsonFromResponse.endYear = jsonFromResponse.startYear;
 					}
-				// Post-processing.
 					if (jsonFromResponse.startMonth === 12 && jsonFromResponse.endMonth === 1) {
 						jsonFromResponse.endYear = jsonFromResponse.startYear + 1;
 					}
@@ -241,13 +293,12 @@ async function fetchInstagramEvents() {
 					return jsonFromResponse;
 				}));
 			}));
-		await useStorage().setItem('parsedOpenAIResponsesAllSources', parsedOpenAIResponsesAllSources);
 	}
 	catch (err) {
 		console.error('Could not parse OpenAI responses: ', err);
 	}
 
-	let instagramEventSources = await useStorage().getItem('instagramEventSources');
+	let instagramEventSources = await useStorage().getItem('instagramEventSources') || [];
 	try {
 		instagramEventSources = await Promise.all(
 			parsedOpenAIResponsesAllSources.map(async (organizerEventsAndNonEventsToAdd, sourceNum) => {
