@@ -374,24 +374,24 @@ async function fetchInstagramEvents() {
 							});
 						}));
 
-						// Pruning step.
-						const eventsToKeepIds = new Set(eventsToKeep.map((event) => event.igId));
-						// Get all events from organizer.
-						const eventsFromOrganizer = await prisma.instagramEvent.findMany({
-							where: {
-								organizerId: organizerId
-							}
-						});
-						// Delete all events from organizer that are not in eventsToKeepIds.
-						await Promise.all(eventsFromOrganizer.map(async (event) => {
-							if (!eventsToKeepIds.has(event.igId)) {
-								await prisma.instagramEvent.delete({
-									where: {
-										igId: event.igId
-									}
-								});
-							}
-						}));
+						// // Pruning step.
+						// const eventsToKeepIds = new Set(eventsToKeep.map((event) => event.igId));
+						// // Get all events from organizer.
+						// const eventsFromOrganizer = await prisma.instagramEvent.findMany({
+						// 	where: {
+						// 		organizerId: organizerId
+						// 	}
+						// });
+						// // Delete all events from organizer that are not in eventsToKeepIds.
+						// await Promise.all(eventsFromOrganizer.map(async (event) => {
+						// 	if (!eventsToKeepIds.has(event.igId)) {
+						// 		await prisma.instagramEvent.delete({
+						// 			where: {
+						// 				igId: event.igId
+						// 			}
+						// 		});
+						// 	}
+						// }));
 
 						return {
 							events: eventsToKeep,
