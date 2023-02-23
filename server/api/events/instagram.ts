@@ -44,6 +44,11 @@ function getInstagramQuery(sourceUsername: string) {
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
+function logTimeElapsedSince(startTime: number, message: string) {
+	const timeElapsed = Date.now() - startTime;
+	console.log(`Time elapsed: ${timeElapsed}ms at ${message}`);
+}
+
 async function fetchInstagramEvents() {
 	console.log('Fetching Instagram events...');
 	if (!process.env.INSTAGRAM_BUSINESS_USER_ID) {
@@ -55,6 +60,8 @@ async function fetchInstagramEvents() {
 	if (!process.env.OPENAI_API_KEY) {
 		console.error('OPENAI_API_KEY not found.');
 	}
+
+	const startTime = Date.now();
 
 	const prisma = new PrismaClient();
 
@@ -77,6 +84,7 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not fetch data from Instagram: ', err);
 	}
+	logTimeElapsedSince(startTime, 'fetching Instagram data');
 
 	let eventsZippedAllSources = await useStorage().getItem('eventsZippedAllSources');
 	try {
@@ -100,6 +108,7 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not zip events: ', err);
 	}
+	logTimeElapsedSince(startTime, 'zipping events');
 
 	let unregisteredInstagramEventsAllSources = [];
 	try {
@@ -111,6 +120,7 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not filter events: ', err);
 	}
+	logTimeElapsedSince(startTime, 'filtering events');
 
 	let unregisteredInstagramEventsWithOcrAllSources = unregisteredInstagramEventsAllSources;
 	try {
@@ -129,6 +139,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could perform OCR: ', err);
 	}
+	logTimeElapsedSince(startTime, 'performing OCR');
 
 	let openAIResponsesAllSources = [];
 	try {
@@ -219,6 +230,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could not get OpenAI responses: ', err);
 	}
+	logTimeElapsedSince(startTime, 'getting OpenAI responses');
 
 	let parsedOpenAIResponsesAllSources = [];
 	try {
@@ -297,6 +309,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could not parse OpenAI responses: ', err);
 	}
+	logTimeElapsedSince(startTime, 'parsing OpenAI responses');
 
 	let instagramEventSources = await useStorage().getItem('instagramEventSources') || [];
 	try {
@@ -392,6 +405,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could not add events to database: ', err);
 	}
+	logTimeElapsedSince(startTime, 'adding events to database');
 
 	return instagramEventSources[0];
 };
