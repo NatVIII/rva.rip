@@ -376,13 +376,11 @@ label {}
   /* The following is just for a simple background color */
   /* --fc-today-bg-color: yellow; */
   background:
-    /* On "top" */
     repeating-linear-gradient(45deg,
       transparent,
       transparent 10px,
       #eee 10px,
       #eee 20px),
-    /* on "bottom" */
     linear-gradient(to bottom,
       white,
       white);
@@ -496,4 +494,7 @@ body.no-scroll {
   transition: 0s 1s;
   background-image:
     linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00);
+}
+.fc-list-day-cushion .fc-cell-shaded {
+  --fc-neutral-bg-color: blue;
 }

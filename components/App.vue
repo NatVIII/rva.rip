@@ -202,7 +202,7 @@ const calendarOptions = ref({
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
   // Event handlers.
-  viewDidMount: moveListViewScrollbarToToday,
+  viewDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
 const updateCalendarHeight = () => {
@@ -215,11 +215,13 @@ const updateCalendarHeight = () => {
   };
 };
 
-function moveListViewScrollbarToToday() {
+function moveListViewScrollbarToTodayAndColor() {
   const isInListMonthView = $('.fc-scroller.fc-scroller-liquid').length > 0;
   const isInCurrentMonth = $('.fc-list-day.fc-day.fc-day-today').length > 0;
   if (isInListMonthView && isInCurrentMonth) {
     $('.fc-scroller.fc-scroller-liquid').scrollTop($('.fc-list-day.fc-day.fc-day-today').position().top);
+    // Also change the color
+    $('.fc-list-day.fc-day.fc-day-today').css('--fc-neutral-bg-color', 'lightgreen');
   }
 }
 
