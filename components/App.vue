@@ -388,10 +388,8 @@ function test() {
         bay.lgbt
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
-        <div class="blurb">The missing LGBT+-leaning events board for SF Bay! Currently in open beta- please provide
-          venue
-          suggestions to Ivy at <a href="https://twitter.com/BYTEWIFE">Twitter</a> / <a
-            href="https://mastodon.social/@BYTEWIFE">Mastodon</a> / <a href="https://www.instagram.com/ivyrainey/">Instagram!</a>
+        <div class="blurb">The missing lgbt events board for all around SF bay! Currently in open beta! Please send event
+          & organizers to <a href="https://www.instagram.com/ivyrainey/">Ivy</a> ;3
         </div>
       </div>
     </div>
