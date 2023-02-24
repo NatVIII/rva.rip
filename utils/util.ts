@@ -36,3 +36,8 @@ export const serverStaleWhileInvalidateSeconds = -1; /* 24 * 3600; */
 export const serverFetchHeaders = {
 	'Cache-Control': `max-age=${serverCacheMaxAgeSeconds}, stale-while-revalidate=${serverStaleWhileInvalidateSeconds}`,
 };
+
+export function logTimeElapsedSince(startTime: number, message: string) {
+	const timeElapsed = Date.now() - startTime;
+	console.log(`[time] ${timeElapsed}ms for ${message}`);
+}

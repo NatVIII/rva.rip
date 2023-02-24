@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai';
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 
@@ -44,11 +44,6 @@ function getInstagramQuery(sourceUsername: string) {
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
-function logTimeElapsedSince(startTime: number, message: string) {
-	const timeElapsed = Date.now() - startTime;
-	console.log(`Time elapsed: ${timeElapsed}ms at ${message}`);
-}
-
 async function fetchInstagramEvents() {
 	console.log('Fetching Instagram events...');
 	if (!process.env.INSTAGRAM_BUSINESS_USER_ID) {
@@ -84,7 +79,7 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not fetch data from Instagram: ', err);
 	}
-	logTimeElapsedSince(startTime, 'fetching Instagram data');
+	logTimeElapsedSince(startTime, 'Instagram: fetching Instagram data');
 
 	let eventsZippedAllSources = await useStorage().getItem('eventsZippedAllSources');
 	try {
@@ -108,7 +103,14 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not zip events: ', err);
 	}
-	logTimeElapsedSince(startTime, 'zipping events');
+	logTimeElapsedSince(startTime, 'Instagram: zipping events');
+
+	// Convert to Map.
+	console.log();
+
+	const eventsZippedAllSourcesMap = eventsZippedAllSources.map((eventsZipped) => {
+		return new Map(eventsZipped);
+	});
 
 	let unregisteredInstagramEventsAllSources = [];
 	try {
@@ -120,7 +122,7 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not filter events: ', err);
 	}
-	logTimeElapsedSince(startTime, 'filtering events');
+	logTimeElapsedSince(startTime, 'Instagram: filtering events');
 
 	let unregisteredInstagramEventsWithOcrAllSources = unregisteredInstagramEventsAllSources;
 	try {
@@ -139,7 +141,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could perform OCR: ', err);
 	}
-	logTimeElapsedSince(startTime, 'performing OCR');
+	logTimeElapsedSince(startTime, 'Instagram: performing OCR');
 
 	let openAIResponsesAllSources = [];
 	try {
@@ -230,7 +232,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could not get OpenAI responses: ', err);
 	}
-	logTimeElapsedSince(startTime, 'getting OpenAI responses');
+	logTimeElapsedSince(startTime, 'Instagram: getting OpenAI responses');
 
 	let parsedOpenAIResponsesAllSources = [];
 	try {
@@ -309,7 +311,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could not parse OpenAI responses: ', err);
 	}
-	logTimeElapsedSince(startTime, 'parsing OpenAI responses');
+	logTimeElapsedSince(startTime, 'Instagram: parsing OpenAI responses');
 
 	let instagramEventSources = await useStorage().getItem('instagramEventSources') || [];
 	try {
@@ -362,42 +364,51 @@ async function fetchInstagramEvents() {
 						}
 					}
 				})
-				).then(async () => {
-					// Then re-query the database for each event now that it's in the database.
-					// Note: this is redundant- can concat the registered events with the new events, which we don't need to query for.
-					return await Promise.all(instagramOrganizers.map(async (instagramOrganizer) => {
-						const eventsToKeep = await Promise.all(instagramOrganizer.business_discovery.media.data.map((instagramEvent) => {
-							return prisma.instagramEvent.findUnique({
+				).then(async (newEventsAndNonEvents) => {
+					// This avoids redundant queries to the DB.
+
+					const currentEventsIds = new Set();
+					let currentEventSourceMap = eventsZippedAllSourcesMap[sourceNum]
+					newEventsAndNonEvents.forEach((newEventOrNonEvent) => {
+						// Check if it's an event.
+						if (newEventOrNonEvent.start) {
+							// Get previous entry.
+							const newEntry = currentEventSourceMap.get(newEventOrNonEvent.igId);
+							newEntry.dbEntry = newEventOrNonEvent;
+							currentEventSourceMap.set(newEventOrNonEvent.igId, newEntry);
+						}
+						// Otherwise remove it from map.
+						else {
+							currentEventsIds.add(newEventOrNonEvent.igId);
+							currentEventSourceMap.delete(newEventOrNonEvent.igId);
+						}
+					});
+					// Map each entry to have just .dbEntry
+					const eventsToKeep = Array.from(currentEventSourceMap.values()).map((entry) => { return entry.dbEntry });
+
+					// Pruning step.
+					eventsToKeep.forEach((event) => currentEventsIds.add(event.igId));
+					// Get all events from organizer.
+					const eventsFromOrganizer = await prisma.instagramEvent.findMany({
+						where: {
+							organizerId: organizerId
+						}
+					});
+					// Delete all events from organizer that are not in eventsToKeepIds.
+					await Promise.all(eventsFromOrganizer.map(async (event) => {
+						if (!currentEventsIds.has(event.igId)) {
+							await prisma.instagramEvent.delete({
 								where: {
-									igId: instagramEvent.id
+									igId: event.igId
 								}
 							});
-						}));
+						}
+					}))
 
-						// // Pruning step.
-						// const eventsToKeepIds = new Set(eventsToKeep.map((event) => event.igId));
-						// // Get all events from organizer.
-						// const eventsFromOrganizer = await prisma.instagramEvent.findMany({
-						// 	where: {
-						// 		organizerId: organizerId
-						// 	}
-						// });
-						// // Delete all events from organizer that are not in eventsToKeepIds.
-						// await Promise.all(eventsFromOrganizer.map(async (event) => {
-						// 	if (!eventsToKeepIds.has(event.igId)) {
-						// 		await prisma.instagramEvent.delete({
-						// 			where: {
-						// 				igId: event.igId
-						// 			}
-						// 		});
-						// 	}
-						// }));
-
-						return {
-							events: eventsToKeep,
-							city: source.city
-						};
-					}));
+					return {
+						events: eventsToKeep,
+						city: source.city,
+					}
 				});
 			}));
 		await useStorage().setItem('instagramEventSources', instagramEventSources);
@@ -405,7 +416,7 @@ async function fetchInstagramEvents() {
 	catch (err) {
 		console.error('Could not add events to database: ', err);
 	}
-	logTimeElapsedSince(startTime, 'adding events to database');
+	logTimeElapsedSince(startTime, 'Instagram: getting new event sources & pruning');
 
-	return instagramEventSources[0];
+	return instagramEventSources;
 };
