@@ -1,6 +1,12 @@
 {
 	"instagram": [
 		{
+			"name": "Adobe Books",
+			"username": "adobebookshop",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
 			"name": "orifice.0",
 			"username": "orifice.0",
 			"context_clues": [
@@ -30,12 +36,6 @@
 			"context_clues": [
 				"Anarchism"
 			],
-			"city": "San Francisco"
-		},
-		{
-			"name": "Adobe Books",
-			"username": "adobebookshop",
-			"context_clues": [],
 			"city": "San Francisco"
 		},
 		{
@@ -77,12 +77,6 @@
 			"url": "https://www.eventbrite.com/o/hysteria-comedy-21754687241#events",
 			"id": "21754687241",
 			"city": "San Francisco"
-		},
-		{
-			"name": "queer expression",
-			"url": "https://www.eventbrite.com/o/queer-expression-oakland-34271650919#events",
-			"id": "34271650919",
-			"city": "Oakland"
 		},
 		{
 			"name": "The Neighbor's Pub",
