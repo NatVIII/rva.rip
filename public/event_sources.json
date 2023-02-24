@@ -15,6 +15,14 @@
 				"Music"
 			],
 			"city": "San Francisco"
+		},
+		{
+			"name": "Digi Divas",
+			"username": "digi.divas",
+			"context_clues": [
+				"Music"
+			],
+			"city": "San Francisco"
 		}
 	],
 	"eventbrite": [

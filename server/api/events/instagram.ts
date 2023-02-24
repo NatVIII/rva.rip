@@ -4,8 +4,8 @@ import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serv
 import { PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 
-export default defineCachedEventHandler(async (event) => {
-// export default defineEventHandler(async (event) => {
+// export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
 	const body = await fetchInstagramEvents();
 	return {
 		body
@@ -16,7 +16,7 @@ export default defineCachedEventHandler(async (event) => {
 	swr: true,
 });
 
-async function doOCR(url: string) {
+async function doOCR(urls: string[]) {
 	if (!process.env.GOOGLE_CLOUD_VISION_PRIVATE_KEY) {
 		console.error('GOOGLE_CLOUD_VISION_PRIVATE_KEY not found.');
 	}
@@ -30,12 +30,16 @@ async function doOCR(url: string) {
 			client_email: process.env.GOOGLE_CLOUD_VISION_CLIENT_EMAIL,
 		},
 	});
-	const [result] = await client.textDetection(url);
+	const annotationsAll = await Promise.all(
+		urls.map(async (url) => {
+			const [result] = await client.textDetection(url);
+			const annotations = (Object.hasOwn(result, 'textAnnotations') && result.textAnnotations.length > 0) ?
+				result.fullTextAnnotation.text : ''
+			return annotations;
+		}));
 
-	const annotations = (Object.hasOwn(result, 'textAnnotations') && result.textAnnotations.length > 0) ?
-		result.fullTextAnnotation.text : '';
-
-	return annotations;
+	const result = annotationsAll.join('\n');
+	return result;
 }
 
 function getInstagramQuery(sourceUsername: string) {
@@ -126,7 +130,14 @@ async function fetchInstagramEvents() {
 		unregisteredInstagramEventsWithOcrAllSources = await Promise.all(
 			unregisteredInstagramEventsAllSources.map(async (unregisteredInstagramEvents) => {
 				return await Promise.all(unregisteredInstagramEvents.map(async (event) => {
-					const ocrResult = await doOCR(event.media_url);
+					const mediaLinks = event.children ?
+						event.children.data.filter((child) => child.media_url.includes('jpg'))
+							.map((child) => child.media_url)
+						:
+						[event.media_url];
+					console.log('mediaLinks', mediaLinks);
+
+					const ocrResult = await doOCR(mediaLinks);
 					return {
 						...event,
 						ocrResult
@@ -367,7 +378,7 @@ async function fetchInstagramEvents() {
 					let currentEventSourceMap = eventsZippedAllSourcesMap[sourceNum]
 					newEventsAndNonEvents.forEach((newEventOrNonEvent) => {
 						// Check if it's an event.
-						if (newEventOrNonEvent.start) {
+						if (Object.hasOwn(newEventOrNonEvent, 'start')) {
 							// Get previous entry.
 							const newEntry = currentEventSourceMap.get(newEventOrNonEvent.igId);
 							newEntry.dbEntry = newEventOrNonEvent;
