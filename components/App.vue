@@ -293,6 +293,7 @@ const clientHeaders = {
 
 const transformEventSourcesResponse = (eventSources) => {
   const eventsSourcesWithoutProxy = toRaw(eventSources.value.body)
+  if (!eventsSourcesWithoutProxy || eventsSourcesWithoutProxy.length < 1) return [];
   const datesAdded = eventsSourcesWithoutProxy.map(eventSource => {
     return {
       ...eventSource,

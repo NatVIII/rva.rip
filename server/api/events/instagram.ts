@@ -70,7 +70,9 @@ async function fetchInstagramEvents() {
 	const openai = new OpenAIApi(configuration);
 
 	let instagramOrganizers = await useStorage().getItem('instagramOrganizers');
+	// const instagramJson = [eventSourcesJSON.instagram[0]];
 	const instagramJson = eventSourcesJSON.instagram;
+	console.log('instagramJson: ', instagramJson);
 
 	try {
 		instagramOrganizers = await Promise.all(
@@ -89,8 +91,9 @@ async function fetchInstagramEvents() {
 
 	// Check if last organizer is an error message.
 	const lastOrganizer = instagramOrganizers[instagramOrganizers.length - 1];
-	if (!process.env.dev && lastOrganizer.error && lastOrganizer.error.code && lastOrganizer.error.code === 4) {
+	if (lastOrganizer.error && lastOrganizer.error.code && lastOrganizer.error.code === 4) {
 		console.error("Instagram API rate limit reached! Returning cached data.")
+		console.log('instagramOrganizers: ', instagramOrganizers);
 		return await useStorage().getItem('instagramEventSources');
 	}
 
