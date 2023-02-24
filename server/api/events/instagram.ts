@@ -81,6 +81,11 @@ async function fetchInstagramEvents() {
 				const instagramQuery = getInstagramQuery(source.username);
 				return await fetch(instagramQuery, { headers: serverFetchHeaders })
 					.then(res => {
+						// Log the X-App-Usage headers
+						const appUsage = res.headers.get('X-App-Usage');
+						if (appUsage) {
+							console.table(`[rate] Instagram; X-App-Usage after ${source.username} is ${appUsage}`);
+						}
 						return res.json();
 					})
 		}));
