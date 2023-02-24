@@ -162,7 +162,7 @@ async function fetchInstagramEvents() {
 					const tags_string = source.context_clues.join(' & ');
 
 					const caption = event.caption;
-					const prompt = `You're given a post from an Instagram account related to ${tags_string}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
+					const prompt = `You're given a post from an Instagram account${source.context_clues.length > 0 ? ' related to ' + tags_string : ''}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
 						"Here's the caption provided by the post:\n" +
 						"```\n" +
 						`${caption}` + "\n" +
@@ -274,11 +274,6 @@ async function fetchInstagramEvents() {
 						throw new Error('Could not parse into JSON: ', responseText);
 					}
 					// Post-processing.
-
-					// Set to invalid if given insufficient information.
-					if (jsonFromResponse.startDay === null || jsonFromResponse.startHourMilitaryTime === null) {
-						jsonFromResponse.isNull = true;
-					}
 					if (jsonFromResponse.startYear === null) {
 						jsonFromResponse.startYear = new Date().getFullYear();
 					}
@@ -309,7 +304,7 @@ async function fetchInstagramEvents() {
 					jsonFromResponse.url = event.permalink;
 
 					const tags_string = source.context_clues.join(' & ');
-					jsonFromResponse.title = `${jsonFromResponse.title} [${tags_string}]`;
+					jsonFromResponse.title = `${jsonFromResponse.title}${source.context_clues.length > 0 ? ' [' + tags_string + ']' : ''}`;
 
 					return jsonFromResponse;
 				}));
@@ -346,7 +341,7 @@ async function fetchInstagramEvents() {
 
 				// Add each of the new events and non-events to the database.
 				return await Promise.all(organizerEventsAndNonEventsToAdd.map(async (post) => {
-					// First check if post is valid.
+					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
 						if (post.isEvent) {
@@ -404,20 +399,29 @@ async function fetchInstagramEvents() {
 					// Delete all events from organizer that are not in eventsToKeepIds.
 					await Promise.all(eventsFromOrganizer.map(async (event) => {
 						if (!currentEventsIds.has(event.igId)) {
-							await prisma.instagramEvent.delete({
+							const res = await prisma.instagramEvent.delete({
 								where: {
 									igId: event.igId
 								}
 							});
+							if (res === null) {
+								// Delete from non-events.
+								await prisma.instagramNonEvent.delete({
+									where: {
+										igId: event.igId
+									}
+								});
+							}
 						}
 					}))
+
 
 					// Ignore events with the same name, double for-loop style.
 					for (let i = 0; i < eventsToKeep.length; i++) {
 						for (let j = i + 1; j < eventsToKeep.length; j++) {
 							if (Object.hasOwn(eventsToKeep[i], 'display') && eventsToKeep[i].display === 'none') { continue; }
 
-							if (eventsToKeep[i].title === eventsToKeep[j].title) {
+							if (Object.hasOwn(eventsToKeep[i], 'title') && Object.hasOwn(eventsToKeep[j].title, 'title') && eventsToKeep[i].title === eventsToKeep[j].title) {
 								eventsToKeep[j].display = 'none';
 							}
 						}
@@ -435,6 +439,8 @@ async function fetchInstagramEvents() {
 		console.error('Could not add events to database: ', err);
 	}
 	logTimeElapsedSince(startTime, 'Instagram: getting new event sources & pruning');
+
+	console.table(instagramEventSources);
 
 	return instagramEventSources;
 };

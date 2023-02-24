@@ -23,6 +23,14 @@
 				"Music"
 			],
 			"city": "San Francisco"
+		},
+		{
+			"name": "Bound Together Books",
+			"username": "boundtogethercollective",
+			"context_clues": [
+				"Anarchism"
+			],
+			"city": "San Francisco"
 		}
 	],
 	"eventbrite": [
