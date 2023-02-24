@@ -70,9 +70,8 @@ async function fetchInstagramEvents() {
 	const openai = new OpenAIApi(configuration);
 
 	let instagramOrganizers = await useStorage().getItem('instagramOrganizers');
-	const instagramJson = process.env.dev ? [eventSourcesJSON.instagram[0]] : eventSourcesJSON.instagram;
+	const instagramJson = eventSourcesJSON.instagram;
 
-	if (process.env.dev)
 	try {
 		instagramOrganizers = await Promise.all(
 			instagramJson.map(async (source) => {
