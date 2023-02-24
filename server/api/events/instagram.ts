@@ -6,6 +6,7 @@ import vision from '@google-cloud/vision';
 
 export default defineCachedEventHandler(async (event) => {
 // export default defineEventHandler(async (event) => {
+
 	const body = await fetchInstagramEvents();
 	return {
 		body
@@ -102,15 +103,24 @@ async function fetchInstagramEvents() {
 		eventsZippedAllSources = await Promise.all(
 			instagramOrganizers.map(async (instagramOrganizer) => {
 				return await Promise.all(instagramOrganizer.business_discovery.media.data.map(async (instagramEvent) => {
+					// First check InstagramEvent table.
+					const dbEntryEvent = await prisma.instagramEvent.findUnique({ where: { igId: instagramEvent.id } });
+					if (dbEntryEvent) {
+						return [
+							instagramEvent.id,
+							{
+								newEntry: instagramEvent,
+								dbEntry: dbEntryEvent,
+							}
+						];
+					}
+					const dbEntryNonEvent = await prisma.instagramNonEvent.findUnique({ where: { igId: instagramEvent.id } });
+					console.log('dbNonEntry', dbEntryNonEvent);
 					return [
 						instagramEvent.id,
 						{
 							newEntry: instagramEvent,
-							dbEntry: await prisma.instagramEvent.findUnique({
-								where: {
-									igId: instagramEvent.id
-								}
-							})
+							dbEntry: dbEntryNonEvent
 						}
 					];
 				}));
@@ -119,6 +129,7 @@ async function fetchInstagramEvents() {
 	} catch (err) {
 		console.error('Could not zip events: ', err);
 	}
+
 	logTimeElapsedSince(startTime, 'Instagram: zipping events');
 
 	const eventsZippedAllSourcesMap = eventsZippedAllSources.map((eventsZipped) => {
@@ -356,8 +367,8 @@ async function fetchInstagramEvents() {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
-						console.log("Adding post to database: ", post);
 						if (post.isEvent) {
+							console.log("Adding InstagramEvent to database: ", post);
 							return await prisma.instagramEvent.create({
 								data: {
 									igId: post.id,
@@ -428,13 +439,12 @@ async function fetchInstagramEvents() {
 						}
 					}))
 
-
 					// Ignore events with the same name, double for-loop style.
 					for (let i = 0; i < eventsToKeep.length; i++) {
 						for (let j = i + 1; j < eventsToKeep.length; j++) {
 							if (Object.hasOwn(eventsToKeep[i], 'display') && eventsToKeep[i].display === 'none') { continue; }
 
-							if (Object.hasOwn(eventsToKeep[i], 'title') && Object.hasOwn(eventsToKeep[j].title, 'title') && eventsToKeep[i].title === eventsToKeep[j].title) {
+							if (Object.hasOwn(eventsToKeep[i], 'title') && Object.hasOwn(eventsToKeep[j], 'title') && eventsToKeep[i].title === eventsToKeep[j].title) {
 								eventsToKeep[j].display = 'none';
 							}
 						}
@@ -443,13 +453,13 @@ async function fetchInstagramEvents() {
 					return {
 						events: eventsToKeep,
 						city: source.city,
-					}
+					};
 				});
 			}));
 		await useStorage().setItem('instagramEventSources', instagramEventSources);
 	}
 	catch (err) {
-		console.error('Could not add events to database: ', err);
+		console.error('Could return Instagram Events: ', err);
 	}
 	logTimeElapsedSince(startTime, 'Instagram: getting new event sources & pruning');
 
