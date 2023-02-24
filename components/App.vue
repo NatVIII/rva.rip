@@ -375,10 +375,6 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
 }
-
-function test() {
-  console.log('test');
-}
 </script>
 
 <template>

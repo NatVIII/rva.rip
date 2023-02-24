@@ -105,9 +105,6 @@ async function fetchInstagramEvents() {
 	}
 	logTimeElapsedSince(startTime, 'Instagram: zipping events');
 
-	// Convert to Map.
-	console.log();
-
 	const eventsZippedAllSourcesMap = eventsZippedAllSources.map((eventsZipped) => {
 		return new Map(eventsZipped);
 	});
@@ -258,7 +255,6 @@ async function fetchInstagramEvents() {
 							&& Object.hasOwn(potentialResult, 'startYear')
 							&& Object.hasOwn(potentialResult, 'endYear')
 						)) {
-							console.log('missing fields')
 							throw new Error('JSON does not contain expected fields');
 						}
 						jsonFromResponse = potentialResult;
