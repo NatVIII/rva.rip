@@ -45,7 +45,7 @@ async function doOCR(urls: string[]) {
 
 function getInstagramQuery(sourceUsername: string) {
 	return `https://graph.facebook.com/v16.0/${process.env.INSTAGRAM_BUSINESS_USER_ID}?fields=`
-		+ `business_discovery.username(${sourceUsername}){biography,media_count,media.limit(6){caption,permalink,media_type,media_url,children{media_url}}}`
+		+ `business_discovery.username(${sourceUsername}){biography,media_count,media.limit(5){caption,permalink,media_type,media_url,children{media_url}}}`
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
