@@ -4,8 +4,8 @@ import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serv
 import { PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 
-// export default defineCachedEventHandler(async (event) => {
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
+// export default defineEventHandler(async (event) => {
 	const body = await fetchInstagramEvents();
 	return {
 		body
@@ -70,9 +70,12 @@ async function fetchInstagramEvents() {
 	const openai = new OpenAIApi(configuration);
 
 	let instagramOrganizers = await useStorage().getItem('instagramOrganizers');
+	const instagramJson = process.env.dev ? [eventSourcesJSON.instagram[0]] : eventSourcesJSON.instagram;
+
+	if (process.env.dev)
 	try {
 		instagramOrganizers = await Promise.all(
-			eventSourcesJSON.instagram.map(async (source) => {
+			instagramJson.map(async (source) => {
 				const instagramQuery = getInstagramQuery(source.username);
 				return await fetch(instagramQuery, { headers: serverFetchHeaders })
 					.then(res => {
@@ -351,6 +354,7 @@ async function fetchInstagramEvents() {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
+						console.log("Adding post to database: ", post);
 						if (post.isEvent) {
 							return await prisma.instagramEvent.create({
 								data: {

@@ -1,6 +1,14 @@
 {
 	"instagram": [
 		{
+			"name": "The Spooky Haus",
+			"username": "thespookyhaus",
+			"context_clues": [
+				"Art"
+			],
+			"city": "Oakland"
+		},
+		{
 			"name": "orifice.0",
 			"username": "orifice.0",
 			"context_clues": [
@@ -37,14 +45,6 @@
 			"username": "adobebookshop",
 			"context_clues": [],
 			"city": "San Francisco"
-		},
-		{
-			"name": "The Spooky Haus",
-			"username": "thespookyhaus",
-			"context_clues": [
-				"Art"
-			],
-			"city": "Oakland"
 		}
 	],
 	"eventbrite": [
