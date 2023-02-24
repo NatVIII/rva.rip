@@ -85,6 +85,13 @@ async function fetchInstagramEvents() {
 	}
 	logTimeElapsedSince(startTime, 'Instagram: fetching Instagram data');
 
+	// Check if last organizer is an error message.
+	const lastOrganizer = instagramOrganizers[instagramOrganizers.length - 1];
+	if (!process.env.dev && lastOrganizer.error && lastOrganizer.error.code && lastOrganizer.error.code === 4) {
+		console.error("Instagram API rate limit reached! Returning cached data.")
+		return await useStorage().getItem('instagramEventSources');
+	}
+
 	let eventsZippedAllSources = await useStorage().getItem('eventsZippedAllSources');
 	try {
 		eventsZippedAllSources = await Promise.all(
