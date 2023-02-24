@@ -16,13 +16,14 @@ yes!
 - why does everyone use Instagram for events?
 - Please stop using Instagram for events. Please stop using Instagram for events. (x100)
 - to parse Instagram posts for anything resembling a structured event format, we would probably need to use GPT
-- we should also DB server to cache the results so I don't bleed money from OpenAI calls
+- we should also DB server to cache the results so I don't bleed money from OpenAI calls. But Vercel is serverless, so can't use sqlite... pain....
 - why do some Instagram posts... only include event information in the image??
 - Please stop using Instagram for events. Please stop using Instagram for events. (x100)
 - let's add an OCR AI API 🫠
 - *stares at Google's labyrinthian docs for 3 hours figuring out how to get auth*
 - ok, it works! but any of these calls might fail... let's sketchily add caching at each step
 - (Please stop using Instagram for events. Please stop using Instagram for events.) (x10)
+- suddenly running into Vercel's [10 sec timeout](https://vercel.com/docs/concepts/limits/overview#general-limits:~:text=Serverless%20Function%20Execution%20Timeout%20(Seconds)) for Free tier (why does Eventbrite take so long??): more pain 😀. Fork $20/mo to Vercel for a 60 sec timeout instead
 - open beta! (ꈍ ‿ ꈍ ✿)
 
 # Development
