@@ -401,6 +401,17 @@ async function fetchInstagramEvents() {
 						}
 					}))
 
+					// Ignore events with the same name, double for-loop style.
+					for (let i = 0; i < eventsToKeep.length; i++) {
+						for (let j = i + 1; j < eventsToKeep.length; j++) {
+							if (Object.hasOwn(eventsToKeep[i], 'display') && eventsToKeep[i].display === 'none') { continue; }
+
+							if (eventsToKeep[i].title === eventsToKeep[j].title) {
+								eventsToKeep[j].display = 'none';
+							}
+						}
+					}
+
 					return {
 						events: eventsToKeep,
 						city: source.city,
