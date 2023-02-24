@@ -1,9 +1,11 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
 	// export default defineEventHandler(async (event) => {
+	const startTime = new Date();
 	const body = await fetchGoogleCalendarEvents();
+	logTimeElapsedSince(startTime, 'Google Calendar: events fetched.');
 	return {
 		body
 	}
