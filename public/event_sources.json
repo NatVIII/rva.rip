@@ -31,6 +31,20 @@
 				"Anarchism"
 			],
 			"city": "San Francisco"
+		},
+		{
+			"name": "Adobe Books",
+			"username": "adobebookshop",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
+			"name": "The Spooky Haus",
+			"username": "thespookyhaus",
+			"context_clues": [
+				"Art"
+			],
+			"city": "Oakland"
 		}
 	],
 	"eventbrite": [
