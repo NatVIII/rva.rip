@@ -1,9 +1,11 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { JSDOM } from 'jsdom';
 
 export default defineCachedEventHandler(async (event) => {
+	const startTime = new Date();
 	const body = await fetchEventbriteEvents();
+	logTimeElapsedSince(startTime, 'Eventbrite: events fetched.');
 	return {
 		body
 	}

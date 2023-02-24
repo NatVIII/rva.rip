@@ -1,8 +1,10 @@
 import eventSourcesJSON from 'public/event_sources.json';
-import { serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
+	const startTime = new Date();
 	const body = await fetchWordPressTribeEvents();
+	logTimeElapsedSince(startTime, 'Tockify: events fetched.');
 	return {
 		body
 	}
