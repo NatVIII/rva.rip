@@ -13,10 +13,13 @@ datasource db {
 
 model InstagramEventOrganizer {
   id              Int       @default(autoincrement()) @id
-  name            String    @db.VarChar(255) @unique
+  username        String    @db.VarChar(255) @unique
+  city            String    @db.VarChar(255)
+  contextClues    String    @db.VarChar(255)
   events          InstagramEvent[]
   nonEvents       InstagramNonEvent[]
   createdAt       DateTime  @default(now())
+  lastUpdated     DateTime  @default(now())
 }
 
 model InstagramEvent {

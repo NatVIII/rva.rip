@@ -1,18 +1,19 @@
+// Yikes this file is gross. Want to help me rerefactor it? I would appreciate it!
 import { Configuration, OpenAIApi } from 'openai';
 import eventSourcesJSON from 'public/event_sources.json';
-import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { logTimeElapsedSince, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 
 export default defineCachedEventHandler(async (event) => {
 // export default defineEventHandler(async (event) => {
-
 	const body = await fetchInstagramEvents();
 	return {
 		body
 	}
 }, {
-	maxAge: serverCacheMaxAgeSeconds,
+	// Set this cache to only 1 hour to best utilize the Instagram API rate limit.
+	maxAge: 60 * 60 + 10,
 	staleMaxAge: serverStaleWhileInvalidateSeconds,
 	swr: true,
 });
@@ -45,7 +46,7 @@ async function doOCR(urls: string[]) {
 
 function getInstagramQuery(sourceUsername: string) {
 	return `https://graph.facebook.com/v16.0/${process.env.INSTAGRAM_BUSINESS_USER_ID}?fields=`
-		+ `business_discovery.username(${sourceUsername}){biography,media_count,media.limit(5){caption,permalink,media_type,media_url,children{media_url}}}`
+		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,media_type,media_url,children{media_url}}}`
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
@@ -70,43 +71,68 @@ async function fetchInstagramEvents() {
 	});
 	const openai = new OpenAIApi(configuration);
 
-	let instagramOrganizers = await useStorage().getItem('instagramOrganizers');
-	// const instagramJson = [eventSourcesJSON.instagram[0]];
+	// const instagramJson = [eventSourcesJSON.instagram[0], eventSourcesJSON.instagram[1]];
 	const instagramJson = eventSourcesJSON.instagram;
 	console.log('instagramJson: ', instagramJson);
 
+	let instagramOrganizersDb = new Array();
 	try {
-		instagramOrganizers = await Promise.all(
-			instagramJson.map(async (source) => {
-				const instagramQuery = getInstagramQuery(source.username);
-				return await fetch(instagramQuery, { headers: serverFetchHeaders })
-					.then(res => {
-						// Log the X-App-Usage headers
-						const appUsage = res.headers.get('X-App-Usage');
-						if (appUsage) {
-							console.table(`[rate] Instagram; X-App-Usage after ${source.username} is ${appUsage}`);
-						}
-						return res.json();
-					})
+		// Add any organizers not in database.
+		instagramOrganizersDb = await Promise.all(instagramJson.map(async (instagramOrganizer) => {
+			let dbEntry = await prisma.instagramEventOrganizer.findUnique({ where: { username: instagramOrganizer.username } });
+			if (!dbEntry) {
+				dbEntry = await prisma.instagramEventOrganizer.create({
+					data: {
+						username: instagramOrganizer.username,
+						city: instagramOrganizer.city,
+						contextClues: instagramOrganizer.context_clues.join(' '),
+						// Set lastUpdated to as early as possible so that it will be updated first.
+						lastUpdated: new Date(0),
+					}
+				});
+			}
+			return dbEntry;
 		}));
-		await useStorage().setItem('instagramOrganizers', instagramOrganizers);
+		(await instagramOrganizersDb).sort((a, b) => a.lastUpdated.getTime() - b.lastUpdated.getTime());
+	}
+	catch (err) {
+		console.error('Could not add Instagram organizers to database: ', err);
+		return await useStorage().getItem('instagramEventSources');
+	}
+	logTimeElapsedSince(startTime, 'Instagram: fetch/add organizers to database');
+
+	// InstagramOrganizers to update.
+	let instagramOrganizersIG = new Array();
+	let firstIndexOfNonUpdatedOrganizer = 0;
+	try {
+		// Get all Instagram organizers from database, sorted by lastUpdated, with most recent first.
+		for (const instagramOrganizerDb of instagramOrganizersDb) {
+			let req = await fetch(getInstagramQuery(instagramOrganizerDb.username), { headers: serverFetchHeaders });
+			const appUsage = JSON.parse((await req).headers.get('X-App-Usage'));
+			const callCount = appUsage.call_count;
+			const totalCPUTime = appUsage.total_cputime;
+			const totalTime = appUsage.total_time;
+			let newOrganizer = await req.json();
+			if (!newOrganizer.error) {
+				instagramOrganizersIG.push(newOrganizer);
+			}
+			console.log(`[IG] Current rate limit: call_count:${callCount} total_cputime:${totalCPUTime} total_time:${totalTime}`)
+			if (callCount > 70 || totalCPUTime > 70 || totalTime > 70) {
+				console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
+				break
+			}
+			++firstIndexOfNonUpdatedOrganizer;
+		}
 	} catch (err) {
-		console.error('Could not fetch data from Instagram: ', err);
+		console.error('Could not get Instagram organizers to update: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: fetching Instagram data');
 
-	// Check if last organizer is an error message.
-	const lastOrganizer = instagramOrganizers[instagramOrganizers.length - 1];
-	if (lastOrganizer.error && lastOrganizer.error.code && lastOrganizer.error.code === 4) {
-		console.error("Instagram API rate limit reached! Returning cached data.")
-		console.log('instagramOrganizers: ', instagramOrganizers);
-		return await useStorage().getItem('instagramEventSources');
-	}
-
-	let eventsZippedAllSources = await useStorage().getItem('eventsZippedAllSources');
+	let eventsZippedAllSources = null;
 	try {
 		eventsZippedAllSources = await Promise.all(
-			instagramOrganizers.map(async (instagramOrganizer) => {
+			instagramOrganizersIG.map(async (instagramOrganizer) => {
 				return await Promise.all(instagramOrganizer.business_discovery.media.data.map(async (instagramEvent) => {
 					// First check InstagramEvent table.
 					const dbEntryEvent = await prisma.instagramEvent.findUnique({ where: { igId: instagramEvent.id } });
@@ -120,19 +146,18 @@ async function fetchInstagramEvents() {
 						];
 					}
 					const dbEntryNonEvent = await prisma.instagramNonEvent.findUnique({ where: { igId: instagramEvent.id } });
-					console.log('dbNonEntry', dbEntryNonEvent);
 					return [
 						instagramEvent.id,
 						{
 							newEntry: instagramEvent,
-							dbEntry: dbEntryNonEvent
+							dbEntry: dbEntryNonEvent,
 						}
 					];
 				}));
 			}));
-		await useStorage().setItem('eventsZippedAllSources', eventsZippedAllSources);
 	} catch (err) {
 		console.error('Could not zip events: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 
 	logTimeElapsedSince(startTime, 'Instagram: zipping events');
@@ -143,13 +168,18 @@ async function fetchInstagramEvents() {
 
 	let unregisteredInstagramEventsAllSources = [];
 	try {
-		unregisteredInstagramEventsAllSources = eventsZippedAllSources.map((eventsZipped, sourceNum) => {
+		unregisteredInstagramEventsAllSources = eventsZippedAllSources.map((eventsZipped) => {
 			// Promise always returns false, so we filter here.
 			return eventsZipped.filter(([id, eventZip]) => eventZip.dbEntry === null)
-				.map(([id, eventZip]) => eventZip.newEntry);
+				.map(([id, eventZip]) => {
+					return {
+						...eventZip.newEntry,
+					}
+				});
 		});
 	} catch (err) {
 		console.error('Could not filter events: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: filtering events');
 
@@ -176,6 +206,7 @@ async function fetchInstagramEvents() {
 	}
 	catch (err) {
 		console.error('Could perform OCR: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: performing OCR');
 
@@ -183,14 +214,14 @@ async function fetchInstagramEvents() {
 	try {
 		openAIResponsesAllSources = await Promise.all(
 			unregisteredInstagramEventsWithOcrAllSources.map(async (unregisteredInstagramEvents, sourceNum) => {
-				const source = eventSourcesJSON.instagram[sourceNum];
+				const source = instagramOrganizersDb[sourceNum];
 
 				return await Promise.all(unregisteredInstagramEvents.map(async (event) => {
 
-					const tags_string = source.context_clues.join(' & ');
+					const tags_string = source.contextClues;
 
 					const caption = event.caption;
-					const prompt = `You're given a post from an Instagram account${source.context_clues.length > 0 ? ' related to ' + tags_string : ''}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
+					const prompt = `You're given a post from an Instagram account${tags_string.length > 0 ? ' related to ' + tags_string : ''}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
 						"Here's the caption provided by the post:\n" +
 						"```\n" +
 						`${caption}` + "\n" +
@@ -228,8 +259,8 @@ async function fetchInstagramEvents() {
 						"-If no end month is explicitly provided by the post, assign it to the same month as startMonth.\n" +
 						`-If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
-						`${source.context_clues.some(clue => clue.toLowerCase().includes('live music')) ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
-						`${source.context_clues.some(clue => clue.toLowerCase().includes('live music')) ? "-Include featured music artists in the title as well.\n" : ""}` +
+						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
+						`${tags_string.toLowerCase().includes('music') ? "-Include featured music artists in the title as well.\n" : ""}` +
 						"-Do not include any other text in your response besides the raw JSON." + "\n" +
 						"\n" +
 						"A:";
@@ -267,6 +298,7 @@ async function fetchInstagramEvents() {
 	}
 	catch (err) {
 		console.error('Could not get OpenAI responses: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: getting OpenAI responses');
 
@@ -274,7 +306,7 @@ async function fetchInstagramEvents() {
 	try {
 		parsedOpenAIResponsesAllSources = await Promise.all(
 			openAIResponsesAllSources.map(async (openAIResponses, sourceNum) => {
-				const source = eventSourcesJSON.instagram[sourceNum];
+				const source = instagramOrganizersDb[sourceNum];
 				return Promise.all(openAIResponses.map(async ({ event, data }) => {
 					let jsonFromResponse = { isNull: true };
 					try {
@@ -331,8 +363,7 @@ async function fetchInstagramEvents() {
 					jsonFromResponse.id = event.id;
 					jsonFromResponse.url = event.permalink;
 
-					const tags_string = source.context_clues.join(' & ');
-					jsonFromResponse.title = `${jsonFromResponse.title}${source.context_clues.length > 0 ? ' [' + tags_string + ']' : ''}`;
+					jsonFromResponse.title = `${jsonFromResponse.title}${source.contextClues.length > 0 ? ' [' + source.contextClues + ']' : ''}`;
 
 					return jsonFromResponse;
 				}));
@@ -340,35 +371,19 @@ async function fetchInstagramEvents() {
 	}
 	catch (err) {
 		console.error('Could not parse OpenAI responses: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: parsing OpenAI responses');
 
-	let instagramEventSources = await useStorage().getItem('instagramEventSources') || [];
+	let updatedInstagramSources = [];
 	try {
-		instagramEventSources = await Promise.all(
+		updatedInstagramSources = await Promise.all(
 			parsedOpenAIResponsesAllSources.map(async (organizerEventsAndNonEventsToAdd, sourceNum) => {
-				const source = eventSourcesJSON.instagram[sourceNum];
-
-				// Add to already-existing event organizer if it exists. Otherwise, create a new event organizer.
-				const organizer = await prisma.instagramEventOrganizer.findFirst({
-					where: {
-						name: source.username
-					}
-				}
-				).then(async (organizer) => {
-					if (organizer === null) {
-						return await prisma.instagramEventOrganizer.create({
-							data: {
-								name: source.username
-							}
-						});
-					}
-					else { return organizer; };
-				});
-				const organizerId = (await organizer).id;
+				const source = instagramOrganizersDb[sourceNum];
+				const organizerId = source.id;
 
 				// Add each of the new events and non-events to the database.
-				return await Promise.all(organizerEventsAndNonEventsToAdd.map(async (post) => {
+				let events = await Promise.all(organizerEventsAndNonEventsToAdd.map(async (post) => {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
@@ -395,80 +410,128 @@ async function fetchInstagramEvents() {
 						}
 					}
 				})
-				).then(async (newEventsAndNonEvents) => {
-					// This avoids redundant queries to the DB.
+				);
 
-					const currentEventsIds = new Set();
-					let currentEventSourceMap = eventsZippedAllSourcesMap[sourceNum]
-					newEventsAndNonEvents.forEach((newEventOrNonEvent) => {
-						// Check if it's an event.
-						if (Object.hasOwn(newEventOrNonEvent, 'start')) {
-							// Get previous entry.
-							const newEntry = currentEventSourceMap.get(newEventOrNonEvent.igId);
-							newEntry.dbEntry = newEventOrNonEvent;
-							currentEventSourceMap.set(newEventOrNonEvent.igId, newEntry);
-						}
-						// Otherwise remove it from map.
-						else {
-							currentEventsIds.add(newEventOrNonEvent.igId);
-							currentEventSourceMap.delete(newEventOrNonEvent.igId);
-						}
-					});
-					// Map each entry to have just .dbEntry
-					const eventsToKeep = Array.from(currentEventSourceMap.values()).map((entry) => { return entry.dbEntry });
+				// Pruning step.
+				const validEventIds = instagramOrganizersIG[sourceNum].business_discovery.media.data.map((post) => post.id);
+				const currentEventsIds = new Set(validEventIds);
 
-					// Pruning step.
-					eventsToKeep.forEach((event) => currentEventsIds.add(event.igId));
-					// Get all events from organizer.
-					const eventsFromOrganizer = await prisma.instagramEvent.findMany({
-						where: {
-							organizerId: organizerId
-						}
-					});
-					// Delete all events from organizer that are not in eventsToKeepIds.
-					await Promise.all(eventsFromOrganizer.map(async (event) => {
-						if (!currentEventsIds.has(event.igId)) {
-							const res = await prisma.instagramEvent.delete({
+
+				// Get all events from organizer.
+				const eventsFromOrganizer = await prisma.instagramEvent.findMany({
+					where: {
+						organizerId: organizerId
+					}
+				});
+
+				// Delete all events from organizer that are not in eventsToKeepIds.
+				await Promise.all(eventsFromOrganizer.map(async (event) => {
+					if (!currentEventsIds.has(event.igId)) {
+						console.log('deleting', event.igId)
+						let res = await prisma.instagramEvent.delete({
+							where: {
+								igId: event.igId
+							}
+						});
+						if (res === null) {
+							// Delete from non-events.
+							await prisma.instagramNonEvent.delete({
 								where: {
 									igId: event.igId
 								}
 							});
-							if (res === null) {
-								// Delete from non-events.
-								await prisma.instagramNonEvent.delete({
-									where: {
-										igId: event.igId
-									}
-								});
-							}
-						}
-					}))
-
-					// Ignore events with the same name, double for-loop style.
-					for (let i = 0; i < eventsToKeep.length; i++) {
-						for (let j = i + 1; j < eventsToKeep.length; j++) {
-							if (Object.hasOwn(eventsToKeep[i], 'display') && eventsToKeep[i].display === 'none') { continue; }
-
-							if (Object.hasOwn(eventsToKeep[i], 'title') && Object.hasOwn(eventsToKeep[j], 'title') && eventsToKeep[i].title === eventsToKeep[j].title) {
-								eventsToKeep[j].display = 'none';
-							}
 						}
 					}
+				}));
 
-					return {
-						events: eventsToKeep,
-						city: source.city,
-					};
+				// Query for all events by organizer.
+				// Note: potentially redundant query.
+				events = await prisma.instagramEvent.findMany({
+					where: {
+						organizerId: organizerId
+					}
 				});
+
+				setIgnoreInstagramEventsInplace(events);
+
+				// Update lastUpdated in DB.
+				await prisma.instagramEventOrganizer.update({
+					where: {
+						id: organizerId
+					},
+					data: {
+						lastUpdated: new Date()
+					}
+				});
+
+				return {
+					events,
+					city: source.city,
+				};
+
 			}));
-		await useStorage().setItem('instagramEventSources', instagramEventSources);
 	}
 	catch (err) {
-		console.error('Could return Instagram Events: ', err);
+		console.error('Could return Instagram Events for updated sources: ', err);
+		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: getting new event sources & pruning');
 
-	console.table(instagramEventSources);
+	const nonUpdatedInstagramOrganizersDb = instagramOrganizersDb.slice(firstIndexOfNonUpdatedOrganizer);
+	let nonUpdatedInstagramSources = [];
+	try {
+		nonUpdatedInstagramSources = await Promise.all(
+			nonUpdatedInstagramOrganizersDb.map(async (source) => {
+				const organizerId = source.id;
 
-	return instagramEventSources;
+				// Query for all events by organizer.
+				const events = await prisma.instagramEvent.findMany({
+					where: {
+						organizerId: organizerId
+					}
+				});
+				setIgnoreInstagramEventsInplace(events);
+
+				return {
+					events,
+					city: source.city,
+				};
+			}));
+	}
+	catch {
+		console.error('Could return Instagram Events for non-updated sources: ', err);
+		return await useStorage().getItem('instagramEventSources');
+	}
+
+	const res = updatedInstagramSources.concat(nonUpdatedInstagramSources);
+	await useStorage().setItem('instagramEventSources', res);
+	return res;
 };
+
+async function getAllInstagramOrganizers(json) {
+	return await Promise.all(
+		json.map(async (source) => {
+			const instagramQuery = getInstagramQuery(source.username);
+			return await fetch(instagramQuery, { headers: serverFetchHeaders })
+				.then(res => {
+					const appUsage = res.headers.get('X-App-Usage');
+					if (appUsage) {
+						console.table(`[rate] Instagram; X-App-Usage after ${source.username} is ${appUsage}. Throttled when any reach 100(%).`);
+					}
+					return res.json();
+				})
+		}));
+}
+
+// Ignore events with the same name, double for-loop style.
+function setIgnoreInstagramEventsInplace(events) {
+	for (let i = 0; i < events.length; i++) {
+		for (let j = i + 1; j < events.length; j++) {
+			if (Object.hasOwn(events[i], 'display') && events[i].display === 'none') { continue; }
+
+			if (Object.hasOwn(events[i], 'title') && Object.hasOwn(events[j], 'title') && events[i].title === events[j].title) {
+				events[j].display = 'none';
+			}
+		}
+	}
+}
