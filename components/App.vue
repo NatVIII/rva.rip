@@ -237,7 +237,7 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
   // Cut out events without times, but typecheck for types that can have invalid times.
   newEventSources = newEventSources.map(eventSource => {
     // Skip events that can't be invalid.
-    if (!Object.hasOwn(eventSource, 'events')) return eventSource;
+    if (eventSource.events === undefined) return eventSource;
 
     // Filter events.
     const newEvents = eventSource.events.filter((event) => {
