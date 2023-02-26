@@ -259,6 +259,7 @@ async function fetchInstagramEvents() {
 						"-If no end month is explicitly provided by the post, assign it to the same month as startMonth.\n" +
 						`-If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
+						"-If the title of the event is longer than 255 characters, shorten it to include just the most important parts.\n" +
 						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
 						`${tags_string.toLowerCase().includes('music') ? "-Include featured music artists in the title as well.\n" : ""}` +
 						"-Do not include any other text in your response besides the raw JSON." + "\n" +
@@ -364,6 +365,10 @@ async function fetchInstagramEvents() {
 					jsonFromResponse.url = event.permalink;
 
 					jsonFromResponse.title = `${jsonFromResponse.title}${source.contextClues.length > 0 ? ' [' + source.contextClues + ']' : ''}`;
+					// Trim title to 255 characters.
+					if (jsonFromResponse.title.length > 255) {
+						jsonFromResponse.title = jsonFromResponse.title.substring(0, 255);
+					}
 
 					return jsonFromResponse;
 				}));
@@ -413,7 +418,9 @@ async function fetchInstagramEvents() {
 				);
 
 				// Pruning step.
-				const validEventIds = instagramOrganizersIG[sourceNum].business_discovery.media.data.map((post) => post.id);
+				// TODO, it's deleting incorrect events, this line is prolly wrong. oh prolly because u need to search for the events with the sae organizer
+				// const validEventIds = instagramOrganizersIG[sourceNum].business_discovery.media.data.map((post) => post.id);
+				const validEventIds = [];
 				const currentEventsIds = new Set(validEventIds);
 
 
@@ -425,24 +432,24 @@ async function fetchInstagramEvents() {
 				});
 
 				// Delete all events from organizer that are not in eventsToKeepIds.
-				await Promise.all(eventsFromOrganizer.map(async (event) => {
-					if (!currentEventsIds.has(event.igId)) {
-						console.log('deleting', event.igId)
-						let res = await prisma.instagramEvent.delete({
-							where: {
-								igId: event.igId
-							}
-						});
-						if (res === null) {
-							// Delete from non-events.
-							await prisma.instagramNonEvent.delete({
-								where: {
-									igId: event.igId
-								}
-							});
-						}
-					}
-				}));
+				// await Promise.all(eventsFromOrganizer.map(async (event) => {
+				// 	if (!currentEventsIds.has(event.igId)) {
+				// 		console.log('deleting', event.title)
+				// 		let res = await prisma.instagramEvent.delete({
+				// 			where: {
+				// 				igId: event.igId
+				// 			}
+				// 		});
+				// 		if (res === null) {
+				// 			// Delete from non-events.
+				// 			await prisma.instagramNonEvent.delete({
+				// 				where: {
+				// 					igId: event.igId
+				// 				}
+				// 			});
+				// 		}
+				// 	}
+				// }));
 
 				// Query for all events by organizer.
 				// Note: potentially redundant query.
