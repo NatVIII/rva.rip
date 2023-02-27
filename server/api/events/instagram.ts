@@ -553,11 +553,13 @@ function setIgnoreInstagramEventsInplace(events) {
 		for (let j = i + 1; j < events.length; j++) {
 			if (Object.hasOwn(events[i], 'display') && events[i].display === 'none') { continue; }
 
-			const nameFront = 5;
+			const nameFront = 7;
 			if (Object.hasOwn(events[i], 'title') && Object.hasOwn(events[j], 'title')
 				&& (events[i].title === events[j].title ||
 					// Ignore names with the same prefix.
-					(events[i].title.length > nameFront))
+				(events[i].title.length > nameFront
+					&& events[j].title.length > nameFront
+					&& events[i].title.substring(0, nameFront) === events[j].title.substring(0, nameFront)))
 			) {
 				events[j].display = 'none';
 			}
