@@ -47,14 +47,6 @@
 			"city": "Oakland"
 		},
 		{
-			"name": "Born To Rave",
-			"username": "borntoraveforever",
-			"context_clues": [
-				"Music"
-			],
-			"city": "Oakland"
-		},
-		{
 			"name": "Batcave",
 			"username": "batcavesf",
 			"context_clues": [
@@ -69,20 +61,6 @@
 				"Art"
 			],
 			"city": "San Francisco"
-		},
-		{
-			"name": "Rollin' with the Homos",
-			"username": "rollinhomos",
-			"context_clues": [
-				"Skate"
-			],
-			"city": "Oakland"
-		},
-		{
-			"name": "SubRosa",
-			"username": "subrosa_space",
-			"context_clues": [],
-			"city": "Santa Cruz"
 		}
 	],
 	"eventbrite": [

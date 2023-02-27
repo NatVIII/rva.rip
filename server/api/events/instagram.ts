@@ -46,7 +46,7 @@ async function doOCR(urls: string[]) {
 
 function getInstagramQuery(sourceUsername: string) {
 	return `https://graph.facebook.com/v16.0/${process.env.INSTAGRAM_BUSINESS_USER_ID}?fields=`
-		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,media_type,media_url,children{media_url}}}`
+		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,timestamp,media_type,media_url,children{media_url}}}`
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
@@ -93,7 +93,7 @@ async function fetchInstagramEvents() {
 			}
 			return dbEntry;
 		}));
-		(await instagramOrganizersDb).sort((a, b) => a.lastUpdated.getTime() - b.lastUpdated.getTime());
+		instagramOrganizersDb = instagramOrganizersDb.sort((a, b) => a.lastUpdated.getTime() - b.lastUpdated.getTime());
 	}
 	catch (err) {
 		console.error('Could not add Instagram organizers to database: ', err);
@@ -116,8 +116,14 @@ async function fetchInstagramEvents() {
 			if (!newOrganizer.error) {
 				instagramOrganizersIG.push(newOrganizer);
 			}
+			else {
+				console.error(`It appears the username ${instagramOrganizerDb.username} cannot be found 
+				using business discovery. Confirm it is correct. If so, then that account is not a business account. 
+				Consider asking them to enable this feature.`)
+				throw new Error(newOrganizer.error.message);
+			}
 			console.log(`[IG] Current rate limit: call_count:${callCount} total_cputime:${totalCPUTime} total_time:${totalTime}`)
-			if (callCount > 70 || totalCPUTime > 70 || totalTime > 70) {
+			if (callCount > 85 || totalCPUTime > 85 || totalTime > 85) {
 				console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
 				break
 			}
@@ -251,6 +257,7 @@ async function fetchInstagramEvents() {
 						"-Information provided by the caption is guaranteed to be correct. However, the caption might be lacking information.\n" +
 						"-The OCR result is provided by an OCR AI & thus may contain errors. Use it as a supplement for the information provided in the caption! This is especially useful when the caption is lacking information. The OCR Result also may contain information that's not provided by the caption!\n" +
 						"-Sometimes a person or artist's username and their actual name can be found in the caption and OCR result; the username can be indicated by it being all lowercase and containing `.`s or `_`s. Their actual names would have very similar letters to the username, and might be provided by the OCR result. If the actual name is found, prefer using it for the JSON title, otherwise use the username.\n" +
+						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n` +
 						"Here are some additional rules you should follow:\n" +
 						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
 						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
@@ -392,7 +399,7 @@ async function fetchInstagramEvents() {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
-						if (post.isEvent) {
+						if (post.isEvent && post.startDay) {
 							console.log("Adding InstagramEvent to database: ", post);
 							return await prisma.instagramEvent.create({
 								data: {
@@ -406,6 +413,7 @@ async function fetchInstagramEvents() {
 							});
 						}
 						else {
+							console.log("Adding InstagramNonEvent to database: ", post);
 							return await prisma.instagramNonEvent.create({
 								data: {
 									igId: post.id,
@@ -419,10 +427,15 @@ async function fetchInstagramEvents() {
 
 				// Pruning step.
 				// TODO, it's deleting incorrect events, this line is prolly wrong. oh prolly because u need to search for the events with the sae organizer
-				// const validEventIds = instagramOrganizersIG[sourceNum].business_discovery.media.data.map((post) => post.id);
-				const validEventIds = [];
-				const currentEventsIds = new Set(validEventIds);
+				const validEventIds = instagramOrganizersIG[sourceNum].business_discovery.media.data.map((post) => post.id);
+				// const validEventIds = [];
+				const organizerFromDB = await prisma.instagramEventOrganizer.findUnique({
+					where: {
+						id: organizerId
+					}
+				});
 
+				const currentEventsIds = new Set(validEventIds);
 
 				// Get all events from organizer.
 				const eventsFromOrganizer = await prisma.instagramEvent.findMany({
@@ -430,26 +443,30 @@ async function fetchInstagramEvents() {
 						organizerId: organizerId
 					}
 				});
+				// Get the non-events from organizer.
+				const nonEventsFromOrganizer = await prisma.instagramNonEvent.findMany({
+					where: {
+						organizerId: organizerId
+					}
+				});
+
+				const allIdsFromOrganizer = eventsFromOrganizer.concat(nonEventsFromOrganizer);
 
 				// Delete all events from organizer that are not in eventsToKeepIds.
-				// await Promise.all(eventsFromOrganizer.map(async (event) => {
-				// 	if (!currentEventsIds.has(event.igId)) {
-				// 		console.log('deleting', event.title)
-				// 		let res = await prisma.instagramEvent.delete({
-				// 			where: {
-				// 				igId: event.igId
-				// 			}
-				// 		});
-				// 		if (res === null) {
-				// 			// Delete from non-events.
-				// 			await prisma.instagramNonEvent.delete({
-				// 				where: {
-				// 					igId: event.igId
-				// 				}
-				// 			});
-				// 		}
-				// 	}
-				// }));
+				await Promise.all(allIdsFromOrganizer.map(async (event) => {
+					if (!currentEventsIds.has(event.igId)) {
+						const isEvent = await prisma.instagramEvent.findFirst({ where: { igId: event.igId } });
+						if (isEvent) {
+							console.log('deleting event', event.id)
+							await prisma.instagramEvent.delete({ where: { igId: event.igId } });
+						}
+						else {
+							// Delete from non-events.
+							console.log('deleting non-event', event.id)
+							await prisma.instagramNonEvent.delete({ where: { igId: event.igId } });
+						}
+					}
+				}));
 
 				// Query for all events by organizer.
 				// Note: potentially redundant query.
@@ -479,7 +496,7 @@ async function fetchInstagramEvents() {
 			}));
 	}
 	catch (err) {
-		console.error('Could return Instagram Events for updated sources: ', err);
+		console.error('Could not update Instagram Events: ', err);
 		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: getting new event sources & pruning');
@@ -536,7 +553,12 @@ function setIgnoreInstagramEventsInplace(events) {
 		for (let j = i + 1; j < events.length; j++) {
 			if (Object.hasOwn(events[i], 'display') && events[i].display === 'none') { continue; }
 
-			if (Object.hasOwn(events[i], 'title') && Object.hasOwn(events[j], 'title') && events[i].title === events[j].title) {
+			const nameFront = 5;
+			if (Object.hasOwn(events[i], 'title') && Object.hasOwn(events[j], 'title')
+				&& (events[i].title === events[j].title ||
+					// Ignore names with the same prefix.
+					(events[i].title.length > nameFront))
+			) {
 				events[j].display = 'none';
 			}
 		}
