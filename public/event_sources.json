@@ -61,6 +61,18 @@
 				"Art"
 			],
 			"city": "San Francisco"
+		},
+		{
+			"name": "Omni Commons",
+			"username": "omni.commons",
+			"context_clues": [],
+			"city": "Oakland"
+		},
+		{
+			"name": "TAC: Temescal Art Center",
+			"username": "tac_oakland",
+			"context_clues": [],
+			"city": "Oakland"
 		}
 	],
 	"eventbrite": [

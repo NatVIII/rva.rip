@@ -178,6 +178,7 @@ async function fetchInstagramEvents() {
 			// Promise always returns false, so we filter here.
 			return eventsZipped.filter(([id, eventZip]) => eventZip.dbEntry === null)
 				.map(([id, eventZip]) => {
+					console.log('eventZip.newEntry: ', eventZip.newEntry)
 					return {
 						...eventZip.newEntry,
 					}
@@ -254,10 +255,10 @@ async function fetchInstagramEvents() {
 						` }\n` +
 						"```\n" +
 						"Here's some important information regarding the post information:\n" +
-						"-Information provided by the caption is guaranteed to be correct. However, the caption might be lacking information.\n" +
-						"-The OCR result is provided by an OCR AI & thus may contain errors. Use it as a supplement for the information provided in the caption! This is especially useful when the caption is lacking information. The OCR Result also may contain information that's not provided by the caption!\n" +
+						"-Information regarding time provided by the caption is guaranteed to be correct. However, the caption might be lacking information regarding time and title.\n" +
+						"-The OCR result is provided by an OCR AI & thus may contain errors. Use it as a supplement for the information provided in the caption! This is especially useful when the caption is lacking information. The OCR Result also may contain time or title information that's not provided by the caption!\n" +
 						"-Sometimes a person or artist's username and their actual name can be found in the caption and OCR result; the username can be indicated by it being all lowercase and containing `.`s or `_`s. Their actual names would have very similar letters to the username, and might be provided by the OCR result. If the actual name is found, prefer using it for the JSON title, otherwise use the username.\n" +
-						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n` +
+						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n. The time it was posted itself is not an event start time.` +
 						"Here are some additional rules you should follow:\n" +
 						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
 						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
