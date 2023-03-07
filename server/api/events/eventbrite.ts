@@ -85,13 +85,12 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 		// Otherwise, set it to null.
 	} : null;
 
-	// Eventbrite doesn't provide a timezone, I think? Weird. So we have to update time manually.
-	const actualStart = DateTime.fromISO(item.startDate).setZone('America/Los_Angeles');
-	const actualEnd = DateTime.fromISO(item.endDate).setZone('America/Los_Angeles');
+
 	return {
 		title: item.name,
-		start: actualStart.toUTC().toJSDate(),
-		end: actualEnd.toUTC().toJSDate(),
+		// Converts from System Time to UTC.
+		start: DateTime.fromISO(item.startDate).toUTC().toJSDate(),
+		end: DateTime.fromISO(item.startDate).toUTC().toJSDate(),
 		url: item.url,
 		extendedProps: {
 			description: item.description || null,
