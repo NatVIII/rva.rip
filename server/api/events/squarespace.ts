@@ -1,5 +1,6 @@
 import eventSourcesJSON from 'public/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
+import { DateTime } from 'luxon';
 
 export default defineCachedEventHandler(async (event) => {
 	const startTime = new Date();
@@ -36,11 +37,30 @@ async function fetchSquarespaceEvents() {
 	return squarespaceSources;
 };
 
-function convertSquarespaceEventToFullCalendarEvent(timeZone, e, url) {
+function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, url) {
+	let start = DateTime.fromMillis(e.startDate).setZone(timeZone);
+	let end = DateTime.fromMillis(e.startDate).setZone(timeZone);
+
+	// Get raw times because some calendars have incorrect time zones (i.e. America/New_York), even though they're in California.
+	const actualStart = DateTime.fromObject({
+		day: start.day,
+		month: start.month,
+		year: start.year,
+		hour: start.hour,
+		minute: start.minute,
+	}, { zone: 'America/Los_Angeles' });
+	const actualEnd = DateTime.fromObject({
+		day: end.day,
+		month: end.month,
+		year: end.year,
+		hour: end.hour,
+		minute: end.minute,
+	}, { zone: 'America/Los_Angeles' });
+
 	return {
 		title: e.title,
-		start: new Date(new Date(e.startDate).toLocaleString('en', { timeZone })),
-		end: new Date(new Date(e.endDate).toLocaleString('en', { timeZone })),
+		start: actualStart.toUTC().toJSDate(),
+		end: actualEnd.toUTC().toJSDate(),
 		url: new URL(url).origin + e.fullUrl,
 		extendedProps: {
 			description: e.body,
