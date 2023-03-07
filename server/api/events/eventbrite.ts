@@ -1,6 +1,7 @@
 import eventSourcesJSON from 'public/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { JSDOM } from 'jsdom';
+import { DateTime } from 'luxon';
 
 export default defineCachedEventHandler(async (event) => {
 	const startTime = new Date();
@@ -84,10 +85,13 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 		// Otherwise, set it to null.
 	} : null;
 
+	// Eventbrite doesn't provide a timezone, I think? Weird. So we have to update time manually.
+	const actualStart = DateTime.fromISO(item.startDate).setZone('America/Los_Angeles');
+	const actualEnd = DateTime.fromISO(item.endDate).setZone('America/Los_Angeles');
 	return {
 		title: item.name,
-		start: new Date(item.startDate),
-		end: new Date(item.endDate),
+		start: actualStart.toUTC().toJSDate(),
+		end: actualEnd.toUTC().toJSDate(),
 		url: item.url,
 		extendedProps: {
 			description: item.description || null,
