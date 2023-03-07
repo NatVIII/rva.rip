@@ -24,7 +24,7 @@ async function fetchSquarespaceEvents() {
 				let squarespaceJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
 				let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
 				return {
-					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(event, source.url)),
+					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(squarespaceJson.website.timeZone, event, source.url)),
 					city: source.city
 				} as EventNormalSource;
 			})
@@ -36,11 +36,11 @@ async function fetchSquarespaceEvents() {
 	return squarespaceSources;
 };
 
-function convertSquarespaceEventToFullCalendarEvent(e, url) {
+function convertSquarespaceEventToFullCalendarEvent(timeZone, e, url) {
 	return {
 		title: e.title,
-		start: new Date(e.startDate),
-		end: new Date(e.endDate),
+		start: new Date(new Date(e.startDate).toLocaleString('en', { timeZone })),
+		end: new Date(new Date(e.endDate).toLocaleString('en', { timeZone })),
 		url: new URL(url).origin + e.fullUrl,
 		extendedProps: {
 			description: e.body,

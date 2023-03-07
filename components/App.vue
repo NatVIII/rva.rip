@@ -387,7 +387,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
       </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
         <div class="blurb">An lgbt events aggregator for all around SF bay! Currently in open beta! Please DM event
-          & organizers recommendations <a href="https://www.instagram.com/ivyrainey/">here</a> ;3
+            & organizers recommendations <a href="https://www.instagram.com/bytewife/">here</a> ;3
         </div>
       </div>
     </div>

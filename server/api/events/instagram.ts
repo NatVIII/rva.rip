@@ -7,6 +7,7 @@ import vision from '@google-cloud/vision';
 
 export default defineCachedEventHandler(async (event) => {
 // export default defineEventHandler(async (event) => {
+const PST_OFFSET = 8;
 	const body = await fetchInstagramEvents();
 	return {
 		body
@@ -262,10 +263,12 @@ async function fetchInstagramEvents() {
 						"Here are some additional rules you should follow:\n" +
 						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
 						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
-						"-If no end day is explicitly provided by the post, assign it to null.\n" +
-						"-If no end hour is explicitly provided by the post, assign it to null.\n" +
-						"-If no end month is explicitly provided by the post, assign it to the same month as startMonth.\n" +
+						"-If no start hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no end day is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no end hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no end month is explicitly provided by the caption or OCR result, assign it to the same month as startMonth.\n" +
 						`-If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
+						"-Don't make any timezone-related adjustments to the times; assume it is UTC already.\n" +
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
 						"-If the title of the event is longer than 255 characters, shorten it to include just the most important parts.\n" +
 						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
@@ -400,13 +403,13 @@ async function fetchInstagramEvents() {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
-						if (post.isEvent && post.startDay) {
+						if (post.isEvent && post.startDay && post.startHourMilitaryTime) {
 							console.log("Adding InstagramEvent to database: ", post);
 							return await prisma.instagramEvent.create({
 								data: {
 									igId: post.id,
-									start: new Date(post.startYear, post.startMonth - 1, post.startDay, post.startHourMilitaryTime),
-									end: new Date(post.endYear, post.endMonth - 1, post.endDay, post.endHourMilitaryTime),
+									start: new Date(Date.UTC(post.startYear, post.startMonth - 1, post.startDay, post.startHourMilitaryTime + PST_OFFSET)),
+									end: new Date(Date.UTC(post.endYear, post.endMonth - 1, post.endDay, post.endHourMilitaryTime + PST_OFFSET)),
 									url: post.url,
 									title: post.title,
 									organizerId: organizerId
