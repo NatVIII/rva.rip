@@ -274,6 +274,7 @@ async function fetchInstagramEvents() {
 						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
 						`${tags_string.toLowerCase().includes('music') ? "-Include featured music artists in the title as well.\n" : ""}` +
 						"-Do not include any other text in your response besides the raw JSON." + "\n" +
+						'-Make sure JSON format is valid (i.e. contains commas after each field, except for the last one).' + "\n" +
 						"\n" +
 						"A:";
 
@@ -284,7 +285,7 @@ async function fetchInstagramEvents() {
 								// model: "text-curie-001",
 								prompt,
 								temperature: 0,
-								max_tokens: 500,
+								max_tokens: 600,
 							});
 							return res;
 						} catch (e) {
@@ -321,10 +322,9 @@ async function fetchInstagramEvents() {
 				const source = instagramOrganizersDb[sourceNum];
 				return Promise.all(openAIResponses.map(async ({ event, data }) => {
 					let jsonFromResponse = { isNull: true };
+					const responseText = data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
 					try {
-						const responseText = data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
-						console.log('Parsing the following into JSON: ', responseText)
-						const potentialResult = JSON.parse(await responseText);
+						const potentialResult = JSON.parse(responseText);
 
 						// Check if JSON contains expected fields.
 						if (!(Object.hasOwn(potentialResult, 'isEvent')
@@ -342,8 +342,7 @@ async function fetchInstagramEvents() {
 						}
 						jsonFromResponse = potentialResult;
 					} catch (e) {
-						console.error(e);
-						throw new Error('Could not parse into JSON: ', responseText);
+						throw new Error(`Caught error: ${e}; could not parse into JSON: ${responseText}`);
 					}
 					// Post-processing.
 					if (jsonFromResponse.startYear === null) {
