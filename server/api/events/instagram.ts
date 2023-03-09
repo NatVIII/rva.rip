@@ -2,7 +2,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 import eventSourcesJSON from 'public/event_sources.json';
 import { logTimeElapsedSince, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
-import { PrismaClient } from '@prisma/client'
+import { InstagramEvent, PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 
 const PST_OFFSET = 8;
@@ -551,20 +551,26 @@ async function getAllInstagramOrganizers(json) {
 }
 
 // Ignore events with the same name, double for-loop style.
-function setIgnoreInstagramEventsInplace(events) {
-	for (let i = 0; i < events.length; i++) {
-		for (let j = i + 1; j < events.length; j++) {
-			if (Object.hasOwn(events[i], 'display') && events[i].display === 'none') { continue; }
+function setIgnoreInstagramEventsInplace(eventsFromOrganizer: InstagramEvent[]) {
+	for (let i = 0; i < eventsFromOrganizer.length; i++) {
+		for (let j = i + 1; j < eventsFromOrganizer.length; j++) {
+			if (Object.hasOwn(eventsFromOrganizer[i], 'display') && eventsFromOrganizer[i].display === 'none') { continue; }
 
 			const nameFront = 7;
-			if (Object.hasOwn(events[i], 'title') && Object.hasOwn(events[j], 'title')
-				&& (events[i].title === events[j].title ||
+			// Ignore eventsFromOrganizer with ~same name.
+			if (Object.hasOwn(eventsFromOrganizer[i], 'title') && Object.hasOwn(eventsFromOrganizer[j], 'title')
+				&& (eventsFromOrganizer[i].title === eventsFromOrganizer[j].title ||
 					// Ignore names with the same prefix.
-				(events[i].title.length > nameFront
-					&& events[j].title.length > nameFront
-					&& events[i].title.substring(0, nameFront) === events[j].title.substring(0, nameFront)))
+				(eventsFromOrganizer[i].title.length > nameFront
+					&& eventsFromOrganizer[j].title.length > nameFront
+					&& eventsFromOrganizer[i].title.substring(0, nameFront) === eventsFromOrganizer[j].title.substring(0, nameFront)))
 			) {
-				events[j].display = 'none';
+				// Add new property to event- used by FullCalendar to ignore event.
+				eventsFromOrganizer[j].display = 'none';
+			}
+			// Ignore eventsFromOrganizer with the same start time and end time- as they are likely to be the same event.
+			else if (eventsFromOrganizer[i].start === eventsFromOrganizer[j].start && eventsFromOrganizer[i].end === eventsFromOrganizer[j].end) {
+				eventsFromOrganizer[j].display = 'none';
 			}
 		}
 	}
