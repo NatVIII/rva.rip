@@ -5,9 +5,9 @@ import { logTimeElapsedSince, serverFetchHeaders, serverStaleWhileInvalidateSeco
 import { PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 
-export default defineCachedEventHandler(async (event) => {
-// export default defineEventHandler(async (event) => {
 const PST_OFFSET = 8;
+
+export default defineCachedEventHandler(async (event) => {
 	const body = await fetchInstagramEvents();
 	return {
 		body
