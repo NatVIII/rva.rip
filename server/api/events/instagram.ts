@@ -460,12 +460,12 @@ async function fetchInstagramEvents() {
 					if (!currentEventsIds.has(event.igId)) {
 						const isEvent = await prisma.instagramEvent.findFirst({ where: { igId: event.igId } });
 						if (isEvent) {
-							console.log('deleting event', event.id)
+							console.log('deleting event', event.igId)
 							await prisma.instagramEvent.delete({ where: { igId: event.igId } });
 						}
 						else {
 							// Delete from non-events.
-							console.log('deleting non-event', event.id)
+							console.log('deleting non-event', event.igId)
 							await prisma.instagramNonEvent.delete({ where: { igId: event.igId } });
 						}
 					}
