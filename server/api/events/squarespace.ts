@@ -22,8 +22,16 @@ async function fetchSquarespaceEvents() {
 		squarespaceSources = await Promise.all(
 			eventSourcesJSON.squarespace.map(async (source) => {
 				// Add current date in milliseconds to the URL to get events starting from this moment.
-				let squarespaceJson = await (await fetch(source.url, { headers: serverFetchHeaders })).json();
-				let squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
+				const response = await fetch(source.url, { headers: serverFetchHeaders });
+				if (!response.ok) {
+					console.error('[Squarespace] Error: could not fetch events from', source.url);
+					return {
+						events: [],
+						city: source.city,
+					} as EventNormalSource;
+				}
+				const squarespaceJson = await response.json();
+				const squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
 				return {
 					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(squarespaceJson.website.timeZone, event, source.url)),
 					city: source.city
