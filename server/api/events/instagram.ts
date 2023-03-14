@@ -191,32 +191,41 @@ async function fetchInstagramEvents() {
 	}
 	logTimeElapsedSince(startTime, 'Instagram: filtering events');
 
+
 	let unregisteredInstagramEventsWithOcrAllSources = unregisteredInstagramEventsAllSources;
 	try {
 		unregisteredInstagramEventsWithOcrAllSources = await Promise.all(
 			unregisteredInstagramEventsAllSources.map(async (unregisteredInstagramEvents) => {
 				return await Promise.all(unregisteredInstagramEvents.map(async (event) => {
-					const mediaLinks = event.children ?
-						event.children.data.filter((child) => child.media_url.includes('jpg'))
-							.map((child) => child.media_url)
-						:
-						[event.media_url];
-					console.log('mediaLinks', mediaLinks);
+					let mediaLinks: string[] = [];
+					switch (event.media_type) {
+						case 'IMAGE':
+							mediaLinks = [event.media_url];
+							break;
+						case 'CAROUSEL_ALBUM':
+							mediaLinks = event.children.data.map((child) => child.media_url);
+							break;
+						case 'VIDEO':
+							break;
+						default:
+							console.error(`Unknown media type: ${event.media_type} for event: ${event}`);
+							break;
+					}
 
 					const ocrResult = await doOCR(mediaLinks);
 					return {
 						...event,
 						ocrResult
 					};
-				}
-				));
+				}));
 			}));
 	}
 	catch (err) {
-		console.error('Could perform OCR: ', err);
+		console.error('Could not perform OCR: ', err);
 		return await useStorage().getItem('instagramEventSources');
 	}
 	logTimeElapsedSince(startTime, 'Instagram: performing OCR');
+
 
 	let openAIResponsesAllSources = [];
 	try {
@@ -280,10 +289,17 @@ async function fetchInstagramEvents() {
 
 					const runResponse = async () => {
 						try {
-							const res = await openai.createCompletion({
-								model: "text-davinci-003",
-								// model: "text-curie-001",
-								prompt,
+							// const res = await openai.createCompletion({
+							// 	model: "text-davinci-003",
+							// 	prompt,
+							// 	temperature: 0,
+							// 	max_tokens: 600,
+							// });
+							const res = await openai.createChatCompletion({
+								model: "gpt-3.5-turbo",
+								messages: [
+									{ role: "system", content: prompt },
+								],
 								temperature: 0,
 								max_tokens: 600,
 							});
@@ -322,7 +338,8 @@ async function fetchInstagramEvents() {
 				const source = instagramOrganizersDb[sourceNum];
 				return Promise.all(openAIResponses.map(async ({ event, data }) => {
 					let jsonFromResponse = { isNull: true };
-					const responseText = data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
+					// const responseText = data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
+					const responseText = data.choices[0].message.content.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
 					try {
 						const potentialResult = JSON.parse(responseText);
 
