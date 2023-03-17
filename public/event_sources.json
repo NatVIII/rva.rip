@@ -150,5 +150,12 @@
 			"url": "https://www.guildhouse.gg/events?format=json",
 			"city": "San Jose"
 		}
+	],
+	"withFriends": [
+		{
+			"name": "The Lab",
+			"movementId": "1354954",
+			"city": "San Francisco"
+		}
 	]
 }
