@@ -114,6 +114,7 @@ async function fetchInstagramEvents() {
 			const totalCPUTime = appUsage.total_cputime;
 			const totalTime = appUsage.total_time;
 			let newOrganizer = await req.json();
+			console.log(`[IG] Current rate limit: call_count:${callCount} total_cputime:${totalCPUTime} total_time:${totalTime}`)
 			if (!newOrganizer.error) {
 				instagramOrganizersIG.push(newOrganizer);
 			}
@@ -123,7 +124,6 @@ async function fetchInstagramEvents() {
 				Consider asking them to enable this feature.`)
 				throw new Error(newOrganizer.error.message);
 			}
-			console.log(`[IG] Current rate limit: call_count:${callCount} total_cputime:${totalCPUTime} total_time:${totalTime}`)
 			if (callCount > 85 || totalCPUTime > 85 || totalTime > 85) {
 				console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
 				break
@@ -280,6 +280,8 @@ async function fetchInstagramEvents() {
 						"-Don't make any timezone-related adjustments to the times; assume it is UTC already.\n" +
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
 						"-If the title of the event is longer than 255 characters, shorten it to include just the most important parts.\n" +
+						// The following is to avoid organizer meetings.
+						"-If the event is explicity a 'meeting', then set the start hour to null.\n" +
 						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
 						`${tags_string.toLowerCase().includes('music') ? "-Include featured music artists in the title as well.\n" : ""}` +
 						"-Do not include any other text in your response besides the raw JSON." + "\n" +

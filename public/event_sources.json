@@ -7,14 +7,6 @@
 			"city": "San Francisco"
 		},
 		{
-			"name": "orifice.0",
-			"username": "orifice.0",
-			"context_clues": [
-				"Music"
-			],
-			"city": "San Jose"
-		},
-		{
 			"name": "Histrionixx",
 			"username": "histrionixxsf",
 			"context_clues": [
@@ -39,12 +31,12 @@
 			"city": "San Francisco"
 		},
 		{
-			"name": "The Spooky Haus",
-			"username": "thespookyhaus",
+			"name": "Hot Goth GF Radio",
+			"username": "hotgothgfradio",
 			"context_clues": [
-				"Art"
+				"Music"
 			],
-			"city": "Oakland"
+			"city": "San Francisco"
 		},
 		{
 			"name": "Batcave",
@@ -52,6 +44,48 @@
 			"context_clues": [
 				"Music"
 			],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Envelope Soundsystem",
+			"username": "envelope.soundsystem",
+			"context_clues": [
+				"Music"
+			],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Syzygy Coop",
+			"username": "syzygycoop",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Poetry Slime",
+			"username": "poetry.slime",
+			"context_clues": [
+				"Poetry"
+			],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Queer Bedtime",
+			"username": "queerbedtime",
+			"context_clues": [
+				"Storytelling"
+			],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Queer Arts Featured",
+			"username": "queerartsfeatured",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Big Leap Collective",
+			"username": "bigleapcollective",
+			"context_clues": [],
 			"city": "San Francisco"
 		},
 		{
@@ -63,8 +97,28 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "The Spooky Haus",
+			"username": "thespookyhaus",
+			"context_clues": [
+				"Art"
+			],
+			"city": "Oakland"
+		},
+		{
+			"name": "Oakland LGBTQ Center",
+			"username": "oaklandlgbtqcenter",
+			"context_clues": [],
+			"city": "Oakland"
+		},
+		{
 			"name": "Omni Commons",
 			"username": "omni.commons",
+			"context_clues": [],
+			"city": "Oakland"
+		},
+		{
+			"name": "Rock Paper Scissors Collective",
+			"username": "rpscollective",
 			"context_clues": [],
 			"city": "Oakland"
 		},
@@ -73,6 +127,14 @@
 			"username": "tac_oakland",
 			"context_clues": [],
 			"city": "Oakland"
+		},
+		{
+			"name": "orifice.0",
+			"username": "orifice.0",
+			"context_clues": [
+				"Music"
+			],
+			"city": "San Jose"
 		}
 	],
 	"eventbrite": [
@@ -107,12 +169,6 @@
 			"city": "San Francisco"
 		},
 		{
-			"name": "The Neighbor's Pub",
-			"url": "https://www.eventbrite.com/o/the-neighbors-pub-34850557093#events",
-			"id": "34850557093",
-			"city": "Santa Cruz"
-		},
-		{
 			"name": "queer expression",
 			"url": "https://www.eventbrite.com/o/queer-expression-oakland-34271650919#events",
 			"id": "34271650919",
@@ -144,6 +200,11 @@
 			"name": "Casements",
 			"url": "https://casementsbar.com/calendar?format=json",
 			"city": "San Francisco"
+		},
+		{
+			"name": "The Neighbor's Pub",
+			"url": "https://www.theneighborspub.org/events?format=json",
+			"city": "Santa Cruz"
 		},
 		{
 			"name": "Guildhouse",
