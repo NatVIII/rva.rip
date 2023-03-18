@@ -117,6 +117,11 @@ async function fetchInstagramEvents() {
 			console.log(`[IG] Current rate limit: call_count:${callCount} total_cputime:${totalCPUTime} total_time:${totalTime}`)
 			if (!newOrganizer.error) {
 				instagramOrganizersIG.push(newOrganizer);
+				++firstIndexOfNonUpdatedOrganizer;
+			}
+			else if (callCount > 70 || totalCPUTime > 70 || totalTime > 70) {
+				console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
+				break
 			}
 			else {
 				console.error(`It appears the username ${instagramOrganizerDb.username} cannot be found 
@@ -124,11 +129,6 @@ async function fetchInstagramEvents() {
 				Consider asking them to enable this feature.`)
 				throw new Error(newOrganizer.error.message);
 			}
-			if (callCount > 85 || totalCPUTime > 85 || totalTime > 85) {
-				console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
-				break
-			}
-			++firstIndexOfNonUpdatedOrganizer;
 		}
 	} catch (err) {
 		console.error('Could not get Instagram organizers to update: ', err);
