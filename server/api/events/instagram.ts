@@ -281,7 +281,8 @@ async function fetchInstagramEvents() {
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
 						"-If the title of the event is longer than 255 characters, shorten it to include just the most important parts.\n" +
 						// The following is to avoid organizer meetings.
-						"-If the event is explicity a 'meeting', then set the start hour to null.\n" +
+						"-If post contains multiple different events, only output the result for the earliest event.\n" +
+						"-If the event is explicity 'private', or a 'meeting', then set the start hour to null.\n" +
 						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
 						`${tags_string.toLowerCase().includes('music') ? "-Include featured music artists in the title as well.\n" : ""}` +
 						"-Do not include any other text in your response besides the raw JSON." + "\n" +
