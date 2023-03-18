@@ -225,27 +225,31 @@ function moveListViewScrollbarToTodayAndColor() {
 }
 
 async function getEventSources() {
-  const { data: eventbriteSourcesResponse } = await useFetch('/api/events/eventbrite', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(eventbriteSourcesResponse));
-  const { data: wordPressTribeSourcesResponse } = await useFetch('/api/events/wordpress-tribe', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(wordPressTribeSourcesResponse));
-  const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
-  const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
-  const { data: instagramSourcesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(instagramSourcesResponse));
-  const { data: timelySourcesResponse } = await useFetch('/api/events/timely', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(timelySourcesResponse));
-  const { data: withFriendsResponse } = await useFetch('/api/events/with-friends', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(withFriendsResponse));
-  const { data: googleCalendarSourcesResponse } = await useFetch('/api/events/google-calendar', { headers: clientHeaders });
-  addEventSources(transformEventSourcesResponse(googleCalendarSourcesResponse));
+  const endpoints = [
+    '/api/events/eventbrite',
+    '/api/events/wordpress-tribe',
+    '/api/events/tockify',
+    '/api/events/squarespace',
+    '/api/events/instagram',
+    // '/api/events/timely',
+    '/api/events/with-friends',
+    '/api/events/google-calendar',
+  ];
+  const clientHeaders = {
+    'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
+  };
+  // This is to preventing the UI changes from each fetch result to cause more fetches to occur.,
+  Promise.allSettled(endpoints.map(async (endpoint) => {
+    const { data: response } = await useFetch(endpoint, { headers: clientHeaders });
+    return addEventSources(transformEventSourcesResponse(response));
+  }));
 }
+
+// Multiple re-renders (which may be unrelated to the fetching) cause this to be called multiple times.
+getEventSources();
 
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
-  getEventSources();
 });
 // onUpdated(() => {});
 onUnmounted(() => {
@@ -291,10 +295,12 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
   });
   // Issue: might take a long time to actually update the calendar if the list of, for example, Eventbrite events/sources is large.
 
-  calendarOptions.value = {
+  const res = {
     ...calendarOptions.value,
     eventSources: calendarOptions.value.eventSources.concat(newEventSources)
   };
+  calendarOptions.value = res;
+  return res;
 }
 
 function isDisplayingBasedOnFilterSettings(city: string) {
@@ -307,10 +313,6 @@ function isDisplayingBasedOnFilterSettings(city: string) {
 }
 
 const eventSourcesFromFile = json;
-const clientHeaders = {
-  'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
-};
-
 const transformEventSourcesResponse = (eventSources) => {
   const eventsSourcesWithoutProxy = toRaw(eventSources.value.body)
   if (!eventsSourcesWithoutProxy || eventsSourcesWithoutProxy.length < 1) return [];
