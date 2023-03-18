@@ -224,8 +224,28 @@ function moveListViewScrollbarToTodayAndColor() {
   }
 }
 
+async function getEventSources() {
+  const { data: eventbriteSourcesResponse } = await useFetch('/api/events/eventbrite', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(eventbriteSourcesResponse));
+  const { data: wordPressTribeSourcesResponse } = await useFetch('/api/events/wordpress-tribe', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(wordPressTribeSourcesResponse));
+  const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
+  const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
+  const { data: instagramSourcesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(instagramSourcesResponse));
+  const { data: timelySourcesResponse } = await useFetch('/api/events/timely', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(timelySourcesResponse));
+  const { data: withFriendsResponse } = await useFetch('/api/events/with-friends', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(withFriendsResponse));
+  const { data: googleCalendarSourcesResponse } = await useFetch('/api/events/google-calendar', { headers: clientHeaders });
+  addEventSources(transformEventSourcesResponse(googleCalendarSourcesResponse));
+}
+
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
+  getEventSources();
 });
 // onUpdated(() => {});
 onUnmounted(() => {
@@ -311,21 +331,6 @@ const transformEventSourcesResponse = (eventSources) => {
   })
   return datesAdded;
 }
-
-const { data: eventbriteSourcesResponse } = await useFetch('/api/events/eventbrite', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(eventbriteSourcesResponse));
-const { data: wordPressTribeSourcesResponse } = await useFetch('/api/events/wordpress-tribe', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(wordPressTribeSourcesResponse));
-const { data: tockifySourcesResponse } = await useFetch('/api/events/tockify', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(tockifySourcesResponse));
-const { data: squarespaceEventSourcesResponse } = await useFetch('/api/events/squarespace', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(squarespaceEventSourcesResponse));
-const { data: instagramSourcesResponse } = await useFetch('/api/events/instagram', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(instagramSourcesResponse));
-const { data: withFriendsResponse } = await useFetch('/api/events/with-friends', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(withFriendsResponse));
-const { data: googleCalendarSourcesResponse } = await useFetch('/api/events/google-calendar', { headers: clientHeaders });
-addEventSources(transformEventSourcesResponse(googleCalendarSourcesResponse));
 
 async function loadGoogleCalendarEvents() {
   // Note: Google Calendar has integration with FullCalendar, which allows us to avoid calling it on the server, at
