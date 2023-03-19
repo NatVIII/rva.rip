@@ -369,7 +369,7 @@ label {}
 }
 
 .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .fc .fc-daygrid-day.fc-day-today {
