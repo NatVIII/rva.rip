@@ -201,6 +201,7 @@ const calendarOptions = ref({
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
   // Event handlers.
+  // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
@@ -251,7 +252,10 @@ getEventSources();
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
 });
-// onUpdated(() => {});
+onUpdated(() => {
+  // Move the scrollbar to today on first load.
+  moveListViewScrollbarToTodayAndColor();
+});
 onUnmounted(() => {
   if (process.client) window.removeEventListener('resize', updateWeekNumbers)
 });
