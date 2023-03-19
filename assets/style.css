@@ -487,6 +487,10 @@ body.no-scroll {
   text-align: center;
 }
 
+.fc .fc-h-event .fc-event-time {
+  /* Fix time getting cut off for multi-day events */
+  overflow: visible;
+}
 .popper-box-inner .bottom button {
   font-size: 14px;
 }
