@@ -368,8 +368,9 @@ label {}
   color: black;
 }
 
-.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
-  /* overflow-x: hidden; */
+/* Allow multi-day events to overflow to other days */
+.fc .fc-h-event .fc-event-time {
+  overflow-x: hidden;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
