@@ -240,7 +240,7 @@ async function getEventSources() {
   };
   // This is to preventing the UI changes from each fetch result to cause more fetches to occur.,
   Promise.allSettled(endpoints.map(async (endpoint) => {
-    const { data: response } = await useFetch(endpoint, { headers: clientHeaders });
+    const { data: response } = await useLazyFetch(endpoint, { headers: clientHeaders });
     return addEventSources(transformEventSourcesResponse(response));
   }));
 }
