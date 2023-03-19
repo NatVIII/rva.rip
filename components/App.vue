@@ -251,6 +251,7 @@ getEventSources();
 
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
+  moveListViewScrollbarToTodayAndColor();
 });
 onUpdated(() => {
   // Move the scrollbar to today on first load.
