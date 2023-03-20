@@ -123,6 +123,14 @@
 			"city": "Oakland"
 		},
 		{
+			"name": "Passionfruit",
+			"username": "passionfruitdanceparty",
+			"context_clues": [
+				"Dance"
+			],
+			"city": "Oakland"
+		},
+		{
 			"name": "TAC: Temescal Art Center",
 			"username": "tac_oakland",
 			"context_clues": [],
