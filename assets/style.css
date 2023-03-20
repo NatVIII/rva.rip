@@ -123,6 +123,9 @@ button:focus-visible {
   /* background: red; */
   /* margin-top: 5px; */
 }
+:root .fc .fc-list-table td {
+  padding: 7px 14px;
+}
 html,
 body {
   margin-top: 0;
