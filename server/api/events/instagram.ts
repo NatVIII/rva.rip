@@ -584,7 +584,7 @@ function setIgnoreInstagramEventsInplace(eventsFromOrganizer: InstagramEvent[]) 
 					// Ignore names with the same prefix.
 				(eventsFromOrganizer[i].title.length > nameFront
 					&& eventsFromOrganizer[j].title.length > nameFront
-					&& eventsFromOrganizer[i].title.substring(0, nameFront) === eventsFromOrganizer[j].title.substring(0, nameFront)))
+					&& eventsFromOrganizer[i].title.substring(0, nameFront).toLowerCase() === eventsFromOrganizer[j].title.substring(0, nameFront).toLowerCase()))
 			) {
 				// Add new property to event- used by FullCalendar to ignore event.
 				eventsFromOrganizer[j].display = 'none';
