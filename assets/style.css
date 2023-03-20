@@ -96,6 +96,7 @@ button:focus-visible {
   src: url('./assets/LDFComicSans.ttf') format('truetype');
 }
 
+/* Takes precedence over FullCalendar's  styling. */
 :root {
   /* linear rainbow gradient, pastel */
   background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));
@@ -116,6 +117,12 @@ button:focus-visible {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Highest precedence */
+:root .fc .fc-h-event {
+  /* Set .fc .fc-daygrid-event to margin-top 0 */
+  /* background: red; */
+  /* margin-top: 5px; */
+}
 html,
 body {
   margin-top: 0;
@@ -417,7 +424,8 @@ label {}
 }
 
 .desc {
-  font-family: 'LDFComicSans';
+  /* This causes issues with fc-h-events */
+    font-family: 'LDFComicSans', serif;
   padding: 18px;
   font-size: min(4vw, 1.4em);
   opacity: 5;
@@ -434,7 +442,6 @@ label {}
 body.no-scroll {
   overflow: hidden;
 }
-
 .popper-box-wrapper {
   display: flex;
   justify-content: center;
@@ -458,7 +465,6 @@ body.no-scroll {
   flex-direction: column;
   margin-top: 2px;
 }
-
 .popper-box-wrapper .popper-box-inner .city-header {
   vertical-align: middle;
   float: right;
@@ -492,6 +498,7 @@ body.no-scroll {
   /* Fix time getting cut off for multi-day events */
   overflow: visible;
 }
+  
 .popper-box-inner .bottom button {
   font-size: 14px;
 }
