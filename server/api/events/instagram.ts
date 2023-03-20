@@ -118,16 +118,16 @@ async function fetchInstagramEvents() {
 			if (!newOrganizer.error) {
 				instagramOrganizersIG.push(newOrganizer);
 				++firstIndexOfNonUpdatedOrganizer;
-			}
-			else if (callCount > 70 || totalCPUTime > 70 || totalTime > 70) {
-				console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
-				break
+				if (callCount > 60 || totalCPUTime > 60 || totalTime > 60) {
+					console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
+					break
+				}
 			}
 			else {
 				console.error(`It appears the username ${instagramOrganizerDb.username} cannot be found 
 				using business discovery. Confirm it is correct. If so, then that account is not a business account. 
-				Consider asking them to enable this feature.`)
-				throw new Error(newOrganizer.error.message);
+				Consider asking them to enable this feature. Or, you have exceeded Instagram's rate limit.`)
+				break;
 			}
 		}
 	} catch (err) {
