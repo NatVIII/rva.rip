@@ -4,6 +4,7 @@ import eventSourcesJSON from 'public/event_sources.json';
 import { logTimeElapsedSince, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { InstagramEvent, PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
+import { DateTime } from 'luxon';
 
 const PST_OFFSET = 8;
 
@@ -118,7 +119,7 @@ async function fetchInstagramEvents() {
 			if (!newOrganizer.error) {
 				instagramOrganizersIG.push(newOrganizer);
 				++firstIndexOfNonUpdatedOrganizer;
-				if (callCount > 60 || totalCPUTime > 60 || totalTime > 60) {
+				if (callCount > 40 || totalCPUTime > 40 || totalTime > 40) {
 					console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
 					break
 				}
@@ -256,6 +257,8 @@ async function fetchInstagramEvents() {
 						`"title": string, ` +
 						`"startHourMilitaryTime": number, ` +
 						`"endHourMilitaryTime": number, ` +
+						`"startMinute": number, ` +
+						`"endMinute": number, ` +
 						`"startDay": number, ` +
 						`"endDay": number, ` +
 						`"startMonth": number, ` +
@@ -272,12 +275,15 @@ async function fetchInstagramEvents() {
 						"Here are some additional rules you should follow:\n" +
 						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
 						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
-						"-If no start hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
-						"-If no end day is explicitly provided by the caption or OCR result, assign it to null.\n" +
-						"-If no end hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no end month is explicitly provided by the caption or OCR result, assign it to the same month as startMonth.\n" +
+						"-If no end day is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no start hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no end hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no start minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no end minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						`-If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
 						"-If the start hour is PM and the end hour is AM, assume the event ends on the next day from the starting day.\n" +
+						// Do this to prevent it from making adjustments to the time.
 						"-Don't make any timezone-related adjustments to the times; assume it is UTC already.\n" +
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
 						"-If the title of the event is longer than 255 characters, shorten it to include just the most important parts.\n" +
@@ -352,6 +358,8 @@ async function fetchInstagramEvents() {
 							&& Object.hasOwn(potentialResult, 'title')
 							&& Object.hasOwn(potentialResult, 'startHourMilitaryTime')
 							&& Object.hasOwn(potentialResult, 'endHourMilitaryTime')
+							&& Object.hasOwn(potentialResult, 'startMinute')
+							&& Object.hasOwn(potentialResult, 'endMinute')
 							&& Object.hasOwn(potentialResult, 'startDay')
 							&& Object.hasOwn(potentialResult, 'endDay')
 							&& Object.hasOwn(potentialResult, 'startMonth')
@@ -371,6 +379,12 @@ async function fetchInstagramEvents() {
 					}
 					if (jsonFromResponse.endYear === null) {
 						jsonFromResponse.endYear = jsonFromResponse.startYear;
+					}
+					if (jsonFromResponse.startMinute === null) {
+						jsonFromResponse.startMinute = 0;
+					}
+					if (jsonFromResponse.endMinute === null) {
+						jsonFromResponse.endMinute = 0;
 					}
 					if (jsonFromResponse.startMonth === 12 && jsonFromResponse.endMonth === 1) {
 						jsonFromResponse.endYear = jsonFromResponse.startYear + 1;
@@ -423,13 +437,16 @@ async function fetchInstagramEvents() {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
-						if (post.isEvent && post.startDay && post.startHourMilitaryTime) {
+						if (post.isEvent && post.startDay && post.startHourMilitaryTime && post.endHourMilitaryTime && post.startMinute && post.endMinute) {
 							console.log("Adding InstagramEvent to database: ", post);
+
 							return await prisma.instagramEvent.create({
 								data: {
 									igId: post.id,
-									start: new Date(Date.UTC(post.startYear, post.startMonth - 1, post.startDay, post.startHourMilitaryTime + PST_OFFSET)),
-									end: new Date(Date.UTC(post.endYear, post.endMonth - 1, post.endDay, post.endHourMilitaryTime + PST_OFFSET)),
+									start: DateTime.fromObject({ year: post.startYear, month: post.startMonth, day: post.startDay, hour: post.startHourMilitaryTime, minute: post.startMinute }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
+									end: DateTime.fromObject({ year: post.endYear, month: post.endMonth, day: post.endDay, hour: post.endHourMilitaryTime, minute: post.endMinute }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
+									// start: new Date(Date.UTC(post.startYear, post.startMonth - 1, post.startDay, post.startHourMilitaryTime + PST_OFFSET)),
+									// end: new Date(Date.UTC(post.endYear, post.endMonth - 1, post.endDay, post.endHourMilitaryTime + PST_OFFSET)),
 									url: post.url,
 									title: post.title,
 									organizerId: organizerId
