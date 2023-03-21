@@ -254,17 +254,17 @@ async function fetchInstagramEvents() {
 						"```\n" +
 						`{ ` +
 						`"isEvent": boolean, ` +
-						`"title": string, ` +
-						`"startHourMilitaryTime": number, ` +
-						`"endHourMilitaryTime": number, ` +
-						`"startMinute": number, ` +
-						`"endMinute": number, ` +
-						`"startDay": number, ` +
-						`"endDay": number, ` +
-						`"startMonth": number, ` +
-						`"endMonth": number` +
-						`"startYear": number, ` +
-						`"endYear": number, ` +
+						`"title": string | null, ` +
+						`"startDay": number | null, ` +
+						`"endDay": number | null, ` +
+						`"startHourMilitaryTime": number | null, ` +
+						`"endHourMilitaryTime": number | null, ` +
+						`"startMinute": number | null, ` +
+						`"endMinute": number | null, ` +
+						`"startMonth": number | null, ` +
+						`"endMonth": number | null` +
+						`"startYear": number | null, ` +
+						`"endYear": number | null, ` +
 						` }\n` +
 						"```\n" +
 						"Here's some important information regarding the post information:\n" +
@@ -273,14 +273,14 @@ async function fetchInstagramEvents() {
 						"-Sometimes a person or artist's username and their actual name can be found in the caption and OCR result; the username can be indicated by it being all lowercase and containing `.`s or `_`s. Their actual names would have very similar letters to the username, and might be provided by the OCR result. If the actual name is found, prefer using it for the JSON title, otherwise use the username.\n" +
 						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n. The time it was posted itself is not an event start time.` +
 						"Here are some additional rules you should follow:\n" +
-						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
-						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
-						"-If no end month is explicitly provided by the caption or OCR result, assign it to the same month as startMonth.\n" +
 						"-If no end day is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no start hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no end hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no start minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no end minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
+						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
+						"-If no end month is explicitly provided by the caption or OCR result, assign it to the same month as startMonth.\n" +
 						`-If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
 						"-If the start hour is PM and the end hour is AM, assume the event ends on the next day from the starting day.\n" +
 						// Do this to prevent it from making adjustments to the time.
@@ -311,7 +311,7 @@ async function fetchInstagramEvents() {
 									{ role: "system", content: prompt },
 								],
 								temperature: 0,
-								max_tokens: 600,
+								max_tokens: 800,
 							});
 							return res;
 						} catch (e) {
@@ -437,7 +437,13 @@ async function fetchInstagramEvents() {
 					// First check if post got processed.
 					if (!Object.hasOwn(post, 'isNull')) {
 						// Add the event or non-event to the database.
-						if (post.isEvent && post.startDay && post.startHourMilitaryTime && post.endHourMilitaryTime && post.startMinute && post.endMinute) {
+						if (post.isEvent === true
+							&& post.startDay !== null
+							&& post.startHourMilitaryTime !== null
+							&& post.endHourMilitaryTime !== null
+							&& post.startMinute !== null
+							&& post.endMinute !== null
+						) {
 							console.log("Adding InstagramEvent to database: ", post);
 
 							return await prisma.instagramEvent.create({
