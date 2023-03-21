@@ -431,8 +431,8 @@ async function fetchInstagramEvents() {
 							return await prisma.instagramEvent.create({
 								data: {
 									igId: post.id,
-									start: DateTime.fromObject({ year: post.startYear, month: post.startMonth - 1, day: post.startDay, hour: post.startHourMilitaryTime }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
-									end: DateTime.fromObject({ year: post.endYear, month: post.endMonth - 1, day: post.endDay, hour: post.endHourMilitaryTime }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
+									start: DateTime.fromObject({ year: post.startYear, month: post.startMonth, day: post.startDay, hour: post.startHourMilitaryTime }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
+									end: DateTime.fromObject({ year: post.endYear, month: post.endMonth, day: post.endDay, hour: post.endHourMilitaryTime }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
 									// start: new Date(Date.UTC(post.startYear, post.startMonth - 1, post.startDay, post.startHourMilitaryTime + PST_OFFSET)),
 									// end: new Date(Date.UTC(post.endYear, post.endMonth - 1, post.endDay, post.endHourMilitaryTime + PST_OFFSET)),
 									url: post.url,
