@@ -143,6 +143,30 @@
 				"Music"
 			],
 			"city": "San Jose"
+		},
+		{
+			"name": "Splash",
+			"username": "splashsjc",
+			"context_clues": [
+				""
+			],
+			"city": "San Jose"
+		},
+		{
+			"name": "Postcards 4 LGBTQI+ Prisoners",
+			"username": "snailmailproject_831",
+			"context_clues": [
+				""
+			],
+			"city": "Santa Cruz"
+		},
+		{
+			"name": "Pajaro Valley Pride",
+			"username": "pajarovalleypride_831",
+			"context_clues": [
+				""
+			],
+			"city": "Others in Santa Cruz County"
 		}
 	],
 	"eventbrite": [
@@ -188,6 +212,11 @@
 			"name": "Noisebridge",
 			"googleCalendarId": "v4694n2t0jmpg2i9i2fck7uiuq2oo8f7@import.calendar.google.com",
 			"city": "San Francisco"
+		},
+		{
+			"name": "Trans Ladies Picnic",
+			"googleCalendarId": "bc33f60012be158adeee1d012a93acdc20a8b52b7c5e3ebb4993d6bffa5f4507@group.calendar.google.com",
+			"city": "Oakland"
 		},
 		{
 			"name": "Greater Brewing Company",
