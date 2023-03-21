@@ -393,39 +393,20 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
 
 <template>
   <ModalsContainer />
-<div class="calendar-container">
-    <div style="display: flex; flex-direction:column; position:relative;">
-      <div class="title">
-        bay.lgbt
-      </div>
-      <div style="display:flex; flex-direction: column; align-items: center;">
-        <div class="blurb">An lgbt events aggregator for all around SF bay! Currently in open beta! Please DM event
-            & organizers recommendations <a href="https://www.instagram.com/bytewife/">here</a> ;3
+    <div class="calendar-container">
+      <div style="display: flex; flex-direction:column; position:relative;">
+        <div class="title">bay.lgbt</div>
+        <div style="display:flex; flex-direction: column; align-items: center;">
+          <div class="blurb">A communal board for LGBT events all around SF bay! Come out and play ;3</div>
         </div>
       </div>
-    </div>
-    <FullCalendar :options='calendarOptions' />
-
-    <div style="display: flex; align-items: center; flex-direction: row;">
-      <div class="desc">
-        <p><strong>The events here are drawn
-            from various venue listings that contributors (thank you!) have provided. The venues are in a constant state of
-            community-based vetting; don't hesitate to provide feedback!
-            </strong> Before
-          making plans, consider checking with venue staff or event organizers directly. This site is not affiliated with ANY
-          venues or events listed here.
-        </p>
-        <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- to who I owe
-          the
-          inspiration.</p>
-        <p><strong>Want your event listed here?</strong> You must be publishing a machine-readable feed of event data
-          formatted in <a href="https://fullcalendar.io/docs/event-source">a compatible Event Source format</a>. (This
-          can
-          be as simple as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once
-          published, request inclusion of your event feed by <a href="https://github.com/ivyraine/bay.lgbt/issues">submitting
-            your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or
-          improvements there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes
-          at the expense of accuracy and Ivy's budget (nonexistent).</p>
+      <FullCalendar :options='calendarOptions' />
+      <div style="display: flex; align-items: center; flex-direction: row;">
+        <div class="desc">
+          <p>The events here are drawn from various <a href="https://github.com/ivyraine/bay.lgbt/blob/main/public/event_sources.json">venue listings</a> that contributors (thank you!) have provided. The venues are in a constant state of community-based vetting; don't hesitate to provide feedback <a href="https://forms.gle/DMt1xKyMKbHCsZMv5">here</a>!</p>
+          <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not affiliated with ANY venues or events listed.</p>
+          <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- to who I owe the inspiration.</p>
+          <p>Want your event listed here? You must be publishing a machine-readable feed of event data formatted in <a href="https://fullcalendar.io/docs/event-source">a compatible Event Source format</a>. (This can be as simple as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once published, request inclusion of your event feed by <a href="https://github.com/ivyraine/bay.lgbt/issues">submitting your event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or improvements there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes at the expense of accuracy and Ivy's budget (nonexistent).</p>
         <a href="https://github.com/ivyraine/bay.lgbt/">source code</a>
       </div>
       <img class="gifs" src="/bmo.gif" alt="BMO dancing" :width='Math.min(pageWidth / 3, 400)' />
