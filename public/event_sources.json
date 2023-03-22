@@ -175,6 +175,14 @@
 			"city": "San Jose"
 		},
 		{
+			"name": "CircusOfSin",
+			"username": "circusofsin",
+			"context_clues": [
+				"Drag"
+			],
+			"city": "San Jose"
+		},
+		{
 			"name": "Splash",
 			"username": "splashsjc",
 			"context_clues": [
@@ -247,6 +255,11 @@
 			"name": "Trans Ladies Picnic",
 			"googleCalendarId": "bc33f60012be158adeee1d012a93acdc20a8b52b7c5e3ebb4993d6bffa5f4507@group.calendar.google.com",
 			"city": "Oakland"
+		},
+		{
+			"name": "Billy DeFrank LGBTQ+ Community Center",
+			"googleCalendarId": "499c7e36a0f7284226a3d36a18c5be61edf85d7d6a41e5631db72ffd8ccad29e@group.calendar.google.com",
+			"city": "San Jose"
 		},
 		{
 			"name": "Greater Brewing Company",
