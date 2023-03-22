@@ -55,12 +55,6 @@
 			"city": "San Francisco"
 		},
 		{
-			"name": "Syzygy Coop",
-			"username": "syzygycoop",
-			"context_clues": [],
-			"city": "San Francisco"
-		},
-		{
 			"name": "Poetry Slime",
 			"username": "poetry.slime",
 			"context_clues": [
@@ -253,6 +247,15 @@
 		{
 			"name": "The Lab",
 			"movementId": "1354954",
+			"city": "San Francisco"
+		}
+	],
+	"wix": [
+		{
+			"name": "Syzygy",
+			"api_key_envvar": "WIX_SYZYGY_COOP_API_KEY",
+			"account_id_envvar": "WIX_SYZYGY_COOP_ACCOUNT_ID",
+			"site_id_envvar": "WIX_SYZYGY_COOP_SITE_ID",
 			"city": "San Francisco"
 		}
 	]

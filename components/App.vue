@@ -235,6 +235,7 @@ async function getEventSources() {
     // '/api/events/timely',
     '/api/events/with-friends',
     '/api/events/google-calendar',
+    '/api/events/wix',
   ];
   const clientHeaders = {
     'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
