@@ -412,9 +412,6 @@ async function fetchInstagramEvents() {
 
 					let newTitle = jsonFromResponse.title;
 					newTitle += `@ ${source.username}`
-					if (source.contextClues.length > 0) {
-						newTitle = ' [' + source.contextClues + ']';
-					};
 					if (newTitle.length <= 255) {
 						jsonFromResponse.title = newTitle;
 					}
