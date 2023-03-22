@@ -292,6 +292,7 @@ async function fetchInstagramEvents() {
 						"-If the event is explicity 'private', or a 'meeting', then set the start hour to null.\n" +
 						`${tags_string.toLowerCase().includes('music') ? "-Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
 						`${tags_string.toLowerCase().includes('music') ? "-Include featured music artists in the title as well.\n" : ""}` +
+						`${(caption.includes('🎱') || event.ocrResult.includes('🎱')) ? "-Consider 🎱 to be read as `8` if given as a time. \n" : ""}` +
 						"-Do not include any other text in your response besides the raw JSON." + "\n" +
 						'-Make sure JSON format is valid (i.e. contains commas after each field, except for the last one).' + "\n" +
 						"\n" +
