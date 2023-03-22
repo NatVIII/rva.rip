@@ -25,6 +25,10 @@ yes!
 - (Please stop using Instagram for events. Please stop using Instagram for events.) (x10)
 - suddenly running into Vercel's [10 sec timeout](https://vercel.com/docs/concepts/limits/overview#general-limits:~:text=Serverless%20Function%20Execution%20Timeout%20(Seconds)) for Free tier (why does Eventbrite take so long??): more pain 😀. Fork $20/mo to Vercel for a 60 sec timeout instead
 - open beta! (ꈍ ‿ ꈍ ✿)
+- surprise surprise: Instagram's API is once again causing issues- 200 requests per hour (per user, of which there is 1 in this case). let's spread out the requests but milk that limit as much as possible.
+- *adds many various other APIs (Wix, Squarespace, With Friends, etc.)*- not too bad but fearful that APIs make change/break at any time, haha...
+- *adds a frightening number of event sources all around the bay*
+- *realize the potential endless API hell I've gotten myself into*- *takes a cold shower and puts up Donation link*
 
 # Development
 TODO
