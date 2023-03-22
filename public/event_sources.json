@@ -91,6 +91,34 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "non-binary run club",
+			"username": "nbrcsf",
+			"context_clues": [
+				"Non-binary Running"
+			],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Liminal Space SF",
+			"username": "liminalspacesf",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
+			"name": "SWITCH",
+			"username": "powerswitchsf",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Wicked Grounds",
+			"username": "wickedgrounds",
+			"context_clues": [
+				"Kink"
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "The Spooky Haus",
 			"username": "thespookyhaus",
 			"context_clues": [
