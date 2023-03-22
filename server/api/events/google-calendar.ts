@@ -42,13 +42,14 @@ async function fetchGoogleCalendarEvents() {
 
 				const events = await Promise.all(data.items.map(async (item) => {
 					const event = {
-						title: item.summary,
+						title: `${item.summary} @ ${source.name}`,
 						start: item.start.dateTime,
 						end: item.end.dateTime,
 						url: item.htmlLink,
 					};
 					return event;
 				}));
+
 				return {
 					events,
 					city: source.city
