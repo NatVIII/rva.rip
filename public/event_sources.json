@@ -292,6 +292,13 @@
 			"city": "San Jose"
 		}
 	],
+	"timely": [
+		{
+			"name": "Sudo Room",
+			"calendarId": "54731120",
+			"city": "Oakland"
+		}
+	],
 	"withFriends": [
 		{
 			"name": "The Lab",

@@ -228,13 +228,13 @@ function moveListViewScrollbarToTodayAndColor() {
 async function getEventSources() {
   const endpoints = [
     '/api/events/eventbrite',
-    '/api/events/wordpress-tribe',
-    '/api/events/tockify',
-    '/api/events/squarespace',
     '/api/events/instagram',
-    // '/api/events/timely',
-    '/api/events/with-friends',
     '/api/events/google-calendar',
+    '/api/events/squarespace',
+    '/api/events/tockify',
+    '/api/events/with-friends',
+    '/api/events/wordpress-tribe',
+    '/api/events/timely',
     '/api/events/wix',
   ];
   const clientHeaders = {
