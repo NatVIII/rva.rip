@@ -131,6 +131,14 @@
 			"city": "Oakland"
 		},
 		{
+			"name": "East Bay Baddie Billiards",
+			"username": "eastbaybaddiebilliards",
+			"context_clues": [
+				"Billiards"
+			],
+			"city": "Oakland"
+		},
+		{
 			"name": "orifice.0",
 			"username": "orifice.0",
 			"context_clues": [
