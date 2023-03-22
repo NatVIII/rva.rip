@@ -286,7 +286,7 @@ async function fetchInstagramEvents() {
 						// Do this to prevent it from making adjustments to the time.
 						"-Don't make any timezone-related adjustments to the times; assume it is UTC already.\n" +
 						"-Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
-						"-If the title of the event is longer than 255 characters, shorten it to include just the most important parts.\n" +
+						"-If the title of the event is longer than 210 characters, shorten it to include just the most important parts.\n" +
 						// The following is to avoid organizer meetings.
 						"-If post contains multiple different events, only output the result for the earliest event.\n" +
 						"-If the event is explicity 'private', or a 'meeting', then set the start hour to null.\n" +
@@ -410,7 +410,14 @@ async function fetchInstagramEvents() {
 					jsonFromResponse.id = event.id;
 					jsonFromResponse.url = event.permalink;
 
-					jsonFromResponse.title = `${jsonFromResponse.title}${source.contextClues.length > 0 ? ' [' + source.contextClues + ']' : ''}`;
+					let newTitle = jsonFromResponse.title;
+					newTitle += `@ ${source.username}`
+					if (source.contextClues.length > 0) {
+						newTitle = ' [' + source.contextClues + ']';
+					};
+					if (newTitle.length <= 255) {
+						jsonFromResponse.title = newTitle;
+					}
 					// Trim title to 255 characters.
 					if (jsonFromResponse.title.length > 255) {
 						jsonFromResponse.title = jsonFromResponse.title.substring(0, 255);
