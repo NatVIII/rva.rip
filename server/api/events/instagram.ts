@@ -504,8 +504,20 @@ async function fetchInstagramEvents() {
 				await Promise.all(allIdsFromOrganizer.map(async (event) => {
 					if (!currentEventsIds.has(event.igId)) {
 						const isEvent = await prisma.instagramEvent.findFirst({ where: { igId: event.igId } });
+						// Current date in UTC.
 						if (isEvent) {
-							console.log('deleting event', event.igId)
+							// TODO: check that this actually works.
+							// Check if event has actually passed, with a margin of 7 days needing to pass. It's given as UTC.
+							const deleteAfterDate = DateTime.now().minus({ days: 7 }).toUTC().toJSDate();
+							const isEventFinished = event.end < deleteAfterDate;
+							console.log(`isEventFinished: ${isEventFinished}, event: ${event.title}`);
+							// Delete events not within a year of current date, in order to avoid clogging database with events that may never happen.
+							const isEventWithinYear = event.start > DateTime.now().minus({ years: 1 }).toUTC().toJSDate();
+							console.log(`isEventWithinYear: ${isEventWithinYear}, event: ${event.title}`)
+							if (!isEventFinished && isEventWithinYear) return;
+
+							// Delete from events.
+							console.log('deleting event', event.igId, event.title)
 							await prisma.instagramEvent.delete({ where: { igId: event.igId } });
 						}
 						else {
