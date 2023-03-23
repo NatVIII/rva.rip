@@ -93,7 +93,8 @@ async function fetchInstagramEvents() {
 					}
 				});
 			}
-			return dbEntry;
+			const res = { ...dbEntry, name: instagramOrganizer.name };
+			return res;
 		}));
 		instagramOrganizersDb = instagramOrganizersDb.sort((a, b) => a.lastUpdated.getTime() - b.lastUpdated.getTime());
 	}
@@ -411,7 +412,7 @@ async function fetchInstagramEvents() {
 					jsonFromResponse.url = event.permalink;
 
 					let newTitle = jsonFromResponse.title;
-					newTitle += `@ ${source.username}`
+					newTitle += `@ ${source.name}`
 					if (newTitle.length <= 255) {
 						jsonFromResponse.title = newTitle;
 					}
