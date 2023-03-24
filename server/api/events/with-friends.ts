@@ -1,6 +1,7 @@
 import eventSourcesJSON from 'public/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 import { JSDOM } from 'jsdom';
+import { DateTime } from 'luxon';
 
 export default defineCachedEventHandler(async (event) => {
 	const startTime = new Date();
@@ -47,20 +48,23 @@ async function fetchWithFriendsEvents() {
 
 				// Get event information.
 				const events = [...eventsHtml].map(event => {
-					const start = new Date(
-						event.querySelector('[data-property="Start_Time"]')!
+					let dateString = event.querySelector('[data-property="Start_Time"]')!
 							.textContent!
 							.trim()
-							.replace(' at', ` ${new Date().getFullYear()}`)
-					);
+						.replace(' at', ` ${new Date().getFullYear()}`);
+
+					// With Friends supplies events from America/Los_Angeles timezone- not the system timezone.
+					// Convert dateString, which is the format like `Friday, March 24 2023 8:30 PM`, to a UTC date.
+					const start = DateTime.fromFormat(dateString, 'cccc, LLLL d yyyy h:mm a', { zone: 'America/Los_Angeles' }).toUTC();
+
 					// Arbitrarily set end to be +3 hours from start.
-					const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
+					// const end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
 					const title = `${event.querySelector('[data-property="Name"]')!.textContent!.trim()} @ ${source.name}`;
 					const postUrl = 'https://withfriends.co' + event.querySelector('.wf-event-link')!.getAttribute('href');
 					return {
 						title,
 						start,
-						end,
+						end: start,
 						url: postUrl
 					}
 				});
