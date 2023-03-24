@@ -14,6 +14,8 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
+if (process.client)
+  console.info(document.cookie)
 interface County {
   enabled: any;
   cities: any;
@@ -131,9 +133,9 @@ const getWindowWidth = () => {
   return 350;
 };
 
-const calendarHeight = useCookie('calendarHeight', { default: () => 100, maxAge: 3600 * 365 });
+const calendarHeight = useCookie('calendarHeight', { default: () => 2000, maxAge: 60 * 60 * 24 * 365 });
 if (process.client) calendarHeight.value = window.innerHeight;
-const pageWidth = useCookie('pageWidth', { default: () => 100, maxAge: 3600 * 365 });
+const pageWidth = useCookie('pageWidth', { default: () => 1000, maxAge: 60 * 60 * 24 * 365 });
 if (process.client) pageWidth.value = window.innerWidth;
 
 const isUsingDayMaxEventRows = useState('isUsingDayMaxEventRows', () => true);
@@ -425,7 +427,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           <div class="blurb">A communal board for LGBT events all around SF bay! Come out and play ;3</div>
         </div>
       </div>
-      <FullCalendar :options='calendarOptions' v-on:vnode-updated="moveListViewScrollbarToTodayAndColor"/>
+      <FullCalendar :options='calendarOptions'/>
       <div style="display: flex; align-items: center; flex-direction: row;">
         <div class="desc">
           <p>bay.lgbt was built with the personal hope that no LGBTQ+ person should be without community. The site will always be free, without frills, and remain a public utility. The events here are drawn from various <a href="https://github.com/ivyraine/bay.lgbt/blob/main/public/event_sources.json">organizer listings</a> that contributors (thank you!) have provided. The listings are in a constant state of community-based vetting; don't hesitate to provide feedback <a href="https://forms.gle/DMt1xKyMKbHCsZMv5">here</a>!</p>
