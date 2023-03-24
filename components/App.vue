@@ -203,6 +203,7 @@ const calendarOptions = ref({
   // Event handlers.
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
+  eventDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
 const updateCalendarHeight = () => {
@@ -216,21 +217,31 @@ const updateCalendarHeight = () => {
 };
 
 function moveListViewScrollbarToTodayAndColor() {
-  const isInListMonthView = $('.fc-scroller.fc-scroller-liquid').length > 0;
-  const isInDayGridMonthView = $('.fc-day.fc-day-thu.fc-day-today.fc-daygrid-day').length > 0;
-  const isInCurrentMonth = $('.fc-list-day.fc-day.fc-day-today').length > 0;
-  if (isInListMonthView && isInCurrentMonth) {
-    const today = '.fc-list-day.fc-day.fc-day-today';
-    const scrollLength = $('.fc-scroller.fc-scroller-liquid').prop("scrollHeight");
-    $('.fc-scroller.fc-scroller-liquid').scrollTop(Math.min($(today).position().top, scrollLength));
-    // $('.fc-scroller.fc-scroller-liquid').scrollTop(5195);
-    // console.log('TEST', $('.fc-list-day.fc-day.fc-day-today').position().top);
+  const listMonthViewScrollerClass = '.fc-scroller.fc-scroller-liquid';
+  const dayGridMonthViewScrollerClass = '.fc-scroller.fc-scroller-liquid-absolute';
 
-    // Also change the color
-    $('.fc-list-day.fc-day.fc-day-today').css('--fc-neutral-bg-color', 'lightgreen');
+  const isInListMonthView = document.querySelector(listMonthViewScrollerClass) !== null;
+  const isInDayGridMonthView = document.querySelector(dayGridMonthViewScrollerClass) !== null;
+
+  const isInCurrentMonth = document.querySelector('.fc-list-day.fc-day.fc-day-today') !== null;
+
+  if (isInListMonthView && isInCurrentMonth) {
+    const today = document.querySelector('.fc-list-day.fc-day.fc-day-today');
+    const todayY = today!.getBoundingClientRect().top;
+    const goToY = Math.min(todayY, todayY);
+    const listMonthViewScroller = document.querySelector(listMonthViewScrollerClass);
+    listMonthViewScroller!.scrollTop = goToY;
+
+    // Old.
+    // const today = '.fc-list-day.fc-day.fc-day-today';
+    // const scrollLength = $('.fc-scroller.fc-scroller-liquid').prop("scrollHeight");
+    // $('.fc-scroller.fc-scroller-liquid').scrollTop(Math.min($(today).position().top, scrollLength));
+
+    // Change today element's --fc-neutral-bg-color to lightgreen.
+    today!.style.setProperty('--fc-neutral-bg-color', 'lightgreen');
   }
   else if (isInDayGridMonthView) {
-    const today = $('.fc-day.fc-day-thu.fc-day-today.fc-daygrid-day');
+    const today = $('.fc-day.fc-day-today.fc-daygrid-day');
     const scrollLength = $('.fc-scroller.fc-scroller-liquid-absolute').prop("scrollHeight");
     $('.fc-scroller.fc-scroller-liquid-absolute').scrollTop(Math.min($(today).position().top, scrollLength));
   }
