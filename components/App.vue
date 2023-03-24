@@ -227,10 +227,12 @@ function moveListViewScrollbarToTodayAndColor() {
 
   if (isInListMonthView && isInCurrentMonth) {
     const today = document.querySelector('.fc-list-day.fc-day.fc-day-today');
-    const todayY = today!.getBoundingClientRect().top;
-    const goToY = Math.min(todayY, todayY);
-    const listMonthViewScroller = document.querySelector(listMonthViewScrollerClass);
-    listMonthViewScroller!.scrollTop = goToY;
+    today?.scrollIntoView({ behavior: 'instant', block: 'start', inline: 'nearest' });
+    window.scrollTo(0, 0);
+    // const todayY = today!.getBoundingClientRect().top;
+    // const goToY = Math.min(todayY, todayY);
+    // const listMonthViewScroller = document.querySelector(listMonthViewScrollerClass);
+    // listMonthViewScroller!.scrollTop = goToY;
 
     // Old.
     // const today = '.fc-list-day.fc-day.fc-day-today';
