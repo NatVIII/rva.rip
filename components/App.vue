@@ -203,7 +203,7 @@ const calendarOptions = ref({
   // Event handlers.
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
-  eventDidMount: moveListViewScrollbarToTodayAndColor,
+  // eventDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
 const updateCalendarHeight = () => {
@@ -425,7 +425,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           <div class="blurb">A communal board for LGBT events all around SF bay! Come out and play ;3</div>
         </div>
       </div>
-      <FullCalendar :options='calendarOptions' />
+      <FullCalendar :options='calendarOptions' v-on:vnode-updated="moveListViewScrollbarToTodayAndColor"/>
       <div style="display: flex; align-items: center; flex-direction: row;">
         <div class="desc">
           <p>bay.lgbt was built with the personal hope that no LGBTQ+ person should be without community. The site will always be free, without frills, and remain a public utility. The events here are drawn from various <a href="https://github.com/ivyraine/bay.lgbt/blob/main/public/event_sources.json">organizer listings</a> that contributors (thank you!) have provided. The listings are in a constant state of community-based vetting; don't hesitate to provide feedback <a href="https://forms.gle/DMt1xKyMKbHCsZMv5">here</a>!</p>
