@@ -217,11 +217,22 @@ const updateCalendarHeight = () => {
 
 function moveListViewScrollbarToTodayAndColor() {
   const isInListMonthView = $('.fc-scroller.fc-scroller-liquid').length > 0;
+  const isInDayGridMonthView = $('.fc-day.fc-day-thu.fc-day-today.fc-daygrid-day').length > 0;
   const isInCurrentMonth = $('.fc-list-day.fc-day.fc-day-today').length > 0;
   if (isInListMonthView && isInCurrentMonth) {
-    $('.fc-scroller.fc-scroller-liquid').scrollTop($('.fc-list-day.fc-day.fc-day-today').position().top);
+    const today = '.fc-list-day.fc-day.fc-day-today';
+    const scrollLength = $('.fc-scroller.fc-scroller-liquid').prop("scrollHeight");
+    $('.fc-scroller.fc-scroller-liquid').scrollTop(Math.min($(today).position().top, scrollLength));
+    // $('.fc-scroller.fc-scroller-liquid').scrollTop(5195);
+    // console.log('TEST', $('.fc-list-day.fc-day.fc-day-today').position().top);
+
     // Also change the color
     $('.fc-list-day.fc-day.fc-day-today').css('--fc-neutral-bg-color', 'lightgreen');
+  }
+  else if (isInDayGridMonthView) {
+    const today = $('.fc-day.fc-day-thu.fc-day-today.fc-daygrid-day');
+    const scrollLength = $('.fc-scroller.fc-scroller-liquid-absolute').prop("scrollHeight");
+    $('.fc-scroller.fc-scroller-liquid-absolute').scrollTop(Math.min($(today).position().top, scrollLength));
   }
 }
 
