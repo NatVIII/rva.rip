@@ -26,7 +26,7 @@ async function fetchTockifyEvents() {
 				let tockifyJson = await (await fetch(url, { headers: serverFetchHeaders })).json();
 				let tockifyEvents = tockifyJson.events;
 				return {
-					events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url)),
+					events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url, source.name)),
 					city: source.city
 				} as EventNormalSource;
 			}
@@ -40,7 +40,7 @@ async function fetchTockifyEvents() {
 	return tockifySources;
 };
 
-function convertTockifyEventToFullCalendarEvent(e, url) {
+function convertTockifyEventToFullCalendarEvent(e, url, sourceName: string) {
 	var url = (e.content.customButtonLink)
 		? e.content.customButtonLink
 		: `${url.origin}/${url.searchParams.get('calname')}/detail/${e.eid.uid}/${e.eid.tid}`;
@@ -53,7 +53,7 @@ function convertTockifyEventToFullCalendarEvent(e, url) {
 			]
 		} : null;
 	return {
-		title: e.content.summary.text,
+		title: `${e.content.summary.text} @ ${sourceName}`,
 		start: new Date(e.when.start.millis),
 		end: new Date(e.when.end.millis),
 		url: url,
