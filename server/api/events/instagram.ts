@@ -38,7 +38,7 @@ async function doOCR(urls: string[]) {
 		urls.map(async (url) => {
 			const [result] = await client.textDetection(url);
 			const annotations = (Object.hasOwn(result, 'textAnnotations') && result.textAnnotations.length > 0) ?
-				result.fullTextAnnotation.text : ''
+				result.fullTextAnnotation.text : '';
 			return annotations;
 		}));
 
@@ -412,7 +412,7 @@ async function fetchInstagramEvents() {
 					jsonFromResponse.url = event.permalink;
 
 					let newTitle = jsonFromResponse.title;
-					newTitle += `@ ${source.name}`
+					newTitle += ` @ ${source.name}`
 					if (newTitle.length <= 255) {
 						jsonFromResponse.title = newTitle;
 					}
