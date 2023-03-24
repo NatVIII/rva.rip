@@ -33,7 +33,7 @@ async function fetchSquarespaceEvents() {
 				const squarespaceJson = await response.json();
 				const squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
 				return {
-					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(squarespaceJson.website.timeZone, event, source.url)),
+					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(squarespaceJson.website.timeZone, event, source.url, source.name)),
 					city: source.city
 				} as EventNormalSource;
 			})
@@ -45,7 +45,7 @@ async function fetchSquarespaceEvents() {
 	return squarespaceSources;
 };
 
-function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, url) {
+function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, url, sourceName) {
 	let start = DateTime.fromMillis(e.startDate).setZone(timeZone);
 	let end = DateTime.fromMillis(e.startDate).setZone(timeZone);
 
@@ -66,7 +66,7 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, url) {
 	}, { zone: 'America/Los_Angeles' });
 
 	return {
-		title: e.title,
+		title: `${e.title} @ ${sourceName}`,
 		start: actualStart.toUTC().toJSDate(),
 		end: actualEnd.toUTC().toJSDate(),
 		url: new URL(url).origin + e.fullUrl,
