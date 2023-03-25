@@ -194,8 +194,8 @@ const calendarOptions = ref({
   // Open in a new tab.
   eventClick: function (event) {
     if (event.event.url) {
+      window.open(event.event.url);
       event.jsEvent.preventDefault();
-      window.open(event.event.url, "_blank");
     }
   },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
