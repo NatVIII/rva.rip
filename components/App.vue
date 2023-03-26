@@ -308,9 +308,9 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
       }
       else {
         // Split the event into multiple day-long events.
-        for (let i = 0; i < lengthInDays; i++) {
+        // for (let i = 0; i < lengthInDays; i++) {
           // Temporarily just split into the first day and last day. TODO: Change this to split into individual days.
-          // for (let i = 0; i < lengthInDays; i += lengthInDays - 1) {
+        for (let i = 0; i < lengthInDays; i += lengthInDays - 1) {
 
           let currentDayStart = DateTime.fromJSDate(event.start, { zone: 'utc' });
           // Set currentDayEnd to start's day, but end's hour and minute.
@@ -332,8 +332,8 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
           const newSplitEvent = {
             ...event,
             // allDay: false,
-            title: `${event.title} (Day (${i + 1}/${lengthInDays})`,
-            // title: `${event.title} (${i === lengthInDays ? 'Last' : 'First'} Day)`,
+            // title: `${event.title} (Day (${i + 1}/${lengthInDays})`,
+            title: `${event.title} (${i === lengthInDays ? 'Last' : 'First'} Day)`,
             start: currentDayStart.toJSDate(),
             // Use the end time's hour and minute.
             end: currentDayStart.toJSDate(),
