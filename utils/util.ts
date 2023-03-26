@@ -41,3 +41,5 @@ export function logTimeElapsedSince(startTime: number, message: string) {
 	const timeElapsed = Date.now() - startTime;
 	console.log(`[time] ${timeElapsed}ms for ${message}`);
 }
+
+export const eventDayDurationSplitThreshold = 3; 

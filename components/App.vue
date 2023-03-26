@@ -7,6 +7,7 @@ import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from 'public/event_sources.json';
 import $ from 'jquery';
+import { DateTime } from 'luxon';
 
 import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
@@ -207,7 +208,7 @@ const calendarOptions = ref({
 });
 
 const updateCalendarHeight = () => {
-  pageWidth.value = getWindowWidth() - 100;
+  // pageWidth.value = getWindowWidth() - 100;
   calendarHeight.value = getWindowHeight();
   calendarOptions.value = {
     ...calendarOptions.value,
@@ -294,32 +295,57 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
     if (eventSource.events === undefined) return eventSource;
 
     // Filter events.
-    const newEvents = eventSource.events.filter((event) => {
+    const updatedEvents = new Array();
+    eventSource.events.forEach((event) => {
       /* REMOVED TEMPORARILY, replaced with the hack below: Remove events that last longer than 3 days.
       Note: This also tends to cut out Eventbrite events that have 'Multiple Dates' over a range of 3 days.
       Using the official Eventbrite API would allow us to avoid this issue, but would potentially run into 
       rate limits pretty quickly during peak hours. */
-      const isShorterThan3DaysLong = (event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24) <= 3;
+      const lengthInDays = Math.round((event.end.getTime() - event.start.getTime()) / (1000 * 3600 * 24));
 
-      // This is a hack where we set the end day to match start day. This is to get around the issue of
-      // Eventbrite events that have 'Multiple Dates' spanning 'All Day'. The downside is that this hack 
-      // removes all event dates except the first, but it is better than nothing.
-      if (!isShorterThan3DaysLong) {
-        event.end.setFullYear(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
-        // If the event's starting hour is greater than the event's ending hour, the ending day should be 1 day ahead of the 
-        // the start. Here we increment the day by 1.
-        if (event.start.getHours() > event.end.getHours()) {
-          event.end.setDate(event.end.getDate() + 1);
+      if (lengthInDays <= eventDayDurationSplitThreshold) {
+        updatedEvents.push(event);
+      }
+      else {
+        // Split the event into multiple day-long events.
+        for (let i = 0; i < lengthInDays; i++) {
+          // Temporarily just split into the first day and last day. TODO: Change this to split into individual days.
+          // for (let i = 0; i < lengthInDays; i += lengthInDays - 1) {
+
+          let currentDayStart = DateTime.fromJSDate(event.start, { zone: 'utc' });
+          // Set currentDayEnd to start's day, but end's hour and minute.
+          let currentDayEnd = DateTime.fromJSDate(event.end, { zone: 'utc' }).set({ month: currentDayStart.month, day: currentDayStart.day }).plus({ days: i });
+          currentDayStart = currentDayStart.plus({ days: i });
+
+          // console.log(currentDayStart.toUTC().toISO(), currentDayEnd.toUTC().toISO());
+          // // Adjust for end time being before start time.
+          if (currentDayEnd < currentDayStart) {
+            currentDayEnd.plus({ days: 1 });
+          }
+
+          // If set to all-day, set start to 0 and end to 23:59 in America/Los_Angeles time, to correct inaccurate times.
+          if (event.allDay) {
+            currentDayStart = currentDayStart.setZone('America/Los_Angeles').set({ hour: 0, minute: 0 }).toUTC();
+            currentDayEnd = currentDayEnd.setZone('America/Los_Angeles').set({ hour: 23, minute: 59 }).toUTC();
+          }
+
+          const newSplitEvent = {
+            ...event,
+            // allDay: false,
+            title: `${event.title} (Day (${i + 1}/${lengthInDays})`,
+            // title: `${event.title} (${i === lengthInDays ? 'Last' : 'First'} Day)`,
+            start: currentDayStart.toJSDate(),
+            // Use the end time's hour and minute.
+            end: currentDayStart.toJSDate(),
+          };
+          updatedEvents.push(newSplitEvent);
         }
       }
-      return (
-        event.start
-        // && isShorterThan3DaysLong
-      );
     });
+
     return {
       ...eventSource,
-      events: newEvents,
+      events: updatedEvents,
       // events: newEvents,
     } as EventNormalSource;
   });

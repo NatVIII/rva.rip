@@ -273,11 +273,14 @@ async function fetchInstagramEvents() {
 						"-Information regarding time provided by the caption is guaranteed to be correct. However, the caption might be lacking information regarding time and title.\n" +
 						"-The OCR result is provided by an OCR AI & thus may contain errors. Use it as a supplement for the information provided in the caption! This is especially useful when the caption is lacking information. The OCR Result also may contain time or title information that's not provided by the caption!\n" +
 						"-Sometimes a person or artist's username and their actual name can be found in the caption and OCR result; the username can be indicated by it being all lowercase and containing `.`s or `_`s. Their actual names would have very similar letters to the username, and might be provided by the OCR result. If the actual name is found, prefer using it for the JSON title, otherwise use the username.\n" +
-						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n. The time it was posted itself is not an event start time, but can be used to extrapolate event times relative to today; for example, if the event starts 'tomorrow', you can determine that the event begins 1 day after today's date.\n` +
 						"Here are some additional rules you should follow:\n" +
+						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n. The time it was posted itself is not an event start time, but can be used to extrapolate event times relative to today; for example, if the event starts 'tomorrow', you can determine that the event begins 1 day after today's date.\n` +
+						"-If no start day is explicitly provided by the caption or OCR result, and it cannot be inferred, assign it to null.\n" +
 						"-If no end day is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						// "-If only one time is provided in the caption or OCR result, assume it's the start time.\n" +
 						"-If no start hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no end hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						// "-If the end hour is less than the start hour (for example, 9 to 2), assume the event ends on the day after the starting day.\n" +
 						"-If no start minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If no end minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
 						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
@@ -453,11 +456,14 @@ async function fetchInstagramEvents() {
 						) {
 							console.log("Adding InstagramEvent to database: ", post);
 
+							let end = DateTime.fromObject({ year: post.endYear, month: post.endMonth, day: post.startDay, hour: post.endHourMilitaryTime, minute: post.endMinute }, { zone: 'America/Los_Angeles' });
+							// Allow Luxon to automatically take care of overflow (i.e. day 32 of the month).
+							end = end.plus({ days: post.endDay - post.startDay });
 							return await prisma.instagramEvent.create({
 								data: {
 									igId: post.id,
 									start: DateTime.fromObject({ year: post.startYear, month: post.startMonth, day: post.startDay, hour: post.startHourMilitaryTime, minute: post.startMinute }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
-									end: DateTime.fromObject({ year: post.endYear, month: post.endMonth, day: post.endDay, hour: post.endHourMilitaryTime, minute: post.endMinute }, { zone: 'America/Los_Angeles' }).toUTC().toJSDate(),
+									end: end.toUTC().toJSDate(),
 									// start: new Date(Date.UTC(post.startYear, post.startMonth - 1, post.startDay, post.startHourMilitaryTime + PST_OFFSET)),
 									// end: new Date(Date.UTC(post.endYear, post.endMonth - 1, post.endDay, post.endHourMilitaryTime + PST_OFFSET)),
 									url: post.url,

@@ -47,6 +47,12 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "CounterPulse",
+			"username": "counterpulse",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Envelope Soundsystem",
 			"username": "envelope.soundsystem",
 			"context_clues": [
@@ -108,6 +114,14 @@
 			"name": "SWITCH",
 			"username": "powerswitchsf",
 			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
+			"name": "Morning After Pill Radio",
+			"username": "morningafterpillradio",
+			"context_clues": [
+				"Music"
+			],
 			"city": "San Francisco"
 		},
 		{
