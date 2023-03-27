@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "prisma-generate": "prisma generate"
@@ -11,8 +11,6 @@
   "dependencies": {
     "@fullcalendar/core": "^6.1.5",
     "@fullcalendar/daygrid": "^6.1.5",
-    "@fullcalendar/google-calendar": "^6.1.5",
-    "@fullcalendar/icalendar": "^6.1.5",
     "@fullcalendar/list": "^6.1.5",
     "@fullcalendar/timegrid": "^6.1.5",
     "@fullcalendar/vue3": "^6.1.5",

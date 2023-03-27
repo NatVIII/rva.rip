@@ -3,8 +3,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import iCalendarPlugin from '@fullcalendar/icalendar';
-import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import json from 'public/event_sources.json';
 import $ from 'jquery';
 import { DateTime } from 'luxon';
@@ -159,7 +157,7 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
 })
 
 const calendarOptions = ref({
-  plugins: [dayGridPlugin, timeGridPlugin, listPlugin, iCalendarPlugin, googleCalendarPlugin],
+  plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
   initialView: getWindowWidth() <= 600 ? 'listMonth' : 'dayGridMonth',
   customButtons: {
     less: {
