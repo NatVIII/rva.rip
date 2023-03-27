@@ -204,7 +204,9 @@ const calendarOptions = ref({
   // Event handlers.
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
-  // eventDidMount: moveListViewScrollbarToTodayAndColor,
+  eventDidMount: moveListViewScrollbarToTodayAndColor,
+  dayHeaderDidMount: moveListViewScrollbarToTodayAndColor,
+  dayCellDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
 const updateCalendarHeight = () => {
@@ -228,6 +230,7 @@ function moveListViewScrollbarToTodayAndColor() {
 
   if (isInListMonthView && isInCurrentMonth) {
     const today = document.querySelector('.fc-list-day.fc-day.fc-day-today');
+    if (today.length <= 0) return;
     today?.scrollIntoView({ behavior: 'instant', block: 'start', inline: 'nearest' });
     window.scrollTo(0, 0);
     // const todayY = today!.getBoundingClientRect().top;
@@ -245,8 +248,9 @@ function moveListViewScrollbarToTodayAndColor() {
   }
   else if (isInDayGridMonthView) {
     const today = $('.fc-day.fc-day-today.fc-daygrid-day');
+    if (today.length <= 0) return;
     const scrollLength = $('.fc-scroller.fc-scroller-liquid-absolute').prop("scrollHeight");
-    $('.fc-scroller.fc-scroller-liquid-absolute').scrollTop(Math.min($(today).position().top, scrollLength));
+    $(dayGridMonthViewScrollerClass).scrollTop(Math.min($(today).position().top, scrollLength));
   }
 }
 
