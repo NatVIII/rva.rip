@@ -375,7 +375,7 @@ label {}
 
 /* Night-time seems to be different? */
 .fc-h-event .fc-event-main {
-  color: black;
+  color: white;
 }
 
 /* Allow multi-day events to overflow to other days */
