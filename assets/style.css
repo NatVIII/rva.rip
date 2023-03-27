@@ -124,7 +124,7 @@ button:focus-visible {
   /* margin-top: 5px; */
 }
 :root .fc .fc-list-table td {
-  padding: 7px 14px;
+  padding: 6px 14px;
 }
 html,
 body {
@@ -512,4 +512,8 @@ body.no-scroll {
 }
 .fc-list-day-cushion .fc-cell-shaded {
   --fc-neutral-bg-color: blue;
+}
+
+:root .fc .fc-daygrid-day-number {
+  text-decoration: dashed underline;
 }
