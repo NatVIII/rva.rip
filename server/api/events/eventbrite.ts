@@ -31,7 +31,8 @@ async function fetchEventbriteEvents() {
 					.then(res => res.text())
 					.then(async html => {
 						const dom = new JSDOM(html);
-						const eventsRaw = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML).map(convertSchemaDotOrgEventToFullCalendarEvent);
+						const eventsRaw = JSON.parse(dom.window.document.querySelectorAll('script[type="application/ld+json"]')[1].innerHTML)
+							.map(event => convertSchemaDotOrgEventToFullCalendarEvent(event, source.name));
 
 						// Since public & private Eventbrite endpoints provides a series of events as a single event, we need to split them up using their API.
 						const events = Promise.all(eventsRaw.map(async (rawEvent) => {
@@ -66,6 +67,7 @@ async function getEventSeries(event_url: string) {
 		.then((res) => {
 			return res.json();
 		});
+
 	// Sometimes the response returns 404 for whatever reason. I imagine for events with information set to private. Ignore those.
 	if (!res.events) {
 		return [];
@@ -74,7 +76,7 @@ async function getEventSeries(event_url: string) {
 	};
 }
 
-function convertSchemaDotOrgEventToFullCalendarEvent(item) {
+function convertSchemaDotOrgEventToFullCalendarEvent(item, sourceName) {
 	// If we have a `geo` object, format it to geoJSON.
 	var geoJSON = (item.location.geo) ? {
 		type: "Point",
@@ -85,9 +87,8 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item) {
 		// Otherwise, set it to null.
 	} : null;
 
-
 	return {
-		title: item.name,
+		title: `${item.name} @ ${sourceName}`,
 		// Converts from System Time to UTC.
 		start: DateTime.fromISO(item.startDate).toUTC().toJSDate(),
 		end: DateTime.fromISO(item.startDate).toUTC().toJSDate(),

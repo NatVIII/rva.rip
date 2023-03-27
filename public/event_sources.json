@@ -235,6 +235,11 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "OASIS",
+			"url": "https://www.eventbrite.com/o/oasis-27068567835#events",
+			"city": "San Francisco"
+		},
+		{
 			"name": "Polyglamorous",
 			"url": "https://www.eventbrite.com/o/polyglamorous-11856137047#events",
 			"id": "11856137047",
@@ -290,11 +295,6 @@
 		}
 	],
 	"squarespace": [
-		{
-			"name": "Casements",
-			"url": "https://casementsbar.com/calendar?format=json",
-			"city": "San Francisco"
-		},
 		{
 			"name": "The Neighbor's Pub",
 			"url": "https://www.theneighborspub.org/events?format=json",
