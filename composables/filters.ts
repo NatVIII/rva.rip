@@ -46,32 +46,56 @@ export const useIsOthersInSFSanMateoCountyEnabled = () => {
 
 // Alameda County Cities.
 export const useIsOaklandEnabled = () => {
-	return useCookie(OAKLAND_ID, { default: () => default_value });
+	return useCookie(OAKLAND_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 export const useIsBerkeleyEnabled = () => {
-	return useCookie(BERKELEY_ID, { default: () => default_value });
+	return useCookie(BERKELEY_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 
 export const useIsOthersInAlamedaCountyEnabled = () => {
-	return useCookie(OTHERS_IN_ALAMEDA_COUNTY_ID, { default: () => default_value });
+	return useCookie(OTHERS_IN_ALAMEDA_COUNTY_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 
 // Santa Clara County Cities.
 export const useIsSanJoseEnabled = () => {
-	return useCookie(SAN_JOSE_ID, { default: () => default_value });
+	return useCookie(SAN_JOSE_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 export const useIsSunnyvaleEnabled = () => {
-	return useCookie(SUNNYVALE_ID, { default: () => default_value });
+	return useCookie(SUNNYVALE_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 export const useIsOthersInSantaClaraCountyEnabled = () => {
-	return useCookie(OTHERS_IN_SANTA_CLARA_COUNTY_ID, { default: () => default_value });
+	return useCookie(OTHERS_IN_SANTA_CLARA_COUNTY_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 
 // Santa Cruz County Cities.
 export const useIsSantaCruzEnabled = () => {
-	return useCookie(SANTA_CRUZ_ID, { default: () => default_value });
+	return useCookie(SANTA_CRUZ_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
 
 export const useIsOthersInSantaCruzCountyEnabled = () => {
-	return useCookie(OTHERS_IN_SANTA_CRUZ_COUNTY_ID, { default: () => default_value });
+	return useCookie(OTHERS_IN_SANTA_CRUZ_COUNTY_ID, {
+		sameSite: 'strict',
+		default: () => default_value
+	});
 }
