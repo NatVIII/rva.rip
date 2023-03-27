@@ -130,9 +130,15 @@ const getWindowWidth = () => {
   return 350;
 };
 
-const calendarHeight = useCookie('calendarHeight', { default: () => 2000, maxAge: 60 * 60 * 24 * 365 });
+const calendarHeight = useCookie('calendarHeight', {
+  sameSite: 'strict',
+  default: () => 2000, maxAge: 60 * 60 * 24 * 365
+});
 if (process.client) calendarHeight.value = window.innerHeight;
-const pageWidth = useCookie('pageWidth', { default: () => 1000, maxAge: 60 * 60 * 24 * 365 });
+const pageWidth = useCookie('pageWidth', {
+  sameSite: 'strict',
+  default: () => 1000, maxAge: 60 * 60 * 24 * 365
+});
 if (process.client) pageWidth.value = window.innerWidth;
 
 const isUsingDayMaxEventRows = useState('isUsingDayMaxEventRows', () => true);
@@ -208,7 +214,7 @@ const calendarOptions = ref({
 });
 
 const updateCalendarHeight = () => {
-  // pageWidth.value = getWindowWidth() - 100;
+  pageWidth.value = getWindowWidth();
   calendarHeight.value = getWindowHeight();
   calendarOptions.value = {
     ...calendarOptions.value,
@@ -276,6 +282,9 @@ async function getEventSources() {
 
 // Multiple re-renders (which may be unrelated to the fetching) cause this to be called multiple times.
 getEventSources();
+// A hack to move the scrollbar to today after mounting- it is inconsistent otherwise on mobile.
+if (process.client)
+  setTimeout(moveListViewScrollbarToTodayAndColor, 0);
 
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
