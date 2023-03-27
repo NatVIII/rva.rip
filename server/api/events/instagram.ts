@@ -254,19 +254,19 @@ async function fetchInstagramEvents() {
 						"\n" +
 						"Output the results in the following JSON format: \n" +
 						"```\n" +
-						`{ ` +
-						`"isEvent": boolean, ` +
-						`"title": string | null, ` +
-						`"startDay": number | null, ` +
-						`"endDay": number | null, ` +
-						`"startHourMilitaryTime": number | null, ` +
-						`"endHourMilitaryTime": number | null, ` +
-						`"startMinute": number | null, ` +
-						`"endMinute": number | null, ` +
-						`"startMonth": number | null, ` +
-						`"endMonth": number | null` +
-						`"startYear": number | null, ` +
-						`"endYear": number | null, ` +
+						`{\n` +
+						`"isEvent": boolean,\n` +
+						`"title": string | null,\n` +
+						`"startDay": number | null,\n` +
+						`"endDay": number | null,\n` +
+						`"startHourMilitaryTime": number | null,\n` +
+						`"endHourMilitaryTime": number | null,\n` +
+						`"startMinute": number | null,\n` +
+						`"endMinute": number | null,\n` +
+						`"startMonth": number | null,\n` +
+						`"endMonth": number | null,\n` +
+						`"startYear": number | null,\n` +
+						`"endYear": number | null,\n` +
 						` }\n` +
 						"```\n" +
 						"Here's some important information regarding the post information:\n" +
@@ -317,7 +317,7 @@ async function fetchInstagramEvents() {
 									{ role: "system", content: prompt },
 								],
 								temperature: 0,
-								max_tokens: 1000,
+								max_tokens: 1500,
 							});
 							return res;
 						} catch (e) {
