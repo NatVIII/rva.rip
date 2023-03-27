@@ -274,17 +274,17 @@ async function fetchInstagramEvents() {
 						"-The OCR result is provided by an OCR AI & thus may contain errors. Use it as a supplement for the information provided in the caption! This is especially useful when the caption is lacking information. The OCR Result also may contain time or title information that's not provided by the caption!\n" +
 						"-Sometimes a person or artist's username and their actual name can be found in the caption and OCR result; the username can be indicated by it being all lowercase and containing `.`s or `_`s. Their actual names would have very similar letters to the username, and might be provided by the OCR result. If the actual name is found, prefer using it for the JSON title, otherwise use the username.\n" +
 						"Here are some additional rules you should follow:\n" +
-						`-The post was posted on ${new Date(event.timestamp).toDateString()}\n. The time it was posted itself is not an event start time, but can be used to extrapolate event times relative to today; for example, if the event starts 'tomorrow', you can determine that the event begins 1 day after today's date.\n` +
-						"-If no start day is explicitly provided by the caption or OCR result, and it cannot be inferred, assign it to null.\n" +
-						"-If no end day is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						`-The post was posted on ${new Date(event.timestamp).toDateString()}. The time it was posted itself is not an event start time. However, if the post is about an event, the post time can be used to extrapolate event times relative to today, time-relative wording is used; for example, if the event starts 'tomorrow', you can determine that the event begins 1 day after today's date.\n` +
+						"-If no start day is explicitly provided by the caption or OCR result, and it cannot be inferred using relative times, assign `startDay` to null.\n" +
+						"-If no end day is explicitly provided by the caption or OCR result, assign `endDay` to null.\n" +
 						// "-If only one time is provided in the caption or OCR result, assume it's the start time.\n" +
-						"-If no start hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
-						"-If no end hour is explicitly provided by the caption or OCR result, assign it to null.\n" +
+						"-If no start hour is explicitly provided by the caption or OCR result, such as ('2 pm' or the '9' in '9-12'), you must assign `startHourMilitaryTime` to null, even if the post is about an event.\n" +
+						"-If no end hour is explicitly provided by the caption or OCR result, assign `endHourMilitaryTime` to null.\n" +
 						// "-If the end hour is less than the start hour (for example, 9 to 2), assume the event ends on the day after the starting day.\n" +
-						"-If no start minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
-						"-If no end minute is explicitly provided by the caption or OCR result, assign it to null.\n" +
-						"-If the end time states 'late' or similar, assume it ends around 2 AM.\n" +
-						"-If the end time states 'morning' or similar, assume it ends around 6 AM.\n" +
+						"-If no start minute is explicitly provided by the caption or OCR result, assign `startMinute` to null.\n" +
+						"-If no end minute is explicitly provided by the caption or OCR result, assign `endMinute` to null.\n" +
+						"-If the end time states 'late' or similar, assume it ends around 2 AM on the next day from `startDay`.\n" +
+						"-If the end time states 'morning' or similar, assume it ends around 6 AM on the next day from `startDay`.\n" +
 						"-If no end month is explicitly provided by the caption or OCR result, assign it to the same month as startMonth.\n" +
 						`-If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
 						"-If the start hour is PM and the end hour is AM, assume the event ends on the next day from the starting day.\n" +
