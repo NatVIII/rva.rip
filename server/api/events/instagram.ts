@@ -6,7 +6,6 @@ import { InstagramEvent, PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';
 import { DateTime } from 'luxon';
 
-const PST_OFFSET = 8;
 
 export default defineCachedEventHandler(async (event) => {
 	const body = await fetchInstagramEvents();
@@ -519,8 +518,8 @@ async function fetchInstagramEvents() {
 						// Current date in UTC.
 						if (isEvent) {
 							// TODO: check that this actually works.
-							// Check if event has actually passed, with a margin of 7 days needing to pass. It's given as UTC.
-							const deleteAfterDate = DateTime.now().minus({ days: 7 }).toUTC().toJSDate();
+							// Check if event has actually passed, with a margin of 30 days needing to pass. It's given as UTC.
+							const deleteAfterDate = DateTime.now().minus({ days: 30 }).toUTC().toJSDate();
 							const isEventFinished = event.end < deleteAfterDate;
 							console.log(`isEventFinished: ${isEventFinished}, event: ${event.title}`);
 							// Delete events not within a year of current date, in order to avoid clogging database with events that may never happen.
