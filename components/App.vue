@@ -208,9 +208,7 @@ const calendarOptions = ref({
   // Event handlers.
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
-  eventDidMount: moveListViewScrollbarToTodayAndColor,
-  dayHeaderDidMount: moveListViewScrollbarToTodayAndColor,
-  dayCellDidMount: moveListViewScrollbarToTodayAndColor,
+  // eventDidMount: moveListViewScrollbarToTodayAndColor,
 });
 
 const updateCalendarHeight = () => {
@@ -291,8 +289,6 @@ onMounted(() => {
   moveListViewScrollbarToTodayAndColor();
 });
 onUpdated(() => {
-  // Move the scrollbar to today on first load.
-  moveListViewScrollbarToTodayAndColor();
 });
 onUnmounted(() => {
   if (process.client) window.removeEventListener('resize', updateWeekNumbers)
