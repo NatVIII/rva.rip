@@ -637,7 +637,11 @@ function setIgnoreInstagramEventsInplace(eventsFromOrganizer: InstagramEvent[]) 
 				eventsFromOrganizer[j].display = 'none';
 			}
 			// Ignore eventsFromOrganizer with the same start time and end time- as they are likely to be the same event.
-			else if (eventsFromOrganizer[i].start === eventsFromOrganizer[j].start && eventsFromOrganizer[i].end === eventsFromOrganizer[j].end) {
+			else if (Object.hasOwn(eventsFromOrganizer[i], 'start') && Object.hasOwn(eventsFromOrganizer[j], 'start')
+				&& Object.hasOwn(eventsFromOrganizer[i], 'end') && Object.hasOwn(eventsFromOrganizer[j], 'end')
+				&& eventsFromOrganizer[i].start.toISOString() === eventsFromOrganizer[j].start.toISOString()
+				&& eventsFromOrganizer[i].end.toISOString() === eventsFromOrganizer[j].end.toISOString()
+			) {
 				eventsFromOrganizer[j].display = 'none';
 			}
 		}
