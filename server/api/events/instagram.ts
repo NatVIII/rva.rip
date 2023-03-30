@@ -48,6 +48,7 @@ async function doOCR(urls: string[]) {
 function getInstagramQuery(sourceUsername: string) {
 	return `https://graph.facebook.com/v16.0/${process.env.INSTAGRAM_BUSINESS_USER_ID}?fields=`
 		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,timestamp,media_type,media_url,children{media_url}}}`
+		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,timestamp,media_type,media_url,children{media_url,media_type}}}`
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
 
@@ -201,12 +202,20 @@ async function fetchInstagramEvents() {
 					let mediaLinks: string[] = [];
 					switch (event.media_type) {
 						case 'IMAGE':
-							mediaLinks = [event.media_url];
+							// May be omitted for legal reasons.
+							if (event.media_url) {
+								mediaLinks = [event.media_url];
+							}
 							break;
 						case 'CAROUSEL_ALBUM':
-							mediaLinks = event.children.data.map((child) => child.media_url);
+							mediaLinks = event.children.data
+								.map((child) => child.media_url)
+								// Keep only if defined, since it may be omitted.
+								.filter((mediaUrl) => mediaUrl);
 							break;
 						case 'VIDEO':
+							// TODO: We can OCR the thumbnail_url, but due to a bug on Instagram's end we cannot access the `thumbnail_url` field.
+							// See https://developers.facebook.com/support/bugs/3431232597133817/?join_id=fa03b2657f7a9c for updates.
 							break;
 						default:
 							console.error(`Unknown media type: ${event.media_type} for event: ${event}`);
@@ -281,6 +290,7 @@ async function fetchInstagramEvents() {
 						"- If no end day is explicitly provided by the caption or OCR result, assign `endDay` to null.\n" +
 						// "-If only one time is provided in the caption or OCR result, assume it's the start time.\n" +
 						"- If no start hour is explicitly provided by the caption or OCR result, such as ('2 pm' or the '9' in '9-12'), you must assign `startHourMilitaryTime` to null, even if the post is about an event.\n" +
+						"- If it's an event, use any written relative time descriptors (such as 'night') to determine whether the event starts and/or ends in the AM or PM.\n" +
 						"- If no end hour is explicitly provided by the caption or OCR result, assign `endHourMilitaryTime` to null.\n" +
 						// "-If the end hour is less than the start hour (for example, 9 to 2), assume the event ends on the day after the starting day.\n" +
 						"- If no start minute is explicitly provided by the caption or OCR result, assign `startMinute` to null.\n" +
