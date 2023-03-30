@@ -7,3 +7,6 @@ node_modules
 .env
 dist
 .vercel
+localhost.pem
+localhost-key.pem
+
