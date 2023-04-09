@@ -47,7 +47,6 @@ async function doOCR(urls: string[]) {
 
 function getInstagramQuery(sourceUsername: string) {
 	return `https://graph.facebook.com/v16.0/${process.env.INSTAGRAM_BUSINESS_USER_ID}?fields=`
-		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,timestamp,media_type,media_url,children{media_url}}}`
 		+ `business_discovery.username(${sourceUsername}){media.limit(5){caption,permalink,timestamp,media_type,media_url,children{media_url,media_type}}}`
 		+ `&access_token=${process.env.INSTAGRAM_USER_ACCESS_TOKEN}`
 }
@@ -126,6 +125,7 @@ async function fetchInstagramEvents() {
 				}
 			}
 			else {
+				console.log(newOrganizer.error)
 				console.error(`It appears the username ${instagramOrganizerDb.username} cannot be found 
 				using business discovery. Confirm it is correct. If so, then that account is not a business account. 
 				Consider asking them to enable this feature. Or, you have exceeded Instagram's rate limit.`)
