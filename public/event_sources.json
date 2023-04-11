@@ -296,14 +296,19 @@
 	],
 	"squarespace": [
 		{
-			"name": "The Neighbor's Pub",
-			"url": "https://www.theneighborspub.org/events?format=json",
-			"city": "Santa Cruz"
+			"name": "Cat Club",
+			"url": "https://www.sfcatclub.com/calendar?format=json",
+			"city": "San Francisco"
 		},
 		{
 			"name": "Guildhouse",
 			"url": "https://www.guildhouse.gg/events?format=json",
 			"city": "San Jose"
+		},
+		{
+			"name": "The Neighbor's Pub",
+			"url": "https://www.theneighborspub.org/events?format=json",
+			"city": "Santa Cruz"
 		}
 	],
 	"timely": [
