@@ -153,6 +153,12 @@
 			"city": "Oakland"
 		},
 		{
+			"name": "PLACE",
+			"username": "place.community",
+			"context_clues": [],
+			"city": "Oakland"
+		},
+		{
 			"name": "Rock Paper Scissors Collective",
 			"username": "rpscollective",
 			"context_clues": [],
