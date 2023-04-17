@@ -329,7 +329,7 @@ async function fetchInstagramEvents() {
 									{ role: "system", content: prompt },
 								],
 								temperature: 0,
-								max_tokens: 1500,
+								max_tokens: 1000,
 							});
 							return res;
 						} catch (e) {
