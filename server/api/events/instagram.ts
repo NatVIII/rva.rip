@@ -236,6 +236,9 @@ async function fetchInstagramEvents() {
 	}
 	logTimeElapsedSince(startTime, 'Instagram: performing OCR');
 
+	const fixGeneratedJson = (generatedJson: string) => {
+		return generatedJson.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
+	};
 
 	let openAIResponsesAllSources = [];
 	try {
@@ -249,7 +252,7 @@ async function fetchInstagramEvents() {
 
 					// Some Instagram events have no caption.
 					const caption = event.caption || '';
-					const prompt = `You're given a post from an Instagram account${tags_string.length > 0 ? ' related to ' + tags_string : ''}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
+					const startPrompt = `You're given a post from an Instagram account${tags_string.length > 0 ? ' related to ' + tags_string : ''}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
 						"Here's the caption provided by the post:\n" +
 						"```\n" +
 						`${caption}` + "\n" +
@@ -315,21 +318,15 @@ async function fetchInstagramEvents() {
 						"\n" +
 						"A:";
 
-					const runResponse = async () => {
+					const runResponse = async (prompt) => {
 						try {
-							// const res = await openai.createCompletion({
-							// 	model: "text-davinci-003",
-							// 	prompt,
-							// 	temperature: 0,
-							// 	max_tokens: 600,
-							// });
 							const res = await openai.createChatCompletion({
 								model: "gpt-3.5-turbo",
 								messages: [
 									{ role: "system", content: prompt },
 								],
 								temperature: 0,
-								max_tokens: 1000,
+								max_tokens: 500,
 							});
 							return res;
 						} catch (e) {
@@ -338,14 +335,70 @@ async function fetchInstagramEvents() {
 						}
 					};
 
-					let attempts = 0;
-					const maxAttempts = 2;
-					while (attempts < maxAttempts) {
+					let initialGenerationAttempts = 0;
+					const maxInitialGenerationAttempts = 2;
+					let unvalidatedCompletion = "";
+					while (initialGenerationAttempts < maxInitialGenerationAttempts) {
 						try {
-							return { event, data: (await runResponse()).data };
+							unvalidatedCompletion = { event, data: (await runResponse(startPrompt)).data };
+							console.log('output json 1', fixGeneratedJson(unvalidatedCompletion.data.choices[0].message.content));
+							break;
 						} catch (e) {
-							++attempts;
-							if (attempts === maxAttempts) {
+							++initialGenerationAttempts;
+							if (initialGenerationAttempts === maxInitialGenerationAttempts) {
+								throw new Error('Could not fetch OpenAI response');
+							}
+						}
+					}
+					// Use GPT to double-check its results.
+					const validationPrompt = `You were given a post from an Instagram account and used it to generate the following JSON:\n` +
+						"```\n" +
+						`${fixGeneratedJson(unvalidatedCompletion.data.choices[0].message.content)}` + "\n" +
+						"```\n" +
+						"\n" +
+						"The post's caption is as follows:\n" +
+						"```\n" +
+						`${caption}` + "\n" +
+						"```\n" +
+						"\n" +
+						"The post's OCR result is as follows:\n" +
+						"```\n" +
+						`${event.ocrResult !== undefined ? "OCR Result: " + event.ocrResult : ''}` + "\n" +
+						"```\n" +
+						"\n" +
+						"Your job is to fix potential incorrect values for `hasStartHourInPost` in the generated JSON's values with respect to the post's information (via caption & OCR result), and output a corrected JSON. In particular, set `hasStartHourInPost` to false if the post's information doesn't contain any identifiable hour information or hour-conveying time-of-day information, disregarding whether it has a starting date. Conversely, set it to true if it does contain hour information." +
+						"Don't edit any other fields besides `hasStartHourInPost`. Make sure to not change the structure of the JSON. Only output the raw JSON (in a valid format), without saying anything else. Here are some examples to help guide you." + "\n" +
+						"\n" +
+						`Input: The post's caption and OCR don't contain any hour-conveying info.` + "\n" +
+						`Output: The JSON with "hasStartHourInPost" set to \`false\`.` + "\n" +
+						"\n" +
+						`Input: The post's caption and/or OCR contains "1 to 3 PM."` + "\n" +
+						`Output: The JSON with "hasStartHourInPost" set to \`true\`.` + "\n" +
+						"\n" +
+						`Input: The post's caption and/or OCR contains just "night" or "tonight" for time-of-day.` + "\n" +
+						`Output: The JSON with "hasStartHourInPost" set to \`false\` because "tonight" does not represent a specific hour.` + "\n" +
+						"\n" +
+						`Input: The post's OCR says "midnight"` + "\n" +
+						`Output: The JSON with "hasStartHourInPost" set to \`true\` because "midnight" represents 12 AM.`;
+
+					// console.log('validation prompt', validationPrompt);
+
+					let validationGenerationAttempts = 0;
+					const maxValidationGenerationAttempts = 2;
+					while (validationGenerationAttempts < maxValidationGenerationAttempts) {
+						try {
+							const response = await runResponse(validationPrompt);
+							const validatedCompletion = {
+								event,
+								data: fixGeneratedJson(
+									response.data.choices[0].message.content
+								)
+							};
+							console.log('output json 2', validatedCompletion.data)
+							return validatedCompletion;
+						} catch (e) {
+							++validationGenerationAttempts;
+							if (validationGenerationAttempts === maxValidationGenerationAttempts) {
 								throw new Error('Could not fetch OpenAI response');
 							}
 						}
@@ -367,7 +420,7 @@ async function fetchInstagramEvents() {
 				return Promise.all(openAIResponses.map(async ({ event, data }) => {
 					let jsonFromResponse = { isNull: true };
 					// const responseText = data.choices[0].text.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
-					const responseText = data.choices[0].message.content.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
+					const responseText = data;
 					try {
 						const potentialResult = JSON.parse(responseText);
 
@@ -376,6 +429,8 @@ async function fetchInstagramEvents() {
 							&& Object.hasOwn(potentialResult, 'title')
 							&& Object.hasOwn(potentialResult, 'startHourMilitaryTime')
 							&& Object.hasOwn(potentialResult, 'endHourMilitaryTime')
+							&& Object.hasOwn(potentialResult, 'isPastEvent')
+							&& Object.hasOwn(potentialResult, 'hasStartHourInPost')
 							&& Object.hasOwn(potentialResult, 'startMinute')
 							&& Object.hasOwn(potentialResult, 'endMinute')
 							&& Object.hasOwn(potentialResult, 'startDay')
@@ -465,6 +520,7 @@ async function fetchInstagramEvents() {
 							&& post.endHourMilitaryTime !== null
 							&& post.startMinute !== null
 							&& post.endMinute !== null
+							&& post.hasStartHourInPost === true
 						) {
 							console.log("Adding InstagramEvent to database: ", post);
 
