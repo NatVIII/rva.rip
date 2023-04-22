@@ -1,12 +1,6 @@
 {
 	"instagram": [
 		{
-			"name": "Adobe Books",
-			"username": "adobebookshop",
-			"context_clues": [],
-			"city": "San Francisco"
-		},
-		{
 			"name": "Histrionixx",
 			"username": "histrionixxsf",
 			"context_clues": [
@@ -301,6 +295,11 @@
 		}
 	],
 	"squarespace": [
+		{
+			"name": "Adobe Books",
+			"url": "https://www.adobebooks.com/events?format=json",
+			"city": "San Francisco"
+		},
 		{
 			"name": "Cat Club",
 			"url": "https://www.sfcatclub.com/calendar?format=json",
