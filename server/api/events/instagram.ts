@@ -303,6 +303,7 @@ async function fetchInstagramEvents() {
 						"- If no end month is explicitly provided by the caption or OCR result, assign it to the same month as startMonth.\n" +
 						`- If no start or end year are explicity provided, assume they are both the current year of ${new Date().getFullYear()}.\n` +
 						"- If the start hour is PM and the end hour is AM, assume the event ends on the next day from the starting day.\n" +
+						"- If the event happened already, indicated by past-tense language like 'last Sunday', then set `isPastEvent` to false.\n" +
 						// Do this to prevent it from making adjustments to the time.
 						"- Don't make any timezone-related adjustments to the times; assume it is UTC already.\n" +
 						"- Don't add any extra capitalization or spacing to the title that wasn't included in the post's information.\n" +
@@ -521,6 +522,7 @@ async function fetchInstagramEvents() {
 							&& post.startMinute !== null
 							&& post.endMinute !== null
 							&& post.hasStartHourInPost === true
+							&& post.isPastEvent === false
 						) {
 							console.log("Adding InstagramEvent to database: ", post);
 
