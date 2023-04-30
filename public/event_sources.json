@@ -252,16 +252,16 @@
 			"city": "San Francisco"
 		},
 		{
-			"name": "Hysteria Comedy",
-			"url": "https://www.eventbrite.com/o/hysteria-comedy-21754687241#events",
-			"id": "21754687241",
-			"city": "San Francisco"
-		},
-		{
 			"name": "A Heaux Picnic",
 			"url": "https://www.eventbrite.com/o/a-heaux-picnic-15632215857#events",
 			"id": "15632215857",
 			"city": "Oakland"
+		},
+		{
+			"name": "Team Wonder Dave Productions",
+			"url": "https://www.eventbrite.com/o/team-wonder-dave-productions-59089167933#events",
+			"id": "59089167933",
+			"city": "San Francisco"
 		},
 		{
 			"name": "queer expression",
