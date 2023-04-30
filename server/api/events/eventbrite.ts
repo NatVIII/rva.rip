@@ -39,7 +39,7 @@ async function fetchEventbriteEvents() {
 							const isLongerThan3Days = (rawEvent.end.getTime() - rawEvent.start.getTime()) / (1000 * 3600 * 24) > 3;
 							if (isLongerThan3Days) {
 								const eventSeries = await getEventSeries(rawEvent.url);
-								return eventSeries.map(convertEventbriteAPIEventToFullCalendarEvent);
+								return eventSeries.map(event => convertEventbriteAPIEventToFullCalendarEvent(event, source.name));
 							} else {
 								return rawEvent;
 							}
@@ -91,7 +91,7 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item, sourceName) {
 		title: `${item.name} @ ${sourceName}`,
 		// Converts from System Time to UTC.
 		start: DateTime.fromISO(item.startDate).toUTC().toJSDate(),
-		end: DateTime.fromISO(item.startDate).toUTC().toJSDate(),
+		end: DateTime.fromISO(item.endDate).toUTC().toJSDate(),
 		url: item.url,
 		extendedProps: {
 			description: item.description || null,
@@ -115,9 +115,9 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item, sourceName) {
 };
 
 // The problem with the Eventbrite developer API format is that it lacks geolocation.
-function convertEventbriteAPIEventToFullCalendarEvent(item) {
+function convertEventbriteAPIEventToFullCalendarEvent(item, sourceName) {
 	return {
-		title: item.name.text,
+		title: `${item.name.text} @ ${sourceName}`,
 		start: new Date(item.start.local),
 		end: new Date(item.end.local),
 		url: item.url,
