@@ -26,7 +26,7 @@ async function fetchEventbriteEvents() {
 	let eventbriteSources = await useStorage().getItem('eventbriteSources');
 	try {
 		eventbriteSources = await Promise.all(
-			eventSourcesJSON.eventbrite.map(async (source) => {
+			eventSourcesJSON.eventbriteAccounts.map(async (source) => {
 				return await fetch(source.url, { headers: serverFetchHeaders })
 					.then(res => res.text())
 					.then(async html => {
@@ -52,7 +52,17 @@ async function fetchEventbriteEvents() {
 						} as EventNormalSource;
 					});
 			}));
-		await useStorage().setItem('eventbriteSources', eventbriteSources);
+		const eventbriteSingleEventSeries = await Promise.all(
+			eventSourcesJSON.eventbriteSingleEventSeries.map(async (source) => {
+				const eventsSeries = (await getEventSeries(source.url)).map(event => convertEventbriteAPIEventToFullCalendarEvent(event, source.sourceName));
+				return {
+					events: eventsSeries,
+					city: source.city
+				} as EventNormalSource;
+			}));
+		const allEventbriteSources = eventbriteSources.concat(eventbriteSingleEventSeries);
+		await useStorage().setItem('eventbriteSources', allEventbriteSources);
+		return allEventbriteSources;
 	}
 	catch (e) {
 		console.error("Error fetching Eventbrite events: ", e);

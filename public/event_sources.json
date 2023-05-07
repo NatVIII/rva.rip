@@ -221,7 +221,13 @@
 			"city": "Others in Santa Cruz County"
 		}
 	],
-	"eventbrite": [
+	"eventbriteAccounts": [
+		{
+			"name": "Bad Bitch Burlesque",
+			"url": "https://www.eventbrite.com/o/bad-bitch-burlesque-59091484033",
+			"id": "59091484033",
+			"city": "San Francisco"
+		},
 		{
 			"name": "Comfort & Joy",
 			"url": "https://www.eventbrite.com/o/comfort-amp-joy-517953471#events",
@@ -268,6 +274,20 @@
 			"url": "https://www.eventbrite.com/o/queer-expression-oakland-34271650919#events",
 			"id": "34271650919",
 			"city": "Oakland"
+		}
+	],
+	"eventbriteSingleEventSeries": [
+		{
+			"title": "Queer and Women's Open Mic",
+			"sourceName": "All Out Comedy Theater",
+			"url": "https://www.eventbrite.com/e/queer-and-womens-open-mic-tickets-607779694427",
+			"city": "Oakland"
+		},
+		{
+			"title": "Bitchfest Comedy Showcase",
+			"sourceName": "Gilman Brewing Company",
+			"url": "https://www.eventbrite.com/e/bitchfest-comedy-showcase-tickets-404350321697",
+			"city": "Berkeley"
 		}
 	],
 	"googleCalendar": [
