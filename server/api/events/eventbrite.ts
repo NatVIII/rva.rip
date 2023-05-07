@@ -128,8 +128,8 @@ function convertSchemaDotOrgEventToFullCalendarEvent(item, sourceName) {
 function convertEventbriteAPIEventToFullCalendarEvent(item, sourceName) {
 	return {
 		title: `${item.name.text} @ ${sourceName}`,
-		start: new Date(item.start.local),
-		end: new Date(item.end.local),
+		start: new Date(item.start.utc),
+		end: new Date(item.end.utc),
 		url: item.url,
 	};
 };
