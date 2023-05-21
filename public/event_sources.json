@@ -127,6 +127,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Chub Rollz",
+			"username": "chubrollz",
+			"context_clues": [
+				"Skate"
+			],
+			"city": "Oakland"
+		},
+		{
 			"name": "The Spooky Haus",
 			"username": "thespookyhaus",
 			"context_clues": [
