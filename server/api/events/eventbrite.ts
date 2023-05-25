@@ -28,6 +28,17 @@ async function fetchEventbriteEvents() {
 		eventbriteSources = await Promise.all(
 			eventSourcesJSON.eventbriteAccounts.map(async (source) => {
 				return await fetch(source.url, { headers: serverFetchHeaders })
+					// Error check.
+					.then(res => {
+						if (!res.ok) {
+							console.error(`Error fetching Eventbrite events for ${source.name}: ${res.status} ${res.statusText}`);
+							return {
+								events: [],
+								city: source.city
+							} as EventNormalSource;
+						}
+						return res;
+					})
 					.then(res => res.text())
 					.then(async html => {
 						const dom = new JSDOM(html);
