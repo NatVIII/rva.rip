@@ -38,6 +38,10 @@ async function fetchGoogleCalendarEvents() {
 					+ `&${searchParams.toString()}`,
 					{ headers: serverFetchHeaders }
 				);
+				// Error check.
+				if (!res.ok) {
+					throw new Error(`Error fetching Google Calendar events for ${source.name}: ${res.status} ${res.statusText}`);
+				}
 				const data = await res.json()
 
 				const events = await Promise.all(data.items.map(async (item) => {
