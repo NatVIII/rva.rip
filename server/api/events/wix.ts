@@ -57,6 +57,15 @@ async function fetchWixEvents() {
 						"facet": ["status"],
 					})
 				});
+				// Error check.
+				if (!response.ok) {
+					console.error(`Error fetching Wix events for ${source.name}: ${response.status} ${response.statusText}`);
+					return {
+						events: [],
+						city: source.city
+					} as EventNormalSource;
+				}
+
 				const json = await response.json();
 				const events = json.events.map((e) => {
 					const timeZone = e.scheduling.config.timeZoneId;
