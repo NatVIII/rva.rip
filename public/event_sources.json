@@ -213,6 +213,14 @@
 			"city": "San Jose"
 		},
 		{
+			"name": "Silicon Valley Pride",
+			"username": "svpride",
+			"context_clues": [
+				""
+			],
+			"city": "San Jose"
+		},
+		{
 			"name": "Postcards 4 LGBTQI+ Prisoners",
 			"username": "snailmailproject_831",
 			"context_clues": [
