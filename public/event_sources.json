@@ -304,6 +304,12 @@
 			"url": "https://www.eventbrite.com/o/queer-expression-oakland-34271650919#events",
 			"id": "34271650919",
 			"city": "Oakland"
+		},
+		{
+			"name": "Motion Pacific",
+			"url": "https://www.eventbrite.com/o/motion-pacific-14377385101#events",
+			"id": "14377385101",
+			"city": "Santa Cruz"
 		}
 	],
 	"eventbriteSingleEventSeries": [
