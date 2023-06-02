@@ -211,6 +211,14 @@
 			"city": "Oakland"
 		},
 		{
+			"name": "The Unusual",
+			"username": "theunusualevent",
+			"context_clues": [
+				""
+			],
+			"city": "Oakland"
+		},
+		{
 			"name": "orifice.0",
 			"username": "orifice.0",
 			"context_clues": [
