@@ -127,6 +127,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Trans March",
+			"username": "transmarch",
+			"context_clues": [
+				""
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Wicked Grounds",
 			"username": "wickedgrounds",
 			"context_clues": [
