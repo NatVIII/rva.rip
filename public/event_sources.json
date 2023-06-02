@@ -119,6 +119,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Karaoke with Dana",
+			"username": "karaokewithdana",
+			"context_clues": [
+				""
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Wicked Grounds",
 			"username": "wickedgrounds",
 			"context_clues": [
