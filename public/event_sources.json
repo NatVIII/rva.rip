@@ -243,6 +243,14 @@
 			"city": "San Jose"
 		},
 		{
+			"name": "The Q Corner",
+			"username": "theqcorner",
+			"context_clues": [
+				""
+			],
+			"city": "Others in Santa Clara County"
+		},
+		{
 			"name": "Postcards 4 LGBTQI+ Prisoners",
 			"username": "snailmailproject_831",
 			"context_clues": [
