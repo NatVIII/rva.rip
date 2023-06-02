@@ -259,6 +259,14 @@
 			"city": "Santa Cruz"
 		},
 		{
+			"name": "The So-so Market",
+			"username": "thesosomarket",
+			"context_clues": [
+				""
+			],
+			"city": "Santa Cruz"
+		},
+		{
 			"name": "Pajaro Valley Pride",
 			"username": "pajarovalleypride_831",
 			"context_clues": [
