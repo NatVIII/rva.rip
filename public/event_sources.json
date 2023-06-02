@@ -167,6 +167,12 @@
 			"city": "Oakland"
 		},
 		{
+			"name": "San Francisco Pride",
+			"username": "sanfranciscopride",
+			"context_clues": [],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Passionfruit",
 			"username": "passionfruitdanceparty",
 			"context_clues": [
