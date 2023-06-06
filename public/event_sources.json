@@ -33,6 +33,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Frameline Fest",
+			"username": "framelinefest",
+			"context_clues": [
+				"Film"
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Hot Goth GF Radio",
 			"username": "hotgothgfradio",
 			"context_clues": [
