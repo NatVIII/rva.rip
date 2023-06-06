@@ -17,6 +17,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Queer Cultural Center",
+			"username": "qcc_sf",
+			"context_clues": [
+				""
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Bound Together Books",
 			"username": "boundtogethercollective",
 			"context_clues": [
