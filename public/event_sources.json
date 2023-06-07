@@ -151,6 +151,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Queer Women of Color Media Arts Project",
+			"username": "qwocmap",
+			"context_clues": [
+				"Film"
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Wicked Grounds",
 			"username": "wickedgrounds",
 			"context_clues": [
