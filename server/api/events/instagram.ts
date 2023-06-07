@@ -119,7 +119,7 @@ async function fetchInstagramEvents() {
 			if (!newOrganizer.error) {
 				instagramOrganizersIG.push(newOrganizer);
 				++firstIndexOfNonUpdatedOrganizer;
-				if (callCount > 40 || totalCPUTime > 40 || totalTime > 40) {
+				if (callCount > 35 || totalCPUTime > 35 || totalTime > 35) {
 					console.log("[IG] throttled with " + callCount + " " + totalCPUTime + " " + totalTime);
 					break
 				}
