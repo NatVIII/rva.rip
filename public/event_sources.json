@@ -143,6 +143,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "SOMArts Cultural Center",
+			"username": "somarts",
+			"context_clues": [
+				"Art"
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Trans March",
 			"username": "transmarch",
 			"context_clues": [
