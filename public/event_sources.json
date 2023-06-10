@@ -151,6 +151,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Transgender District",
+			"username": "transgenderdistrict",
+			"context_clues": [
+				""
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Trans March",
 			"username": "transmarch",
 			"context_clues": [
