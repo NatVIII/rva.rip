@@ -159,6 +159,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "The Good Fun",
+			"username": "the.good.fun",
+			"context_clues": [
+				""
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "Transgender District",
 			"username": "transgenderdistrict",
 			"context_clues": [
