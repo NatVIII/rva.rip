@@ -344,6 +344,15 @@ async function fetchInstagramEvents() {
 						try {
 							unvalidatedCompletion = { event, data: (await runResponse(startPrompt)).data };
 							console.log('output json 1', fixGeneratedJson(unvalidatedCompletion.data.choices[0].message.content));
+
+							// This ignores validation for now.
+							return {
+								event,
+								data: fixGeneratedJson(
+									unvalidatedCompletion.data.choices[0].message.content
+								)
+							};
+
 							break;
 						} catch (e) {
 							++initialGenerationAttempts;
