@@ -252,6 +252,8 @@ async function fetchInstagramEvents() {
 
 					// Some Instagram events have no caption.
 					const caption = event.caption || '';
+					// Trim OCR result to approximately avoid going over token limit.
+					const ocrResult = event.ocrResult.substring(0, 2200);
 					const startPrompt = `You're given a post from an Instagram account${tags_string.length > 0 ? ' related to ' + tags_string : ''}. Your task is to parse event information and output it into JSON. (Note: it's possible that the post isn't event-related).\n` +
 						"Here's the caption provided by the post:\n" +
 						"```\n" +
@@ -260,7 +262,7 @@ async function fetchInstagramEvents() {
 						"\n" +
 						"Here's the result of an OCR AI that reads text from the post's image:\n" +
 						"```\n" +
-						`${event.ocrResult !== undefined ? "OCR Result: " + event.ocrResult : ''}` + "\n" +
+						`${ocrResult !== undefined ? "OCR Result: " + ocrResult : ''}` + "\n" +
 						"```\n" +
 						"\n" +
 						"Output the results in the following JSON format: \n" +
@@ -314,12 +316,13 @@ async function fetchInstagramEvents() {
 						"- If the event is explicity 'private', or a 'meeting', then set the start hour to null.\n" +
 						`${tags_string.toLowerCase().includes('music') ? "- Add \`&\` in between multiple music artist names, if any exist.\n" : ""}` +
 						`${tags_string.toLowerCase().includes('music') ? "- Include featured music artists in the title as well.\n" : ""}` +
-						`${(caption.includes('🎱') || event.ocrResult.includes('🎱')) ? "- Consider 🎱 to be read as `8` if given as a time. \n" : ""}` +
+						`${(caption.includes('🎱') || ocrResult.includes('🎱')) ? "- Consider 🎱 to be read as `8` if given as a time. \n" : ""}` +
 						"- Do not include any other text in your response besides the raw JSON." + "\n" +
 						'- Make sure JSON format is valid (i.e. contains commas after each field, except for the last one).' + "\n" +
 						"\n" +
 						"A:";
 
+					console.log('prompt:', startPrompt)
 					const runResponse = async (prompt) => {
 						try {
 							const res = await openai.createChatCompletion({
