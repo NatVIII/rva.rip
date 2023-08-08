@@ -36,7 +36,7 @@ async function fetchForbiddenTicketsEvents() {
 
 				const events = json.map((item) => {
 					return {
-						title: `${item.title} @ ${source.name}`,
+						title: `${item.title}`,
 						url: item.url,
 						start: DateTime.fromFormat(item.start, 'yyyy-MM-dd HH:mm:ss', { zone: 'UTC' }),
 						end: DateTime.fromFormat(item.end, 'yyyy-MM-dd HH:mm:ss', { zone: 'UTC' }),
