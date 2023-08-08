@@ -191,14 +191,6 @@
 			"city": "San Francisco"
 		},
 		{
-			"name": "Wicked Grounds",
-			"username": "wickedgrounds",
-			"context_clues": [
-				"Kink"
-			],
-			"city": "San Francisco"
-		},
-		{
 			"name": "Chub Rollz",
 			"username": "chubrollz",
 			"context_clues": [
@@ -449,6 +441,11 @@
 			"name": "ELSE",
 			"username": "else",
 			"city": "Oakland"
+		},
+		{
+			"name": "Wicked Grounds",
+			"username": "wicked-grounds",
+			"city": "San Francisco"
 		}
 	],
 	"googleCalendar": [
