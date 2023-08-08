@@ -438,6 +438,11 @@
 	],
 	"forbiddenTickets": [
 		{
+			"name": "Black Thorn",
+			"username": "black-thorn",
+			"city": "Oakland"
+		},
+		{
 			"name": "ELSE",
 			"username": "else",
 			"city": "Oakland"
