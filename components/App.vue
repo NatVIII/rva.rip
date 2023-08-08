@@ -471,7 +471,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           affiliated with any events listed.</p>
         <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- this site
           wouldn't exist without it.</p>
-        <p>Looking for BDSM events? Check out <a href="https://erobay.com/">erobay.com</a>.</p>
+        <p>Looking for a dedicated BDSM events calendar? Check out <a href="https://erobay.com/">erobay.com</a>.</p>
         <p>Looking for more electronic music? Check out <a
             href="https://19hz.info/eventlisting_BayArea.php">19hz.info</a>.</p>
         <p>Want your event listed here? You must be publishing a machine-readable feed of event data formatted in <a
