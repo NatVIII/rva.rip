@@ -444,6 +444,13 @@
 			"city": "Berkeley"
 		}
 	],
+	"forbiddenTickets": [
+		{
+			"name": "ELSE",
+			"username": "else",
+			"city": "Oakland"
+		}
+	],
 	"googleCalendar": [
 		{
 			"name": "Trans Ladies Picnic",
