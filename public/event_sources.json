@@ -9,6 +9,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Camp Beaverton",
+			"username": "campbeaverton",
+			"context_clues": [
+				""
+			],
+			"city": "Oakland"
+		},
+		{
 			"name": "Histrionixx",
 			"username": "histrionixxsf",
 			"context_clues": [
