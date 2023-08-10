@@ -456,7 +456,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
     <div style="display: flex; flex-direction:column; position:relative;">
       <div class="title">bay.lgbt</div>
       <div style="display:flex; flex-direction: column; align-items: center;">
-        <div class="blurb">A communal board for LGBT events all around SF bay! Come out and play ;3</div>
+        <div class="blurb">A communal board for LGBT events all around SF bay, updated 25/7! Come out and play ;3</div>
       </div>
     </div>
     <FullCalendar :options='calendarOptions' />
