@@ -131,6 +131,14 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Mother",
+			"username": "motherbarsf",
+			"context_clues": [
+				""
+			],
+			"city": "San Francisco"
+		},
+		{
 			"name": "non-binary run club",
 			"username": "nbrcsf",
 			"context_clues": [
