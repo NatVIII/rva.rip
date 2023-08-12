@@ -533,6 +533,11 @@
 	],
 	"wordPressTribe": [
 		{
+			"name": "LEATHER & LGBTQ Cultural District",
+			"url": "https://sfleatherdistrict.org/wp-json/tribe/events/v1/events?per_page=50",
+			"city": "Oakland"
+		},
+		{
 			"name": "Save SF Bay",
 			"url": "https://savesfbay.org/wp-json/tribe/events/v1/events?per_page=50",
 			"city": "Oakland"
