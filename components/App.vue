@@ -472,8 +472,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- this site
           wouldn't exist without it.</p>
         <p>Looking for a dedicated BDSM events calendar? Check out <a href="https://erobay.com/">erobay.com</a>.</p>
-        <p>Looking for more electronic music? Check out <a
-            href="https://19hz.info/eventlisting_BayArea.php">19hz.info</a>.</p>
+        <p>Looking for more electronic music? Check out <a href="https://19hz.info/eventlisting_BayArea.php">19hz.info</a>.</p>
+        <p>Looking for chill (and free) events to go with your pup(s), partner(s), or thing(s) <a href="https://sf.funcheap.com/events/">sf.funcheap</a>.</p>
         <p>Want your event listed here? You must be publishing a machine-readable feed of event data formatted in <a
             href="https://fullcalendar.io/docs/event-source">a compatible Event Source format</a>. (This can be as simple
           as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once published,
