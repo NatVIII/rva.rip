@@ -407,6 +407,7 @@
 		{
 			"name": "OASIS",
 			"url": "https://www.eventbrite.com/o/oasis-27068567835#events",
+			"id": "27068567835",
 			"city": "San Francisco"
 		},
 		{
@@ -434,6 +435,12 @@
 			"city": "San Francisco"
 		},
 		{
+			"name": "Haven Events",
+			"url": "https://www.eventbrite.com/o/haven-events-66869954833#events",
+			"id": "66869954833",
+			"city": "Oakland"
+		},
+		{
 			"name": "Oaklash",
 			"url": "https://www.eventbrite.com/o/oaklash-29951812249#events",
 			"id": "29951812249",
@@ -442,7 +449,7 @@
 		{
 			"name": "T4T Worldwide",
 			"url": "https://www.eventbrite.com/o/just-shannon-12623790266#events",
-			"id": "34271650919",
+			"id": "12623790266",
 			"city": "San Francisco"
 		},
 		{
