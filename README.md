@@ -1,41 +1,15 @@
-# bay.lgbt
-an lgbt events aggregator for the SF bay!  
-yes!
+# rva.rip
+an lgbt events aggregator for RVA
 
 # The bay.lgbt story (filled with, choices)
-- anarchism.nyc is pretty neat! I wonder if the bay has one
-- let's rewrite the codebase, (✨ but using a frontend framework that might deprecate in a few years ✨)
-- let's spend an unreasonable amount of time making it look pretty, before getting any functionality xd
-- let's have the client fetch everything; too lazy to get a server run (haha)
-- CORS, my old friend... time look for a free CORS proxy :3
-- wow the rate limit for Eventbrite sucks. I also don't want client auth...
-- ok fine let's make a server
-- ...what if we also added server-side rendering?
-- ...what if... we hosted on Vercel, despite being in debt?
-- `stale-while-revalidate` arc: let's add excessive caching & rate limits so i can sleep at night
-- why does everyone use Instagram for events?
-- Please stop using Instagram for events. Please stop using Instagram for events. (x100)
-- to parse Instagram posts for anything resembling a structured event format, we would probably need to use GPT
-- we should also DB server to cache the results so I don't bleed money from OpenAI calls. But Vercel is serverless, so can't use sqlite... pain....
-- why do some Instagram posts... only include event information in the image??
-- Please stop using Instagram for events. Please stop using Instagram for events. (x100)
-- let's add an OCR AI API 🫠
-- *stares at Google's labyrinthian docs for 3 hours figuring out how to get auth*
-- ok, it works! but any of these calls might fail... let's sketchily add caching at each step
-- (Please stop using Instagram for events. Please stop using Instagram for events.) (x10)
-- suddenly running into Vercel's [10 sec timeout](https://vercel.com/docs/concepts/limits/overview#general-limits:~:text=Serverless%20Function%20Execution%20Timeout%20(Seconds)) for Free tier (why does Eventbrite take so long??): more pain 😀. Fork $20/mo to Vercel for a 60 sec timeout instead
-- open beta! (ꈍ ‿ ꈍ ✿)
-- surprise surprise: Instagram's API is once again causing issues- 200 requests per hour (per user, of which there is 1 in this case). let's spread out the requests but milk that limit as much as possible.
-- *adds many various other APIs (Wix, Squarespace, With Friends, etc.)*- not too bad but fearful that APIs make change/break at any time, haha...
-- *adds a frightening number of event sources all around the bay*
-- *realize the potential endless API hell I've gotten myself into*- *takes a cold shower and puts up Donation link*
+- anarchism.nyc is pretty neat! I wonder if Richmond has one
+- There isn't one, let me take a look at one of the forks called bay.lgbt
+- Wow! That's really pretty! Let me learn how this works so I can make it for Richmond VA
+- \*pain\*
 
 # Development
-TODO
+ - Get project to MVP
+ - Figure out how to dockerize this
+ - Reverse engineer all the APIs Ivy created
 
-# Funding
-Donations to keep bay.lgbt running are appreciated! Transparently, here are the costs to maintain the site:
-- Domain: $7.5/mo
-- Verce1: $20/mo
-- OpenAI: ~$10/mo
-- Google Vision OCR: ~$5/mo
+
