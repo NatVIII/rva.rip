@@ -456,25 +456,23 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   <ModalsContainer />
   <div class="calendar-container">
     <div style="display: flex; flex-direction:column; position:relative;">
-      <div class="title">rva.rip</div>
+      <div class="title"> <img src="../assets/gravestone.svg" alt="rva.rip"> </div>
       <div style="display:flex; flex-direction: column; align-items: center;">
-        <div class="blurb">A communal board for LGBT events all around RVA; queer, radical, and STINKY!!!</div>
+        <div class="blurb">A communal board for DIY events all around RVA; queer, radical, and STINKY!!!</div>
       </div>
     </div>
     <FullCalendar :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
-        <p>rva.rip was built with the personal hope that no LGBTQ+ person should be without community. The site will
+        <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various <a
             href="https://github.com/ivyraine/bay.lgbt/blob/main/public/event_sources.json">organizer listings</a> that
           contributors (thank you!) have provided. The listings are in a constant state of community-based vetting; don't
           hesitate to provide feedback <a href="https://forms.gle/DMt1xKyMKbHCsZMv5">here</a>!</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
-        <p>In New York? Check out our sister site at <a href="https://anarchism.nyc/">anarchism.nyc</a>- this site
-          wouldn't exist without it.</p>
-        <p>In the Bay Area? Check out our sister site at <a href="https://bay.lgbt/">bay.lgbt</a>- this site really
-          wouldn't exist without it.</p>
+        <p>In New York or the Bay Area??? Check out our sister sites <a href="https://anarchism.nyc/">anarchism.nyc</a>
+          and <a href="https://bay.lgbt/">bay.lgbt</a>. This site wouldn't exist without them.</p>
         <p>Want your event listed here? Start making <a
             href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events (or any other
           <a href="https://fullcalendar.io/docs/event-source">machine readable format</a>). Once published,
@@ -482,21 +480,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             event feed address via a new GitHub issue</a>. You may also provide feedback, fixes, or improvements
           there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes at the
           expense of accuracy and my baby budget ⟨very sad and pathetic :( ⟩.</p>
-        <a href="https://raw.githubusercontent.com/ivyraine/bay.lgbt/main/public/event_sources.json">event sources</a> |
-        <a href="https://github.com/ivyraine/bay.lgbt/">source code</a>
-        <div class="webring">
-
-          <table>
-            <tr>
-              <th>New York City</th>
-              <th>SF Bay Area</th>
-            </tr>
-            <tr>
-              <td>Anarchism.NYC</td>
-              <td>bay.lgbt</td>
-            </tr>
-          </table> 
-        </div>
+        <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/public/event_sources.json">event sources</a> |
+        <a href="https://github.com/natviii/rva.rip/">source code</a>
       </div>
     </div>
   </div>

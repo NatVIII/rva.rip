@@ -407,17 +407,13 @@ label {}
     font-size: min(5vw, 3em);
     font-family: sans-serif;
     letter-spacing: 0.15rem;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 min(0.25vw, 3.5px) #ef3550,
-        0 min(0.5vw, 7px) #f48fb1,
-        0 min(0.75vw, 10.5px) #7e57c2,
-        0 min(1vw, 14px) #2196f3,
-        0 min(1.25vw, 17.5px) #26c6da,
-        0 min(1.5vw, 21px) #43a047,
-        0 min(1.75vw, 24.5px) #eeff41,
-        0 min(2vw, 28px) #f9a825,
-        0 min(2.25vw, 31.5px) #ff5722;
+    text-transform: lowercase;
+    color: rgb(91, 206, 250);
+    text-shadow: 0 min(0.25vw, 3.5px) rgb(91, 206, 250),
+        0 min(0.5vw, 7px) rgb(245,169,184),
+        0 min(0.75vw, 10.5px) #FFFFFF,
+        0 min(1vw, 14px) rgb(245,169,184),
+        0 min(1.25vw, 17.5px) rgb(91, 206, 250)
   }
   
   .blurb {
@@ -431,7 +427,7 @@ label {}
   /* This causes issues with fc-h-events */
     font-family: 'LDFComicSans', serif;
   padding: 18px;
-  font-size: min(4vw, 1.4em);
+  font-size: min(1em);
   opacity: 5;
 }
 
