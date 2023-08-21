@@ -456,7 +456,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   <ModalsContainer />
   <div class="calendar-container">
     <div style="display: flex; flex-direction:column; position:relative;">
-      <div class="title">bay.lgbt</div>
+      <div class="title">rva.rip</div>
       <div style="display:flex; flex-direction: column; align-items: center;">
         <div class="blurb">A communal board for LGBT events all around RVA; queer, radical, and STINKY!!!</div>
       </div>
@@ -475,16 +475,28 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           wouldn't exist without it.</p>
         <p>In the Bay Area? Check out our sister site at <a href="https://bay.lgbt/">bay.lgbt</a>- this site really
           wouldn't exist without it.</p>
-        <p>Want your event listed here? You must be publishing a machine-readable feed of event data formatted in <a
-            href="https://fullcalendar.io/docs/event-source">a compatible Event Source format</a>. (This can be as simple
-          as a <a href="https://support.google.com/calendar/answer/37083">public Google Calendar</a>.) Once published,
-          request inclusion of your event feed by <a href="https://github.com/ivyraine/bay.lgbt/issues">submitting your
-            event feed address to us via a new GitHub issue</a>. You may also provide feedback, fixes, or improvements
+        <p>Want your event listed here? Start making <a
+            href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events (or any other
+          <a href="https://fullcalendar.io/docs/event-source">machine readable format</a>). Once published,
+          request inclusion of your event feed by <a href="https://github.com/natviii/rva.rip/issues">submitting your
+            event feed address via a new GitHub issue</a>. You may also provide feedback, fixes, or improvements
           there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes at the
-          expense of accuracy and Ivy's budget (nonexistent). Donations are greatly appreciated and can be made <a
-            href='https://ko-fi.com/ivyraine'>here</a>!</p>
+          expense of accuracy and my baby budget ⟨very sad and pathetic :( ⟩.</p>
         <a href="https://raw.githubusercontent.com/ivyraine/bay.lgbt/main/public/event_sources.json">event sources</a> |
         <a href="https://github.com/ivyraine/bay.lgbt/">source code</a>
+        <div class="webring">
+
+          <table>
+            <tr>
+              <th>New York City</th>
+              <th>SF Bay Area</th>
+            </tr>
+            <tr>
+              <td>Anarchism.NYC</td>
+              <td>bay.lgbt</td>
+            </tr>
+          </table> 
+        </div>
       </div>
     </div>
   </div>

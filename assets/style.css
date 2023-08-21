@@ -93,13 +93,14 @@ button:focus-visible {
 
 @font-face {
   font-family: 'LDFComicSans';
-  src: url('./assets/LDFComicSans.ttf') format('truetype');
+  src: url('./assets/OpenDyslexic-Regular.otf') format('truetype');
 }
 
 /* Takes precedence over FullCalendar's  styling. */
 :root {
   /* linear rainbow gradient, pastel */
-  background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));
+  /*background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));*/
+  background-color: rgb(250, 249, 246);
   background-attachment: fixed;
   --button-box-shadow:
     inset -1px -1px 0px 0px #777,
@@ -432,6 +433,16 @@ label {}
   padding: 18px;
   font-size: min(4vw, 1.4em);
   opacity: 5;
+}
+
+.webring {
+  /* This causes issues with fc-h-events */
+    font-family: 'LDFComicSans', serif;
+  padding: 18px;
+  font-size: min(4vw, 1.4em);
+  opacity: 5;
+  display: flex;
+  border: 1px solid;
 }
 
 .cat {
