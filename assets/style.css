@@ -130,8 +130,8 @@ button:focus-visible {
 html,
 body {
   margin-top: 0;
-  -moz-user-select: none;
-  -webkit-user-select: none;
+  /*-moz-user-select: none;*/
+  /*-webkit-user-select: none;*/
   background-repeat: repeat;
   margin: 0;
   height: 100%;
