@@ -455,21 +455,12 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
 <template>
   <ModalsContainer />
   <div class="calendar-container">
-    <table style="width:100%;">
-      <tbody>
-        <tr>
-          <td class="blurb-image"> <img src="../assets/gravestone.svg" alt="rva.rip"> </td>
-          <td>
-            <div class="blurb-text">
-              A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
-            </div>
-            <div style="font-size: min(1.2em); text-align: center;">
-              Stop scrolling insta to find the move!
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="display: flex; flex-direction:column; position:relative;">
+      <div class="title"> <img src="../assets/gravestone.svg" alt="rva.rip"> </div>
+      <div style="display:flex; flex-direction: column; align-items: center;">
+        <div class="blurb">A communal board for DIY events all around RVA; queer, radical, and STINKY!!!</div>
+      </div>
+    </div>
     <FullCalendar :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">

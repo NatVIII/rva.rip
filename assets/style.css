@@ -398,9 +398,12 @@ label {}
       white);
 }
 
-.blurb-image {
+.title {
     color: white;
       text-decoration: none !important;
+  padding-top: min(1vw, 1.75em);
+    padding-bottom: min(1.5vw, 1.75em);
+    padding-left: min(1vw, 1.75em);
     font-size: min(5vw, 3em);
     font-family: sans-serif;
     letter-spacing: 0.15rem;
@@ -410,13 +413,13 @@ label {}
         0 min(0.5vw, 7px) rgb(245,169,184),
         0 min(0.75vw, 10.5px) #FFFFFF,
         0 min(1vw, 14px) rgb(245,169,184),
-        0 min(1.25vw, 17.5px) rgb(91, 206, 250);
+        0 min(1.25vw, 17.5px) rgb(91, 206, 250)
   }
   
-  .blurb-text {
+  .blurb {
   font-family: 'LDFComicSans';
-  font-size: min(4vw, 2em);
-  text-align: center;
+  font-size: min(4vw, 1.75em);
+
   padding: min(1vw, 1.75em);
 }
 
@@ -426,6 +429,16 @@ label {}
   padding: 18px;
   font-size: min(1em);
   opacity: 5;
+}
+
+.webring {
+  /* This causes issues with fc-h-events */
+    font-family: 'LDFComicSans', serif;
+  padding: 18px;
+  font-size: min(4vw, 1.4em);
+  opacity: 5;
+  display: flex;
+  border: 1px solid;
 }
 
 .cat {
