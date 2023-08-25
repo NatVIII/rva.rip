@@ -1,4 +1,4 @@
-// Adds analytics to bay.lgbt
+// Adds analytics to rva.rip
 // See https://vercel.com/docs/concepts/analytics/audiences/quickstart for details
 import { inject } from '@vercel/analytics';
 
