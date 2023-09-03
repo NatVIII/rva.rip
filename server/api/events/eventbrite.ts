@@ -1,4 +1,4 @@
-import eventSourcesJSON from 'public/event_sources.json';
+import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { JSDOM } from 'jsdom';
 import { DateTime } from 'luxon';

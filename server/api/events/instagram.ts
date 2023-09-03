@@ -1,6 +1,6 @@
 // Yikes this file is gross. Want to help me rerefactor it? I would appreciate it!
 import { Configuration, OpenAIApi } from 'openai';
-import eventSourcesJSON from 'public/event_sources.json';
+import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { InstagramEvent, PrismaClient } from '@prisma/client'
 import vision from '@google-cloud/vision';

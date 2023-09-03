@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import json from 'public/event_sources.json';
+import json from '@/assets/event_sources.json';
 import $ from 'jquery';
 import { DateTime } from 'luxon';
 
@@ -12,6 +12,8 @@ import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
+
+console.log('Project is loaded');//I'm just testing stuff
 
 interface County {
   enabled: any;
@@ -257,12 +259,13 @@ function moveListViewScrollbarToTodayAndColor() {
 }
 
 async function getEventSources() {
+  console.log('getEventSources function started'); // Testing line
   const endpoints = [
     /*
     '/api/events/eventbrite',
     '/api/events/forbidden-tickets',
     '/api/events/instagram',
-    '/api/events/google-calendar',
+    */'/api/events/google-calendar',/*
     '/api/events/squarespace',
     '/api/events/tockify',
     '/api/events/with-friends',
@@ -276,9 +279,12 @@ async function getEventSources() {
   };
   // This is to preventing the UI changes from each fetch result to cause more fetches to occur.,
   Promise.allSettled(endpoints.map(async (endpoint) => {
+    console.log(`Calling API endpoint: ${endpoint}`); // Testing line
     const { data: response } = await useLazyFetch(endpoint, { headers: clientHeaders });
+    console.log(`API response received for endpoint: ${endpoint}`); // Testing line
     return addEventSources(transformEventSourcesResponse(response));
   }));
+  console.log('getEventSources function completed'); // Testing line
 }
 
 // Multiple re-renders (which may be unrelated to the fetching) cause this to be called multiple times.
@@ -475,7 +481,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
       <div class="desc">
         <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various <a
-            href="https://github.com/natviii/rva.rip/blob/main/public/event_sources.json">organizer listings</a> that
+            href="https://github.com/natviii/rva.rip/blob/main/@/assets/event_sources.json">organizer listings</a> that
           contributors (thank you!) have provided. The listings are in a constant state of community-based vetting; don't
           hesitate to provide feedback <a href="https://forms.gle/DMt1xKyMKbHCsZMv5">here</a>!</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
@@ -491,7 +497,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           event feed address via a new GitHub issue</a>. You may also provide feedback, fixes, or improvements
           there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes at the
           expense of accuracy and my baby budget ⟨very sad and pathetic :( ⟩.</p>
-        <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/public/event_sources.json">event sources</a> |
+        <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/@/assets/event_sources.json">event sources</a> |
         <a href="https://github.com/natviii/rva.rip/">source code</a>
       </div>
     </div>
