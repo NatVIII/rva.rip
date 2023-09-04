@@ -200,6 +200,8 @@ const calendarOptions = ref({
   eventSources: [],
   // Open in a new tab.
   eventClick: function (event) {
+    // Prevent the default behavior of clicking a link
+    event.jsEvent.preventDefault();
     // Populate the popup with event details
     var eventDetails = 'Event Title: ' + event.event.title + '<br>';
     eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
