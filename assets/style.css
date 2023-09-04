@@ -537,8 +537,8 @@ body.no-scroll {
 /* Close button */
 .close {
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
+  top: 10px;
+  right: 10px;
+  padding: 15px; /* Increase the padding for a larger clickable area */
   cursor: pointer;
 }

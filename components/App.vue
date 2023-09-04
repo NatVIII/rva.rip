@@ -213,6 +213,10 @@ const calendarOptions = ref({
     var eventDetailsContainer = document.getElementById('event-details');
     eventDetailsContainer.innerHTML = eventDetails;
     popup.style.display = 'block';
+    // Close the popup when the background is clicked
+    popup.addEventListener('click', function() {
+      popup.style.display = 'none';
+    });
 
     // Close the popup when the close button is clicked
     var closeBtn = document.querySelector('.close');
