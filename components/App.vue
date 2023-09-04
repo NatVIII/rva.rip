@@ -200,10 +200,22 @@ const calendarOptions = ref({
   eventSources: [],
   // Open in a new tab.
   eventClick: function (event) {
-    if (event.event.url) {
-      window.open(event.event.url);
-      event.jsEvent.preventDefault();
-    }
+    // Populate the popup with event details
+    var eventDetails = 'Event Title: ' + event.event.title + '<br>';
+    eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
+    // You can add more event details here
+
+    // Display the popup
+    var popup = document.getElementById('event-popup');
+    var eventDetailsContainer = document.getElementById('event-details');
+    eventDetailsContainer.innerHTML = eventDetails;
+    popup.style.display = 'block';
+
+    // Close the popup when the close button is clicked
+    var closeBtn = document.querySelector('.close');
+    closeBtn.addEventListener('click', function() {
+      popup.style.display = 'none';
+    });
   },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
@@ -477,6 +489,13 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
       </tbody>
     </table>
     <FullCalendar :options='calendarOptions' />
+    <div id="event-popup" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Event Details</h2>
+        <div id="event-details"></div>
+      </div>
+    </div>
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will
