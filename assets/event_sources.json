@@ -556,6 +556,11 @@
 			"name": "DFL",
 			"googleCalendarId": "1bfaa6ca59045a2e667db8c0c258041246f5cc69031737e2a84796da54656810@group.calendar.google.com",
 			"city": "Oakland"
+		},
+		{
+			"name": "TestCalendar",
+			"googleCalendarId": "1c16b938a56fea0342068f59730a90d90bec79d49d44c6fcc0b46915705b8cea@group.calendar.google.com",
+			"city": "Oakland"
 		}
 	],
 	"wordPressTribe": [
