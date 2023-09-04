@@ -6,7 +6,7 @@ export default defineCachedEventHandler(async (event) => {
 	// export default defineEventHandler(async (event) => {
 	const startTime = new Date();
 	const body = await fetchGoogleCalendarEvents();
-	logTimeElapsedSince(startTime, 'Google Calendar: events fetched.');
+	logTimeElapsedSince(startTime.getTime(), 'Google Calendar: events fetched.');
 	return {
 		body
 	}
@@ -28,8 +28,8 @@ async function fetchGoogleCalendarEvents() {
 			eventSourcesJSON.googleCalendar.map(async (source) => {
 
 				const searchParams = new URLSearchParams({
-					singleEvents: true,
-					maxResults: 9999,
+					singleEvents: 'true',
+					maxResults: '9999',
 					timeMin: new Date(new Date().setMonth(new Date().getMonth() - 2)).toISOString(),
 					timeMax: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
 				});
@@ -45,7 +45,7 @@ async function fetchGoogleCalendarEvents() {
 				}
 				const data = await res.json()
 
-				const events = await Promise.all(data.items.map(async (item) => {
+				const events = await Promise.all(data.items.map(async (item: { summary: any; start: { dateTime: any; }; end: { dateTime: any; }; htmlLink: any; }) => {
 					const event = {
 						title: `${item.summary} @ ${source.name}`,
 						start: item.start.dateTime,
