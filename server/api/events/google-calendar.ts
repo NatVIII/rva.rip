@@ -2,6 +2,7 @@ import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '~~/utils/util';
 
 export default defineCachedEventHandler(async (event) => {
+	console.log('defineCachedEventHandler');
 	// export default defineEventHandler(async (event) => {
 	const startTime = new Date();
 	const body = await fetchGoogleCalendarEvents();
@@ -16,7 +17,7 @@ export default defineCachedEventHandler(async (event) => {
 });
 
 async function fetchGoogleCalendarEvents() {
-	console.log('Fetching Google Calendar events...');
+	console.log('fetchGoogleCalendarEvents');
 	let googleCalendarSources = await useStorage().getItem('googleCalendarSources');
 	try {
 		if (!process.env.GOOGLE_CALENDAR_API_KEY) {
