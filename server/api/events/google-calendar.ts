@@ -45,13 +45,39 @@ async function fetchGoogleCalendarEvents() {
 				}
 				const data = await res.json()
 
-				const events = await Promise.all(data.items.map(async (item: { summary: any; start: { dateTime: any; }; end: { dateTime: any; }; htmlLink: any; }) => {
-					const event = {
-						title: `${item.summary} @ ${source.name}`,
+				const events = await Promise.all(data.items.map(async (item: {
+					summary: any;
+					start: { dateTime: any; };
+					end: { dateTime: any; };
+					htmlLink: any;
+					location?: string; // Add location as an optional property
+					description?: string; // Add description as an optional property
+				}) => {
+					const event: {
+						title: string;
+						org: string;
+						start: any;
+						end: any;
+						url: any;
+						location?: string; // Specify location as optional here as well
+						description?: string; // Specify location as optional here as well
+					} = {
+						title: `${item.summary}`,
+						org: `${source.name}`,
 						start: item.start.dateTime,
 						end: item.end.dateTime,
 						url: item.htmlLink,
 					};
+
+					// Check if location exists in the item and is not empty
+					if (item.location && item.location.trim() !== "") {
+						event.location = item.location;
+					}
+					// Check if description exists in the item and is not empty
+					if (item.description && item.description.trim() !== "") {
+						event.description = item.description;
+					}
+
 					return event;
 				}));
 
