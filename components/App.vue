@@ -205,7 +205,7 @@ const calendarOptions = ref({
     // Populate the popup with event details
     console.log(event.event); //Maybe show more detail about the event and what it has???
     var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
-    eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toISOString() + '<br>';
+    eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toLocaleDateString() + ' @ ' + event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '<br>';
     eventDetails += '<span class="modal-header">Event Host</span>: ' + event.event.extendedProps.org + '<br>';
     eventDetails += '<span class="modal-header">Event URL</span>: <a href="' + event.event.url + '">Here</a> <br>';
     eventDetails += '<span class="modal-header">Event Location</span>: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
@@ -483,12 +483,6 @@ function createGoogleMapsURL(location) {
   const encodedLocation = encodeURIComponent(location); // Encode the location string to make it URL-friendly
   const googleMapsURL = `https://www.google.com/maps/search/?q=${encodedLocation}`; // Make the Google Maps URL with the location as the parameter
   return googleMapsURL;
-}
-
-function createFormattedDateString(start) {
-  const eventDate = moment(start).tz('America/New_York'); //Set to East Coast Time
-  const formattedDate = eventDate.format('MM/DD @ h:mma');
-  return formattedDate;
 }
 
 </script>
