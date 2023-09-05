@@ -511,3 +511,14 @@ body.no-scroll {
 :root .fc .fc-daygrid-day-number {
   text-decoration: dashed underline;
 }
+
+.event-details {
+  color:#222;
+  font-family:ChicagoFLF,Times New Roman,Georgia,serif;
+  font-size:14px;
+}
+
+.event-headers {
+  color:#000;
+  font-size:16px
+}

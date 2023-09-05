@@ -8,7 +8,6 @@ const emit = defineEmits<{
 }>()
 
 // Use composable.
-
 const eventTitle = props.event.event.title;
 const eventTime = props.event.event.start.toLocaleDateString() + ' @ ' + 
                   props.event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -29,12 +28,12 @@ function createGoogleMapsURL(location) {
   <VueFinalModal class="popper-box-wrapper" content-class="popper-box-inner" overlay-transition="vfm-fade" content-transition="vfm-fade">
     <!-- Display Event Details -->
     <div class="event-details">
-      Event Title: {{ eventTitle }}<br>
-      Event Time: {{ eventTime }}<br>
-      Event Host: {{ eventHost }}<br>
-      Event URL: <a :href="eventURL" target="_blank">Here</a><br>
-      Event Location: <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
-      Event Description: {{ eventDescription }}<br>
+      <span class="event-headers">Event Title:</span> {{ eventTitle }}<br>
+      <span class="event-headers">Event Time:</span> {{ eventTime }}<br>
+      <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
+      <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
+      <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
+      <span class="event-headers">Event Description:</span> {{ eventDescription }}<br>
     </div>
 
     <!-- Add a "Done" button -->
