@@ -12,7 +12,10 @@ import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
+import { ref } from 'vue';
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
+
+const clickedEvent = ref(null); // For storing the clickedEvent data
 
 interface County {
   enabled: any;
@@ -163,17 +166,10 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   },
 })
 
-//Defining clickedEvent so that it can be called by eventClick and pass to openEventModal
-data() {
-  return {
-    clickedEvent: null,
-  };
-},
-
 const { open: openEventModal, close: closeEventModal } = useModal({
   component: EventModal,
   attrs: {
-    event: this.clickedEvent,
+    event: clickedEvent,
     onConfirm() {
       closeEventModal()
     },
@@ -218,7 +214,7 @@ const calendarOptions = ref({
   eventClick: function (event) {
     // Prevent the default behavior of clicking a link
     event.jsEvent.preventDefault();
-    this.clickedEvent = event;
+    clickedEvent = event;
     openEventModal();
     // Populate the popup with event details
     /*var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
