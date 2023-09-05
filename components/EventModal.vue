@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
 const props = defineProps<{
-    event: Event => void // Declare the event prop here
+    event: any // Declare the event prop here
 }>()
 const emit = defineEmits<{
 	(e: 'confirm'): void
