@@ -11,6 +11,7 @@ import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
+import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 interface County {
@@ -162,6 +163,23 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   },
 })
 
+//Defining clickedEvent so that it can be called by eventClick and pass to openEventModal
+data() {
+  return {
+    clickedEvent: null,
+  };
+},
+
+const { open: openEventModal, close: closeEventModal } = useModal({
+  component: EventModal,
+  attrs: {
+    event: this.clickedEvent,
+    onConfirm() {
+      closeEventModal()
+    },
+  },
+})
+
 const calendarOptions = ref({
   plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
   initialView: getWindowWidth() <= 600 ? 'listMonth' : 'dayGridMonth',
@@ -200,8 +218,10 @@ const calendarOptions = ref({
   eventClick: function (event) {
     // Prevent the default behavior of clicking a link
     event.jsEvent.preventDefault();
+    this.clickedEvent = event;
+    openEventModal();
     // Populate the popup with event details
-    var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
+    /*var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
     eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toLocaleDateString() + ' @ ' + event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '<br>';
     eventDetails += '<span class="modal-header">Event Host</span>: ' + event.event.extendedProps.org + '<br>';
     eventDetails += '<span class="modal-header">Event URL</span>: <a href="' + event.event.url + '">Here</a> <br>';
@@ -222,7 +242,7 @@ const calendarOptions = ref({
     var closeBtn = document.querySelector('.close');
     closeBtn.addEventListener('click', function() {
       popup.style.display = 'none';
-    });
+    });*/
   },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
