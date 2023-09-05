@@ -561,6 +561,11 @@
 			"name": "TestCalendar",
 			"googleCalendarId": "1c16b938a56fea0342068f59730a90d90bec79d49d44c6fcc0b46915705b8cea@group.calendar.google.com",
 			"city": "Oakland"
+		},
+		{
+			"name": "Burning Van",
+			"googleCalendarId": "burningvan69@gmail.com",
+			"city": "Oakland"
 		}
 	],
 	"wordPressTribe": [
