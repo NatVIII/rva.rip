@@ -59,24 +59,17 @@ async function fetchGoogleCalendarEvents() {
 						start: any;
 						end: any;
 						url: any;
-						location?: string; // Specify location as optional here as well
-						description?: string; // Specify location as optional here as well
+						location: any; // Specify location as optional here as well
+						description: any; // Specify location as optional here as well
 					} = {
 						title: `${item.summary}`,
 						org: `${source.name}`,
 						start: item.start.dateTime,
 						end: item.end.dateTime,
 						url: item.htmlLink,
+						location: item.location,
+						description: item.description,
 					};
-
-					// Check if location exists in the item and is not empty
-					if (item.location !== "") {
-						event.location = item.location;
-					}
-					// Check if description exists in the item and is not empty
-					if (item.description !== "") {
-						event.description = item.description;
-					}
 
 					return event;
 				}));
