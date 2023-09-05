@@ -11,7 +11,10 @@ import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
+import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
+
+const clickedEvent = ref(null); // For storing the clickedEvent data
 
 interface County {
   enabled: any;
@@ -162,6 +165,16 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   },
 })
 
+const { open: openEventModal, close: closeEventModal } = useModal({
+  component: EventModal,
+  attrs: {
+    event: clickedEvent,
+    onConfirm() {
+      closeEventModal()
+    },
+  },
+})
+
 const calendarOptions = ref({
   plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
   initialView: getWindowWidth() <= 600 ? 'listMonth' : 'dayGridMonth',
@@ -200,8 +213,10 @@ const calendarOptions = ref({
   eventClick: function (event) {
     // Prevent the default behavior of clicking a link
     event.jsEvent.preventDefault();
+    clickedEvent.value = event;
+    openEventModal();
     // Populate the popup with event details
-    var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
+    /*var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
     eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toLocaleDateString() + ' @ ' + event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '<br>';
     eventDetails += '<span class="modal-header">Event Host</span>: ' + event.event.extendedProps.org + '<br>';
     eventDetails += '<span class="modal-header">Event URL</span>: <a href="' + event.event.url + '">Here</a> <br>';
@@ -222,7 +237,7 @@ const calendarOptions = ref({
     var closeBtn = document.querySelector('.close');
     closeBtn.addEventListener('click', function() {
       popup.style.display = 'none';
-    });
+    });*/
   },
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
@@ -471,12 +486,6 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   updateEventSourcesEnabled();
 }
 
-function createGoogleMapsURL(location) {
-  const encodedLocation = encodeURIComponent(location); // Encode the location string to make it URL-friendly
-  const googleMapsURL = `https://www.google.com/maps/search/?q=${encodedLocation}`; // Make the Google Maps URL with the location as the parameter
-  return googleMapsURL;
-}
-
 </script>
 
 <template>
@@ -498,13 +507,6 @@ function createGoogleMapsURL(location) {
       </tbody>
     </table>
     <FullCalendar :options='calendarOptions' />
-    <div id="event-popup" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Event Details</h2>
-        <div id="event-details"></div>
-      </div>
-    </div>
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will

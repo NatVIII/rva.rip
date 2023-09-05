@@ -512,42 +512,13 @@ body.no-scroll {
   text-decoration: dashed underline;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  z-index: 1;
+.event-details {
+  color:#222;
+  font-family:ChicagoFLF,Times New Roman,Georgia,serif;
+  font-size:14px;
 }
 
-/* Popup content */
-.modal-content {
-  color: #222;
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 600px;
-  position: relative;
-  font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
-  font-size: 14px;
-  font-weight: normal;
-}
-
-.modal-header {
-  color: #000;
-  font-size: 16px;
-}
-
-/* Close button */
-.close {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 15px; /* Increase the padding for a larger clickable area */
-  cursor: pointer;
+.event-headers {
+  color:#000;
+  font-size:16px
 }
