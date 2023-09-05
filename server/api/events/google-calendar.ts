@@ -59,16 +59,16 @@ async function fetchGoogleCalendarEvents() {
 						start: any;
 						end: any;
 						url: any;
-						location: any; // Specify location as optional here as well
-						description: any; // Specify location as optional here as well
+						location: string; // Specify location as optional here as well
+						description: string; // Specify location as optional here as well
 					} = {
 						title: `${item.summary}`,
 						org: `${source.name}`,
 						start: item.start.dateTime,
 						end: item.end.dateTime,
 						url: item.htmlLink,
-						location: item.location,
-						description: item.description,
+						location: `${item.location}`,
+						description: `${item.description}`,
 					};
 
 					return event;
