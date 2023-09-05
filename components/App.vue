@@ -207,8 +207,8 @@ const calendarOptions = ref({
     var eventDetails = 'Event Title: ' + event.event.title + '<br>';
     eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
     eventDetails += 'Event Org: ' + event.event.extendedProps.org + '<br>';
-    eventDetails += 'Event URL: ' + event.event.url + '<br>';
-    eventDetails += 'Event Location: ' + event.event.extendedProps.location + '<br>';
+    eventDetails += 'Event URL: <a href="' + event.event.url + '">Here</a> <br>';
+    eventDetails += 'Event Location: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
     eventDetails += 'Event Description: ' + event.event.extendedProps.description;
 
     // Display the popup
@@ -478,6 +478,13 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
 }
+
+function createGoogleMapsURL(location) {
+  const encodedLocation = encodeURIComponent(location); // Encode the location string to make it URL-friendly
+  const googleMapsURL = `https://www.google.com/maps/search/?q=${encodedLocation}`; // Make the Google Maps URL with the location as the parameter
+  return googleMapsURL;
+}
+
 </script>
 
 <template>
