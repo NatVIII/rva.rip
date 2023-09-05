@@ -203,6 +203,7 @@ const calendarOptions = ref({
     // Prevent the default behavior of clicking a link
     event.jsEvent.preventDefault();
     // Populate the popup with event details
+    console.log(event.event); //Maybe show more detail about the event and what it has???
     var eventDetails = 'Event Title: ' + event.event.title + '<br>';
     eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
     eventDetails += 'Event Org: ' + event.event.org + '<br>';
