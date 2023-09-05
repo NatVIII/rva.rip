@@ -12,7 +12,6 @@ import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
-import { ref } from 'vue';
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
