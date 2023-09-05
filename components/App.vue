@@ -205,8 +205,8 @@ const calendarOptions = ref({
     // Populate the popup with event details
     var eventDetails = 'Event Title: ' + event.event.title + '<br>';
     eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
-    if (event.event.location) eventDetails += 'Event Location: ' + event.event.location + '<br>';
-    if (event.event.description) eventDetails += 'Event Description: ' + event.event.description;
+    eventDetails += 'Event Location: ' + event.event.location + '<br>';
+    eventDetails += 'Event Description: ' + event.event.description;
 
     // Display the popup
     var popup = document.getElementById('event-popup');
