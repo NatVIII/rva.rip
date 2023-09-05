@@ -45,6 +45,8 @@ async function fetchGoogleCalendarEvents() {
 				}
 				const data = await res.json()
 
+				console.log(data);
+
 				const events = await Promise.all(data.items.map(async (item: {
 					summary: any;
 					start: { dateTime: any; };
