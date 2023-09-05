@@ -204,12 +204,12 @@ const calendarOptions = ref({
     event.jsEvent.preventDefault();
     // Populate the popup with event details
     console.log(event.event); //Maybe show more detail about the event and what it has???
-    var eventDetails = 'Event Title: ' + event.event.title + '<br>';
-    eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
-    eventDetails += 'Event Org: ' + event.event.extendedProps.org + '<br>';
-    eventDetails += 'Event URL: <a href="' + event.event.url + '">Here</a> <br>';
-    eventDetails += 'Event Location: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
-    eventDetails += 'Event Description: ' + event.event.extendedProps.description;
+    var eventDetails = '<b>Event Title</b>: ' + event.event.title + '<br>';
+    eventDetails += '<b>Event Date</b>: ' + event.event.start.toISOString() + '<br>';
+    eventDetails += '<b>Event Org</b>: ' + event.event.extendedProps.org + '<br>';
+    eventDetails += '<b>Event URL</b>: <a href="' + event.event.url + '">Here</a> <br>';
+    eventDetails += '<b>Event Location</b>: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
+    eventDetails += '<b>Event Description</b>: ' + event.event.extendedProps.description;
 
     // Display the popup
     var popup = document.getElementById('event-popup');
