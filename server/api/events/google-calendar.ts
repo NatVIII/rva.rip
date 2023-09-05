@@ -70,11 +70,11 @@ async function fetchGoogleCalendarEvents() {
 					};
 
 					// Check if location exists in the item and is not empty
-					if (item.location && item.location.trim() !== "") {
+					if (item.location !== "") {
 						event.location = item.location;
 					}
 					// Check if description exists in the item and is not empty
-					if (item.description && item.description.trim() !== "") {
+					if (item.description !== "") {
 						event.description = item.description;
 					}
 
