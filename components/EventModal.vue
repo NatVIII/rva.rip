@@ -32,8 +32,8 @@ function createGoogleMapsURL(location) {
       Event Title: {{ eventTitle }}<br>
       Event Time: {{ eventTime }}<br>
       Event Host: {{ eventHost }}<br>
-      Event URL: <a href="{{ eventURL }}">Here</a><br>
-      Event Location: <a href="{{ createGoogleMapsURL(eventLocation) }}">{{ eventLocation }}</a><br>
+      Event URL: <a :href="eventURL" target="_blank">Here</a><br>
+      Event Location: <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       Event Description: {{ eventDescription }}<br>
     </div>
 
