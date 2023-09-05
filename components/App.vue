@@ -206,10 +206,10 @@ const calendarOptions = ref({
     console.log(event.event); //Maybe show more detail about the event and what it has???
     var eventDetails = 'Event Title: ' + event.event.title + '<br>';
     eventDetails += 'Event Date: ' + event.event.start.toISOString() + '<br>';
-    eventDetails += 'Event Org: ' + event.event.org + '<br>';
+    eventDetails += 'Event Org: ' + event.event.extendedProps.org + '<br>';
     eventDetails += 'Event URL: ' + event.event.url + '<br>';
-    eventDetails += 'Event Location: ' + event.event.location + '<br>';
-    eventDetails += 'Event Description: ' + event.event.description;
+    eventDetails += 'Event Location: ' + event.event.extendedProps.location + '<br>';
+    eventDetails += 'Event Description: ' + event.event.extendedProps.description;
 
     // Display the popup
     var popup = document.getElementById('event-popup');
