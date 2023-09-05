@@ -213,7 +213,7 @@ const calendarOptions = ref({
   eventClick: function (event) {
     // Prevent the default behavior of clicking a link
     event.jsEvent.preventDefault();
-    clickedEvent = event;
+    clickedEvent.value = event;
     openEventModal();
     // Populate the popup with event details
     /*var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
