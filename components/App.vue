@@ -205,7 +205,7 @@ const calendarOptions = ref({
     // Populate the popup with event details
     console.log(event.event); //Maybe show more detail about the event and what it has???
     var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
-    eventDetails += '<span class="modal-header">Event Time</span>: ' + createFormattedDateString(event.event.start) + '<br>';
+    eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toISOString() + '<br>';
     eventDetails += '<span class="modal-header">Event Host</span>: ' + event.event.extendedProps.org + '<br>';
     eventDetails += '<span class="modal-header">Event URL</span>: <a href="' + event.event.url + '">Here</a> <br>';
     eventDetails += '<span class="modal-header">Event Location</span>: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
