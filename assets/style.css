@@ -422,7 +422,7 @@ label {}
 
 .desc {
   /* This causes issues with fc-h-events */
-    font-family: 'LDFComicSans', serif;
+  font-family: 'LDFComicSans', serif;
   padding: 18px;
   font-size: min(1em);
   opacity: 5;
