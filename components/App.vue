@@ -486,12 +486,6 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   updateEventSourcesEnabled();
 }
 
-function createGoogleMapsURL(location) {
-  const encodedLocation = encodeURIComponent(location); // Encode the location string to make it URL-friendly
-  const googleMapsURL = `https://www.google.com/maps/search/?q=${encodedLocation}`; // Make the Google Maps URL with the location as the parameter
-  return googleMapsURL;
-}
-
 </script>
 
 <template>
@@ -513,13 +507,6 @@ function createGoogleMapsURL(location) {
       </tbody>
     </table>
     <FullCalendar :options='calendarOptions' />
-    <div id="event-popup" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Event Details</h2>
-        <div id="event-details"></div>
-      </div>
-    </div>
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will
