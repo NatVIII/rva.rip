@@ -204,12 +204,12 @@ const calendarOptions = ref({
     event.jsEvent.preventDefault();
     // Populate the popup with event details
     console.log(event.event); //Maybe show more detail about the event and what it has???
-    var eventDetails = '<font size="+2">Event Title</font>: ' + event.event.title + '<br>';
-    eventDetails += '<font size="+1">Event Date</font>: ' + event.event.start.toISOString() + '<br>';
-    eventDetails += '<font size="+1">Event Org</font>: ' + event.event.extendedProps.org + '<br>';
-    eventDetails += '<font size="+1">Event URL</font>: <a href="' + event.event.url + '">Here</a> <br>';
-    eventDetails += '<font size="+1">Event Location</font>: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
-    eventDetails += '<font size="+1">Event Description</font>: ' + event.event.extendedProps.description;
+    var eventDetails = '<span class="modal-header">Event Title</span>: ' + event.event.title + '<br>';
+    eventDetails += '<span class="modal-header">Event Date</span>: ' + event.event.start.toISOString() + '<br>';
+    eventDetails += '<span class="modal-header">Event Org</span>: ' + event.event.extendedProps.org + '<br>';
+    eventDetails += '<span class="modal-header">Event URL</span>: <a href="' + event.event.url + '">Here</a> <br>';
+    eventDetails += '<span class="modal-header">Event Location</span>: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
+    eventDetails += '<span class="modal-header">Event Description</span>: ' + event.event.extendedProps.description;
 
     // Display the popup
     var popup = document.getElementById('event-popup');

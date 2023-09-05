@@ -525,6 +525,7 @@ body.no-scroll {
 
 /* Popup content */
 .modal-content {
+  color: #222;
   background-color: #fff;
   margin: 15% auto;
   padding: 20px;
@@ -532,6 +533,14 @@ body.no-scroll {
   width: 80%;
   max-width: 600px;
   position: relative;
+  font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.modal-header {
+  color: #000;
+  font-size: 16px;
 }
 
 /* Close button */
