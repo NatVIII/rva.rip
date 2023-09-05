@@ -67,8 +67,8 @@ async function fetchGoogleCalendarEvents() {
 						start: item.start.dateTime,
 						end: item.end.dateTime,
 						url: item.htmlLink,
-						location: `${item.location}`,
-						description: `${item.description}`,
+						location: `${item.location ? item.location.toString() : 'Location not specified'}`,
+						description: `${item.description ? item.description.toString() : 'Description not available'}`,
 					};
 
 					return event;
