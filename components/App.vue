@@ -13,8 +13,6 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
-console.log('Project is loaded');//I'm just testing stuff
-
 interface County {
   enabled: any;
   cities: any;
@@ -203,7 +201,6 @@ const calendarOptions = ref({
     // Prevent the default behavior of clicking a link
     event.jsEvent.preventDefault();
     // Populate the popup with event details
-    console.log(event.event); //Maybe show more detail about the event and what it has???
     var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
     eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toLocaleDateString() + ' @ ' + event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '<br>';
     eventDetails += '<span class="modal-header">Event Host</span>: ' + event.event.extendedProps.org + '<br>';
@@ -281,7 +278,6 @@ function moveListViewScrollbarToTodayAndColor() {
 }
 
 async function getEventSources() {
-  console.log('getEventSources function started'); // Testing line
   const endpoints = [
     /*
     '/api/events/eventbrite',
@@ -301,12 +297,9 @@ async function getEventSources() {
   };
   // This is to preventing the UI changes from each fetch result to cause more fetches to occur.,
   Promise.allSettled(endpoints.map(async (endpoint) => {
-    console.log(`Calling API endpoint: ${endpoint}`); // Testing line
     const { data: response } = await useLazyFetch(endpoint, { headers: clientHeaders });
-    console.log(`API response received for endpoint: ${endpoint}`); // Testing line
     return addEventSources(transformEventSourcesResponse(response));
   }));
-  console.log('getEventSources function completed'); // Testing line
 }
 
 // Multiple re-renders (which may be unrelated to the fetching) cause this to be called multiple times.
@@ -355,7 +348,6 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
           let currentDayEnd = DateTime.fromJSDate(event.end, { zone: 'utc' }).set({ month: currentDayStart.month, day: currentDayStart.day }).plus({ days: i });
           currentDayStart = currentDayStart.plus({ days: i });
 
-          // console.log(currentDayStart.toUTC().toISO(), currentDayEnd.toUTC().toISO());
           // // Adjust for end time being before start time.
           if (currentDayEnd < currentDayStart) {
             currentDayEnd.plus({ days: 1 });
