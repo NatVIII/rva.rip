@@ -51,6 +51,16 @@ function getRandomStyle() {
 
 const buttonStyle = getRandomStyle();
 
+onMounted(() => {
+  // Apply the normal style to the button
+  Object.assign(buttonRef.value.style, buttonStyle.normal);
+
+  // Add a click event listener to apply the active style on button click
+  buttonRef.value.addEventListener('click', () => {
+    Object.assign(buttonRef.value.style, buttonStyle.active);
+  });
+});
+
 </script>
 <template>
   <VueFinalModal class="popper-box-wrapper" content-class="popper-box-inner" overlay-transition="vfm-fade" content-transition="vfm-fade">
