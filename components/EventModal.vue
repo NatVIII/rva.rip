@@ -7,7 +7,7 @@ const emit = defineEmits<{
 	(e: 'confirm'): void
 }>()
 
-// Use composable.
+// Constants that are used for storing shorthand event information
 const eventTitle = props.event.event.title;
 const eventTime = props.event.event.start.toLocaleDateString() + ' @ ' + 
                   props.event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -22,6 +22,34 @@ function createGoogleMapsURL(location) {
   const googleMapsURL = `https://www.google.com/maps/search/?q=${encodedLocation}`; // Make the Google Maps URL with the location as the parameter
   return googleMapsURL;
 }
+
+const buttonStyles = [ //This will make the modal done button choose one of a couple different queer flags for rep
+  {
+    normal: {fontSize: '14px'},
+    active: {
+      'background-image': 'linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00)', //gay
+    },
+  },
+  {
+    normal: {fontSize: '14px'},
+    active: {
+      'background-image': 'linear-gradient(to bottom right, #5BCEFA, #F5A9B8, #FFFFFF, #F5A9B8, #5BCEFA)', //trans
+    },
+  },
+  {
+    normal: {fontSize: '14px'},
+    active: {
+      'background-image': 'linear-gradient(to bottom right, #B00B69, #420A55, #042069)', //bi
+    },
+  },
+];
+
+function getRandomStyle() {
+  const randomIndex = Math.floor(Math.random() * buttonStyles.length);
+  return buttonStyles[randomIndex];
+}
+
+const buttonStyle = getRandomStyle();
 
 </script>
 <template>
@@ -38,7 +66,7 @@ function createGoogleMapsURL(location) {
 
     <!-- Add a "Done" button -->
     <div class="bottom">
-      <button @click="emit('confirm')">
+      <button @click="emit('confirm')" :style="buttonStyle.normal">
         Done
       </button>
     </div>
