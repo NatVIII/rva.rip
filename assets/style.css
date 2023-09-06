@@ -495,7 +495,7 @@ body.no-scroll {
   /* Fix time getting cut off for multi-day events */
   overflow: visible;
 }
- /
+
 .popper-box-inner .bottom button {
   font-size: 14px;
 }
