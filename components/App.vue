@@ -209,36 +209,13 @@ const calendarOptions = ref({
   navLinks: true,
   weekNumbers: updateWeekNumbers(),
   eventSources: [],
-  // Open in a new tab.
+
   eventClick: function (event) {
-    // Prevent the default behavior of clicking a link
-    event.jsEvent.preventDefault();
+    event.jsEvent.preventDefault(); // Prevent the default behavior of clicking a link
     clickedEvent.value = event;
     openEventModal();
-    // Populate the popup with event details
-    /*var eventDetails = '<span class="modal-header">Event Name</span>: ' + event.event.title + '<br>';
-    eventDetails += '<span class="modal-header">Event Time</span>: ' + event.event.start.toLocaleDateString() + ' @ ' + event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '<br>';
-    eventDetails += '<span class="modal-header">Event Host</span>: ' + event.event.extendedProps.org + '<br>';
-    eventDetails += '<span class="modal-header">Event URL</span>: <a href="' + event.event.url + '">Here</a> <br>';
-    eventDetails += '<span class="modal-header">Event Location</span>: <a href="' + createGoogleMapsURL(event.event.extendedProps.location) + '">' + event.event.extendedProps.location + '</a><br>';
-    eventDetails += '<span class="modal-header">Event Details</span>: ' + event.event.extendedProps.description;
-
-    // Display the popup
-    var popup = document.getElementById('event-popup');
-    var eventDetailsContainer = document.getElementById('event-details');
-    eventDetailsContainer.innerHTML = eventDetails;
-    popup.style.display = 'block';
-    // Close the popup when the background is clicked
-    popup.addEventListener('click', function() {
-      popup.style.display = 'none';
-    });
-
-    // Close the popup when the close button is clicked
-    var closeBtn = document.querySelector('.close');
-    closeBtn.addEventListener('click', function() {
-      popup.style.display = 'none';
-    });*/
   },
+
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
   stickyHeaderDates: true,
   // Event handlers.
@@ -513,7 +490,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           always be free, without frills, and remain a public utility. The events here are drawn from various <a
             href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
           contributors (thank you!) have provided. The listings are in a constant state of community-based vetting; don't
-          hesitate to provide feedback <a href="https://forms.gle/DMt1xKyMKbHCsZMv5">here</a>!</p>
+          hesitate to provide feedback! For suggestions and questions email host@rva.rip &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
         <p>Still can't figure out what to do? Just roll up to <a href="https://onthegrid.city/richmond/the-fan-vcu/scuffletown-park">scuff</a>
