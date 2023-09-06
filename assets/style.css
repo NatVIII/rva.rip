@@ -92,7 +92,7 @@ button:focus-visible {
 }
 
 @font-face {
-  font-family: 'LDFComicSans';
+  font-family: 'OpenDyslexic';
   src: url('./assets/OpenDyslexic-Regular.otf') format('truetype');
 }
 
@@ -414,7 +414,7 @@ label {}
   }
   
   .blurb-text {
-  font-family: 'LDFComicSans';
+  font-family: 'OpenDyslexic';
   font-size: min(4vw, 2em);
   text-align: center;
   padding: min(1vw, 1.75em);
@@ -422,7 +422,7 @@ label {}
 
 .desc {
   /* This causes issues with fc-h-events */
-  font-family: 'LDFComicSans', serif;
+  font-family: 'OpenDyslexic', serif;
   padding: 18px;
   font-size: min(1em);
   opacity: 5;
