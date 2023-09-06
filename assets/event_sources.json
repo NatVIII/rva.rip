@@ -558,13 +558,18 @@
 			"city": "Oakland"
 		},
 		{
-			"name": "TestCalendar",
+			"name": "rva.rip Manually Added Events",
 			"googleCalendarId": "1c16b938a56fea0342068f59730a90d90bec79d49d44c6fcc0b46915705b8cea@group.calendar.google.com",
 			"city": "Oakland"
 		},
 		{
 			"name": "Burning Van",
 			"googleCalendarId": "burningvan69@gmail.com",
+			"city": "Oakland"
+		},
+		{
+			"name": "Recess Forever",
+			"googleCalendarId": "a0357682aab2b461272bbba85acfbbf079e05e8225392bc1e3f30eff896329a0@group.calendar.google.com",
 			"city": "Oakland"
 		}
 	],
