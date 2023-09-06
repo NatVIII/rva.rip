@@ -494,7 +494,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
         <p>Still can't figure out what to do? Just roll up to <a href="https://onthegrid.city/richmond/the-fan-vcu/scuffletown-park">scuff</a>
-         and say hi to the punks.</p>
+         and say hi to the punks; or check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening.</p>
         <p>In New York or the Bay Area??? Check out our sister sites <a href="https://anarchism.nyc/">anarchism.nyc</a>
           and <a href="https://bay.lgbt/">bay.lgbt</a>. This site wouldn't exist without them.</p>
         <p>Want your event listed here? Start making <a
