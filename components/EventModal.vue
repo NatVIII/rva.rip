@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
+import sanitizeHtml from 'sanitize-html';
+
 const props = defineProps<{
     event: any // Declare the event prop here
 }>()
@@ -14,7 +16,7 @@ const eventTime = props.event.event.start.toLocaleDateString() + ' @ ' +
 const eventHost = props.event.event.extendedProps.org;
 const eventURL = props.event.event.url;
 const eventLocation = props.event.event.extendedProps.location;
-const eventDescription = props.event.event.extendedProps.description;
+const eventDescription = sanitizeHtml(props.event.event.extendedProps.description);
 
 //For interpreting the location into a google maps recognizable address
 function createGoogleMapsURL(location) {
@@ -33,7 +35,7 @@ function createGoogleMapsURL(location) {
       <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
       <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
-      <span class="event-headers">Event Description:</span> {{ eventDescription }}<br>
+      <span class="event-headers">Event Description:</span> <div v-html="eventDescription"></div><br>
     </div>
 
     <!-- Add a "Done" button -->
