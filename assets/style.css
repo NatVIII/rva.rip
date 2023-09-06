@@ -495,15 +495,15 @@ body.no-scroll {
   /* Fix time getting cut off for multi-day events */
   overflow: visible;
 }
- /* 
+ /
 .popper-box-inner .bottom button {
   font-size: 14px;
 }
 .popper-box-inner .bottom button:active {
   transition: 0s 1s;
   background-image:
-    linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00);
-}*/
+    linear-gradient(to bottom right, #E40303, #FF8C00, #FFED00, #008026, #24408E, #732982);
+}
 .fc-list-day-cushion .fc-cell-shaded {
   --fc-neutral-bg-color: blue;
 }

@@ -23,44 +23,6 @@ function createGoogleMapsURL(location) {
   return googleMapsURL;
 }
 
-const buttonStyles = [ //This will make the modal done button choose one of a couple different queer flags for rep
-  {
-    normal: {fontSize: '14px'},
-    active: {
-      'background-image': 'linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00)', //gay
-    },
-  },
-  {
-    normal: {fontSize: '14px'},
-    active: {
-      'background-image': 'linear-gradient(to bottom right, #5BCEFA, #F5A9B8, #FFFFFF, #F5A9B8, #5BCEFA)', //trans
-    },
-  },
-  {
-    normal: {fontSize: '14px'},
-    active: {
-      'background-image': 'linear-gradient(to bottom right, #B00B69, #420A55, #042069)', //bi
-    },
-  },
-];
-
-function getRandomStyle() {
-  const randomIndex = Math.floor(Math.random() * buttonStyles.length);
-  return buttonStyles[randomIndex];
-}
-
-const buttonStyle = getRandomStyle();
-
-onMounted(() => {
-  // Apply the normal style to the button
-  Object.assign(buttonRef.value.style, buttonStyle.normal);
-
-  // Add a click event listener to apply the active style on button click
-  buttonRef.value.addEventListener('click', () => {
-    Object.assign(buttonRef.value.style, buttonStyle.active);
-  });
-});
-
 </script>
 <template>
   <VueFinalModal class="popper-box-wrapper" content-class="popper-box-inner" overlay-transition="vfm-fade" content-transition="vfm-fade">
@@ -76,7 +38,7 @@ onMounted(() => {
 
     <!-- Add a "Done" button -->
     <div class="bottom">
-      <button @click="emit('confirm')" :style="buttonStyle.normal">
+      <button @click="emit('confirm')">
         Done
       </button>
     </div>
