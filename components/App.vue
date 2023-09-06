@@ -188,14 +188,14 @@ const calendarOptions = ref({
           dayMaxEventRows: updateDayMaxEventRows()
         };
       }
-    },
+    },/*
     filter: {
       text: 'filter',
       click: openFilterModal,
-    },
+    },*/
   },
   headerToolbar: {
-    left: 'prev today,filter',
+    left: 'prev today',
     center: 'title',
     right: 'dayGridMonth,listMonth next'
   },
