@@ -493,17 +493,20 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           hesitate to provide feedback! For suggestions and questions email host@rva.rip &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
-        <p>Still can't figure out what to do? Just roll up to <a href="https://onthegrid.city/richmond/the-fan-vcu/scuffletown-park">scuff</a>
-         and say hi to the punks; or check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening.</p>
+        <p>Still can't figure out what to do? 
+          <ul style="line-height: 1.5em">
+            <li>Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>
+            <li>Check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening. </li>
+            <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
+          </ul></p>
         <p>In New York or the Bay Area??? Check out our sister sites <a href="https://anarchism.nyc/">anarchism.nyc</a>
           and <a href="https://bay.lgbt/">bay.lgbt</a>. This site wouldn't exist without them.</p>
         <p>Want your event listed here? Start making <a
           href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events (or any other
           <a href="https://fullcalendar.io/docs/event-source">machine readable format</a>). Once published,
-          request inclusion of your event feed by <a href="https://github.com/natviii/rva.rip/issues">submitting your
-          event feed address via a new GitHub issue</a>. You may also provide feedback, fixes, or improvements
-          there! Thanks to recent advances in AI, you may also share your events as Instagram posts, but it comes at the
-          expense of accuracy and my baby budget ⟨very sad and pathetic :( ⟩.</p>
+          request inclusion of your event feed by sending your Google Calendar ID via a 
+          <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
+          You may also provide feedback, fixes, or improvements through either means</p>
         <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
         <a href="https://github.com/natviii/rva.rip/">source code</a>
       </div>
