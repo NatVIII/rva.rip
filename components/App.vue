@@ -47,18 +47,21 @@ const updateWeekNumbers = () => {
 // -1 indicates that there is no limit.
 const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(getWindowHeight() / 75) };
 
+// Fetch events data and store it in a variable
+const eventsData = await fetchCalendarEvents();
+
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: fetchCalendarEvents(), // Fetch events when opening the modal
+    events: eventsData,
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
-      //console.log('Events:', fetchCalendarEvents());
+      console.log('Events:', eventsData);
     },
   },
-})
+});
 
 const { open: openEventModal, close: closeEventModal } = useModal({
   component: EventModal,
