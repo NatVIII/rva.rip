@@ -195,7 +195,7 @@ const calendarOptions = ref({
     },
   },
   headerToolbar: {
-    left: 'prev today',
+    left: 'prev today,filter',
     center: 'title',
     right: 'dayGridMonth,listMonth next'
   },
