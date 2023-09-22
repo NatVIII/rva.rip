@@ -188,11 +188,11 @@ const calendarOptions = ref({
           dayMaxEventRows: updateDayMaxEventRows()
         };
       }
-    },/*
+    },
     filter: {
       text: 'filter',
       click: openFilterModal,
-    },*/
+    },
   },
   headerToolbar: {
     left: 'prev today',
