@@ -15,12 +15,15 @@ const uniqueTags = computed(() => {
     if (event.extendedProps && event.extendedProps.tags && Array.isArray(event.extendedProps.tags)) {
       event.extendedProps.tags.forEach((tag) => {
         tagsSet.add(tag.trim()); // Trim whitespace around tags
+		console.log(tag.trim()); //Log for each tag
       });
     }
   });
   console.log(Array.from(tagsSet));
   return Array.from(tagsSet);
 });
+
+console.log(props.events);
 </script>
 
 <template>

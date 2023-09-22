@@ -55,7 +55,7 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
-      console.log('Events:', fetchCalendarEvents());
+      //console.log('Events:', fetchCalendarEvents());
     },
   },
 })
