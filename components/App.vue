@@ -196,9 +196,12 @@ if (process.client)
   setTimeout(moveListViewScrollbarToTodayAndColor, 0);
 
 onMounted(() => { 
-  eventsData.value = await fetchCalendarEvents();
   window.addEventListener("resize", updateCalendarHeight);
   moveListViewScrollbarToTodayAndColor();
+});
+onMounted(async () => { 
+  // Async onMounted code here
+  eventsData.value = await fetchCalendarEvents();
 });
 onUpdated(() => {
 });
