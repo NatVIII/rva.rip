@@ -8,16 +8,6 @@ const emit = defineEmits<{
   (e: 'confirm'): void
 }>()
 
-const toggleTag = (event) => {
-  // You can perform any necessary logic here, e.g., update the state of the tags
-  // and call the appropriate callback functions based on the checked state.
-  if (event.checked) {
-    // Tag is checked, you can implement your logic here
-  } else {
-    // Tag is unchecked, you can implement your logic here
-  }
-}
-
 // New computed property to extract unique tags
 const uniqueTags = computed(() => {
   const tagsSet = new Set();
@@ -39,10 +29,7 @@ const uniqueTags = computed(() => {
       <span class="event-headers">Filter by Tags:</span>
       <ul>
         <li v-for="tag in uniqueTags" :key="tag">
-          <label>
-            <input type="checkbox" @change="toggleTag(tag)">
-            {{ tag }}
-          </label>
+          {{ tag }}
         </li>
       </ul>
     </div>

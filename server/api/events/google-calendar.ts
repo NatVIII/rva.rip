@@ -51,6 +51,9 @@ async function fetchGoogleCalendarEvents() {
 					location: any; // Add location as property
 					description: any; // Add description as property
 				}) => {
+					// Split the source name by commas to create an array of tags
+					const tagsArray = source.tags ? source.tags.toString().split(',') : [];
+				
 					const event: {
 						title: string;
 						org: string;
@@ -58,8 +61,8 @@ async function fetchGoogleCalendarEvents() {
 						end: any;
 						url: any;
 						location: string; // Specify location as optional here
-						description: string; // Specify location as optional here
-						tags: string; // Specify tags as optional here
+						description: string; // Specify description as optional here
+						tags: string[]; // Specify tags as an array of strings
 					} = {
 						title: `${item.summary}`,
 						org: `${source.name}`,
@@ -68,9 +71,9 @@ async function fetchGoogleCalendarEvents() {
 						url: item.htmlLink,
 						location: `${item.location ? item.location.toString() : 'Location not specified'}`,
 						description: `${item.description ? item.description.toString() : 'Description not available'}`,
-						tags: `${source.name ? source.name.toString() : ''}`,
+						tags: tagsArray, // Use the tagsArray here
 					};
-
+					
 					return event;
 				}));
 
