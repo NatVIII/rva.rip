@@ -16,7 +16,7 @@ import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); //Reference for the FullCalendar component.
-
+const eventsData = ref([]); // Store events data in a ref
 
 const getWindowHeight = () => {
   if (process.client) return window.innerHeight;
@@ -51,7 +51,7 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: fetchCalendarEvents(), // Fetch events when opening the modal
+    events: eventsData, // Pass the ref instead of calling fetchCalendarEvents
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
@@ -196,6 +196,7 @@ if (process.client)
   setTimeout(moveListViewScrollbarToTodayAndColor, 0);
 
 onMounted(() => { 
+  eventsData.value = await fetchCalendarEvents();
   window.addEventListener("resize", updateCalendarHeight);
   moveListViewScrollbarToTodayAndColor();
 });
