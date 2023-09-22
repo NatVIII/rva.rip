@@ -51,7 +51,7 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: eventsData, // Pass the ref instead of calling fetchCalendarEvents
+    events: eventsData.value, // Pass the ref instead of calling fetchCalendarEvents
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
@@ -324,6 +324,19 @@ function fetchCalendarEvents() {
   }
   return [];
 }
+
+// Create a computed property for unique tags
+const uniqueTagsList = computed(() => {
+  const tagsSet = new Set();
+  eventsData.value.forEach((event) => {
+    if (event.tags && Array.isArray(event.tags)) {
+      event.tags.forEach((tag) => {
+        tagsSet.add(tag.trim()); // Trim whitespace around tags
+      });
+    }
+  });
+  return Array.from(tagsSet);
+});
 
 </script>
 
