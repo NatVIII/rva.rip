@@ -15,6 +15,8 @@ import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
+const calendarRef = ref(null); //Reference for the FullCalendar component.
+
 
 const getWindowHeight = () => {
   if (process.client) return window.innerHeight;
@@ -49,10 +51,11 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: newEventSources, //Event Data
+    events: fetchCalendarEvents(), // Fetch events when opening the modal
     onConfirm() {
       closeFilterModal();
-      consolve.log('Events:',newEventSources);
+      // You can access events here as well if needed
+      console.log('Events:', fetchCalendarEvents());
     },
   },
 })
@@ -307,6 +310,17 @@ async function loadGoogleCalendarEvents() {
   addEventSources(googleCalendarSources);
 }
 
+// Function to fetch events from the calendar
+function fetchCalendarEvents() {
+  // Check if calendarRef is defined and has a value
+  if (calendarRef && calendarRef.value) {
+    const calendarApi = calendarRef.value.getApi();
+    const events = calendarApi.getEvents();
+    return events;
+  }
+  return [];
+}
+
 </script>
 
 <template>
@@ -327,7 +341,7 @@ async function loadGoogleCalendarEvents() {
         </tr>
       </tbody>
     </table>
-    <FullCalendar :options='calendarOptions' />
+    <FullCalendar :options='calendarOptions' ref="calendarRef" />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will
