@@ -16,113 +16,6 @@ import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
 
-interface County {
-  enabled: any;
-  cities: any;
-}
-
-// Note: cannot use LocalStorage due to SSR not having LocalStorage. Using LocalStorage would thus cause a hydration mismatch.
-const isAllCitiesInMarinCountyEnabled = useIsAllCitiesInMarinCountyEnabled();
-// SF-San Mateo County Cities.
-const isSanFranciscoEnabled = useIsSanFranciscoEnabled();
-const isOthersInSFSanMateoCountyEnabled = useIsOthersInSFSanMateoCountyEnabled();
-
-// Alameda County Cities.
-const isOaklandEnabled = useIsOaklandEnabled();
-const isBerkeleyEnabled = useIsBerkeleyEnabled();
-const isOthersInAlamedaCountyEnabled = useIsOthersInAlamedaCountyEnabled();
-
-// Santa Clara County Cities.
-const isSanJoseEnabled = useIsSanJoseEnabled();
-const isSunnyvaleEnabled = useIsSunnyvaleEnabled();
-const isOthersInSantaClaraCountyEnabled = useIsOthersInSantaClaraCountyEnabled();
-// Santa Cruz County Cities.
-const isSantaCruzEnabled = useIsSantaCruzEnabled();
-const isOthersInSantaCruzCountyEnabled = useIsOthersInSantaCruzCountyEnabled();
-
-const citiesToCounty = {
-  [ALL_CITIES_IN_MARIN_COUNTY_ID]: MARIN_COUNTY_ID,
-  [SAN_FRANCISCO_ID]: SF_SAN_MATEO_COUNTY_ID,
-  [OTHERS_IN_SF_SAN_MATEO_COUNTY_ID]: SF_SAN_MATEO_COUNTY_ID,
-  [OAKLAND_ID]: ALAMEDA_COUNTY_ID,
-  [BERKELEY_ID]: ALAMEDA_COUNTY_ID,
-  [OTHERS_IN_ALAMEDA_COUNTY_ID]: ALAMEDA_COUNTY_ID,
-  [SAN_JOSE_ID]: SANTA_CLARA_COUNTY_ID,
-  [SUNNYVALE_ID]: SANTA_CLARA_COUNTY_ID,
-  [OTHERS_IN_SANTA_CLARA_COUNTY_ID]: SANTA_CLARA_COUNTY_ID,
-  [SANTA_CRUZ_ID]: SANTA_CRUZ_COUNTY_ID,
-  [OTHERS_IN_SANTA_CRUZ_COUNTY_ID]: SANTA_CRUZ_COUNTY_ID,
-};
-
-function isCity(city: string) {
-  return Object.keys(citiesToCounty).includes(city);
-}
-
-function getCounty(city: string) {
-  return citiesToCounty[city];
-}
-
-function isCounty(county: string) {
-  return Object.keys(countiesToCities).includes(county);
-}
-
-const countiesToCities = {
-  // Make an exception for Marin County: cluster all cities into one.
-  [MARIN_COUNTY_ID]: {
-    cities: {
-      [ALL_CITIES_IN_MARIN_COUNTY_ID]: {
-        enabled: isAllCitiesInMarinCountyEnabled,
-      },
-    }
-  } as County,
-  [SF_SAN_MATEO_COUNTY_ID]: {
-    cities: {
-      [SAN_FRANCISCO_ID]: {
-        enabled: isSanFranciscoEnabled,
-      },
-      [OTHERS_IN_SF_SAN_MATEO_COUNTY_ID]: {
-        enabled: isOthersInSFSanMateoCountyEnabled
-      },
-    }
-  } as County,
-  [ALAMEDA_COUNTY_ID]: {
-    cities: {
-      [OAKLAND_ID]: {
-        enabled: isOaklandEnabled,
-      },
-      [BERKELEY_ID]: {
-        enabled: isBerkeleyEnabled,
-      },
-      [OTHERS_IN_ALAMEDA_COUNTY_ID]: {
-        enabled: isOthersInAlamedaCountyEnabled,
-      },
-    }
-  } as County,
-  [SANTA_CLARA_COUNTY_ID]: {
-    cities: {
-      [SAN_JOSE_ID]: {
-        enabled: isSanJoseEnabled,
-      },
-      [SUNNYVALE_ID]: {
-        enabled: isSunnyvaleEnabled,
-      },
-      [OTHERS_IN_SANTA_CLARA_COUNTY_ID]: {
-        enabled: isOthersInSantaClaraCountyEnabled,
-      },
-    }
-  } as County,
-  [SANTA_CRUZ_COUNTY_ID]: {
-    cities: {
-      [SANTA_CRUZ_ID]: {
-        enabled: isSantaCruzEnabled,
-      },
-      [OTHERS_IN_SANTA_CRUZ_COUNTY_ID]: {
-        enabled: isOthersInSantaCruzCountyEnabled,
-      },
-    }
-  } as County,
-};
-
 const getWindowHeight = () => {
   if (process.client) return window.innerHeight;
   return 600;
@@ -155,10 +48,7 @@ const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 :
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
-    title: 'County/City Filter',
-    allCallback: updateAllIsEnabledSetting,
-    countyCallback: updateCountyIsEnabledSetting,
-    cityCallback: updateCityIsEnabledSetting,
+    title: 'Tag Filter',
     onConfirm() {
       closeFilterModal()
     },
@@ -381,15 +271,6 @@ function addEventSources(newEventSources: EventNormalSource[] | EventGoogleCalen
   return res;
 }
 
-function isDisplayingBasedOnFilterSettings(city: string) {
-  if (isCity(city)) {
-    const county = getCounty(city);
-    return countiesToCities[county].cities[city].enabled.value ? 'auto' : 'none';
-  }
-  console.error(citiesToCounty[city], `Err: Invalid area name "${city} "chosen! You should only provide city names to event sources.`)
-  return 'auto';
-}
-
 const eventSourcesFromFile = json;
 const transformEventSourcesResponse = (eventSources) => {
   const eventsSourcesWithoutProxy = toRaw(eventSources.value.body)
@@ -398,7 +279,7 @@ const transformEventSourcesResponse = (eventSources) => {
     return {
       ...eventSource,
       // Set the `display` property, since the endpoints don't add it.
-      display: isDisplayingBasedOnFilterSettings(eventSource.city),
+      display: 'auto',
       events: eventSource.events.map(event => {
         return {
           ...event,
@@ -418,49 +299,10 @@ async function loadGoogleCalendarEvents() {
   const googleCalendarSources = eventSourcesFromFile.googleCalendar.map((source) => {
     return {
       googleCalendarId: source.googleCalendarId,
-      display: isDisplayingBasedOnFilterSettings(source.city),
-      city: source.city
+      display: 'auto'
     } as EventGoogleCalendarSource
   });
   addEventSources(googleCalendarSources);
-}
-
-function setCityIsEnabled(settingId, vueRef, value) {
-  vueRef.value = value;
-}
-
-function updateAllIsEnabledSetting(newIsEnabled: boolean) {
-  Object.keys(countiesToCities).forEach(county => {
-    updateCountyIsEnabledSetting(newIsEnabled, county);
-  });
-  updateEventSourcesEnabled();
-}
-
-function updateCountyIsEnabledSetting(newIsEnabled: boolean, county: string) {
-  Object.keys(countiesToCities[county].cities).forEach(cityId => {
-    setCityIsEnabled(cityId, countiesToCities[county].cities[cityId].enabled, newIsEnabled);
-  });
-  updateEventSourcesEnabled();
-}
-
-// Re-calculates event sources w.r.t. whether should be displayed or not, and updates the calendarOptions (re-render).
-// Warning: Might be expensive for only changing a single city.
-function updateEventSourcesEnabled() {
-  const newEventSources = calendarOptions.value.eventSources.map((source: EventNormalSource | EventGoogleCalendarSource) => {
-    const isEnabled = countiesToCities[getCounty(source.city)].cities[source.city].enabled.value;
-    return {
-      ...source,
-      // Updated filtered area.
-      display: isEnabled ? 'auto' : 'none'
-    } as EventSource;
-  });
-  calendarOptions.value = { ...calendarOptions.value, eventSources: newEventSources };
-}
-
-function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
-  const isEnabledRef = countiesToCities[getCounty(cityId)].cities[cityId].enabled;
-  setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
-  updateEventSourcesEnabled();
 }
 
 </script>
