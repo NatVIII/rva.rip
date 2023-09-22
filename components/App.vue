@@ -49,8 +49,10 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
+    events: newEventSources, //Event Data
     onConfirm() {
-      closeFilterModal()
+      closeFilterModal();
+      consolve.log('Events:',newEventSources);
     },
   },
 })
