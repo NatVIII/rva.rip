@@ -17,6 +17,19 @@ const toggleTag = (event) => {
     // Tag is unchecked, you can implement your logic here
   }
 }
+
+// New computed property to extract unique tags
+const uniqueTags = computed(() => {
+  const tagsSet = new Set();
+  props.events.forEach((event) => {
+    if (event.extendedProps && event.extendedProps.tags) {
+      event.extendedProps.tags.forEach((tag) => {
+        tagsSet.add(tag);
+      });
+    }
+  });
+  return Array.from(tagsSet);
+});
 </script>
 
 <template>
@@ -25,10 +38,10 @@ const toggleTag = (event) => {
     <div class="event-details">
       <span class="event-headers">Filter by Tags:</span>
       <ul>
-        <li v-for="event in props.events" :key="event.id">
+        <li v-for="tag in uniqueTags" :key="tag">
           <label>
-            <input type="checkbox" v-model="event.checked" @change="toggleTag(event)">
-            {{ event.tags }}
+            <input type="checkbox" @change="toggleTag(tag)">
+            {{ tag }}
           </label>
         </li>
       </ul>
