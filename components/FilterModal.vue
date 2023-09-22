@@ -25,7 +25,7 @@ watch(() => props.events, (newEvents) => {
   uniqueTags.value = Array.from(tagsSet);
 });
 
-console.log(props.events);
+//console.log(props.events);
 </script>
 
 <template>
