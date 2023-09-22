@@ -57,8 +57,9 @@ async function fetchGoogleCalendarEvents() {
 						start: any;
 						end: any;
 						url: any;
-						location: string; // Specify location as optional here as well
-						description: string; // Specify location as optional here as well
+						location: string; // Specify location as optional here
+						description: string; // Specify location as optional here
+						tags: string; // Specify tags as optional here
 					} = {
 						title: `${item.summary}`,
 						org: `${source.name}`,
@@ -67,6 +68,7 @@ async function fetchGoogleCalendarEvents() {
 						url: item.htmlLink,
 						location: `${item.location ? item.location.toString() : 'Location not specified'}`,
 						description: `${item.description ? item.description.toString() : 'Description not available'}`,
+						tags: `${source.name ? source.name.toString() : ''}`,
 					};
 
 					return event;

@@ -555,37 +555,37 @@
 		{
 			"name": "DFL",
 			"googleCalendarId": "1bfaa6ca59045a2e667db8c0c258041246f5cc69031737e2a84796da54656810@group.calendar.google.com",
-			"city": "Oakland"
+			"tags": "biking"
 		},
 		{
 			"name": "rva.rip Manually Added Events",
 			"googleCalendarId": "1c16b938a56fea0342068f59730a90d90bec79d49d44c6fcc0b46915705b8cea@group.calendar.google.com",
-			"city": "Oakland"
+			"tags": "rva.rip"
 		},
 		{
 			"name": "Burning Van",
 			"googleCalendarId": "burningvan69@gmail.com",
-			"city": "Oakland"
+			"tags": "burningvan,queer"
 		},
 		{
 			"name": "Recess Forever",
 			"googleCalendarId": "a0357682aab2b461272bbba85acfbbf079e05e8225392bc1e3f30eff896329a0@group.calendar.google.com",
-			"city": "Oakland"
+			"tags": "biking,queer"
 		},
 		{
 			"name": "Food Not Bombs",
 			"googleCalendarId": "2eb28d433a637a4d0ba2d2969fa9ccbd7042d83f5992ff0aaafb01d70a299884@group.calendar.google.com",
-			"city": "Oakland"
+			"tags": "anarchist"
 		},
 		{
 			"name": "RVA Queer Soccer",
 			"googleCalendarId": "rvaqueersoccer@gmail.com",
-			"city": "Oakland"
+			"tags": "sports,queer"
 		},
 		{
 			"name": "Dykes on Bikes RVA",
 			"googleCalendarId": "0443449fed4f78e2434616b80b74c88bd6a942328e8583fa7f35fecdc1df97ca@group.calendar.google.com",
-			"city": "Oakland"
+			"tags": "biking,queer"
 		}
 	],
 	"wordPressTribe": [
