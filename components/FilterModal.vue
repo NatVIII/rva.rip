@@ -1,26 +1,28 @@
 <script setup lang="ts">
-import { VueFinalModal } from 'vue-final-modal'
-const props = defineProps<{
-  title?: string
-  events: any[] // Add this prop to pass the event data
-}>()
-const emit = defineEmits<{
-  (e: 'confirm'): void
-}>()
+import { VueFinalModal } from 'vue-final-modal';
+import { ref, onMounted, watch } from 'vue';
 
-// New computed property to extract unique tags
-const uniqueTags = computed(() => {
-  const tagsSet = new Set();
-  props.events.forEach((event) => {
+const props = defineProps<{
+  title?: string;
+  events: any[]; // Add this prop to pass the event data
+}>();
+const emit = defineEmits<{
+  (e: 'confirm'): void;
+}>();
+
+const uniqueTags = ref<string[]>([]);
+
+// Watch for changes in the events data and update uniqueTags
+watch(() => props.events, (newEvents) => {
+  const tagsSet = new Set<string>();
+  newEvents.forEach((event) => {
     if (event.extendedProps && event.extendedProps.tags && Array.isArray(event.extendedProps.tags)) {
       event.extendedProps.tags.forEach((tag) => {
-        tagsSet.add(tag.trim()); // Trim whitespace around tags
-		console.log(tag.trim()); //Log for each tag
+        tagsSet.add(tag.trim());
       });
     }
   });
-  console.log(Array.from(tagsSet));
-  return Array.from(tagsSet);
+  uniqueTags.value = Array.from(tagsSet);
 });
 
 console.log(props.events);
