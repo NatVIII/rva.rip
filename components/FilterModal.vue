@@ -18,6 +18,7 @@ const uniqueTags = computed(() => {
       });
     }
   });
+  console.log(Array.from(tagsSet));
   return Array.from(tagsSet);
 });
 </script>
