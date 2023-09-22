@@ -77,10 +77,7 @@ async function fetchGoogleCalendarEvents() {
 					return event;
 				}));
 
-				return {
-					events,
-					city: source.city
-				};
+				return {events};
 			}
 			));
 		await useStorage().setItem('googleCalendarSources', googleCalendarSources);

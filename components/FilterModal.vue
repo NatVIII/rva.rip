@@ -12,9 +12,9 @@ const emit = defineEmits<{
 const uniqueTags = computed(() => {
   const tagsSet = new Set();
   props.events.forEach((event) => {
-    if (event.extendedProps && event.extendedProps.tags) {
+    if (event.extendedProps && event.extendedProps.tags && Array.isArray(event.extendedProps.tags)) {
       event.extendedProps.tags.forEach((tag) => {
-        tagsSet.add(tag);
+        tagsSet.add(tag.trim()); // Trim whitespace around tags
       });
     }
   });
