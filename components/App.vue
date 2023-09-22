@@ -51,14 +51,14 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: eventsData.value, // Pass the ref instead of calling fetchCalendarEvents
+    uniqueTags: uniqueTagsList.value, // Pass the computed property as a prop
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
       console.log('Events:', fetchCalendarEvents());
     },
   },
-})
+});
 
 const { open: openEventModal, close: closeEventModal } = useModal({
   component: EventModal,
