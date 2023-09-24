@@ -498,6 +498,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <li>Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>
             <li>Check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening. </li>
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
+            <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
           </ul></p>
         <p>In New York or the Bay Area??? Check out our sister sites <a href="https://anarchism.nyc/">anarchism.nyc</a>
           and <a href="https://bay.lgbt/">bay.lgbt</a>. This site wouldn't exist without them.</p>
