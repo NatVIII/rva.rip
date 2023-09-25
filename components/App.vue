@@ -51,7 +51,7 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: getCalendarEvents(), // Fetch events when opening the modal
+    //events: getCalendarEvents(), // Fetch events when opening the modal
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
