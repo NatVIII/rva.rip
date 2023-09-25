@@ -51,11 +51,11 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     title: 'Tag Filter',
-    events: fetchCalendarEvents(), // Fetch events when opening the modal
+    //events: fetchCalendarEvents(), // Fetch events when opening the modal
     onConfirm() {
       closeFilterModal();
       // You can access events here as well if needed
-      //console.log('Events:', fetchCalendarEvents());
+      console.log('Events:', getCalendarEvents());
     },
   },
 })
@@ -310,16 +310,21 @@ async function loadGoogleCalendarEvents() {
   addEventSources(googleCalendarSources);
 }
 
-// Function to fetch events from the calendar
-function fetchCalendarEvents() {
-  // Check if calendarRef is defined and has a value
-  if (calendarRef && calendarRef.value) {
+const getCalendarEvents = () => {
+  if (calendarRef.value) {
     const calendarApi = calendarRef.value.getApi();
-    const events = calendarApi.getEvents();
-    return events;
+    const allEvents = calendarApi.getEvents();
+    return allEvents.map((event) => {
+      return {
+        title: event.title,
+        start: event.start,
+        end: event.end,
+        // Add other event properties you need
+      };
+    });
   }
   return [];
-}
+};
 
 </script>
 
