@@ -486,11 +486,13 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
     <FullCalendar :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
-        <p>rva.rip was built with the personal hope that no queer in richmond should be without community. The site will
+        <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various <a
             href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
-          contributors (thank you!) have provided. The listings are in a constant state of community-based vetting; don't
-          hesitate to provide feedback! For suggestions and questions email host@rva.rip &lt;3</p>
+          contributors (thank you!) have provided. All events are free, less than ten dollars, or money optional; 
+          wealth should never be a barrier and isn't here, building community is the focus. The listings are in a
+           constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
+           email host@rva.rip &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
         <p>Still can't figure out what to do? 
