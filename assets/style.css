@@ -522,3 +522,7 @@ body.no-scroll {
   color:#000;
   font-size:16px
 }
+
+.color-stripe{ /* These stripes use colors derived from the gruvbox alt dark theme */
+  height:10px; 
+}
