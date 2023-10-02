@@ -187,6 +187,8 @@ fc-theme-standard td,
 .fc-media-screen,
 .fc .fc-popover,
 .popper-box-inner {
+  max-height: 90vh; /* Adjust the max height as needed */
+  overflow-y: auto;
   z-index: 2;
   font-size: 12px;
   font-weight: normal;
@@ -440,6 +442,7 @@ body.no-scroll {
   overflow: hidden;
 }
 .popper-box-wrapper {
+  overflow-y: auto; /* This allows vertical scrolling when content overflows */
   display: flex;
   justify-content: center;
     align-items: center;
@@ -452,7 +455,7 @@ body.no-scroll {
   margin-right: 1rem;
   margin-top: 0.5rem;
   flex-direction: column;
-  max-width: 36rem;
+  max-width: 48rem;
   border-radius: 0.5rem;
   border-width: 1px;
 }
