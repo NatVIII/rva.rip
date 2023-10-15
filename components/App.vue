@@ -502,8 +502,9 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
             <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
           </ul></p>
-        <p>In New York or the Bay Area??? Check out our sister sites <a href="https://anarchism.nyc/">anarchism.nyc</a>
-          and <a href="https://bay.lgbt/">bay.lgbt</a>. This site wouldn't exist without them.</p>
+        <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
+        <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
+        This site wouldn't exist without them, and we're all run by trans folks.</p>
         <p>Want your event listed here? Start making <a
           href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events (or any other
           <a href="https://fullcalendar.io/docs/event-source">machine readable format</a>). Once published,
