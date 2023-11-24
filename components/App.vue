@@ -477,7 +477,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
               A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
             </div>
             <div style="font-size: min(1.2em); text-align: center;">
-              Stop scrolling insta to find the move!
+              Stop scrolling insta to find the move!<br>
+              🇵🇸 <a href="https://buildpalestine.com/2021/05/15/trusted-organizations-to-donate-to-palestine/">Long Live Palestine</a> 🇵🇸
             </div>
           </td>
         </tr>
