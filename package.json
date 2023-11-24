@@ -28,7 +28,7 @@
     "jsdom": "^21.1.0",
     "luxon": "^3.3.0",
     "nuxt-security": "^0.10.2",
-    "openai": "^3.2.1",
+    "openai": "^4.17.4",
     "sanitize-html": "^2.11.0",
     "vue-final-modal": "^4.0.4",
     "vue-tsc": "^1.0.24"
