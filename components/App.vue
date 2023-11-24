@@ -478,7 +478,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             </div>
             <div style="font-size: min(1.2em); text-align: center;">
               Stop scrolling insta to find the move!<br>
-              🇵🇸 <a href="https://buildpalestine.com/2021/05/15/trusted-organizations-to-donate-to-palestine/">Long Live Palestine</a> 🇵🇸
+              🇵🇸 <a href="https://decolonizepalestine.com/">Long Live Palestine</a> 🇵🇸
             </div>
           </td>
         </tr>
