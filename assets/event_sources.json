@@ -21,6 +21,11 @@
 			"city": "Oakland"
 		},
 		{
+			"name": "Anonymous Contributor CB",
+			"googleCalendarId": "657b8cf1729356210e21d20c93e7696cd90fc8c06e32e22b0bc137318b8b0c00@group.calendar.google.com",
+			"city": "Oakland"
+		},
+		{
 			"name": "Food Not Bombs",
 			"googleCalendarId": "2eb28d433a637a4d0ba2d2969fa9ccbd7042d83f5992ff0aaafb01d70a299884@group.calendar.google.com",
 			"city": "Oakland"
@@ -33,6 +38,11 @@
 		{
 			"name": "Dykes on Bikes RVA",
 			"googleCalendarId": "0443449fed4f78e2434616b80b74c88bd6a942328e8583fa7f35fecdc1df97ca@group.calendar.google.com",
+			"city": "Oakland"
+		},
+		{
+			"name": "James River Park Cleanup",
+			"googleCalendarId": "029ddcdb1317ef7c5c4aa1ea53964073e72ae633462e014c83332f6ba0c91b41@group.calendar.google.com",
 			"city": "Oakland"
 		}
 	]
