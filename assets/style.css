@@ -533,37 +533,35 @@ body.no-scroll {
 /* Styles for the image container */
 .image-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap; 
-  justify-content: space-around; /* This replaces space-between */
-}
-
-/*Styles for images within the image container */
-.image-container img {
-  margin-bottom: 1em;
 }
 
 /* Shared styles for all images */
 .event-image {
   height:auto;
-  max-width:100%;
+  width:100%;
   object-fit: cover;
-  display: block;
   border-radius: 2%;
   border: 2px solid #222222;
-  margin: auto; /* Center the image when alone */
-  flex-grow: 0; /* Don't let single image expand */
+  margin: auto; /* Ensure the image is aligned at center */
 }
 
-/* Styles for the first and second image when there are only two images */
-.image-container img:first-of-type:nth-last-of-type(2),
-.image-container img:last-of-type:nth-of-type(2),
-/* Styles for the second and third images when there are three images */
-.image-container img:nth-of-type(n+2):nth-of-type(-n+3) {
+/* Styles for the image wrappers when there's only one image or there are two images */
+.image-container .image-wrapper:first-of-type:nth-last-of-type(1),
+.image-container .image-wrapper:first-of-type:nth-last-of-type(2),
+.image-container .image-wrapper:last-of-type:nth-of-type(2) {
   width: 48%;
   box-sizing: border-box;
 }
 
-/* Styles for the first image when there are three images */
-.image-container img:first-of-type:nth-last-of-type(3) {
+/* Styles for the image wrappers when there are three images */
+.image-container .image-wrapper:nth-of-type(n+2):nth-of-type(-n+3) {
+  width: 48%;
+  box-sizing: border-box;
+}
+
+.image-container .image-wrapper:first-of-type:nth-last-of-type(3) {
   width: 100%;
 }
