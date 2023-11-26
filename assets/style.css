@@ -552,17 +552,19 @@ body.no-scroll {
   margin-bottom: 1em;
 }
 
-/*Styles for two or one image(s) */
-.image-container img:nth-of-type(-n+2),
-/*Styles for second and third images when there are three images */
+/* Styles for the first image when there are only two images */
+.image-container img:first-of-type:nth-last-of-type(2),
+/* Styles for the second image when there are only two images */
+.image-container img:last-of-type:nth-of-type(2),
+/* Styles for the first image when it is the only image */
+.image-container img:first-of-type:nth-last-of-type(1),
+/* Styles for the second and third images when there are three images */
 .image-container img:nth-of-type(n+2):nth-of-type(-n+3) {
   width: 48%;
   box-sizing: border-box;
 }
 
 /* Styles for the first image when there are three images */
-.image-container img:first-of-type:nth-last-of-type(3), 
-.image-container img:first-of-type:nth-last-of-type(2),
-.image-container img:first-of-type:nth-last-of-type(1) {
+.image-container img:first-of-type:nth-last-of-type(3) {
   width: 100%;
 }
