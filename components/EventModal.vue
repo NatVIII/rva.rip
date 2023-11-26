@@ -43,12 +43,11 @@ const getImageUrls = () => {
       <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
       <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
+      <!-- Display Images -->
+      <div>
+        <img class="event-image" v-for="url in getImageUrls()" :src="url" />
+      </div>
       <span class="event-headers">Event Description:</span> <div v-html="eventDescription"></div><br>
-    </div>
-
-    <!-- Display Images -->
-    <div>
-      <img class="event-image" v-for="url in getImageUrls()" :src="url" />
     </div>
 
     <!-- Add a "Done" button -->
