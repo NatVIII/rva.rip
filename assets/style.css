@@ -548,20 +548,28 @@ body.no-scroll {
   margin: auto; /* Ensure the image is aligned at center */
 }
 
-/* Styles for the image wrappers when there's only one image or there are two images */
-.image-container .image-wrapper:first-of-type:nth-last-of-type(1),
+/* Styles for image-wrapper when there is only one image */
+.image-container .image-wrapper:first-of-type:nth-last-of-type(1) {
+  width: 95%;
+}
+
+/* Styles for the image wrappers when there are two images */
 .image-container .image-wrapper:first-of-type:nth-last-of-type(2),
 .image-container .image-wrapper:last-of-type:nth-of-type(2) {
-  width: 48%;
+  width: calc(48% - 5px); /* take the margin into account */
+  margin-right: 5px;
+  margin-left: 5px;
   box-sizing: border-box;
 }
 
 /* Styles for the image wrappers when there are three images */
 .image-container .image-wrapper:nth-of-type(n+2):nth-of-type(-n+3) {
-  width: 48%;
+  width: calc(48% - 10px); /* take the margin into account */
+  margin-right: 5px;
+  margin-left: 5px;
   box-sizing: border-box;
 }
 
 .image-container .image-wrapper:first-of-type:nth-last-of-type(3) {
-  width: 100%;
+  width: 95%;
 }
