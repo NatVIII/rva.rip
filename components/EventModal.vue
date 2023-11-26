@@ -25,7 +25,15 @@ function createGoogleMapsURL(location) {
   return googleMapsURL;
 }
 
+// Function to extract image urls from the eventDescription and construct a new URL
+// pointing towards your serverless function
+const getImageUrls = () => {
+  const regex = /(https?:\/\/[^\s]+\.(jpg|png|jpeg))/g;
+  const result = eventDescription.match(regex);
+  return result !== null ? result.map(url => `/api/fetchImage?url=${encodeURIComponent(url)}`) : [];
+};
 </script>
+
 <template>
   <VueFinalModal class="popper-box-wrapper" content-class="popper-box-inner" overlay-transition="vfm-fade" content-transition="vfm-fade">
     <!-- Display Event Details -->
@@ -36,6 +44,11 @@ function createGoogleMapsURL(location) {
       <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       <span class="event-headers">Event Description:</span> <div v-html="eventDescription"></div><br>
+    </div>
+
+    <!-- Display Images -->
+    <div>
+      <img v-for="url in getImageUrls()" :src="url" />
     </div>
 
     <!-- Add a "Done" button -->
