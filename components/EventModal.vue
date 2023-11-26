@@ -48,7 +48,7 @@ const getImageUrls = () => {
 
     <!-- Display Images -->
     <div>
-      <img v-for="url in getImageUrls()" :src="url" />
+      <img class="event-image" v-for="url in getImageUrls()" :src="url" />
     </div>
 
     <!-- Add a "Done" button -->
