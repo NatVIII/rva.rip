@@ -530,6 +530,7 @@ body.no-scroll {
   height:10px; 
 }
 
+/* Shared styles for all event modal images */
 .event-image {
   height:auto;
   max-width:95%;
@@ -539,4 +540,32 @@ body.no-scroll {
   margin-right: auto;
   border-radius: 2%;
   border: 2px solid #222222;
+}
+
+/* Styles for the first image when there are three images */
+.image-first {
+  width: 100%;
+  display: block;
+}
+
+/* Styles for the second and third images when there are three images */
+.image-second, .image-third {
+  width: 48%;
+}
+
+/* Styles for the image container */
+.image-container {
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+/*Styles for images within the image container */
+.image-second, .image-third {
+  width: 48%;
+  margin-right: 2%;
+}
+
+/*Styles for two or one image(s) */
+.event-image:nth-child(2n) {
+    margin-right: 0;
 }

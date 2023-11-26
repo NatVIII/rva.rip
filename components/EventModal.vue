@@ -32,6 +32,18 @@ const getImageUrls = () => {
   const result = eventDescription.match(regex);
   return result !== null ? result.map(url => `/api/fetchImage?url=${encodeURIComponent(url)}`) : [];
 };
+
+let errorMessages = ref([]); // To store error messages relating to image display
+
+const handleImageError = (index) => {
+  errorMessages.value[index] = `Failed to load image at ${index + 1}. This might be caused by an invalid image URL, or the image size is larger than 5MB.`;
+};
+
+// For displaying multiple images
+const getImageClass = (index) => {
+  const classes = ['single', 'double', 'triple'];
+  return classes[index] || '';
+};
 </script>
 
 <template>
@@ -44,8 +56,24 @@ const getImageUrls = () => {
       <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       <!-- Display Images -->
-      <div>
-        <img class="event-image" v-for="url in getImageUrls()" :src="url" />
+      <div 
+        class="image-container"
+        v-for="(url, index) in getImageUrls().slice(0,3)" 
+        :key="index"
+      >
+        <!-- Check if there's an error message for this image, if so, display the message instead of image -->
+        <div v-if="errorMessages[index]">
+          {{ errorMessages[index] }}
+        </div>   
+        <!-- If there's no error message, render the image as usual --> 
+        <img
+          class="event-image"
+          v-else
+          :src="url"
+          :class="getImageClass(index)"
+          @error="handleImageError(index)"
+          alt="Image found within the description of this calendar event"
+        />
       </div>
       <span class="event-headers">Event Description:</span> <div v-html="eventDescription"></div><br>
     </div>
