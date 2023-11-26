@@ -530,42 +530,39 @@ body.no-scroll {
   height:10px; 
 }
 
-/* Shared styles for all event modal images */
+/* Shared styles for all images */
 .event-image {
   height:auto;
-  max-width:95%;
+  max-width:100%;
   object-fit: cover;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 2%;
   border: 2px solid #222222;
-}
-
-/* Styles for the first image when there are three images */
-.image-first {
-  width: 100%;
-  display: block;
-}
-
-/* Styles for the second and third images when there are three images */
-.image-second, .image-third {
-  width: 48%;
 }
 
 /* Styles for the image container */
 .image-container {
   display: flex;
   flex-wrap: wrap; 
+  justify-content: space-between;
 }
 
 /*Styles for images within the image container */
-.image-second, .image-third {
-  width: 48%;
-  margin-right: 2%;
+.image-container img {
+  margin-bottom: 1em;
 }
 
 /*Styles for two or one image(s) */
-.event-image:nth-child(2n) {
-    margin-right: 0;
+.image-container img:nth-of-type(-n+2),
+/*Styles for second and third images when there are three images */
+.image-container img:nth-of-type(n+2):nth-of-type(-n+3) {
+  width: 48%;
+  box-sizing: border-box;
+}
+
+/* Styles for the first image when there are three images */
+.image-container img:first-of-type:nth-last-of-type(3), 
+.image-container img:first-of-type:nth-last-of-type(2),
+.image-container img:first-of-type:nth-last-of-type(1) {
+  width: 100%;
 }
