@@ -1,8 +1,6 @@
 const axios = require("axios");
 
-import { Request, Response } from 'express';
-
-module.exports = async (req: Request, res: Response) => {
+module.exports = async (req, res) => {
   const imgUrl = req.query.url;
 
   // Check the size of the image before fetching it

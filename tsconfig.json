@@ -1,28 +1,12 @@
 {
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./",
-    "strict": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "typeRoots": ["./node_modules/@types", "./types"],
-    "types": ["node"],
-    "baseUrl": "./",
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
-    }
+    "noEmit": false,
+    "noEmitOnError": false,
+    "checkJs": false,
+    "types": [
+      "jquery"
+    ]
   },
-  "include": [
-    "**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".nuxt",
-    "dist"
-  ]
 }

@@ -30,7 +30,7 @@ function createGoogleMapsURL(location) {
 const getImageUrls = () => {
   const regex = /(https?:\/\/[^\s]+\.(jpg|png|jpeg))/g;
   const result = eventDescription.match(regex);
-  return result !== null ? result.map(url => `/server/api/fetchImage?url=${encodeURIComponent(url)}`) : [];
+  return result !== null ? result.map(url => `/api/fetchImage?url=${encodeURIComponent(url)}`) : [];
 };
 </script>
 

@@ -1,44 +1,44 @@
-export default {
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
 	typescript: {
-	  typeCheck: false
+		// This ignores errors on build too.
+		typeCheck: false
 	},
 	modules: [
-	  'nuxt-security'
+		'nuxt-security'
 	],
+	// See https://nuxt-security.vercel.app/getting-started/quick-start for info on security.
 	security: {
-	  rateLimiter: {
-		value(ctx: { dev?: boolean }) {
-		  return {
-			tokensPerInterval: ctx.dev ? 999999 : 30,
-			interval: "hour",
-			fireImmediately: false
-		  }
+		rateLimiter: {
+			value: {
+				tokensPerInterval: process.dev ? 999999 : 30,
+				interval: "hour",
+				fireImmediately: false
+			},
+			route: '',
+			throwError: false, // optional
 		},
-		route: '',
-		throwError: false,
-	  },
-	  requestSizeLimiter: {
-		value: {
-		  maxRequestSizeInBytes: 8000,
-		  maxUploadFileRequestInBytes: 1000000,
+		requestSizeLimiter: {
+			value: {
+				maxRequestSizeInBytes: 8000, // Most browsers have a request limit of 8KB, but this is to be safe.
+				maxUploadFileRequestInBytes: 1000000,
+			},
+			route: '',
+			throwError: false // optional,
 		},
-		route: '',
-		throwError: false,
-	  },
-	  allowedMethodsRestricter: {
-		value: ['GET'],
-		route: '',
-		throwError: false,
-	  },
-	  corsHandler: {
-		value: {
-		  origin: '*',
-		  methods: '*',
+		allowedMethodsRestricter: {
+			value: ['GET'],
+			route: '',
+			throwError: false, // optional
 		},
-		route: ''
-	  }
+		corsHandler: {
+			value: {
+				origin: '*',
+				methods: '*',
+			},
+			route: ''
+		}
 	},
 	plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
 	css: ['vue-final-modal/style.css'],
-  }
-  
+})
