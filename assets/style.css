@@ -533,9 +533,8 @@ body.no-scroll {
 /* Styles for the image container */
 .image-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap; 
+  justify-content: space-around; /* This replaces space-between */
 }
 
 /*Styles for images within the image container */
