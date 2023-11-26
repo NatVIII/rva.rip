@@ -44,6 +44,11 @@
 			"name": "James River Park Cleanup",
 			"googleCalendarId": "029ddcdb1317ef7c5c4aa1ea53964073e72ae633462e014c83332f6ba0c91b41@group.calendar.google.com",
 			"city": "Oakland"
+		},
+		{
+			"name": "RVA.RIP TEST CALENDAR!!!! REMOVE ME FROM PRODUCTION PLEASE",
+			"googleCalendarId": "91970fbecb72d7873ee993a82b77fc2966bebbade86241bcfa62f9aa4c29fae1@group.calendar.google.com",
+			"city": "Oakland"
 		}
 	]
 }
