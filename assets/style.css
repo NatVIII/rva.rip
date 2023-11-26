@@ -530,6 +530,19 @@ body.no-scroll {
   height:10px; 
 }
 
+/* Styles for the image container */
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Styles for images within the image container */
+.image-container img {
+  margin-bottom: 1em;
+}
+
 /* Shared styles for all images */
 .event-image {
   height:auto;
@@ -538,26 +551,13 @@ body.no-scroll {
   display: block;
   border-radius: 2%;
   border: 2px solid #222222;
+  margin: auto; /* Center the image when alone */
+  flex-grow: 0; /* Don't let single image expand */
 }
 
-/* Styles for the image container */
-.image-container {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between;
-}
-
-/*Styles for images within the image container */
-.image-container img {
-  margin-bottom: 1em;
-}
-
-/* Styles for the first image when there are only two images */
+/* Styles for the first and second image when there are only two images */
 .image-container img:first-of-type:nth-last-of-type(2),
-/* Styles for the second image when there are only two images */
 .image-container img:last-of-type:nth-of-type(2),
-/* Styles for the first image when it is the only image */
-.image-container img:first-of-type:nth-last-of-type(1),
 /* Styles for the second and third images when there are three images */
 .image-container img:nth-of-type(n+2):nth-of-type(-n+3) {
   width: 48%;

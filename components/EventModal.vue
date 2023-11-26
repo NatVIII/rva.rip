@@ -56,15 +56,22 @@ const getImageClass = (index) => {
       <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       <!-- Display Images -->
-      <div class="image-container">
+      <div  
+        class="image-container"
+        v-for="(url, index) in getImageUrls().slice(0,3)" 
+        :key="index"
+      >
+        <div v-if="errorMessages[index]">
+          {{ errorMessages[index] }}
+        </div>   
         <img
+          v-else
           class="event-image"
-          v-for="(url, index) in getImageUrls().slice(0, 3)"
           :src="url"
+          :class="getImageClass(index)"
           @error="handleImageError(index)"
           alt="Image found within the description of this calendar event"
         />
-        <div v-if="errorMessages[index]" class="image-error">{{ errorMessages[index] }} </div>
       </div>
       <span class="event-headers">Event Description:</span> <div v-html="eventDescription"></div><br>
     </div>
