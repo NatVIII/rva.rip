@@ -529,3 +529,8 @@ body.no-scroll {
 .color-stripe{ /* These stripes use colors derived from the gruvbox alt dark theme */
   height:10px; 
 }
+
+.event-image {
+  max-width: 100%;
+  height: auto;
+}
