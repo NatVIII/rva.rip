@@ -118,12 +118,6 @@ button:focus-visible {
   -webkit-text-size-adjust: 100%;
 }
 
-/* Highest precedence */
-:root .fc .fc-h-event {
-  /* Set .fc .fc-daygrid-event to margin-top 0 */
-  /* background: red; */
-  /* margin-top: 5px; */
-}
 :root .fc .fc-list-table td {
   padding: 6px 14px;
 }
@@ -329,13 +323,6 @@ fc-theme-standard td,
   box-shadow: var(--button-box-shadow);
 }
 
-.fc-button:hover {
-  /* box-shadow:
-    var(--button-box-shadow),
-    var(--button-hover-bezel); */
-}
-
-label {}
 .fc-button-active {
   color: #fff;
   box-shadow:
@@ -435,9 +422,6 @@ label {}
   overflow: hidden;
 }
 
-.gifs {
-  /* padding-top: 2vh; */
-}
 body.no-scroll {
   overflow: hidden;
 }
