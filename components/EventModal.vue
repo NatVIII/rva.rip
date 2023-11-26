@@ -28,7 +28,7 @@ function createGoogleMapsURL(location) {
 // Function to extract image urls from the eventDescription and construct a new URL
 // pointing towards your serverless function
 const getImageUrls = () => {
-  const regex = /(https?:\/\/[^\s]+\.(jpg|png|jpeg))/g;
+  const regex = /(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g;
   const result = eventDescription.match(regex);
   return result !== null ? result.map(url => `/api/fetchImage?url=${encodeURIComponent(url)}`) : [];
 };
