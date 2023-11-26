@@ -531,6 +531,12 @@ body.no-scroll {
 }
 
 .event-image {
-  max-width: 100%;
-  height: auto;
+  height:auto;
+  max-width:95%;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2%;
+  border: 2px solid #222222;
 }
