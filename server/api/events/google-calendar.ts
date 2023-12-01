@@ -20,8 +20,8 @@ function getEventHash(startTime: string, title: string): string {
 	// Format the start time to include year, month, day, hour, and minutes only
 	const formattedStartTime = startTime.replace(/[-T:]/g, '').slice(2, 12); // "202312041800" format
   
-	// Get first five letters of the title, making it URL-friendly
-	const titleStart = title.replace(/\W/g, '').toLowerCase().slice(0, 5);
+	// Get first three letters of the title, making it URL-friendly
+	const titleStart = title.replace(/\W/g, '').toLowerCase().slice(0, 3);
   
 	// Concatenate the formattedStartTime and titleStart with an underscore
 	const hash = `${formattedStartTime}_${titleStart}`;
