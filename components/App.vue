@@ -320,7 +320,7 @@ onMounted(() => {
   window.addEventListener("resize", updateCalendarHeight);
   moveListViewScrollbarToTodayAndColor();
   calendarApi = this.$refs.fullCalendar.getApi();
-  console.log(calendarApi);  // add this line
+  console.log("CalendarAPI: "+calendarApi);  // add this line
 });
 onUpdated(() => {
 });
