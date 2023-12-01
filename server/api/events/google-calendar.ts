@@ -15,6 +15,20 @@ export default defineCachedEventHandler(async (event) => {
 	swr: true,
 });
 
+// Defining our hash generating function
+function getEventHash(startTime: string, title: string): string {
+	// Format the start time to include year, month, day, hour, and minutes only
+	const formattedStartTime = startTime.slice(0, 16); // "2023-12-04T18:00"
+  
+	// Get first five letters of the title, making it URL-friendly
+	const titleStart = title.slice(0, 5).replace(/\W/g, '').toLowerCase(); // Stripping special chars from the first 5 chars of title
+  
+	// Concatenate the formattedStartTime and titleStart with an underscore
+	const hash = `${formattedStartTime}_${titleStart}`;
+  
+	return hash;
+  }
+
 async function fetchGoogleCalendarEvents() {
 	let googleCalendarSources = await useStorage().getItem('googleCalendarSources');
 	try {
@@ -59,6 +73,7 @@ async function fetchGoogleCalendarEvents() {
 						url: any;
 						location: string; // Specify location as optional here as well
 						description: string; // Specify location as optional here as well
+						hash: string;  // Add the hash property here
 					} = {
 						title: `${item.summary}`,
 						org: `${source.name}`,
@@ -67,6 +82,7 @@ async function fetchGoogleCalendarEvents() {
 						url: item.htmlLink,
 						location: `${item.location ? item.location.toString() : 'Location not specified'}`,
 						description: `${item.description ? item.description.toString() : 'Description not available'}`,
+						hash: getEventHash(item.start.dateTime, item.summary)  // Generate the hash here using the function defined above
 					};
 
 					return event;
