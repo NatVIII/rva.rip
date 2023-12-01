@@ -13,8 +13,11 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { watch } from 'vue' //Part of Deeplinking
+
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
+let calendarApi; //Part of Deeplinking
 
 interface County {
   enabled: any;
@@ -152,6 +155,20 @@ const updateWeekNumbers = () => {
 // -1 indicates that there is no limit.
 const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(getWindowHeight() / 75) };
 
+watch(() => $route, (toRoute) => { //Part of Deeplinking
+  if(toRoute.name === 'event-hash' && toRoute.params.hash) {
+    // Attempt to find event based on the 'hash' param
+    const hash = toRoute.params.hash;
+    const event = findEventByHash(hash);
+
+    // If the event is found, open it in the modal
+    if(event) {
+      clickedEvent.value = event;
+      openEventModal();
+    }
+  }
+})
+
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
@@ -212,8 +229,7 @@ const calendarOptions = ref({
 
   eventClick: function (event) {
     event.jsEvent.preventDefault(); // Prevent the default behavior of clicking a link
-    clickedEvent.value = event;
-    openEventModal();
+    this.$router.push({ name: 'event-hash', params: { hash: event?.hash }});
   },
 
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
@@ -303,6 +319,7 @@ if (process.client)
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
   moveListViewScrollbarToTodayAndColor();
+  calendarApi = this.$refs.fullCalendar.getApi();
 });
 onUpdated(() => {
 });
@@ -462,6 +479,11 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
   setCityIsEnabled(cityId, isEnabledRef, newIsEnabled);
   updateEventSourcesEnabled();
 }
+
+const findEventByHash = (hash) => {
+  const events = calendarApi.getEvents(); // this gets all the events in the calendar 
+  return events.find(event => event.extendedProps.hash === hash);
+}; // Find the event with the given hash
 
 </script>
 
