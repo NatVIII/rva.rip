@@ -18,7 +18,7 @@ export default defineCachedEventHandler(async (event) => {
 // Defining our hash generating function
 function getEventHash(startTime: string, title: string): string {
 	// Format the start time to include year, month, day, hour, and minutes only
-	const formattedStartTime = startTime.replace(/[-T:]/g, '').slice(0, 12); // "202312041800" format
+	const formattedStartTime = startTime.replace(/[-T:]/g, '').slice(2, 12); // "202312041800" format
   
 	// Get first five letters of the title, making it URL-friendly
 	const titleStart = title.replace(/\W/g, '').toLowerCase().slice(0, 5);
