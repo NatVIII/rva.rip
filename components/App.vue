@@ -512,8 +512,6 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           request inclusion of your event feed by sending your Google Calendar ID via a 
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
-        <p>Notice to contributors! If you include a direct link in the description to an image hosted on imgur or hexbear.net it will now be displayed in the popups!
-        This feature is very experimental, so, if it breaks make sure to shoot me an email</p>
         <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
         <a href="https://github.com/natviii/rva.rip/">source code</a>
       </div>
