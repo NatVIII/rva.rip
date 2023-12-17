@@ -1,7 +1,7 @@
 # Mission Statement
 > “Always bear in mind that the people are not fighting for ideas, for the things in anyone’s head. They are fighting to win material benefits, to live better and in peace, to see their lives go forward, to guarantee the future of their children.”
 
-**― Amilcar Cabral**  
+**[― Amilcar Cabral](https://www.marxists.org/subject/africa/cabral/1965/tnlcnev.htm)**  
 <sub> Guinea-Bissauan and Cape Verdean agricultural engineer, poet, and Pan-African Revolutionary</sub>
 
 This project's purpose is to assist in building a better and more vibrant community with the people of Richmond; with the hope that one day it can help build to greater change :)

@@ -507,8 +507,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
         This site wouldn't exist without them, and we're all run by trans folks.</p>
         <p>Want your event listed here? Start making <a
-          href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events (or any other
-          <a href="https://fullcalendar.io/docs/event-source">machine readable format</a>). Once published,
+          href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events. Once published,
           request inclusion of your event feed by sending your Google Calendar ID via a 
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
