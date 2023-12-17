@@ -506,9 +506,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
         <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
         This site wouldn't exist without them, and we're all run by trans folks.</p>
-        <p>Want your event listed here? Start making <a
-          href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events. Once published,
-          request inclusion of your event feed by sending your Google Calendar ID via a 
+        <p>Want your event listed here? Start making <a href="https://support.google.com/calendar/answer/37083">public google calendar</a> for your events. 
+          Once published, request inclusion of your event feed by sending your Google Calendar ID via a 
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
         <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
