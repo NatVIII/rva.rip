@@ -511,7 +511,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
         <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
-        <a href="https://github.com/natviii/rva.rip/">source code</a>
+        <a href="https://github.com/natviii/rva.rip/">source code</a> | 
+        please hire me
       </div>
     </div>
     <div>
