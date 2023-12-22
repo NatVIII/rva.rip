@@ -1,20 +1,20 @@
+# Mission Statement
 > “Always bear in mind that the people are not fighting for ideas, for the things in anyone’s head. They are fighting to win material benefits, to live better and in peace, to see their lives go forward, to guarantee the future of their children.”
 
-**― Amilcar Cabral**  
+**[― Amilcar Cabral](https://www.marxists.org/subject/africa/cabral/1965/tnlcnev.htm)**  
 <sub> Guinea-Bissauan and Cape Verdean agricultural engineer, poet, and Pan-African Revolutionary</sub>
 
 This project's purpose is to assist in building a better and more vibrant community with the people of Richmond; with the hope that one day it can help build to greater change :)
 
-![rva.rip Gravestone](./assets/gravestone.svg)
-
-# rva.rip
-A queer+radical events aggregator for RVA!
+![a sticker for rva.rip. It's text is as follows: Richmond's Queer Events Calendar; https://rva.rip; free food, punks, biking, sapphics and gays, LAN parties, palestine protests, soccer games, parties, more!!!!!; with a drawing of the mascot Ripple set to the left staring at the text with a look of paranoia](./assets/sticker.png)
 
 # How do I add my events to this website?
 You have two options!
 
     1. Email me at host@rva.rip with a Google Calendar you'd like to share :)
     2. Fork this project and open a pull request with your changes added to ~~/assets/event_sources.json
+
+todo: make this into a page on rva.rip so it's more accessible
 
 # How do I fork this and host it for my city?
  
