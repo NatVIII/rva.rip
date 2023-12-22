@@ -1,7 +1,15 @@
+import { H3Event } from "h3";
 import axios from "axios";
 
-export default async (event) => {
+export default async (event: H3Event) => {
   const { url } = getQuery(event);
+
+  if (typeof url !== "string") {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "URL should be a string",
+    });
+  }
 
   // Check the size of the image before fetching it
   const sizeResponse = await axios.head(url);
@@ -15,9 +23,7 @@ export default async (event) => {
     });
   }
 
-  const response = await axios.get(url, {
-    responseType: "arraybuffer",
-  });
+  const response = await axios.get(url, { responseType: "arraybuffer" });
 
   // Ensure mime type of the response content will be an image
   const type = response.headers["content-type"];
