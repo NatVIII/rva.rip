@@ -1,5 +1,5 @@
 // Yikes this file is gross. Want to help me rerefactor it? I would appreciate it!
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverFetchHeaders, serverStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { InstagramEvent, PrismaClient } from '@prisma/client'
@@ -67,10 +67,7 @@ async function fetchInstagramEvents() {
 
 	const prisma = new PrismaClient();
 
-	const configuration = new Configuration({
-		apiKey: process.env.OPENAI_API_KEY,
-	});
-	const openai = new OpenAIApi(configuration);
+	const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY, });
 
 	// const instagramJson = [eventSourcesJSON.instagram[0], eventSourcesJSON.instagram[1]];
 	const instagramJson = eventSourcesJSON.instagram;
