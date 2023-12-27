@@ -1,7 +1,7 @@
 import { H3Event } from "h3";
 import axios from "axios";
 
-export default async (event: H3Event) => {
+export default eventHandler(async (event: H3Event) => {
   const { url } = getQuery(event);
 
   if (typeof url !== "string") {
@@ -41,4 +41,4 @@ export default async (event: H3Event) => {
   setHeader(event, "Cache-Control", "public, max-age=31536000, immutable"); // Cache for a year and don't revalidate
 
   return Buffer.from(response.data, "binary");
-};
+});

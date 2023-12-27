@@ -87,13 +87,13 @@ button:focus-visible {
 
 @font-face {
   font-family: 'ChicagoFLF';
-  src: url('./assets/ChicagoFLF.ttf') format('truetype');
+  src: url('./ChicagoFLF.ttf') format('truetype');
   /* Safari, Android, iOS */
 }
 
 @font-face {
   font-family: 'OpenDyslexic';
-  src: url('./assets/OpenDyslexic-Regular.otf') format('truetype');
+  src: url('./OpenDyslexic-Regular.otf') format('opentype');
 }
 
 /* Takes precedence over FullCalendar's  styling. */

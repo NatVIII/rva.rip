@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { AppConfigInput } from '@nuxt/schema'
 
-const app = useAppConfig() as AppConfigInput
 useHead({
   title: 'rva.rip',
   meta: [
