@@ -57,8 +57,8 @@ const getImageClass = (index) => {
       <span class="event-headers">Event Title:</span> {{ eventTitle }}<br>
       <span class="event-headers">Event Time:</span> {{ eventTime }}<br>
       <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
-      <span v-if="isDevelopment" class="event-headers">Event ID:</span> {{ eventID }}<br>
-      <span v-if="isDevelopment" class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
+      <span v-if="isDevelopment"> <span class="event-headers">Event ID: </span> {{ eventID }}<br> </span>
+      <span v-if="isDevelopment"> <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br> </span>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       <!-- Display Images -->
       <div class="image-container">
