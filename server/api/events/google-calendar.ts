@@ -15,6 +15,12 @@ export default defineCachedEventHandler(async (event) => {
 	swr: true,
 });
 
+// Function to replace Google tracking URLs with the actual URL
+function replaceGoogleTrackingUrls(description: string): string {
+	const googleTrackingUrlRegex = /https:\/\/www\.google\.com\/url\?q=(https[^&]+)&.*/g;
+	return description.replace(googleTrackingUrlRegex, (match, p1) => decodeURIComponent(p1));
+  }
+
 async function fetchGoogleCalendarEvents() {
 	let googleCalendarSources = await useStorage().getItem('googleCalendarSources');
 	try {
@@ -66,7 +72,7 @@ async function fetchGoogleCalendarEvents() {
 						end: item.end.dateTime,
 						url: item.htmlLink,
 						location: `${item.location ? item.location.toString() : 'Location not specified'}`,
-						description: `${item.description ? item.description.toString() : 'Description not available'}`,
+						description: `${item.description ? replaceGoogleTrackingUrls(item.description.toString()) : 'Description not available'}`,
 					};
 
 					return event;
