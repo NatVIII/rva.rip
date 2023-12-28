@@ -9,12 +9,16 @@ const emit = defineEmits<{
 	(e: 'confirm'): void
 }>()
 
+// Development environment flag
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 // Constants that are used for storing shorthand event information
 const eventTitle = props.event.event.title;
 const eventTime = props.event.event.start.toLocaleDateString() + ' @ ' + 
                   props.event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 const eventHost = props.event.event.extendedProps.org;
 const eventURL = props.event.event.url;
+const eventID = props.event.event.id;
 const eventLocation = props.event.event.extendedProps.location;
 const eventDescription = sanitizeHtml(props.event.event.extendedProps.description);
 
@@ -53,7 +57,8 @@ const getImageClass = (index) => {
       <span class="event-headers">Event Title:</span> {{ eventTitle }}<br>
       <span class="event-headers">Event Time:</span> {{ eventTime }}<br>
       <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
-      <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
+      <span v-if="isDevelopment" class="event-headers">Event ID:</span> {{ eventID }}<br>
+      <span v-if="isDevelopment" class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       <!-- Display Images -->
       <div class="image-container">

@@ -21,6 +21,33 @@ function replaceGoogleTrackingUrls(description: string): string {
 	return description.replace(googleTrackingUrlRegex, (match, p1) => decodeURIComponent(p1));
   }
 
+function formatTitleAndDateToID(inputDate: any, title: string) {
+	const date = new Date(inputDate);
+	const year = date.getFullYear().toString().slice(-2); // Get last 2 digits of year
+	const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Get month (0-11) and format to 2 digits
+	const day = date.getDate().toString().padStart(2, '0');
+	const hours = date.getHours().toString().padStart(2, '0');
+	const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+    // Function to get the first three URL-compatible characters from the title
+    function getFirstThreeUrlCompatibleChars(inputTitle: string): string {
+        // Define URL-compatible characters (alphanumeric and some special characters)
+        const urlCompatibleChars = /^[A-Za-z]+$/;
+
+        // Filter out non-URL-compatible characters and take the first three
+        return Array.from(inputTitle)
+            .filter(char => urlCompatibleChars.test(char))
+            .slice(0, 3)
+            .join('')
+            .toLowerCase();
+    }
+
+    // Extract the first three URL-compatible characters from the title
+    const titlePrefix = getFirstThreeUrlCompatibleChars(title);
+  
+	return `${year}${month}${day}${hours}${minutes}${titlePrefix}`;
+  }
+
 async function fetchGoogleCalendarEvents() {
 	let googleCalendarSources = await useStorage().getItem('googleCalendarSources');
 	try {
@@ -58,6 +85,7 @@ async function fetchGoogleCalendarEvents() {
 					description: any; // Add description as property
 				}) => {
 					const event: {
+						id: string;
 						title: string;
 						org: string;
 						start: any;
@@ -66,6 +94,7 @@ async function fetchGoogleCalendarEvents() {
 						location: string; // Specify location as optional here as well
 						description: string; // Specify location as optional here as well
 					} = {
+						id: formatTitleAndDateToID(item.start.dateTime, item.summary),
 						title: `${item.summary}`,
 						org: `${source.name}`,
 						start: item.start.dateTime,
