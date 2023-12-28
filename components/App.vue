@@ -15,6 +15,7 @@ import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
+const calendarRef = ref(null); // Ref for the FullCalendar instance
 
 interface County {
   enabled: any;
@@ -303,6 +304,8 @@ if (process.client)
 onMounted(() => { 
   window.addEventListener("resize", updateCalendarHeight);
   moveListViewScrollbarToTodayAndColor();
+  // Expose the calendar instance to the window object for debugging
+  if (calendarRef.value) window.myCalendar = calendarRef.value.getApi(); 
 });
 onUpdated(() => {
 });
@@ -484,7 +487,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         </tr>
       </tbody>
     </table>
-    <FullCalendar :options='calendarOptions' />
+    <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
