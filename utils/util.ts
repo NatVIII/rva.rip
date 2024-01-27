@@ -27,7 +27,7 @@ export const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURI
 export const clientCacheMaxAgeSeconds = 0.5 * 3600;
 export const clientStaleWhileInvalidateSeconds = 12 * 3600;
 
-export const serverCacheMaxAgeSeconds = 4 * 3600;
+export const serverCacheMaxAgeSeconds = 0.001 * 3600;
 // For how long can a server use an invalidated response (during which it will revalidate for the next request).
 // But it appears that the Nitro server (Nuxt's backend) supports a specific flag for always using stale-while-revalidating if set to -1.
 // https://nitro.unjs.io/guide/introduction/cache

@@ -54,6 +54,11 @@
 			"name": "MADRVA",
 			"googleCalendarId": "7332d16dfa04b8b3e944e462f6dc832d5559036dbc9f15d9803f04d61ce5ad7d@group.calendar.google.com",
 			"city": "Oakland"
+		},
+		{
+			"name": "C's Weekly Rides Calendar",
+			"googleCalendarId": "999072f138be452067352af67a3cc0370c7594ef8b8ae19fd4d73d3cd9471032@group.calendar.google.com",
+			"city": "Oakland"
 		}
 	]
 }
