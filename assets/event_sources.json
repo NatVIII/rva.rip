@@ -59,6 +59,16 @@
 			"name": "C's Weekly Rides Calendar",
 			"googleCalendarId": "999072f138be452067352af67a3cc0370c7594ef8b8ae19fd4d73d3cd9471032@group.calendar.google.com",
 			"city": "Oakland"
+		},
+		{
+			"name": "Reasonable Morning Ride",
+			"googleCalendarId": "56042348356c1aa89c4783614ea1ffe2414edd1717568c161e0c6ab4415c4423@group.calendar.google.com",
+			"city": "Oakland"
+		},
+		{
+			"name": "Coalition Theater",
+			"googleCalendarId": "r1funfuomjmgs47jph9faksu32iu7ktb@import.calendar.google.com",
+			"city": "Oakland"
 		}
 	]
 }
