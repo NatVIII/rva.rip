@@ -505,6 +505,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <li>Check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening. </li>
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
             <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
+            <li>DON'T roll up to <a href="https://www.instagram.com/rollcallrva/">Roll Call</a> if you're queer, the host is very transphobic</li>
           </ul></p>
         <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
         <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
