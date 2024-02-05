@@ -496,7 +496,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           contributors (thank you!) have provided. All events are free, less than ten dollars, or money optional; 
           wealth should never be a barrier and isn't here, building community is the focus. The listings are in a
            constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
-           email host@rva.rip &lt;3</p>
+           email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
         <p>Still can't figure out what to do? 
@@ -505,7 +505,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <li>Check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening. </li>
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
             <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
-            <li>DON'T roll up to <a href="https://www.instagram.com/rollcallrva/">Roll Call</a> if you're queer, the host is very transphobic</li>
+            <li>Check out our <a href="/list">list of organizations and groups</a> in RVA</li>
           </ul></p>
         <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
         <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
@@ -515,8 +515,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
         <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
-        <a href="https://github.com/natviii/rva.rip/">source code</a> | 
-        please hire me
+        <a href="https://github.com/natviii/rva.rip/">source code</a>
       </div>
     </div>
     <div>
