@@ -38,12 +38,14 @@
 		{
 			"name": "Dykes on Bikes RVA",
 			"googleCalendarId": "0443449fed4f78e2434616b80b74c88bd6a942328e8583fa7f35fecdc1df97ca@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"titlePrefix": ":dykes_on_bikes: "
 		},
 		{
 			"name": "James River Park Cleanup",
 			"googleCalendarId": "029ddcdb1317ef7c5c4aa1ea53964073e72ae633462e014c83332f6ba0c91b41@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"titlePrefix": ":fojrp: "
 		},
 		{
 			"name": "RVA.RIP Major Update Announcements",
@@ -68,7 +70,9 @@
 		{
 			"name": "Coalition Theater",
 			"googleCalendarId": "r1funfuomjmgs47jph9faksu32iu7ktb@import.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"titlePrefix": ":coalition_theater: ",
+			"titleSuffix": ""
 		}
 	]
 }

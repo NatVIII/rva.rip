@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
 import sanitizeHtml from 'sanitize-html';
+import { replaceEmojiPlaceholders } from '~~/utils/util';
 
 const props = defineProps<{
     event: any // Declare the event prop here
@@ -13,7 +14,8 @@ const emit = defineEmits<{
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 // Constants that are used for storing shorthand event information
-const eventTitle = props.event.event.title;
+const rawEventTitle = props.event.event.title;
+const eventTitle = replaceEmojiPlaceholders(rawEventTitle);
 const eventTime = props.event.event.start.toLocaleDateString() + ' @ ' + 
                   props.event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 const eventHost = props.event.event.extendedProps.org;
@@ -54,7 +56,7 @@ const getImageClass = (index) => {
   <VueFinalModal class="popper-box-wrapper" content-class="popper-box-inner" overlay-transition="vfm-fade" content-transition="vfm-fade">
     <!-- Display Event Details -->
     <div class="event-details">
-      <span class="event-headers">Event Title:</span> {{ eventTitle }}<br>
+      <span class="event-headers">Event Title:</span> <span v-html="eventTitle"></span><br>
       <span class="event-headers">Event Time:</span> {{ eventTime }}<br>
       <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
       <span v-if="isDevelopment"> <span class="event-headers">Event ID: </span> {{ eventID }}<br> </span>

@@ -499,8 +499,8 @@ body.no-scroll {
 }
 
 .emoji {
-  width: 1em; /* Adjust as needed */
-  height: 1em; /* Adjust as needed */
+  width: 1.2em; /* Adjust as needed */
+  height: 1.2em; /* Adjust as needed */
   vertical-align: middle; /* Aligns emoji with surrounding text */
 }
 
@@ -514,7 +514,8 @@ body.no-scroll {
 
 /* Adjusting emoji size within event titles */
 .fc-daygrid-event-harness a img.emoji {
-  height: 1em; /* Adjust emoji size */
+  width: 1.2em; /* Adjust emoji size */
+  height: 1.2em; /* Adjust emoji size */
   width: auto;
   vertical-align: middle;
 }
