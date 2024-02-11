@@ -46,7 +46,9 @@ export const eventDayDurationSplitThreshold = 3;
 
 //Emoji stuff
 import { emojiMap } from '../server/emojiMap';
+import DOMPurify from 'dompurify';
 export const replaceEmojiPlaceholders = (text: string): string => {
+	const sanitizedText = DOMPurify.sanitize(text);
 	return text.replace(/:\w+:/g, (match) => emojiMap[match] || match);
   };
   
