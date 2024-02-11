@@ -501,6 +501,7 @@ body.no-scroll {
 .emoji {
   width: 1.2em; /* Adjust as needed */
   height: 1.2em; /* Adjust as needed */
+  width: auto;
   vertical-align: middle; /* Aligns emoji with surrounding text */
 }
 
