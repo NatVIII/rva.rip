@@ -497,3 +497,10 @@ body.no-scroll {
 .image-container .image-wrapper:first-of-type:nth-last-of-type(3) {
   width: 95%;
 }
+
+.emoji {
+  width: 1em; /* Adjust as needed */
+  height: 1em; /* Adjust as needed */
+  vertical-align: middle; /* Aligns emoji with surrounding text */
+}
+

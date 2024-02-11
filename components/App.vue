@@ -13,6 +13,7 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { replaceEmojiPlaceholders } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
@@ -223,6 +224,12 @@ const calendarOptions = ref({
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
   // eventDidMount: moveListViewScrollbarToTodayAndColor,
+
+  eventContent: function(arg) {
+  // Ensure you use v-html in your FullCalendar component to render HTML content
+  const titleWithEmojis = replaceEmojiPlaceholders(arg.event.title);
+  return { html: titleWithEmojis };
+  },
 });
 
 const updateCalendarHeight = () => {
@@ -497,8 +504,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           wealth should never be a barrier and isn't here, building community is the focus. The listings are in a
            constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
            email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
-        <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
-          affiliated with any events listed.</p>
+        <p v-emoji>Before making plans, consider checking with venue staff or event organizers directly. This site is not
+          affiliated with any events listed. :test:</p>
         <p>Still can't figure out what to do? 
           <ul style="line-height: 1.5em">
             <li>Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>
@@ -528,5 +535,4 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
       <div class="color-stripe"></div><div class="color-stripe"></div>
     </div>
   </div>
-
 </template>

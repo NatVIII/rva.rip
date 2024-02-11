@@ -43,3 +43,10 @@ export function logTimeElapsedSince(startTime: number, message: string) {
 }
 
 export const eventDayDurationSplitThreshold = 3; 
+
+//Emoji stuff
+import { emojiMap } from '../server/emojiMap';
+export const replaceEmojiPlaceholders = (text: string): string => {
+	return text.replace(/:\w+:/g, (match) => emojiMap[match] || match);
+  };
+  
