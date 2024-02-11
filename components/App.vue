@@ -238,8 +238,13 @@ const calendarOptions = ref({
       startTime = startTime.replace(/^0/, '').replace(':00', '').replace('m','');
     }
     let title = replaceEmojiPlaceholders(arg.event.title);
-    let contentHtml = `<div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span>`;
-
+    let contentHtml;
+    if (arg.view.type != 'listMonth') {
+      contentHtml = `<a href="${arg.event.url}" class="fc-event-link" style="text-decoration: none; color: inherit;"><div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span></a>`;
+    }
+    else {
+      contentHtml = `<a href="${arg.event.url}" class="fc-event-link" style="text-decoration: none; color: inherit;"><span class="fc-event-title">${title}</span></a>`;
+    }
     return { html: contentHtml };
   },
 });
