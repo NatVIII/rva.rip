@@ -226,9 +226,21 @@ const calendarOptions = ref({
   // eventDidMount: moveListViewScrollbarToTodayAndColor,
 
   eventContent: function(arg) {
-  // Ensure you use v-html in your FullCalendar component to render HTML content
-  const titleWithEmojis = replaceEmojiPlaceholders(arg.event.title);
-  return { html: titleWithEmojis };
+    // Ensure you use v-html in your FullCalendar component to render HTML content
+    // Format the start time and title as desired
+    let startTime = '';
+    if (arg.event.start) {
+      // Use Luxon to format the time
+      let startDateTime = DateTime.fromJSDate(arg.event.start);
+      // Format the time to show "7p" for 19:00 and "5:30a" for 05:30
+      startTime = startDateTime.toFormat('h:mma').toLowerCase(); // Converts to "7:00pm" or "5:30am"
+      // Remove the leading "0" for times like "07:00pm", remove ":00" for whole hours, and remove "m" to return to it's previous format
+      startTime = startTime.replace(/^0/, '').replace(':00', '').replace('m','');
+    }
+    let title = replaceEmojiPlaceholders(arg.event.title);
+    let contentHtml = `<div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span>`;
+
+    return { html: contentHtml };
   },
 });
 
