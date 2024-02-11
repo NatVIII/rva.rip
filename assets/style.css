@@ -504,3 +504,17 @@ body.no-scroll {
   vertical-align: middle; /* Aligns emoji with surrounding text */
 }
 
+/* Adjusting the CSS to target the anchor tags within event harnesses */
+.fc-daygrid-event-harness a {
+  display: block; /* Make sure the anchor tag fills the harness */
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%; /* Ensure it doesn't exceed the event harness */
+}
+
+/* Adjusting emoji size within event titles */
+.fc-daygrid-event-harness a img.emoji {
+  height: 1em; /* Adjust emoji size */
+  width: auto;
+  vertical-align: middle;
+}
