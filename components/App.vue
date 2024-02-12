@@ -240,7 +240,7 @@ const calendarOptions = ref({
     let title = replaceBadgePlaceholders(arg.event.title);
     let contentHtml;
     if (arg.view.type != 'listMonth') {
-      contentHtml = `<a href="${arg.event.url}" class="fc-event-link" style="text-decoration: none; color: inherit;"><div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span></a>`;
+      contentHtml = `<div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span>`;
     }
     else {
       contentHtml = `<a href="${arg.event.url}" class="fc-event-link" style="text-decoration: none; color: inherit;"><span class="fc-event-title">${title}</span></a>`;
@@ -521,8 +521,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           wealth should never be a barrier and isn't here, building community is the focus. The listings are in a
            constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
            email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
-        <p v-badge>Before making plans, consider checking with venue staff or event organizers directly. This site is not
-          affiliated with any events listed. :test:</p>
+        <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
+          affiliated with any events listed.<span v-badge>:test:</span></p>
         <p>Still can't figure out what to do? 
           <ul style="line-height: 1.5em">
             <li>Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>

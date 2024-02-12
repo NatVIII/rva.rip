@@ -498,11 +498,12 @@ body.no-scroll {
   width: 95%;
 }
 
-.badge {
-  width: 1.2em; /* Adjust as needed */
-  height: 1.2em; /* Adjust as needed */
-  width: auto;
-  vertical-align: middle; /* Aligns badge with surrounding text */
+.badge, .fc-daygrid-event-harness a img.badge {
+  all: initial; /* Resets all the inherited and user-agent styles */
+  display: inline-block; /* Necessary for width and height to take effect */
+  height: 0.825em;
+  object-fit: contain;
+  vertical-align: middle;
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */
@@ -511,12 +512,4 @@ body.no-scroll {
   white-space: nowrap;
   overflow: hidden;
   max-width: 100%; /* Ensure it doesn't exceed the event harness */
-}
-
-/* Adjusting badge size within event titles */
-.fc-daygrid-event-harness a img.badge {
-  width: 1.2em; /* Adjust badge size */
-  height: 1.2em; /* Adjust badge size */
-  width: auto;
-  vertical-align: middle;
 }
