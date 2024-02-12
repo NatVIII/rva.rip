@@ -50,7 +50,8 @@
 		{
 			"name": "RVA.RIP Major Update Announcements",
 			"googleCalendarId": "2847685acc28b260c69a05bd948038fffe1b00cc12424b6a35ef39480a3900c1@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"titlePrefix": ":ripple: "
 		},
 		{
 			"name": "MADRVA",
