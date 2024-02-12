@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal'
 import sanitizeHtml from 'sanitize-html';
-import { replaceEmojiPlaceholders } from '~~/utils/util';
+import { replaceBadgePlaceholders } from '~~/utils/util';
 
 const props = defineProps<{
     event: any // Declare the event prop here
@@ -15,7 +15,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 // Constants that are used for storing shorthand event information
 const rawEventTitle = props.event.event.title;
-const eventTitle = replaceEmojiPlaceholders(rawEventTitle);
+const eventTitle = replaceBadgePlaceholders(rawEventTitle);
 const eventTime = props.event.event.start.toLocaleDateString() + ' @ ' + 
                   props.event.event.start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 const eventHost = props.event.event.extendedProps.org;

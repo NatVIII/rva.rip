@@ -498,11 +498,11 @@ body.no-scroll {
   width: 95%;
 }
 
-.emoji {
+.badge {
   width: 1.2em; /* Adjust as needed */
   height: 1.2em; /* Adjust as needed */
   width: auto;
-  vertical-align: middle; /* Aligns emoji with surrounding text */
+  vertical-align: middle; /* Aligns badge with surrounding text */
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */
@@ -513,10 +513,10 @@ body.no-scroll {
   max-width: 100%; /* Ensure it doesn't exceed the event harness */
 }
 
-/* Adjusting emoji size within event titles */
-.fc-daygrid-event-harness a img.emoji {
-  width: 1.2em; /* Adjust emoji size */
-  height: 1.2em; /* Adjust emoji size */
+/* Adjusting badge size within event titles */
+.fc-daygrid-event-harness a img.badge {
+  width: 1.2em; /* Adjust badge size */
+  height: 1.2em; /* Adjust badge size */
   width: auto;
   vertical-align: middle;
 }

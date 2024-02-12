@@ -13,7 +13,7 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
-import { replaceEmojiPlaceholders } from '~~/utils/util';
+import { replaceBadgePlaceholders } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
@@ -237,7 +237,7 @@ const calendarOptions = ref({
       // Remove the leading "0" for times like "07:00pm", remove ":00" for whole hours, and remove "m" to return to it's previous format
       startTime = startTime.replace(/^0/, '').replace(':00', '').replace('m','');
     }
-    let title = replaceEmojiPlaceholders(arg.event.title);
+    let title = replaceBadgePlaceholders(arg.event.title);
     let contentHtml;
     if (arg.view.type != 'listMonth') {
       contentHtml = `<a href="${arg.event.url}" class="fc-event-link" style="text-decoration: none; color: inherit;"><div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span></a>`;
@@ -521,7 +521,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           wealth should never be a barrier and isn't here, building community is the focus. The listings are in a
            constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
            email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
-        <p v-emoji>Before making plans, consider checking with venue staff or event organizers directly. This site is not
+        <p v-badge>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed. :test:</p>
         <p>Still can't figure out what to do? 
           <ul style="line-height: 1.5em">
