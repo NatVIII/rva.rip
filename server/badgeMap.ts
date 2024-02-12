@@ -3,4 +3,5 @@ export const badgeMap: { [key: string]: string } = {
     ':coalition_theater:': '<img src="/badges/coalition_theater.svg" class="badge">',
     ':fojrp:': '<img src="/badges/fojrp.png" class="badge">',
     ':dykes_on_bikes:': '<img src="/badges/dykes_on_bikes.png" class="badge">',
+    ':ripple:': '<img src="/badges/ripple.png" class="badge">',
   };

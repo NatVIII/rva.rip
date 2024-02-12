@@ -522,7 +522,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
            constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
            email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
-          affiliated with any events listed.<span v-badge>:test:</span></p>
+          affiliated with any events listed.</p>
         <p>Still can't figure out what to do? 
           <ul style="line-height: 1.5em">
             <li>Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>
