@@ -497,3 +497,19 @@ body.no-scroll {
 .image-container .image-wrapper:first-of-type:nth-last-of-type(3) {
   width: 95%;
 }
+
+.badge, .fc-daygrid-event-harness a img.badge {
+  all: initial; /* Resets all the inherited and user-agent styles */
+  display: inline-block; /* Necessary for width and height to take effect */
+  height: 0.825em;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+/* Adjusting the CSS to target the anchor tags within event harnesses */
+.fc-daygrid-event-harness a {
+  display: block; /* Make sure the anchor tag fills the harness */
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%; /* Ensure it doesn't exceed the event harness */
+}

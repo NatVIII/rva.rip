@@ -13,6 +13,7 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
+import { replaceBadgePlaceholders } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
@@ -223,6 +224,29 @@ const calendarOptions = ref({
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
   // eventDidMount: moveListViewScrollbarToTodayAndColor,
+
+  eventContent: function(arg) {
+    // Ensure you use v-html in your FullCalendar component to render HTML content
+    // Format the start time and title as desired
+    let startTime = '';
+    if (arg.event.start) {
+      // Use Luxon to format the time
+      let startDateTime = DateTime.fromJSDate(arg.event.start);
+      // Format the time to show "7p" for 19:00 and "5:30a" for 05:30
+      startTime = startDateTime.toFormat('h:mma').toLowerCase(); // Converts to "7:00pm" or "5:30am"
+      // Remove the leading "0" for times like "07:00pm", remove ":00" for whole hours, and remove "m" to return to it's previous format
+      startTime = startTime.replace(/^0/, '').replace(':00', '').replace('m','');
+    }
+    let title = replaceBadgePlaceholders(arg.event.title);
+    let contentHtml;
+    if (arg.view.type != 'listMonth') {
+      contentHtml = `<div class="fc-daygrid-event-dot" style="display: inline-block; vertical-align: middle; margin-right: 4px; position: relative; top: -1px;"></div><span class="fc-event-time" style="margin-right: 0px;">${startTime}</span> <span class="fc-event-title">${title}</span>`;
+    }
+    else {
+      contentHtml = `<a href="${arg.event.url}" class="fc-event-link" style="text-decoration: none; color: inherit;"><span class="fc-event-title">${title}</span></a>`;
+    }
+    return { html: contentHtml };
+  },
 });
 
 const updateCalendarHeight = () => {
@@ -528,5 +552,4 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
       <div class="color-stripe"></div><div class="color-stripe"></div>
     </div>
   </div>
-
 </template>

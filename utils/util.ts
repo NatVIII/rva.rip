@@ -43,3 +43,12 @@ export function logTimeElapsedSince(startTime: number, message: string) {
 }
 
 export const eventDayDurationSplitThreshold = 3; 
+
+//Badge stuff
+import { badgeMap } from '../server/badgeMap';
+import DOMPurify from 'dompurify';
+export const replaceBadgePlaceholders = (text: string): string => {
+	const sanitizedText = DOMPurify.sanitize(text);
+	return text.replace(/:\w+:/g, (match) => badgeMap[match] || match);
+  };
+  
