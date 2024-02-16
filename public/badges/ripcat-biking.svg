@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+    <g stroke="#222" stroke-width="30" fill="none">
+        <path d="m95 312.5 65-205h57.5M272.5 150H360"/>
+        <path d="M140 172.5h185l80 140H272.5L132.5 210"/>
+        <path d="m325 172.5-52.5 140V360H305"/>
+        <circle cx="95" cy="312.5" r="80"/>
+        <circle cx="405" cy="312.5" r="80"/>
+        <circle cx="95" cy="312.5" r="7.5"/>
+        <circle cx="405" cy="312.5" r="7.5"/>
+        <circle cx="272.5" cy="312.5" r="15"/>
+    </g>
+</svg>
