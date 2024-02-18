@@ -6,5 +6,4 @@ export const badgeMap: { [key: string]: string } = {
     ':ripple:': '<img src="/badges/ripple.png" class="badge">',
     ':twitter:': '<img src="/badges/twitter.svg" class="badge">',
     ':hackrva:': '<img src="/badges/hackrva.svg" class="badge">',
-    ':rcbiking:': '<img src="/badges/ripcat-biking.svg" class="badge">',
   };

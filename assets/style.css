@@ -510,11 +510,19 @@ body.no-scroll {
 }
 
 .badge, .fc-daygrid-event-harness a img.badge {
-  all: initial; /* Resets all the inherited and user-agent styles */
   display: inline-block; /* Necessary for width and height to take effect */
-  height: 0.825em;
+  height: 1.1em;
   object-fit: contain;
-  vertical-align: middle;
+  vertical-align: -0.2em;
+  width: auto;
+}
+
+.badge, .fc-daygrid-event-harness a img.badge {
+  display: inline-block; /* Necessary for width and height to take effect */
+  height: 1.1em;
+  object-fit: contain;
+  vertical-align: -0.2em;
+  width: auto;
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */
@@ -536,6 +544,7 @@ body.no-scroll {
   -1px  1px 0 black,
    1px  1px 0 black, /* Simulates a 1px black outline */
   2px 2px 4px grey; /* Adds a grey shadow */
+  /*filter: drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px 1px 0 black) drop-shadow(1px 1px 0 black) drop-shadow(2px 2px 4px black);*/
 }
 
 .cont-bad{
