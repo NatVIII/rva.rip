@@ -517,8 +517,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various <a
             href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
-          contributors (thank you!) have provided. All events are free, less than ten dollars, or money optional; 
-          wealth should never be a barrier and isn't here, building community is the focus. The listings are in a
+          contributors (thank you!) have provided. Building community is the focus of this project. The events presented here are in a
            constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
            email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
@@ -539,7 +538,9 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
         <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
-        <a href="https://github.com/natviii/rva.rip/">source code</a>
+        <a href="https://github.com/natviii/rva.rip/">source code</a> |
+        <a href="/list">list of cool groups</a> |
+        <a href="/contributing">how to contribute</a>
       </div>
     </div>
     <div>
