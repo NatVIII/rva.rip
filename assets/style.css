@@ -534,10 +534,12 @@ body.no-scroll {
 }
 
 .cont-good, .cont-bad{
+  white-space: nowrap;
   vertical-align: middle;
   font-size: 30px; 
-  color: #b8bb26; 
+  color: #b8bb26;
   padding: 0;
+  filter: hue-rotate(30deg);
   text-shadow: 
   -1px -1px 0 black,  
    1px -1px 0 black,
@@ -549,4 +551,5 @@ body.no-scroll {
 
 .cont-bad{
   color: #fb4934; 
+  filter: hue-rotate(300deg);
 }

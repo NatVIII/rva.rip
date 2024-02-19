@@ -49,26 +49,26 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
             <ul>
                 <li>When adding events to the calendar, ensure that your events are being added to the correct calendar</li>
                 <ul>
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip1.png" alt="Google Calender Tip Image 1"/>  
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip1.png" alt="Google Calender Tip Image 1"/></span>
                 </ul>
                 <li>When adding events to the calendar, ensure that your events are being assigned a time period, and that it's under 24 hours. Events longer than 24 hours or for an entire day simply will not appear on rva.rip</li>
                 <ul>
-                    <span class="cont-bad">&#x1F7A9;</span><img class="cont-img-mid" src="/contributing/GCalTip2.png" alt="Google Calender Tip Image 2"/> <br />
-                    <span class="cont-bad">&#x1F7A9;</span><img class="cont-img-mid" src="/contributing/GCalTip4.png" alt="Google Calender Tip Image 4"/> <br />
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip3.png" alt="Google Calender Tip Image 3"/>  
+                    <span class="cont-bad">👎<img class="cont-img-mid" src="/contributing/GCalTip2.png" alt="Google Calender Tip Image 2"/></span> <br />
+                    <span class="cont-bad">👎<img class="cont-img-mid" src="/contributing/GCalTip4.png" alt="Google Calender Tip Image 4"/></span> <br />
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip3.png" alt="Google Calender Tip Image 3"/></span> 
                 </ul>
                 <li>When adding events to the calendar, try not to leave the location field blank. Try and fill it with either a location that will appear and be google maps compatible, or feel free to set an arbitrary location.</li>
                 <ul>
-                    <span class="cont-bad">&#x1F7A9;</span><img class="cont-img-mid" src="/contributing/GCalTip5.png" alt="Google Calender Tip Image 5"/> <br />
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip6.png" alt="Google Calender Tip Image 6"/> <br />
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip7.png" alt="Google Calender Tip Image 7"/> <br />
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip8.png" alt="Google Calender Tip Image 8"/> <br />
+                    <span class="cont-bad">👎<img class="cont-img-mid" src="/contributing/GCalTip5.png" alt="Google Calender Tip Image 5"/></span> <br />
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip6.png" alt="Google Calender Tip Image 6"/></span> <br />
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip7.png" alt="Google Calender Tip Image 7"/></span> <br />
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip8.png" alt="Google Calender Tip Image 8"/></span> <br />
                 </ul>
                 <li>When adding events to the calendar, try not to leave the description blank. Even if you don't feel like adding much information, like if for example you're throwing something on real quick, atleast try and link to where you can find more information for the event (website or social media account). For bonus points, feel free to include an image or poster you've made for your event (guide on how to do this is detailed below)</li>
                 <ul>
-                    <span class="cont-bad">&#x1F7A9;</span><img class="cont-img-mid" src="/contributing/GCalTip10.png" alt="Google Calender Tip Image 10"/> <br />
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip11.png" alt="Google Calender Tip Image 11"/> <br />
-                    <span class="cont-good">&#x1F5F8;</span><img class="cont-img-mid" src="/contributing/GCalTip12.png" alt="Google Calender Tip Image 12"/> <br />
+                    <span class="cont-bad">👎<img class="cont-img-mid" src="/contributing/GCalTip10.png" alt="Google Calender Tip Image 10"/></span> <br />
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip11.png" alt="Google Calender Tip Image 11"/></span> <br />
+                    <span class="cont-good">👍<img class="cont-img-mid" src="/contributing/GCalTip12.png" alt="Google Calender Tip Image 12"/></span> <br />
                 </ul>
             </ul>
         <h2>rva.rip Calendar Preferred Guidelines and Reccomendations</h2>
@@ -87,23 +87,23 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
                     two badges+emotes in combination, so if your group already has a custom badge then please only insert up to one emoji in the title of your events</li>
                     <ul>
                         <li>Valid and Invalid Title Examples:</li>
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">&#x1F5F8;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">👍</span>
                          Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">&#x1F5F8;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">👍</span>
                          :ripple: Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">&#x1F5F8;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">👍</span>
                          :ripple: 👗 Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">&#x1F5F8;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">👍</span>
                          :ripple: 👕 Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">&#x1F5F8;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">👍</span>
                          👗 Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">&#x1F5F8;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-good" style="font-size: 1.25em;">👍</span>
                          👗👕 Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-bad" style="font-size: 1.25em;">&#x1F7A9;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-bad" style="font-size: 1.25em;">👎</span>
                          :ripple:👗👕 Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-bad" style="font-size: 1.25em;">&#x1F7A9;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-bad" style="font-size: 1.25em;">👎</span>
                          :ripple:👖👗👕 Hollywood Cemetery Queer Clothes Swap </a> <br />
-                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-bad" style="font-size: 1.25em;">&#x1F7A9;</span>
+                        <a v-badge style="font-size: 1.25em; font-family: 'ChicagoFLF';"><span class="cont-bad" style="font-size: 1.25em;">👎</span>
                          👖👗👕 Hollywood Cemetery Queer Clothes Swap </a> <br />
                     </ul>
                     <li>Badges are by default added automatically to your events, but they can be added manually by you in the titles of your events.
