@@ -511,15 +511,7 @@ body.no-scroll {
 
 .badge, .fc-daygrid-event-harness a img.badge {
   display: inline-block; /* Necessary for width and height to take effect */
-  height: 1.1em;
-  object-fit: contain;
-  vertical-align: -0.2em;
-  width: auto;
-}
-
-.badge, .fc-daygrid-event-harness a img.badge {
-  display: inline-block; /* Necessary for width and height to take effect */
-  height: 1.1em;
+  height: 1.2em;
   object-fit: contain;
   vertical-align: -0.2em;
   width: auto;

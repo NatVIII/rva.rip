@@ -129,6 +129,14 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
                                 <ul><img class="cont-img-mid" src="/contributing/GCalTip16.png" alt="Google Calender Tip Image 16" /></ul>
                             </ul>
                     </ul>
+                <li>If your group has consistent events at the same time every week, it's okay to put those events on the calendar as a repeating event. 
+                There's multiple groups which do weekly events but aren't able to update the calendar every week because of the labor
+                and relative decentralization of their groups, and that's okay, as long as there's some kind of indication that an event *may* be occuring it's still cool 
+                as hell and I appreciate it. </li>
+                <li>The standards above, embedding proper location data and time data, as well as a description with enough information to atleast find the event's information
+                elsewhere on the internet, will help ensure that you get the engagement out of having your events on rva.rip that you may desire. They're not necessary,
+                and you'll probably see other calendars which don't follow these standards whatsoever, but I also really appreciate it when you follow these standards.
+                </li>
             </ul>
     </div>
     <div>
