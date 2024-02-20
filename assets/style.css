@@ -463,13 +463,24 @@ body.no-scroll {
 }
 
 /* Shared styles for all images */
-.event-image {
+.event-image, .cont-img, .cont-img-mid {
   height:auto;
   width:100%;
   object-fit: cover;
   border-radius: 2%;
   border: 2px solid #222222;
   margin: auto; /* Ensure the image is aligned at center */
+}
+
+.cont-img, .cont-img-mid {
+  max-width:100%;
+  width: auto;
+  vertical-align: top;
+  margin:2px
+}
+
+.cont-img-mid {
+  vertical-align: middle;
 }
 
 /* Styles for image-wrapper when there is only one image */
@@ -499,11 +510,11 @@ body.no-scroll {
 }
 
 .badge, .fc-daygrid-event-harness a img.badge {
-  all: initial; /* Resets all the inherited and user-agent styles */
   display: inline-block; /* Necessary for width and height to take effect */
-  height: 0.825em;
+  height: 1.2em;
   object-fit: contain;
-  vertical-align: middle;
+  vertical-align: -0.2em;
+  width: auto;
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */
@@ -512,4 +523,25 @@ body.no-scroll {
   white-space: nowrap;
   overflow: hidden;
   max-width: 100%; /* Ensure it doesn't exceed the event harness */
+}
+
+.cont-good, .cont-bad{
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 30px; 
+  color: #b8bb26;
+  padding: 0;
+  filter: hue-rotate(30deg);
+  text-shadow: 
+  -1px -1px 0 black,  
+   1px -1px 0 black,
+  -1px  1px 0 black,
+   1px  1px 0 black, /* Simulates a 1px black outline */
+  2px 2px 4px grey; /* Adds a grey shadow */
+  /*filter: drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px 1px 0 black) drop-shadow(1px 1px 0 black) drop-shadow(2px 2px 4px black);*/
+}
+
+.cont-bad{
+  color: #fb4934; 
+  filter: hue-rotate(300deg);
 }
