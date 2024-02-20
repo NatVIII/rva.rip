@@ -84,7 +84,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			if (source.titleSuffix) {
 			  title += source.titleSuffix;
 			}
-  
+
 			return {
 			  id: formatTitleAndDateToID(item.start.dateTime, item.summary),
 			  title: title,
@@ -94,6 +94,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			  url: item.htmlLink,
 			  location: item.location ? item.location.toString() : 'Location not specified',
 			  description: item.description ? replaceGoogleTrackingUrls(item.description.toString()) : 'Description not available',
+			  images: item.description?.toString().match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g) || [],
 			};
 		  });
   
