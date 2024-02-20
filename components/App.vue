@@ -525,11 +525,11 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           affiliated with any events listed.</p>
         <p>Still can't figure out what to do? 
           <ul style="line-height: 1.5em">
-            <li>Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>
-            <li>Check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening. </li>
+            <li>Bored? Roll up to <a href="https://goo.gl/maps/7hE5ARFYcE7KTgun7">scuff</a> and say hi to the punks</li>
+            <li>Looking for music? Check out <a href="https://www.restlessrva.com/">restless</a> for local concerts happening. </li>
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
             <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
-            <li>Check out our <a href="/list">list of organizations and groups</a> in RVA</li>
+            <li>Wanna find more groups? Check out our <a href="/list">list of organizations and groups</a> in RVA</li>
             <li>Looking for a reddit alternative? <a href="https://hexbear.net/">Check out this dope ass bear</a>.</li>
           </ul></p>
         <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
