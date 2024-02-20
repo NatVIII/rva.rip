@@ -515,11 +515,12 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc">
         <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
-          always be free, without frills, and remain a public utility. The events here are drawn from various <a
-            href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
-          contributors (thank you!) have provided. Building community is the focus of this project. The events presented here are in a
-           constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
-           email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
+          always be free, without frills, and remain a public utility. The events here are drawn from various 
+          <a href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
+          contributors (thank you!) have provided. Building community is the focus of this project. If you'd like to become
+          a contributor of events, check out our contributing guide <a href="/contributing">here</a>! The events presented here are in a
+          constant state of community-based vetting; don't hesitate to provide feedback! For suggestions and questions
+          email <a href="mailto:host@rva.rip">host@rva.rip</a> &lt;3</p>
         <p>Before making plans, consider checking with venue staff or event organizers directly. This site is not
           affiliated with any events listed.</p>
         <p>Still can't figure out what to do? 
@@ -529,6 +530,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
             <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
             <li>Check out our <a href="/list">list of organizations and groups</a> in RVA</li>
+            <li>Looking for a reddit alternative? <a href="/list">Check out this dope ass bear</a>.</li>
           </ul></p>
         <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
         <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
