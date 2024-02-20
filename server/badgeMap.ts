@@ -7,5 +7,5 @@ export const badgeMap: { [key: string]: string } = {
     ':twitter:': '<img src="/badges/twitter.svg" class="badge">',
     ':hackrva:': '<img src="/badges/hackrva.svg" class="badge">',
     ':madrva:': '<img src="/badges/madrva.png" class="badge">',
-    ':sunrise:': '<img src="/badges/sunrise.png" class="badge">',
+    ':sunrise:': '<img src="/badges/sunrise.svg" class="badge">',
   };
