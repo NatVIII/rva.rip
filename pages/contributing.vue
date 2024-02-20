@@ -109,13 +109,14 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
                     <li>Badges are by default added automatically to your events, but they can be added manually by you in the titles of your events.
                     If you're curious about what options are available, feel free to reach out to the maintainers of this project.</li>
                 </ul>
-                <li>rva.rip has a system for showing images in the preview modals when an event is clicked on. The first three direct links to images hosted on imgur
+                <li>rva.rip has a system for showing images in the preview modals when an event is clicked on. The first three direct links to images hosted online
                 will be displayed at the head of the event preview modals. This only applies to events hosted on Google Calendar, events grabbed from other sources
                 will in the future include their fetched image in the preview modal automaticaly.</li>
                     <ul>
                         <li>Example of this being used on an event's modal:</li>
                         <img class="cont-img-mid" src="/contributing/GCalTip13.png" alt="Google Calender Tip Image 13" style="max-width:50%;"/>
-                        <li>If you want to implement it yourself, follow these steps</li>
+                        <li>The easiest option is to use imgur like in the tutorial below, but if you run your own website you can directly link to images hosted there</li>
+                        <li>If you want to implement it yourself, you can follow these steps using imgur</li>
                             <ul>
                             <li>Navigate to <a href="https://imgur.com/">imgur.com</a> and click on "New post", uploading the images when prompted
                             (steps to creating a new post may be different on desktop vs other platforms).</li>
