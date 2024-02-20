@@ -23,6 +23,7 @@ const eventURL = props.event.event.url;
 const eventID = props.event.event.id;
 const eventLocation = props.event.event.extendedProps.location;
 const eventDescription = sanitizeHtml(props.event.event.extendedProps.description);
+const eventImages = props.event.event.extendedProps.images;
 
 //For interpreting the location into a google maps recognizable address
 function createGoogleMapsURL(location) {
@@ -34,9 +35,7 @@ function createGoogleMapsURL(location) {
 // Function to extract image urls from the eventDescription and construct a new URL
 // pointing towards your serverless function
 const getImageUrls = () => {
-  const regex = /(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g;
-  const result = eventDescription.match(regex);
-  return result !== null ? result.map(url => `/api/fetchImage?url=${encodeURIComponent(url)}`) : [];
+  return eventImages.slice(0,3).map(url => `/api/fetchImage?url=${encodeURIComponent(url)}`);
 };
 
 let errorMessages = ref([]); // To store error messages relating to image display
@@ -60,13 +59,14 @@ const getImageClass = (index) => {
       <span class="event-headers">Event Time:</span> {{ eventTime }}<br>
       <span class="event-headers">Event Host:</span> {{ eventHost }}<br>
       <span v-if="isDevelopment"> <span class="event-headers">Event ID: </span> {{ eventID }}<br> </span>
+      <span v-if="isDevelopment"> <span class="event-headers">Event Images: </span> {{ eventImages }}<br> </span>
       <span v-if="isDevelopment"> <span class="event-headers">Event URL:</span> <a :href="eventURL" target="_blank">Here</a><br> </span>
       <span class="event-headers">Event Location:</span> <a :href="createGoogleMapsURL(eventLocation)" target="_blank">{{ eventLocation }}</a><br>
       <!-- Display Images -->
       <div class="image-container">
         <div 
           class="image-wrapper"
-          v-for="(url, index) in getImageUrls().slice(0,3)" 
+          v-for="(url, index) in getImageUrls()" 
           :key="index"
         >
           <!-- Check if there's an error message for this image, if so, display the message instead of image -->
