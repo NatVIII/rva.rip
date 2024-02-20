@@ -77,13 +77,11 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
   
 		  const events = data.items.map((item) => {
 			let title = item.summary;
+			let description = item.description || '';
 			// Append or prepend text if specified in the source
-			if (source.titlePrefix) {
-			  title = source.titlePrefix + title;
-			}
-			if (source.titleSuffix) {
-			  title += source.titleSuffix;
-			}
+			if (source.prefixTitle) { title = source.prefixTitle + title; }
+			if (source.suffixTitle) { title += source.suffixTitle; }
+			if (source.suffixDescription) { description += source.suffixDescription; }
 
 			return {
 			  id: formatTitleAndDateToID(item.start.dateTime, item.summary),
@@ -92,9 +90,9 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			  start: item.start.dateTime,
 			  end: item.end.dateTime,
 			  url: item.htmlLink,
-			  location: item.location ? item.location.toString() : 'Location not specified',
-			  description: item.description ? replaceGoogleTrackingUrls(item.description.toString()) : 'Description not available',
-			  images: item.description?.toString().match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g) || [],
+			  location: item.location || source.defaultLocation || 'Location not specified',
+			  description: description ? replaceGoogleTrackingUrls(description.toString()) : 'Description not available',
+			  images: description?.toString().match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g) || [],
 			};
 		  });
   
