@@ -83,6 +83,12 @@
 			"prefixTitle": ":hackrva: ",
 			"suffixDescription": "<br /><hr>HackRVA is a member-run and organized non-profit makerspace in Richmond, Virginia. HackRVA is a space filled with tools, computers, and people who like to build, invent, tinker, expand their minds, and learn and share new skills. You’ll find a diverse group of individuals who are into electronics, woodworking, embedded software, metalworking, coding (programming), music, art, video, photography, 3D printing, sewing, textiles, and virtual reality—and that’s for starters. HackRVA members have access to the makerspace, tools, community and learning opportunities through member-led workshops, events, and projects. For more information check out our website <a href=\"https://www.hackrva.org/\">ww.hackrva.org</a>!<br /><br /><a href=\"https://wiki.hackrva.org/images/a/ab/HackRVA-Front_alt3a.gif/\">Poster</a>",
 			"defaultLocation": "2026A Dabney Road, Richmond VA 23230"
+		},
+		{
+			"name": "Kasama Collective",
+			"googleCalendarId": "c0ba770604500783fe65753bbbdd682b55b6bd50ad656c92706426758e5251b8@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":kasamacollective: "
 		}
 	]
 }

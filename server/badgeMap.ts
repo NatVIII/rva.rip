@@ -9,4 +9,5 @@ export const badgeMap: { [key: string]: string } = {
     ':madrva:': '<img src="/badges/madrva.png" class="badge">',
     ':sunrise:': '<img src="/badges/sunrise.svg" class="badge">',
     ':firstfridays:': '<img src="/badges/firstfridays.png" class="badge">',
+    ':kasamacollective:': '<img src="/badges/kasamacollective.png" class="badge">',
   };
