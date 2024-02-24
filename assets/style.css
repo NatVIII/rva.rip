@@ -509,12 +509,15 @@ body.no-scroll {
   width: 95%;
 }
 
-.badge, .fc-daygrid-event-harness a img.badge {
-  display: inline-block; /* Necessary for width and height to take effect */
+.badge, .badge-shadow {
+  display: inline-block;
   height: 1.2em;
-  object-fit: contain;
   vertical-align: -0.2em;
   width: auto;
+}
+
+.badge-shadow {
+  filter: drop-shadow(0px 0px 0.05em black);
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */

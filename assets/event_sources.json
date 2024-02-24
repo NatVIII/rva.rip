@@ -89,6 +89,12 @@
 			"googleCalendarId": "c0ba770604500783fe65753bbbdd682b55b6bd50ad656c92706426758e5251b8@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":kasamacollective: "
+		},
+		{
+			"name": "Outpost Adventure Club Calendar",
+			"googleCalendarId": "info@outpostrichmond.com",
+			"city": "Oakland",
+			"prefixTitle": ":outpost: "
 		}
 	]
 }
