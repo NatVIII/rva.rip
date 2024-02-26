@@ -95,6 +95,12 @@
 			"googleCalendarId": "info@outpostrichmond.com",
 			"city": "Oakland",
 			"prefixTitle": ":outpost: "
+		},
+		{
+			"name": "PSL Virginia @pslvirginia",
+			"googleCalendarId": "7c07b5d92633673b1409ee65d643ddfde18cf257323136f95c9ceb3e5afda5de@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":psl:"
 		}
 	]
 }
