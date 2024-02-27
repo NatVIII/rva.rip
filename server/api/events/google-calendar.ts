@@ -21,6 +21,14 @@ function replaceGoogleTrackingUrls(description: string): string {
 	return description.replace(googleTrackingUrlRegex, (match, p1) => decodeURIComponent(p1));
   }
 
+function findImageUrls(description: string): string[] {
+	if (!description) return [];
+	const imageUrlRegex = /(https?:\/\/[^\s"<>]+?\.(jpg|jpeg|png|gif|bmp|svg|webp))/g;
+	const matches = description.match(imageUrlRegex);
+	const uniqueMatches = matches ? [...new Set(matches)] : [];
+	return uniqueMatches || [];
+}
+
 function formatTitleAndDateToID(inputDate: any, title: string) {
 	const date = new Date(inputDate);
 	const year = date.getFullYear().toString().slice(-2); // Get last 2 digits of year
@@ -34,6 +42,8 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
         // Define URL-compatible characters (alphanumeric and some special characters)
         const urlCompatibleChars = /^[A-Za-z]+$/;
 
+		// Ensure inputTitle is a string to prevent the "undefined is not iterable" error
+		inputTitle = inputTitle || 'und';
         // Filter out non-URL-compatible characters and take the first three
         return Array.from(inputTitle)
             .filter(char => urlCompatibleChars.test(char))
@@ -77,11 +87,36 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
   
 		  const events = data.items.map((item) => {
 			let title = item.summary;
-			let description = item.description || '';
+			let description = item.description ? replaceGoogleTrackingUrls(item.description.toString()) : '';
+			let tags = [];
 			// Append or prepend text if specified in the source
 			if (source.prefixTitle) { title = source.prefixTitle + title; }
 			if (source.suffixTitle) { title += source.suffixTitle; }
 			if (source.suffixDescription) { description += source.suffixDescription; }
+
+			// Apply filters to add tags
+			if (source.filters) source.filters.forEach(filter => {
+				const tag = filter[0];					//Entry 1, the tag that will be applied
+				const regex = new RegExp(filter[1]);	//Entry 2, the regex script to be used
+				const searchField = filter[2];			//Entry 3, whether to search the "title", "body", or "both". If none of those are in filter[2] then it'll fail always.
+				const fallbackTag = filter.length > 3 ? filter[3] : null;	//Entry 4, an optional one, that'll apply a tag if the regex doesn't match
+
+				// Check if the event title or description matches the regex based off of searchField
+				let regexMatch = false;
+				if (searchField === 'title') {
+					regexMatch = regex.test(title);
+				} else if (searchField === 'body') {
+					regexMatch = regex.test(description);
+				} else if (searchField === 'both') {
+					regexMatch = regex.test(title) || regex.test(description);
+				}
+				// Check if the event title or description matches the regex based off of searchField
+				if (regexMatch) {
+					tags.push(tag);
+				} else if (fallbackTag) {
+					tags.push(fallbackTag);
+				}
+			});
 
 			return {
 			  id: formatTitleAndDateToID(item.start.dateTime, item.summary),
@@ -91,11 +126,12 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			  end: item.end.dateTime,
 			  url: item.htmlLink,
 			  location: item.location || source.defaultLocation || 'Location not specified',
-			  description: description ? replaceGoogleTrackingUrls(description.toString()) : 'Description not available',
-			  images: description?.toString().match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g) || [],
+			  description: description,
+			  images: findImageUrls(description),
+			  tags,
 			};
 		  });
-  
+
 		  return {
 			events,
 			city: source.city

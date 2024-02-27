@@ -67,7 +67,8 @@
 		{
 			"name": "Reasonable Morning Ride",
 			"googleCalendarId": "56042348356c1aa89c4783614ea1ffe2414edd1717568c161e0c6ab4415c4423@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"prefixTitle": "☕🚲 "
 		},
 		{
 			"name": "Coalition Theater",
@@ -101,6 +102,16 @@
 			"googleCalendarId": "7c07b5d92633673b1409ee65d643ddfde18cf257323136f95c9ceb3e5afda5de@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":psl:"
+		},
+		{
+			"name": "Gold Lion Cafe",
+			"googleCalendarId": "c_0e01d5366281ee1230a34c41e4f988fac5cb94324aec20d86f035457d14722df@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":goldlion: ",
+			"filters": [
+				["hidden", "undefined", "title"],
+				["hidden", "Concert", "title"]
+			]
 		}
 	]
 }
