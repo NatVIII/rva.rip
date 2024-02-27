@@ -67,7 +67,8 @@
 		{
 			"name": "Reasonable Morning Ride",
 			"googleCalendarId": "56042348356c1aa89c4783614ea1ffe2414edd1717568c161e0c6ab4415c4423@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"prefixTitle": "☕🚲 "
 		},
 		{
 			"name": "Coalition Theater",
