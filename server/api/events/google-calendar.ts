@@ -21,6 +21,14 @@ function replaceGoogleTrackingUrls(description: string): string {
 	return description.replace(googleTrackingUrlRegex, (match, p1) => decodeURIComponent(p1));
   }
 
+function findImageUrls(description: string): string[] {
+	if (!description) return [];
+	const imageUrlRegex = /(https?:\/\/[^\s"<>]+?\.(jpg|jpeg|png|gif|bmp|svg|webp))/g;
+	const matches = description.match(imageUrlRegex);
+	const uniqueMatches = matches ? [...new Set(matches)] : [];
+	return uniqueMatches || [];
+}
+
 function formatTitleAndDateToID(inputDate: any, title: string) {
 	const date = new Date(inputDate);
 	const year = date.getFullYear().toString().slice(-2); // Get last 2 digits of year
@@ -79,7 +87,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
   
 		  const events = data.items.map((item) => {
 			let title = item.summary;
-			let description = item.description || '';
+			let description = item.description ? replaceGoogleTrackingUrls(item.description.toString()) : '';
 			let tags = [];
 			// Append or prepend text if specified in the source
 			if (source.prefixTitle) { title = source.prefixTitle + title; }
@@ -118,8 +126,8 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			  end: item.end.dateTime,
 			  url: item.htmlLink,
 			  location: item.location || source.defaultLocation || 'Location not specified',
-			  description: description ? replaceGoogleTrackingUrls(description.toString()) : 'Description not available',
-			  images: description?.toString().match(/(https?:\/\/[^\s]+\.(jpg|jpeg|png|gif|bmp|svg|webp))/g) || [],
+			  description: description,
+			  images: findImageUrls(description),
 			  tags,
 			};
 		  });
