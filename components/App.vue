@@ -18,6 +18,16 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
 const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
 
+
+const tagsToHide = ['hidden', 'internal']; // Tags that should hide events
+
+function isDisplayingBasedOnTags(event) {
+  // Check if the event has any tag that requires it to be hidden
+  const shouldHideEvent = event.tags && event.tags.some(tag => tagsToHide.includes(tag));
+  return shouldHideEvent ? 'none' : 'auto'; // Return 'none' to hide, 'auto' to show
+}
+
+
 interface County {
   enabled: any;
   cities: any;
@@ -425,13 +435,13 @@ const transformEventSourcesResponse = (eventSources) => {
     return {
       ...eventSource,
       // Set the `display` property, since the endpoints don't add it.
-      display: isDisplayingBasedOnFilterSettings(eventSource.city),
       events: eventSource.events.map(event => {
         return {
           ...event,
           // Convert date strings to Date objects.
           start: new Date(event.start),
-          end: new Date(event.end)
+          end: new Date(event.end),
+          display: isDisplayingBasedOnTags(event)
         }
       })
     }

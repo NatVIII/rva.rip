@@ -12,4 +12,5 @@ export const badgeMap: { [key: string]: string } = {
     ':kasamacollective:': '<img src="/badges/kasamacollective.png" class="badge-shadow">',
     ':outpost:': '<img src="/badges/outpost.svg" class="badge-shadow">',
     ':psl:': '<img src="/badges/psl.svg" class="badge">',
+    ':goldlion:': '<img src="/badges/goldlion.png" class="badge-shadow">',
   };
