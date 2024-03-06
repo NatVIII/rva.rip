@@ -523,7 +523,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
     </table>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
-      <div class="desc">
+      <div class="desc" style="padding-bottom: 0;">
         <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various 
           <a href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
@@ -549,20 +549,8 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
           Once published, request inclusion of your event feed by sending your Google Calendar ID via a 
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
-        <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
-        <a href="https://github.com/natviii/rva.rip/">source code</a> |
-        <a href="/list">list of cool groups</a> |
-        <a href="/contributing">how to contribute</a>
       </div>
     </div>
-    <div>
-      <div style="background-color: #fb4934;" class="color-stripe"></div>
-      <div style="background-color: #fe8019;" class="color-stripe"></div>
-      <div style="background-color: #fabd2f;" class="color-stripe"></div>
-      <div style="background-color: #b8bb26;" class="color-stripe"></div>
-      <div style="background-color: #83a598;" class="color-stripe"></div>
-      <div style="background-color: #d3869b;" class="color-stripe"></div>
-      <div class="color-stripe"></div><div class="color-stripe"></div>
-    </div>
+    <Footer />
   </div>
 </template>

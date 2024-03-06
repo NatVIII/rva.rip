@@ -140,13 +140,5 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
                 </li>
             </ul>
     </div>
-    <div>
-        <div style="background-color: #fb4934;" class="color-stripe"></div>
-        <div style="background-color: #fe8019;" class="color-stripe"></div>
-        <div style="background-color: #fabd2f;" class="color-stripe"></div>
-        <div style="background-color: #b8bb26;" class="color-stripe"></div>
-        <div style="background-color: #83a598;" class="color-stripe"></div>
-        <div style="background-color: #d3869b;" class="color-stripe"></div>
-        <div class="color-stripe"></div><div class="color-stripe"></div>
-    </div>
+    <Footer />
 </template>
