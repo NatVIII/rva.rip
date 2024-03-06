@@ -59,7 +59,7 @@ onMounted(() => {
 <template>
     <div>
       <div class="desc" style="padding-top: 0;">
-        <button @click="toggleTheme">Toggle Theme</button> |
+        <span @click="toggleTheme" class="link-like"> {{ theme === 'dark' ? 'switch to light mode' : 'switch to dark mode' }} </span> |
         <a href="https://github.com/natviii/rva.rip/">source code</a> |
         <a href="/list">list of cool groups</a> |
         <a href="/contributing">how to contribute</a> |

@@ -511,7 +511,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <div class="blurb-text">
               A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
             </div>
-            <div style="font-size: min(1.2em); text-align: center;">
+            <div class="blurb-sub">
               Stop scrolling insta to find the move!<br>
               🇵🇸 <a href="https://decolonizepalestine.com/">Long Live Palestine</a> 🇵🇸
             </div>

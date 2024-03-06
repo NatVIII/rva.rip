@@ -21,6 +21,8 @@
 :root {
   /* linear rainbow gradient, pastel */
   /*background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));*/
+  --fc-page-bg-color: var(--colf);
+  --fc-border-color: var(--cold);
   background-color: var(--background);
   background-attachment: fixed;
   --button-box-shadow:
@@ -297,7 +299,6 @@ label {}
   font-size: min(5vw, 1.75em);
 }
 
-/* Night-time seems to be different? */
 .fc-h-event .fc-event-main {
   color: var(--colf);
 }
@@ -344,6 +345,12 @@ label {}
   color: var(--col0);
 }
 
+  .blurb-sub {
+  font-size: min(1.2em);
+  text-align: center;
+  color: var(--col0);
+  }
+
 .desc {
   /* This causes issues with fc-h-events */
   font-family: 'OpenDyslexic', serif;
@@ -353,6 +360,16 @@ label {}
 }
 .desc a:link {
    color: #4a1424; /*Richmond 233*/
+}
+
+.link-like {
+  color: #4a1424; /*Richmond 233*/
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.fc-event-title {
+  color: var(--col0);
 }
 
 .cat {
@@ -527,6 +544,11 @@ body.no-scroll {
   white-space: nowrap;
   overflow: hidden;
   max-width: 100%; /* Ensure it doesn't exceed the event harness */
+}
+
+.fc-scrollgrid-sync-inner {
+  color: var(--colf);
+  overflow: hidden;
 }
 
 .cont-good, .cont-bad{
