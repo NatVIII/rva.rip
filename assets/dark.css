@@ -7,21 +7,38 @@
 }
 
 :root {
-    --background: #050609;
-    --colf: #000;
-    --cole: #111;
-    --cold: #222;
-    --colc: #333;
-    --colb: #444;
-    --cola: #555;
-    --col9: #666;
-    --col8: #777;
-    --col7: #888;
-    --col6: #999;
-    --col5: #aaa;
-    --col4: #bbb;
-    --col3: #ccc;
-    --col2: #ddd;
-    --col1: #eee;
-    --col0: #fff;
+    --background: #faf9f6;
+    --background-alt: #ccc;
+    --background-inner: #ddd;
+    --background-today: #8fdf82;
+    --border-outer: #000;
+    --border-inner: #fff;
+    --button-hover: #64707b;
+    --button-select: #1a252f;
+    --text-normal: #000;
+    --text-faded: #aaa;
+    --text-linked: #4a1424;
+    --rip-red: #fb4934;
+    --rip-orange: #fe8019;
+    --rip-yellow: #fabd2f;
+    --rip-green: #b8bb26;
+    --rip-blue: #83a598;
+    --rip-purple: #d3869b;
+
+    --colf: red;
+    --cole: red;
+    --cold: red;
+    --colc: red;
+    --colb: red;
+    --cola: red;
+    --col9: red;
+    --col8: red;
+    --col7: red;
+    --col6: red;
+    --col5: red;
+    --col4: red;
+    --col3: red;
+    --col2: red;
+    --col1: red;
+    --col0: red;
 }

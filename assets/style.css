@@ -19,21 +19,19 @@
 
 /* Takes precedence over FullCalendar's  styling. */
 :root {
-  /* linear rainbow gradient, pastel */
-  /*background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));*/
-  --fc-page-bg-color: var(--colf);
-  --fc-border-color: var(--cold);
+  --fc-page-bg-color: var(--background);
+  --fc-border-color: var(--background-inner);
   background-color: var(--background);
   background-attachment: fixed;
   --button-box-shadow:
-    inset -1px -1px 0px 0px var(--col7),
-    inset -2px -2px 0px 0px var(--cola),
-    inset 1px 1px 0px 0px var(--cold),
-    inset 2px 2px 0px 0px var(--colf);
+    inset -1px -1px 0px 0px var(--button-hover),
+    inset -2px -2px 0px 0px var(--background-alt),
+    inset 1px 1px 0px 0px var(--background-inner),
+    inset 2px 2px 0px 0px var(--background);
   --button-hover-bezel:
-    0 0 0 1px var(--cola),
-    0 0 0 2px var(--cold),
-    0 0 0 3px var(--col0);
+    0 0 0 1px var(--background-inner),
+    0 0 0 2px var(--background-inner),
+    0 0 0 3px var(--border-outer);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -64,7 +62,7 @@ body {
 }
 
 a {
-  color: var(--col0);
+  color: var(--text-normal);
 }
 
 :focus {
@@ -83,7 +81,7 @@ a {
 
 fc-theme-standard td,
 .fc-theme-standard th {
-  border: 1px solid var(--col1);
+  border: 1px solid var(--border-outer);
 }
 
 .fc-header-toolbar {
@@ -115,25 +113,25 @@ fc-theme-standard td,
   z-index: 2;
   font-size: 12px;
   font-weight: normal;
-  border: 1px solid var(--col1);
-  background: var(--colc);
+  border: 1px solid var(--border-outer);
+  background: var(--background-alt);
   box-shadow:
-    1px 2px var(--col1),
-    inset 1px 1px 0px 0px var(--colf),
-    inset -1px -1px 0px 0px var(--col9);
+    1px 2px var(--border-outer),
+    inset 1px 1px 0px 0px var(--border-inner),
+    inset -1px -1px 0px 0px var(--button-hover);
 }
 
 /* The daily content */
 .fc-view-harness,
 .fc-popover-body {
   margin: 2px 4px 4px 4px;
-  border: 1px solid var(--col1);
-  background-color: var(--cold);
+  border: 1px solid var(--border-outer);
+  background-color: var(--background-inner);
   box-shadow:
-    -1px -1px 0px 0px var(--col9),
-    1px 1px 0px 0px var(--colf),
-    inset 1px 1px 0px 0px var(--colf),
-    inset -1px -1px 0px 0px var(--col9);
+    -1px -1px 0px 0px var(--button-hover),
+    1px 1px 0px 0px var(--border-inner),
+    inset 1px 1px 0px 0px var(--border-inner),
+    inset -1px -1px 0px 0px var(--button-hover);
 }
 
 .fc-header-toolbar,
@@ -165,90 +163,17 @@ fc-theme-standard td,
   font-size: 12px;
 }
 
-.control-box {
-  position: absolute;
-  top: 3px;
-  padding: 1px;
-  background-color: var(--col2);
-  box-shadow:
-    inset -1px -1px 0px 0px var(--colf),
-    inset 1px 1px 0px 0px var(--col8);
-}
-
-.close-box.control-box {
-  left: 4px;
-}
-
-.control-box-inner,
-.popper-box-inner input {
-  transform: scale(1.55);
-  background-image:
-    linear-gradient(to bottom right, var(--col9), var(--cola), var(--colb), var(--colc), var(--cold), var(--cole), var(--colf));
-  border: 1px solid var(--col2);
-  box-shadow:
-    inset 1px 1px 0px 0px var(--colc),
-    inset -1px -1px 0px 0px var(--col8);
-  text-indent: -99999em;
-}
-
-.popper-box-inner .county-input {
-  margin: 2px;
-  font-size: 12px;
-  height: 20px;
-  width: 20px;
-  text-align: center;
-  text-indent: -1.6px;
-  /* background-image:
-    linear-gradient(to bottom right, var(--col9), var(--cola), var(--colb), var(--colc), var(--cold), var(--cole), var(--colf)); */
-  border: 1px solid var(--col2);
-}
-
-.popper-box-inner .county-input:active {
-  height: 20px;
-  width: 20px;
-  text-align: center;
-  /* Start transition for longer press. Note: since the popper itself has a transition it is probably using that. */
-  transition: 0s;
-  background-image:
-    linear-gradient(to bottom right, #f00, #f80, #ff0, #0f0, #0ff, #00f, #80f, #f00);
-}
-.control-box-inner:active {
-  box-shadow: none;
-}
-
-.zoom-box.control-box {
-  right: 20px;
-}
-
-.zoom-box-inner {
-  height: 6px;
-  width: 7px;
-  border-bottom: 1px solid var(--col0);
-  border-right: 1px solid var(--col0);
-}
-
-.windowshade-box.control-box {
-  right: 4px;
-}
-
-.windowshade-box-inner {
-  margin-top: 3px;
-  height: 3px;
-  border-top: 1px solid var(--col0);
-  border-bottom: 1px solid var(--col0);
-}
-
 .fc .fc-button-primary,
 .fc .fc-button-primary:not(:disabled),
 .popper-box-inner button {
-  color: var(--col0);
+  color: var(--border-outer);
   font-family: 'ChicagoFLF';
   font-size: min(3.5vw, 1.2em);
-  background-color: var(--cole);
+  background-color: var(--background-inner);
   display: inline-block;
   margin-bottom: 0px;
   border-radius: 3px;
-  border: 1px solid var(--col0);
+  border: 1px solid var(--border-outer);
   box-shadow: var(--button-box-shadow);
 }
 
@@ -260,13 +185,8 @@ fc-theme-standard td,
 
 label {}
 .fc-button-active {
-  color: var(--colf);
   box-shadow:
-    var(--button-hover-bezel),
-    inset -1px -1px 0px 0px var(--col8),
-    inset -2px -2px 0px 0px var(--col7),
-    inset 1px 1px 0px 0px var(--col4),
-    inset 2px 2px 0px 0px var(--col5);
+    var(--button-hover-bezel);
 }
 
 /* Hide only visually, but have it available for screenreaders & for SEO purposes. See h5bp.com/v */
@@ -292,15 +212,11 @@ label {}
 }
 
 .fc-daygrid-day {
-  --fc-border-color: var(--col0);
+  --fc-border-color: var(--border-outer);
 }
 
 .fc .fc-toolbar-title {
   font-size: min(5vw, 1.75em);
-}
-
-.fc-h-event .fc-event-main {
-  color: var(--colf);
 }
 
 /* Allow multi-day events to overflow to other days */
@@ -315,26 +231,20 @@ label {}
     repeating-linear-gradient(45deg,
       transparent,
       transparent 10px,
-      var(--cole) 10px,
-      var(--cole) 20px),
+      var(--background-inner) 10px,
+      var(--background-inner) 20px),
     linear-gradient(to bottom,
-    var(--colf),
-    var(--colf));
+    var(--background),
+    var(--background));
 }
 
 .blurb-image {
-    color: var(--col0);
+    color: var(--text-normal);
       text-decoration: none !important;
     font-size: min(5vw, 3em);
     font-family: sans-serif;
     letter-spacing: 0.15rem;
     text-transform: lowercase;
-    color: rgb(91, 206, 250);
-    text-shadow: 0 min(0.25vw, 3.5px) rgb(91, 206, 250),
-        0 min(0.5vw, 7px) rgb(245,169,184),
-        0 min(0.75vw, 10.5px) var(--colf)FFF,
-        0 min(1vw, 14px) rgb(245,169,184),
-        0 min(1.25vw, 17.5px) rgb(91, 206, 250);
   }
   
   .blurb-text {
@@ -342,13 +252,13 @@ label {}
   font-size: min(4vw, 2em);
   text-align: center;
   padding: min(1vw, 1.75em);
-  color: var(--col0);
+  color: var(--text-normal);
 }
 
   .blurb-sub {
   font-size: min(1.2em);
   text-align: center;
-  color: var(--col0);
+  color: var(--text-normal);
   }
 
 .desc {
@@ -356,20 +266,20 @@ label {}
   font-family: 'OpenDyslexic', serif;
   padding: 18px;
   font-size: min(1em);
-  color: var(--col0);
+  color: var(--text-normal);
 }
 .desc a:link {
-   color: #4a1424; /*Richmond 233*/
+   color: var(--text-linked); /*Richmond 233*/
 }
 
 .link-like {
-  color: #4a1424; /*Richmond 233*/
+  color: var(--text-linked); /*Richmond 233*/
   text-decoration: underline;
   cursor: pointer;
 }
 
 .fc-event-title {
-  color: var(--col0);
+  color: var(--text-normal);
 }
 
 .cat {
@@ -447,10 +357,10 @@ body.no-scroll {
 .popper-box-inner .bottom button:active {
   transition: 0s 1s;
   background-image:
-    linear-gradient(to bottom right, #E40303, #FF8C00, #FFED00, #008026, #24408E, #732982);
+    linear-gradient(to bottom right, var(--rip-red), var(--rip-orange), var(--rip-yellow), var(--rip-green), var(--rip-blue), var(--rip-purple));
 }
 .fc-list-day-cushion .fc-cell-shaded {
-  --fc-neutral-bg-color: blue;
+  --fc-neutral-bg-color: var(--rip-blue);
 }
 
 :root .fc .fc-daygrid-day-number {
@@ -458,13 +368,13 @@ body.no-scroll {
 }
 
 .event-details {
-  color:var(--col2);
+  color: var(--text-normal);
   font-family:ChicagoFLF,Times New Roman,Georgia,serif;
   font-size:14px;
 }
 
 .event-headers {
-  color:var(--col0);
+  color:var(--text-normal);
   font-size:16px
 }
 
@@ -486,7 +396,7 @@ body.no-scroll {
   width:100%;
   object-fit: cover;
   border-radius: 2%;
-  border: 2px solid var(--col2);
+  border: 2px solid var(--button-hover);
   margin: auto; /* Ensure the image is aligned at center */
 }
 
@@ -535,7 +445,7 @@ body.no-scroll {
 }
 
 .badge-shadow {
-  filter: drop-shadow(0px 0px 0.05em var(--col0));
+  filter: drop-shadow(0px 0px 0.05em var(--border-outer));
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */
@@ -547,7 +457,7 @@ body.no-scroll {
 }
 
 .fc-scrollgrid-sync-inner {
-  color: var(--colf);
+  color: var(--background);
   overflow: hidden;
 }
 
@@ -555,19 +465,19 @@ body.no-scroll {
   white-space: nowrap;
   vertical-align: middle;
   font-size: 30px; 
-  color: #b8bb26;
+  color: var(--rip-green);
   padding: 0;
   filter: hue-rotate(30deg);
   text-shadow: 
-  -1px -1px 0 var(--col0),  
-   1px -1px 0 var(--col0),
-  -1px  1px 0 var(--col0),
-   1px  1px 0 var(--col0), /* Simulates a 1px black outline */
-  2px 2px 4px var(--col7); /* Adds a grey shadow */
+  -1px -1px 0 var(--border-outer),  
+   1px -1px 0 var(--border-outer),
+  -1px  1px 0 var(--border-outer),
+   1px  1px 0 var(--border-outer), /* Simulates a 1px black outline */
+  2px 2px 4px var(--button-hover); /* Adds a grey shadow */
   /*filter: drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px 1px 0 black) drop-shadow(1px 1px 0 black) drop-shadow(2px 2px 4px black);*/
 }
 
 .cont-bad{
-  color: #fb4934; 
+  color: var(--rip-red); 
   filter: hue-rotate(300deg);
 }

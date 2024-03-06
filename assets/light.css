@@ -8,6 +8,24 @@
 
 :root {
     --background: #faf9f6;
+    --background-alt: #ccc;
+    --background-inner: #ddd;
+    --background-today: #8fdf82;
+    --border-outer: #000;
+    --border-inner: #fff;
+    --button-hover: #64707b;
+    --button-select: #1a252f;
+    --text-normal: #000;
+    --text-faded: #aaa;
+    --text-linked: #4a1424;
+    --rip-red: #fb4934;
+    --rip-orange: #fe8019;
+    --rip-yellow: #fabd2f;
+    --rip-green: #b8bb26;
+    --rip-blue: #83a598;
+    --rip-purple: #d3869b;
+
+
     --col0: #000;
     --col1: #111;
     --col2: #222;

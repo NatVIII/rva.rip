@@ -65,12 +65,12 @@ onMounted(() => {
         <a href="/contributing">how to contribute</a> |
         <a href="/">home</a>
       </div>
-      <div style="background-color: #fb4934;" class="color-stripe"></div>
-      <div style="background-color: #fe8019;" class="color-stripe"></div>
-      <div style="background-color: #fabd2f;" class="color-stripe"></div>
-      <div style="background-color: #b8bb26;" class="color-stripe"></div>
-      <div style="background-color: #83a598;" class="color-stripe"></div>
-      <div style="background-color: #d3869b;" class="color-stripe"></div>
+      <div style="background-color: var(--rip-red);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-orange);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-yellow);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-green);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-blue);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-purple);" class="color-stripe"></div>
       <div class="color-stripe"></div><div class="color-stripe"></div>
     </div>
 </template>
