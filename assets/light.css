@@ -1,0 +1,27 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+    --background: #faf9f6;
+    --col0: #000;
+    --col1: #111;
+    --col2: #222;
+    --col3: #333;
+    --col4: #444;
+    --col5: #555;
+    --col6: #666;
+    --col7: #777;
+    --col8: #888;
+    --col9: #999;
+    --cola: #aaa;
+    --colb: #bbb;
+    --colc: #ccc;
+    --cold: #ddd;
+    --cole: #eee;
+    --colf: #fff;
+}

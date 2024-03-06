@@ -21,17 +21,17 @@
 :root {
   /* linear rainbow gradient, pastel */
   /*background: linear-gradient(rgb(245, 169, 184), rgb(255, 255, 255), rgb(91, 206, 250));*/
-  background-color: rgb(250, 249, 246);
+  background-color: var(--background);
   background-attachment: fixed;
   --button-box-shadow:
-    inset -1px -1px 0px 0px #777,
-    inset -2px -2px 0px 0px #aaa,
-    inset 1px 1px 0px 0px #ddd,
-    inset 2px 2px 0px 0px #fff;
+    inset -1px -1px 0px 0px var(--col7),
+    inset -2px -2px 0px 0px var(--cola),
+    inset 1px 1px 0px 0px var(--cold),
+    inset 2px 2px 0px 0px var(--colf);
   --button-hover-bezel:
-    0 0 0 1px #aaa,
-    0 0 0 2px #ddd,
-    0 0 0 3px #000;
+    0 0 0 1px var(--cola),
+    0 0 0 2px var(--cold),
+    0 0 0 3px var(--col0);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -62,7 +62,7 @@ body {
 }
 
 a {
-  color: #000;
+  color: var(--col0);
 }
 
 :focus {
@@ -81,7 +81,7 @@ a {
 
 fc-theme-standard td,
 .fc-theme-standard th {
-  border: 1px solid #111;
+  border: 1px solid var(--col1);
 }
 
 .fc-header-toolbar {
@@ -113,25 +113,25 @@ fc-theme-standard td,
   z-index: 2;
   font-size: 12px;
   font-weight: normal;
-  border: 1px solid #111;
-  background: #ccc;
+  border: 1px solid var(--col1);
+  background: var(--colc);
   box-shadow:
-    1px 2px #111,
-    inset 1px 1px 0px 0px #fff,
-    inset -1px -1px 0px 0px #999;
+    1px 2px var(--col1),
+    inset 1px 1px 0px 0px var(--colf),
+    inset -1px -1px 0px 0px var(--col9);
 }
 
 /* The daily content */
 .fc-view-harness,
 .fc-popover-body {
   margin: 2px 4px 4px 4px;
-  border: 1px solid #111;
-  background-color: #ddd;
+  border: 1px solid var(--col1);
+  background-color: var(--cold);
   box-shadow:
-    -1px -1px 0px 0px #999,
-    1px 1px 0px 0px #fff,
-    inset 1px 1px 0px 0px #fff,
-    inset -1px -1px 0px 0px #999;
+    -1px -1px 0px 0px var(--col9),
+    1px 1px 0px 0px var(--colf),
+    inset 1px 1px 0px 0px var(--colf),
+    inset -1px -1px 0px 0px var(--col9);
 }
 
 .fc-header-toolbar,
@@ -167,10 +167,10 @@ fc-theme-standard td,
   position: absolute;
   top: 3px;
   padding: 1px;
-  background-color: #222;
+  background-color: var(--col2);
   box-shadow:
-    inset -1px -1px 0px 0px #fff,
-    inset 1px 1px 0px 0px #888;
+    inset -1px -1px 0px 0px var(--colf),
+    inset 1px 1px 0px 0px var(--col8);
 }
 
 .close-box.control-box {
@@ -181,11 +181,11 @@ fc-theme-standard td,
 .popper-box-inner input {
   transform: scale(1.55);
   background-image:
-    linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff);
-  border: 1px solid #222;
+    linear-gradient(to bottom right, var(--col9), var(--cola), var(--colb), var(--colc), var(--cold), var(--cole), var(--colf));
+  border: 1px solid var(--col2);
   box-shadow:
-    inset 1px 1px 0px 0px #ccc,
-    inset -1px -1px 0px 0px #888;
+    inset 1px 1px 0px 0px var(--colc),
+    inset -1px -1px 0px 0px var(--col8);
   text-indent: -99999em;
 }
 
@@ -197,8 +197,8 @@ fc-theme-standard td,
   text-align: center;
   text-indent: -1.6px;
   /* background-image:
-    linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff); */
-  border: 1px solid #222;
+    linear-gradient(to bottom right, var(--col9), var(--cola), var(--colb), var(--colc), var(--cold), var(--cole), var(--colf)); */
+  border: 1px solid var(--col2);
 }
 
 .popper-box-inner .county-input:active {
@@ -221,8 +221,8 @@ fc-theme-standard td,
 .zoom-box-inner {
   height: 6px;
   width: 7px;
-  border-bottom: 1px solid #000;
-  border-right: 1px solid #000;
+  border-bottom: 1px solid var(--col0);
+  border-right: 1px solid var(--col0);
 }
 
 .windowshade-box.control-box {
@@ -232,21 +232,21 @@ fc-theme-standard td,
 .windowshade-box-inner {
   margin-top: 3px;
   height: 3px;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid var(--col0);
+  border-bottom: 1px solid var(--col0);
 }
 
 .fc .fc-button-primary,
 .fc .fc-button-primary:not(:disabled),
 .popper-box-inner button {
-  color: black;
+  color: var(--col0);
   font-family: 'ChicagoFLF';
   font-size: min(3.5vw, 1.2em);
-  background-color: #dedede;
+  background-color: var(--cole);
   display: inline-block;
   margin-bottom: 0px;
   border-radius: 3px;
-  border: 1px solid #000;
+  border: 1px solid var(--col0);
   box-shadow: var(--button-box-shadow);
 }
 
@@ -258,13 +258,13 @@ fc-theme-standard td,
 
 label {}
 .fc-button-active {
-  color: #fff;
+  color: var(--colf);
   box-shadow:
     var(--button-hover-bezel),
-    inset -1px -1px 0px 0px #888,
-    inset -2px -2px 0px 0px #777,
-    inset 1px 1px 0px 0px #444,
-    inset 2px 2px 0px 0px #555;
+    inset -1px -1px 0px 0px var(--col8),
+    inset -2px -2px 0px 0px var(--col7),
+    inset 1px 1px 0px 0px var(--col4),
+    inset 2px 2px 0px 0px var(--col5);
 }
 
 /* Hide only visually, but have it available for screenreaders & for SEO purposes. See h5bp.com/v */
@@ -290,7 +290,7 @@ label {}
 }
 
 .fc-daygrid-day {
-  --fc-border-color: black;
+  --fc-border-color: var(--col0);
 }
 
 .fc .fc-toolbar-title {
@@ -299,7 +299,7 @@ label {}
 
 /* Night-time seems to be different? */
 .fc-h-event .fc-event-main {
-  color: white;
+  color: var(--colf);
 }
 
 /* Allow multi-day events to overflow to other days */
@@ -314,15 +314,15 @@ label {}
     repeating-linear-gradient(45deg,
       transparent,
       transparent 10px,
-      #eee 10px,
-      #eee 20px),
+      var(--cole) 10px,
+      var(--cole) 20px),
     linear-gradient(to bottom,
-      white,
-      white);
+    var(--colf),
+    var(--colf));
 }
 
 .blurb-image {
-    color: white;
+    color: var(--col0);
       text-decoration: none !important;
     font-size: min(5vw, 3em);
     font-family: sans-serif;
@@ -331,7 +331,7 @@ label {}
     color: rgb(91, 206, 250);
     text-shadow: 0 min(0.25vw, 3.5px) rgb(91, 206, 250),
         0 min(0.5vw, 7px) rgb(245,169,184),
-        0 min(0.75vw, 10.5px) #FFFFFF,
+        0 min(0.75vw, 10.5px) var(--colf)FFF,
         0 min(1vw, 14px) rgb(245,169,184),
         0 min(1.25vw, 17.5px) rgb(91, 206, 250);
   }
@@ -341,6 +341,7 @@ label {}
   font-size: min(4vw, 2em);
   text-align: center;
   padding: min(1vw, 1.75em);
+  color: var(--col0);
 }
 
 .desc {
@@ -348,6 +349,7 @@ label {}
   font-family: 'OpenDyslexic', serif;
   padding: 18px;
   font-size: min(1em);
+  color: var(--col0);
 }
 .desc a:link {
    color: #4a1424; /*Richmond 233*/
@@ -439,13 +441,13 @@ body.no-scroll {
 }
 
 .event-details {
-  color:#222;
+  color:var(--col2);
   font-family:ChicagoFLF,Times New Roman,Georgia,serif;
   font-size:14px;
 }
 
 .event-headers {
-  color:#000;
+  color:var(--col0);
   font-size:16px
 }
 
@@ -467,7 +469,7 @@ body.no-scroll {
   width:100%;
   object-fit: cover;
   border-radius: 2%;
-  border: 2px solid #222222;
+  border: 2px solid var(--col2);
   margin: auto; /* Ensure the image is aligned at center */
 }
 
@@ -516,7 +518,7 @@ body.no-scroll {
 }
 
 .badge-shadow {
-  filter: drop-shadow(0px 0px 0.05em black);
+  filter: drop-shadow(0px 0px 0.05em var(--col0));
 }
 
 /* Adjusting the CSS to target the anchor tags within event harnesses */
@@ -535,11 +537,11 @@ body.no-scroll {
   padding: 0;
   filter: hue-rotate(30deg);
   text-shadow: 
-  -1px -1px 0 black,  
-   1px -1px 0 black,
-  -1px  1px 0 black,
-   1px  1px 0 black, /* Simulates a 1px black outline */
-  2px 2px 4px grey; /* Adds a grey shadow */
+  -1px -1px 0 var(--col0),  
+   1px -1px 0 var(--col0),
+  -1px  1px 0 var(--col0),
+   1px  1px 0 var(--col0), /* Simulates a 1px black outline */
+  2px 2px 4px var(--col7); /* Adds a grey shadow */
   /*filter: drop-shadow(-1px -1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px 1px 0 black) drop-shadow(1px 1px 0 black) drop-shadow(2px 2px 4px black);*/
 }
 

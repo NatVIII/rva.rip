@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import 'assets/style.css';
 import { replaceBadgePlaceholders } from '~~/utils/util';
 </script>
 
