@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -7,7 +7,6 @@ import json from '@/assets/event_sources.json';
 import $ from 'jquery';
 import { DateTime } from 'luxon';
 
-import 'assets/style.css';
 import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
@@ -26,7 +25,6 @@ function isDisplayingBasedOnTags(event) {
   const shouldHideEvent = event.tags && event.tags.some(tag => tagsToHide.includes(tag));
   return shouldHideEvent ? 'none' : 'auto'; // Return 'none' to hide, 'auto' to show
 }
-
 
 interface County {
   enabled: any;
