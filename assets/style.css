@@ -348,7 +348,6 @@ label {}
   font-family: 'OpenDyslexic', serif;
   padding: 18px;
   font-size: min(1em);
-  opacity: 5;
 }
 .desc a:link {
    color: #4a1424; /*Richmond 233*/

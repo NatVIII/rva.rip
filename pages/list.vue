@@ -43,8 +43,9 @@ import 'assets/style.css';
         <h2>Anti-War</h2>
         <ul>
             <li><a href="https://linktr.ee/amp_rva" target="_blank">American Muslims for Palestine RVA</a></li>
-            <li><a href="https://www.instagram.com/sjprva" target="_blank">Students for Justice in Palestine in RVA</a></li>
+            <li><a href="https://www.instagram.com/sjpvcu" target="_blank">Students for Justice in Palestine @ VCU</a></li>
             <li><a href="https://linktr.ee/richmondFNB" target="_blank">Richmond Food Not Bombs</a></li>
+            <li><a href="https://www.instagram.com/pslvirginia" target="_blank">Party for Socialism and Liberation in Virginia</a></li>
         </ul>
         <h2>Anti-Oppression</h2>
         <ul>
@@ -60,13 +61,5 @@ import 'assets/style.css';
             <li>Glover Park pickup soccer (One report of unsafe conditions for trans people)</li>
         </ul>
     </div>
-    <div>
-        <div style="background-color: #fb4934;" class="color-stripe"></div>
-        <div style="background-color: #fe8019;" class="color-stripe"></div>
-        <div style="background-color: #fabd2f;" class="color-stripe"></div>
-        <div style="background-color: #b8bb26;" class="color-stripe"></div>
-        <div style="background-color: #83a598;" class="color-stripe"></div>
-        <div style="background-color: #d3869b;" class="color-stripe"></div>
-        <div class="color-stripe"></div><div class="color-stripe"></div>
-    </div>
+    <Footer />
 </template>
