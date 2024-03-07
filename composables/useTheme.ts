@@ -12,8 +12,8 @@ function toggleTheme() {
 function loadThemeStyles() {
     if (typeof window === 'undefined') return;
     
-    const themeStyleUrl = theme.value === 'light' ? '/_nuxt/assets/light.css' : '/_nuxt/assets/dark.css';
-    const generalStyleUrl = '/_nuxt/assets/style.css';
+    const themeStyleUrl = theme.value === 'light' ? '/css/light.css' : '/css/dark.css';
+    const generalStyleUrl = '/css/style.css';
 
     // Remove the existing theme-specific stylesheet if it exists
     const existingThemeLinkElement = document.head.querySelector('link[data-theme-style]');

@@ -366,7 +366,7 @@ onMounted(() => {
   if (calendarRef.value) window.myCalendar = calendarRef.value.getApi(); 
   //For the svgGrave rendering
   async function fetchGrave() {
-    const svgResponse = await fetch('/_nuxt/assets/gravestone.svg');
+    const svgResponse = await fetch('/css/gravestone.svg');
     svgGrave.value = await svgResponse.text();
   }
   fetchGrave();
