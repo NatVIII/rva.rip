@@ -21,6 +21,25 @@
 :root {
   --fc-page-bg-color: var(--background);
   --fc-border-color: var(--background-inner);
+  --fc-neutral-text-color: var(--text-faded);
+  --fc-neutral-bg-color: var(--background);
+  --fc-button-bg-color: var(--button-hover);
+  --fc-button-text-color: var(--text-opp);
+  --fc-button-border-color: var(--button-hover);
+  --fc-button-hover-bg-color: var(--button-select);
+  --fc-button-hover-border-color: var(--button-select);
+  --fc-button-active-bg-color: var(--button-select);
+  --fc-button-active-border-color: var(--border-outer);
+  --fc-event-bg-color: var(--rip-blue);
+  --fc-event-border-color: var(--rip-blue);
+  --fc-event-text-color: var(--text-normal);
+  --fc-event-selected-overlay-color: rgba(var(--border-outer), 0.25);
+  --fc-more-link-bg-color: var(--background-inner);
+  --fc-non-business-color: rgba(var(--border-outer), 0.3);
+  --fc-bg-event-color: var(--background-today);
+  --fc-list-event-hover-bg-color: var(--background);
+  --grave-bg: var(--background);
+  --grave-fg: var(--border-outer);
   background-color: var(--background);
   background-attachment: fixed;
   --button-box-shadow:
@@ -133,7 +152,9 @@ fc-theme-standard td,
     inset 1px 1px 0px 0px var(--border-inner),
     inset -1px -1px 0px 0px var(--button-hover);
 }
-
+div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
+  background-color: var(--background);
+}
 .fc-header-toolbar,
 .fc-popover-header {
   width: 100%;
@@ -177,10 +198,15 @@ fc-theme-standard td,
   box-shadow: var(--button-box-shadow);
 }
 
-.fc-button:hover {
-  /* box-shadow:
-    var(--button-box-shadow),
-    var(--button-hover-bezel); */
+.fc-daygrid-week-number::before {
+  content: ''; /* Required for the pseudo-element to be generated */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background-inner); /* Your desired background color */
+  z-index: -1; /* Position it under the text content */
 }
 
 label {}
@@ -217,6 +243,7 @@ label {}
 
 .fc .fc-toolbar-title {
   font-size: min(5vw, 1.75em);
+  color: var(--text-normal);
 }
 
 /* Allow multi-day events to overflow to other days */
@@ -359,12 +386,10 @@ body.no-scroll {
   background-image:
     linear-gradient(to bottom right, var(--rip-red), var(--rip-orange), var(--rip-yellow), var(--rip-green), var(--rip-blue), var(--rip-purple));
 }
-.fc-list-day-cushion .fc-cell-shaded {
-  --fc-neutral-bg-color: var(--rip-blue);
-}
 
 :root .fc .fc-daygrid-day-number {
   text-decoration: dashed underline;
+  color: var(--text-faded);
 }
 
 .event-details {
@@ -444,10 +469,6 @@ body.no-scroll {
   width: auto;
 }
 
-.badge-shadow {
-  filter: drop-shadow(0px 0px 0.05em var(--border-outer));
-}
-
 /* Adjusting the CSS to target the anchor tags within event harnesses */
 .fc-daygrid-event-harness a {
   display: block; /* Make sure the anchor tag fills the harness */
@@ -459,6 +480,10 @@ body.no-scroll {
 .fc-scrollgrid-sync-inner {
   color: var(--background);
   overflow: hidden;
+}
+
+.fc-list-event-time {
+  color: var(--text-normal);
 }
 
 .cont-good, .cont-bad{

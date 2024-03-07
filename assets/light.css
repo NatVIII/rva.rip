@@ -16,6 +16,7 @@
     --button-hover: #64707b;
     --button-select: #1a252f;
     --text-normal: #000;
+    --text-opp: #fff;
     --text-faded: #aaa;
     --text-linked: #4a1424;
     --rip-red: #fb4934;
@@ -24,22 +25,8 @@
     --rip-green: #b8bb26;
     --rip-blue: #83a598;
     --rip-purple: #d3869b;
+}
 
-
-    --col0: #000;
-    --col1: #111;
-    --col2: #222;
-    --col3: #333;
-    --col4: #444;
-    --col5: #555;
-    --col6: #666;
-    --col7: #777;
-    --col8: #888;
-    --col9: #999;
-    --cola: #aaa;
-    --colb: #bbb;
-    --colc: #ccc;
-    --cold: #ddd;
-    --cole: #eee;
-    --colf: #fff;
+.badge-shadow {
+  filter: drop-shadow(0px 0px 0.05em var(--border-outer));
 }

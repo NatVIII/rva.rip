@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watchEffect } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import json from '@/assets/event_sources.json';
 import $ from 'jquery';
 import { DateTime } from 'luxon';
-
+import { useTheme } from '@/composables/useTheme';
 import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
@@ -25,6 +25,18 @@ function isDisplayingBasedOnTags(event) {
   const shouldHideEvent = event.tags && event.tags.some(tag => tagsToHide.includes(tag));
   return shouldHideEvent ? 'none' : 'auto'; // Return 'none' to hide, 'auto' to show
 }
+
+const { theme } = useTheme();
+watch(theme, () => {
+    nextTick(() => {
+        window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => {
+                moveListViewScrollbarToTodayAndColor();
+            });
+        });
+    });
+});
+const svgGrave = ref('');
 
 interface County {
   enabled: any;
@@ -227,7 +239,7 @@ const calendarOptions = ref({
   },
 
   progressiveEventRendering: true, // More re-renders; not batched. Needs further testing.
-  stickyHeaderDates: true,
+  stickyHeaderDates: false,
   // Event handlers.
   // Move the scrollbar to today when the switching from other views.
   viewDidMount: moveListViewScrollbarToTodayAndColor,
@@ -290,9 +302,23 @@ function moveListViewScrollbarToTodayAndColor() {
     // const today = '.fc-list-day.fc-day.fc-day-today';
     // const scrollLength = $('.fc-scroller.fc-scroller-liquid').prop("scrollHeight");
     // $('.fc-scroller.fc-scroller-liquid').scrollTop(Math.min($(today).position().top, scrollLength));
+    nextTick(() => {
+        // Fetch the value of --background-today from CSS
+        const backgroundToday = getComputedStyle(document.documentElement).getPropertyValue('--background-today').trim();
+        // Verify that backgroundToday is not the default or previous value
+        if (backgroundToday && backgroundToday !== "#defaultOldValue") {
+            // Code to apply the backgroundToday color
+            const today = document.querySelector('.fc-day.fc-day-today');
+            // Change today element's --fc-neutral-bg-color to backgroundToday.
+            today?.style.setProperty('--fc-neutral-bg-color', backgroundToday);
+        } else {
+            // If the color hasn't updated, try again after another frame
+            window.requestAnimationFrame(() => {
+                moveListViewScrollbarToTodayAndColor();
+            });
+        }
+    });
 
-    // Change today element's --fc-neutral-bg-color to lightgreen.
-    today!.style.setProperty('--fc-neutral-bg-color', 'lightgreen');
   }
   else if (isInDayGridMonthView) {
     const today = $('.fc-day.fc-day-today.fc-daygrid-day');
@@ -338,6 +364,12 @@ onMounted(() => {
   moveListViewScrollbarToTodayAndColor();
   // Expose the calendar instance to the window object for debugging
   if (calendarRef.value) window.myCalendar = calendarRef.value.getApi(); 
+  //For the svgGrave rendering
+  async function fetchGrave() {
+    const svgResponse = await fetch('/_nuxt/assets/gravestone.svg');
+    svgGrave.value = await svgResponse.text();
+  }
+  fetchGrave();
 });
 onUpdated(() => {
 });
@@ -506,7 +538,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
     <table style="width:100%;">
       <tbody>
         <tr>
-          <td class="blurb-image"> <img src="../assets/gravestone.svg" alt="rva.rip"> </td>
+          <td class="blurb-image"> <div v-html="svgGrave"></div> </td>
           <td>
             <div class="blurb-text">
               A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
