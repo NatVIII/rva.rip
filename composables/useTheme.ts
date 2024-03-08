@@ -1,7 +1,19 @@
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
-// Initialize the theme based on user preference or default to 'default'
-const theme = ref<'light' | 'dark' | 'default'>('default');
+// Helper function to safely use localStorage
+function useLocalStorage(key, defaultValue) {
+  // Check if window is defined
+  if (typeof window !== 'undefined') {
+    // Retrieve stored value if it exists, otherwise use default value
+    const storedValue = window.localStorage.getItem(key);
+    return storedValue !== null ? storedValue : defaultValue;
+  }
+  return defaultValue;
+}
+
+// Initialize the theme with localStorage value or default
+const initialTheme = useLocalStorage('theme', 'default');
+const theme = ref<'light' | 'dark' | 'default'>(initialTheme);
 
 // Determine the system preference
 const systemPreference = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -9,15 +21,20 @@ const systemPreference = () => window.matchMedia('(prefers-color-scheme: dark)')
 // Function to set the theme directly
 function setTheme(newTheme: 'light' | 'dark' | 'default') {
     theme.value = newTheme;
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('theme', newTheme);
+    }
 }
 
 // Function to toggle the theme
-// Adapt toggleTheme for three states
 function toggleTheme() {
     if (theme.value === 'default') {
         theme.value = systemPreference() === 'light' ? 'dark' : 'light';
     } else {
         theme.value = theme.value === 'light' ? 'dark' : 'default'; // toggles through dark -> default -> light
+    }
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('theme', theme.value);
     }
 }
 
