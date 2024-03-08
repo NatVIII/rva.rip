@@ -9,7 +9,7 @@
 
 This project's purpose is to assist in building a better and more vibrant community with the people of Richmond; with the hope that one day it can help build to greater change :)
 
-![a sticker for rva.rip. It's text is as follows: Richmond's Queer Events Calendar; https://rva.rip; free food, punks, biking, sapphics and gays, LAN parties, palestine protests, soccer games, parties, more!!!!!; with a drawing of the mascot Ripple set to the left staring at the text with a look of paranoia](./assets/sticker.png)
+![a sticker for rva.rip. It's text is as follows: Richmond's Queer Events Calendar; https://rva.rip; free food, punks, biking, sapphics and gays, LAN parties, palestine protests, soccer games, parties, more!!!!!; with a drawing of the mascot Ripple set to the left staring at the text with a look of paranoia](./doc/sticker.png)
 
 ## How do I add my events to this website?
 

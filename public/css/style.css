@@ -59,11 +59,6 @@
 }
 
 /* Highest precedence */
-:root .fc .fc-h-event {
-  /* Set .fc .fc-daygrid-event to margin-top 0 */
-  /* background: red; */
-  /* margin-top: 5px; */
-}
 :root .fc .fc-list-table td {
   padding: 6px 14px;
 }
@@ -209,7 +204,6 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
   z-index: -1; /* Position it under the text content */
 }
 
-label {}
 .fc-button-active {
   box-shadow:
     var(--button-hover-bezel);
@@ -314,9 +308,6 @@ label {}
   overflow: hidden;
 }
 
-.gifs {
-  /* padding-top: 2vh; */
-}
 body.no-scroll {
   overflow: hidden;
 }
