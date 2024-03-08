@@ -279,7 +279,7 @@ const updateCalendarHeight = () => {
   };
 };
 
-function moveListViewScrollbarToTodayAndColor() {
+function moveListViewScrollbarToTodayAndColor(retryCount = 5) {//Default retry count set to 5
   const listMonthViewScrollerClass = '.fc-scroller.fc-scroller-liquid';
   const dayGridMonthViewScrollerClass = '.fc-scroller.fc-scroller-liquid-absolute';
 
@@ -311,10 +311,10 @@ function moveListViewScrollbarToTodayAndColor() {
             const today = document.querySelector('.fc-day.fc-day-today');
             // Change today element's --fc-neutral-bg-color to backgroundToday.
             today?.style.setProperty('--fc-neutral-bg-color', backgroundToday);
-        } else {
+        } else if (retryCount > 0) {
             // If the color hasn't updated, try again after another frame
             window.requestAnimationFrame(() => {
-                moveListViewScrollbarToTodayAndColor();
+                moveListViewScrollbarToTodayAndColor(retryCount - 1);// Calls the function again until retrycount is 0 (which will then skip this portion)
             });
         }
     });

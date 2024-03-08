@@ -106,6 +106,10 @@ fc-theme-standard td,
   margin-bottom: min(0.75vh, 4px) !important;
 }
 
+.text-faded {
+  color: var(--text-faded);
+}
+
 .fc-toolbar-chunk {
   padding-top: 4px;
   padding-left: 4px;
@@ -295,7 +299,6 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
 
 .link-like {
   color: var(--text-linked); /*Richmond 233*/
-  text-decoration: underline;
   cursor: pointer;
 }
 

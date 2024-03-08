@@ -1,18 +1,32 @@
 import { ref, watch } from 'vue';
 
-// Initialize the theme based on user preference or default to 'light'
-const theme = ref<'light' | 'dark'>(typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+// Initialize the theme based on user preference or default to 'default'
+const theme = ref<'light' | 'dark' | 'default'>('default');
+
+// Determine the system preference
+const systemPreference = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+// Function to set the theme directly
+function setTheme(newTheme: 'light' | 'dark' | 'default') {
+    theme.value = newTheme;
+}
 
 // Function to toggle the theme
+// Adapt toggleTheme for three states
 function toggleTheme() {
-    theme.value = theme.value === 'light' ? 'dark' : 'light';
+    if (theme.value === 'default') {
+        theme.value = systemPreference() === 'light' ? 'dark' : 'light';
+    } else {
+        theme.value = theme.value === 'light' ? 'dark' : 'default'; // toggles through dark -> default -> light
+    }
 }
 
 // Function to dynamically load the theme stylesheet
 function loadThemeStyles() {
     if (typeof window === 'undefined') return;
     
-    const themeStyleUrl = theme.value === 'light' ? '/css/light.css' : '/css/dark.css';
+    let finalTheme = theme.value === 'default' ? systemPreference() : theme.value;
+    const themeStyleUrl = finalTheme === 'light' ? '/css/light.css' : '/css/dark.css';
     const generalStyleUrl = '/css/style.css';
 
     // Remove the existing theme-specific stylesheet if it exists
@@ -40,8 +54,8 @@ function loadThemeStyles() {
 }
 
 // Watch for changes in the theme and apply the corresponding stylesheet
-watch(theme, loadThemeStyles, { immediate: true });
+watch(theme, () => {loadThemeStyles();}, { immediate: true });
 
 export function useTheme() {
-    return { theme, toggleTheme };
+    return { theme, setTheme, toggleTheme };
 }
