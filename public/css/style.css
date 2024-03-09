@@ -146,7 +146,7 @@ fc-theme-standard td,
   padding: 0px 0.3em;
   display:inline-block;
   align-items: center;
-  padding: 0.2em;
+  padding: 0.25em;
 }
 
 .window-box-inner {
@@ -154,7 +154,11 @@ fc-theme-standard td,
   margin: 2px 4px 4px 4px;
   border: 1px solid var(--border-outer);
   background-color: var(--background-inner);
-  box-shadow: -1px -1px 0px 0px var(--button-hover), 1px 1px 0px 0px var(--border-inner), inset 1px 1px 0px 0px var(--border-inner), inset -1px -1px 0px 0px var(--button-hover);
+  box-shadow:
+    -1px -1px 0px 0px var(--button-hover),
+    1px 1px 0px 0px var(--border-inner),
+    inset 1px 1px 0px 0px var(--border-inner),
+    inset -1px -1px 0px 0px var(--button-hover);
 }
 
 /* The daily content */
