@@ -112,6 +112,12 @@
 				["hidden", "undefined", "title"],
 				["hidden", "Concert", "title"]
 			]
+		},
+		{
+			"name": "@rvaqueerbookclub",
+			"googleCalendarId": "63b6eb40d80e3feaec30d2d5bfcf3450aeb45bae641366a91c37bbc422be3bb1@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "🌈📚 "
 		}
 	]
 }
