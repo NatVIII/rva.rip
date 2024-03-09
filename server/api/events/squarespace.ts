@@ -48,7 +48,8 @@ async function fetchSquarespaceEvents() {
 function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, url, sourceName) {
 	let start = DateTime.fromMillis(e.startDate).setZone(timeZone);
 	let end = DateTime.fromMillis(e.startDate).setZone(timeZone);
-
+	let title = e.title;
+	
 	// Get raw times because some calendars have incorrect time zones (i.e. America/New_York), even though they're in California.
 	const actualStart = DateTime.fromObject({
 		day: start.day,
@@ -56,17 +57,17 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, url, so
 		year: start.year,
 		hour: start.hour,
 		minute: start.minute,
-	}, { zone: 'America/Los_Angeles' });
+	}, { zone: 'America/New_York' });
 	const actualEnd = DateTime.fromObject({
 		day: end.day,
 		month: end.month,
 		year: end.year,
 		hour: end.hour,
 		minute: end.minute,
-	}, { zone: 'America/Los_Angeles' });
+	}, { zone: 'America/New_York' });
 
 	return {
-		title: `${e.title} @ ${sourceName}`,
+		title: title,
 		start: actualStart.toUTC().toJSDate(),
 		end: actualEnd.toUTC().toJSDate(),
 		url: new URL(url).origin + e.fullUrl,
