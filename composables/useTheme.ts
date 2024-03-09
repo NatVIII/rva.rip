@@ -12,7 +12,7 @@ function useLocalStorage(key, defaultValue) {
 }
 
 // Initialize the theme with localStorage value or default
-const initialTheme = useLocalStorage('theme', 'default');
+const initialTheme = useLocalStorage('theme', 'light');
 const theme = ref<'light' | 'dark' | 'default'>(initialTheme);
 
 // Determine the system preference

@@ -482,7 +482,7 @@ body.no-scroll {
   width: 95%;
 }
 
-.badge, .badge-shadow {
+.badge, .badge-shadow-b, .badge-shadow-w, .badge-shadow {
   display: inline-block;
   height: 1.2em;
   vertical-align: -0.2em;

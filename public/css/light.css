@@ -28,6 +28,6 @@
     --rip-purple: #d3869b;
 }
 
-.badge-shadow {
+.badge-shadow-b, .badge-shadow {
   filter: drop-shadow(0px 0px 0.05em var(--border-outer));
 }

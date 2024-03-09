@@ -28,3 +28,10 @@
     --rip-purple: #b16286;        /*GruvBox Dark #132*/
 }
 
+.badge-shadow-w, .badge-shadow {
+  filter: 
+    drop-shadow(0.01em 0px 0 var(--border-outer))
+    drop-shadow(-0.01em 0px 0 var(--border-outer))
+    drop-shadow(0px 0.01em 0 var(--border-outer))
+    drop-shadow(0px -0.01em 0 var(--border-outer));
+}
