@@ -324,10 +324,6 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
   cursor: pointer;
 }
 
-.selected-preference {
-  filter: drop-shadow(0px 0px 0.25em var(--border-outer));
-}
-
 .fc-event-title {
   color: var(--text-normal);
 }

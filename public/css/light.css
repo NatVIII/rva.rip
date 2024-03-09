@@ -29,5 +29,21 @@
 }
 
 .badge-shadow-b, .badge-shadow {
-  filter: drop-shadow(0px 0px 0.05em var(--border-outer));
+  --border-outer-alpha: rgba(0, 0, 0, 0.1);
+}
+
+.selected-preference {
+  --border-outer-alpha: rgba(0, 0, 0, 0.2);
+}
+
+.badge-shadow-b, .badge-shadow, .selected-preference{
+  filter: 
+    drop-shadow(1px 0px 0 var(--border-outer-alpha))
+    drop-shadow(-1px 0px 0 var(--border-outer-alpha))
+    drop-shadow(0px 1px 0 var(--border-outer-alpha))
+    drop-shadow(0px -1px 0 var(--border-outer-alpha))
+    drop-shadow(1px -1px 0 var(--border-outer-alpha))
+    drop-shadow(-1px -1px 0 var(--border-outer-alpha))
+    drop-shadow(1px 1px 0 var(--border-outer-alpha))
+    drop-shadow(1px -1px 0 var(--border-outer-alpha));
 }

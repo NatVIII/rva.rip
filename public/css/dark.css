@@ -28,10 +28,15 @@
     --rip-purple: #b16286;        /*GruvBox Dark #132*/
 }
 
-.badge-shadow-w, .badge-shadow {
+.badge-shadow-w, .badge-shadow, .selected-preference{
+  --border-outer-alpha: rgba(251, 241, 199, 0.2); /*GruvBox Dark #229*/
   filter: 
-    drop-shadow(0.01em 0px 0 var(--border-outer))
-    drop-shadow(-0.01em 0px 0 var(--border-outer))
-    drop-shadow(0px 0.01em 0 var(--border-outer))
-    drop-shadow(0px -0.01em 0 var(--border-outer));
+    drop-shadow(1px 0px 0 var(--border-outer-alpha))
+    drop-shadow(-1px 0px 0 var(--border-outer-alpha))
+    drop-shadow(0px 1px 0 var(--border-outer-alpha))
+    drop-shadow(0px -1px 0 var(--border-outer-alpha))
+    drop-shadow(1px -1px 0 var(--border-outer-alpha))
+    drop-shadow(-1px -1px 0 var(--border-outer-alpha))
+    drop-shadow(1px 1px 0 var(--border-outer-alpha))
+    drop-shadow(1px -1px 0 var(--border-outer-alpha));
 }
