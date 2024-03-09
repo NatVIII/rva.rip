@@ -1,21 +1,42 @@
 <script setup lang="ts">
+import { useTheme } from '@/composables/useTheme';
+import { onMounted } from 'vue';
+
+const { theme, setTheme } = useTheme();
+
+const switchTheme = (newTheme) => setTheme(newTheme);
+
+// This could potentially force an update if necessary, but might not be needed
+// if your initial setup already correctly handles this.
+onMounted(() => {
+  const currentTheme = theme.value;
+  switchTheme('default');
+  setTimeout(() => {
+    switchTheme(currentTheme); // Re-apply the current theme to ensure UI consistency
+  }, 0); // A delay of 0 ms still allows the event loop to process pending tasks
+});
 </script>
 
 <template>
     <div>
       <div class="desc" style="padding-top: 0;">
-        <a href="https://raw.githubusercontent.com/natviii/rva.rip/main/assets/event_sources.json">event sources</a> |
-        <a href="https://github.com/natviii/rva.rip/">source code</a> |
+        <a href="/">home</a> |
         <a href="/list">list of cool groups</a> |
         <a href="/contributing">how to contribute</a> |
-        <a href="/">home</a>
+        <span class="window-box-effect"> color theme:  
+          <span class="window-box-inner">
+          <span @click="switchTheme('dark')" class="link-like" :class="{'selected-preference': theme === 'dark'}">🌑</span> <a> </a>
+          <span @click="switchTheme('default')" class="link-like" :class="{'selected-preference': theme === 'default'}">🌓</span> <a> </a>
+          <span @click="switchTheme('light')" class="link-like" :class="{'selected-preference': theme === 'light'}">🌕</span>
+        </span> </span>
+        | <a href="https://github.com/natviii/rva.rip/">source code</a> 
       </div>
-      <div style="background-color: #fb4934;" class="color-stripe"></div>
-      <div style="background-color: #fe8019;" class="color-stripe"></div>
-      <div style="background-color: #fabd2f;" class="color-stripe"></div>
-      <div style="background-color: #b8bb26;" class="color-stripe"></div>
-      <div style="background-color: #83a598;" class="color-stripe"></div>
-      <div style="background-color: #d3869b;" class="color-stripe"></div>
+      <div style="background-color: var(--rip-red);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-orange);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-yellow);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-green);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-blue);" class="color-stripe"></div>
+      <div style="background-color: var(--rip-purple);" class="color-stripe"></div>
       <div class="color-stripe"></div><div class="color-stripe"></div>
     </div>
 </template>

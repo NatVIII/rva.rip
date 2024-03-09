@@ -1,0 +1,42 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:root {
+    color-scheme: dark;
+    --background: #282828;        /*GruvBox Dark #235*/
+    --background-alt: #504945;    /*GruvBox Dark #239*/
+    --background-inner: #3c3836;  /*GruvBox Dark #237*/
+    --background-today: #689d6a;  /*GruvBox Dark #72*/
+    --border-outer: #fbf1c7;      /*GruvBox Dark #229*/
+    --border-inner: #1d2021;      /*GruvBox Dark #234*/
+    --button-hover: #a89984;      /*GruvBox Dark #246*/
+    --button-select: #ebdbb2;     /*GruvBox Dark #223*/
+    --text-normal: #ebdbb2;       /*GruvBox Dark #223*/
+    --text-opp: #3c3836;          /*GruvBox Dark #237*/
+    --text-faded: #a89984;        /*GruvBox Dark #246*/
+    --text-linked: #fbf1c7;       /*GruvBox Dark #229*/
+    --rip-red: #cc241d;           /*GruvBox Dark #124*/
+    --rip-orange: #d65d0e;        /*GruvBox Dark #166*/
+    --rip-yellow: #d79921;        /*GruvBox Dark #172*/
+    --rip-green: #98971a;         /*GruvBox Dark #106*/
+    --rip-blue: #458588;          /*GruvBox Dark #66*/
+    --rip-purple: #b16286;        /*GruvBox Dark #132*/
+}
+
+.badge-shadow-w, .badge-shadow, .selected-preference{
+  --border-outer-alpha: rgba(251, 241, 199, 0.2); /*GruvBox Dark #229*/
+  filter: 
+    drop-shadow(1px 0px 0 var(--border-outer-alpha))
+    drop-shadow(-1px 0px 0 var(--border-outer-alpha))
+    drop-shadow(0px 1px 0 var(--border-outer-alpha))
+    drop-shadow(0px -1px 0 var(--border-outer-alpha))
+    drop-shadow(1px -1px 0 var(--border-outer-alpha))
+    drop-shadow(-1px -1px 0 var(--border-outer-alpha))
+    drop-shadow(1px 1px 0 var(--border-outer-alpha))
+    drop-shadow(1px -1px 0 var(--border-outer-alpha));
+}
