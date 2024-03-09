@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from '@/composables/useTheme';
-import { watch, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 const { theme, setTheme } = useTheme();
 
@@ -15,11 +15,6 @@ onMounted(() => {
     switchTheme(currentTheme); // Re-apply the current theme to ensure UI consistency
   }, 0); // A delay of 0 ms still allows the event loop to process pending tasks
 });
-
-// Watch for changes in the theme and log the new value to the console
-watch(theme, (newTheme, oldTheme) => {
-  console.log(`Theme changed from ${oldTheme} to ${newTheme}`);
-}, { immediate: true });
 </script>
 
 <template>

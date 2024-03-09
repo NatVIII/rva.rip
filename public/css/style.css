@@ -405,7 +405,7 @@ body.no-scroll {
 
 :root .fc .fc-daygrid-day-number {
   text-decoration: dashed underline;
-  color: var(--text-faded);
+  color: var(--text-normal);
 }
 
 .event-details {
