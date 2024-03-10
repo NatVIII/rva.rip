@@ -64,8 +64,10 @@ async function fetchElfsightEvents() {
 				const firstWidgetKey = Object.keys(elfsightJson.data.widgets)[0];//I'm just gonna assume each elfsight calendar has only one, like S23
                 const firstWidget = elfsightJson.data.widgets[firstWidgetKey];
 				const elfsightEvents = firstWidget.data.settings.events;
+				const elfsightEventTypes = firstWidget.data.settings.eventTypes;
+				const elfsightLocations = firstWidget.data.settings.locations;
 				return {
-					events: elfsightEvents.map(event => convertElfsightEventToFullCalendarEvent(event, source)),
+					events: elfsightEvents.map(event => convertElfsightEventToFullCalendarEvent(event, source, elfsightEventTypes, elfsightLocations)),
 					city: source.city
 				} as EventNormalSource;
 			})
@@ -77,11 +79,39 @@ async function fetchElfsightEvents() {
 	return elfsightSources;
 };
 
-function convertElfsightEventToFullCalendarEvent(e, source) {
+function convertElfsightEventToFullCalendarEvent(e, source, eventTypes, eventLocations) {
 	let start = DateTime.fromISO(`${e.start.date}T${e.start.time}`).setZone('America/New_York');
 	let end = DateTime.fromISO(`${e.end.date}T${e.end.time}`).setZone('America/New_York');
 	let title = e.name;
 	let description = e.description;
+	let location = "";
+	let url = "";
+
+	// Find the event type by its id in the eventTypes array
+    const eventType = eventTypes.find(type => type.id === e.eventType);
+	// Function to find the emoji for a given event type name
+	const findEmojiForEventType = (eventName, sourceEventTypes) => {
+		// Search for the event name in the sourceEventTypes array
+		const eventTypePair = sourceEventTypes.find(([name, emoji]) => name === eventName);
+	
+		// If found, return the emoji, otherwise return an empty string or a default emoji
+		return eventTypePair ? eventTypePair[1] : '';
+	};
+    // Prepend the event type name to the title if found
+    if (eventType) { 
+		const emoji = findEmojiForEventType(eventType.name, source.eventTypes);
+		description = 'Event Type: ' + emoji + eventType.name + '  <br />' + description;
+		title=emoji+" "+title;
+	}
+
+	// Find the event location by its id in the eventTypes array
+    const eventLocation = eventLocations.find(place => place.id === e.location);
+	// Prepend the event type name to the title if found
+    if (eventLocation) {  
+		location = eventLocation.address; 
+		url = "https://"+eventLocation.website;
+	}
+
 	// Append or prepend text if specified in the source
 	if (source.prefixTitle) { title = source.prefixTitle + title; }
 
@@ -91,30 +121,9 @@ function convertElfsightEventToFullCalendarEvent(e, source) {
 		org: source.name,
 		start: start.toUTC().toJSDate(),
 		end: end.toUTC().toJSDate(),
-		url: "",
+		url: url,
 		description: description,
 		images: e.image.type && e.image.type.includes("image") ? [e.image.url] : [],//if it's an image, attach it
-		location: "",
-		/*location: {
-			geoJSON: {
-				type: "Point",
-				coordinates: [e.location.mapLng, e.location.mapLat]
-			},
-			eventVenue: {
-				name: e.location.addressTitle,
-				address: {
-					streetAddress: e.location.addressLine1,
-					// TODO: Some of these are not provided.
-					//                        addressLocality: e.location.addressLine2.split(',')[0].trim(),
-					//                        addressRegion: e.location.addressLine2.split(',')[1].trim(),
-					//                        postalCode: e.location.addressLine2.split(',')[2].trim(),
-					addressCountry: e.location.addressCountry
-				},
-				geo: {
-					latitude: e.location.mapLat,
-					longitude: e.location.mapLng,
-				}
-			},
-		},*/
+		location: location,
 	};
 }
