@@ -119,5 +119,14 @@
 			"city": "Oakland",
 			"prefixTitle": "🌈📚 "
 		}
+	],
+	"squarespace": [
+		{
+			"name": "Richmond Grows Gardens",
+			"url": "https://www.richmondgrowsgardens.org/events?format=json",
+			"city": "Oakland",
+			"prefixTitle": ":RVAGrowsGardens1: ",
+			"suffixTitle": ":RVAGrowsGardens2:"
+		}
 	]
 }

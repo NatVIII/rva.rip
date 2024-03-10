@@ -119,7 +119,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			});
 
 			return {
-			  id: formatTitleAndDateToID(item.start.dateTime, item.summary),
+			  id: formatTitleAndDateToID(item.start.dateTime, title),
 			  title: title,
 			  org: source.name,
 			  start: item.start.dateTime,
