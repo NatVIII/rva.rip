@@ -1,5 +1,6 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '@/utils/util';
+import { url } from 'inspector';
 import { DateTime } from 'luxon';
 
 export default defineCachedEventHandler(async (event) => {
@@ -77,7 +78,9 @@ async function fetchSquarespaceEvents() {
 function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source) {
 	let start = DateTime.fromMillis(e.startDate).setZone(timeZone);
 	let end = DateTime.fromMillis(e.endDate).setZone(timeZone);
+	let url = new URL(source.url).origin + e.fullUrl;
 	let title = e.title;
+	let description = e.body + '<br /><a href="'+url+'">More Info</a>';
 	let locationParts = [
 		e.location.addressTitle,
 		e.location.addressLine1,
@@ -109,8 +112,8 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source)
 		org: source.name,
 		start: actualStart.toUTC().toJSDate(),
 		end: actualEnd.toUTC().toJSDate(),
-		url: new URL(source.url).origin + e.fullUrl,
-		description: e.body,
+		url: url,
+		description: description,
 		images: e.contentType && e.contentType.includes("image") ? [e.assetUrl] : [],//if it's an image, attach it
 		location: locationParts.join(", "),
 		/*location: {
