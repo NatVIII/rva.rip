@@ -135,10 +135,10 @@
 			"url": "https://core.service.elfsight.com/p/boot/?page=https%3A%2F%2Fwww.studiotwothree.org%2Fcommunity-events&w=24ddbed9-c732-4102-abd2-02990fae125b",
 			"key": "24ddbed9-c732-4102-abd2-02990fae125b",
 			"city": "Oakland",
-			"prefixTitle": "🎨",
+			"prefixTitle": ":studiotwothree:",
 			"eventTypes": [
 				["Courses and Workshops", "📔"],
-				["Film Screenings", "🎦"],
+				["Film Screenings", "📽"],
 				["Community Events", "🤝"],
 				["Artist Markets", "🛍️"],
 				["Private Events", "🔒"],

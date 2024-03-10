@@ -47,3 +47,7 @@
     drop-shadow(1px 1px 0 var(--border-outer-alpha))
     drop-shadow(1px -1px 0 var(--border-outer-alpha));
 }
+
+.invert-light {
+  filter: invert(1);
+}
