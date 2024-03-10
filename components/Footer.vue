@@ -19,17 +19,22 @@ onMounted(() => {
 
 <template>
     <div>
-      <div class="desc" style="padding-top: 0;">
-        <a href="/">home</a> |
-        <a href="/list">list of cool groups</a> |
-        <a href="/contributing">how to contribute</a> |
-        <span class="window-box-effect"> color theme:  
-          <span class="window-box-inner">
-          <span @click="switchTheme('dark')" class="link-like" :class="{'selected-preference': theme === 'dark'}">🌑</span> <a> </a>
-          <span @click="switchTheme('default')" class="link-like" :class="{'selected-preference': theme === 'default'}">🌓</span> <a> </a>
-          <span @click="switchTheme('light')" class="link-like" :class="{'selected-preference': theme === 'light'}">🌕</span>
-        </span> </span>
-        | <a href="https://github.com/natviii/rva.rip/">source code</a> 
+      <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0;">
+        <div class="desc no-toppy">
+          <a href="/">home</a> |
+          <a href="/list">list of cool groups</a> |
+          <a href="/contributing">how to contribute</a> | 
+          <a href="https://github.com/natviii/rva.rip/">source code</a> 
+        </div>
+        <div class="desc no-toppy">
+          <span class="window-box-effect">theme:  
+            <span class="window-box-inner">
+              <span @click="switchTheme('dark')" class="link-like" :class="{'selected-preference': theme === 'dark'}">🌑</span> <a> </a>
+              <span @click="switchTheme('default')" class="link-like" :class="{'selected-preference': theme === 'default'}">🌓</span> <a> </a>
+              <span @click="switchTheme('light')" class="link-like" :class="{'selected-preference': theme === 'light'}">🌕</span>
+            </span>
+          </span>
+        </div>
       </div>
       <div style="background-color: var(--rip-red);" class="color-stripe"></div>
       <div style="background-color: var(--rip-orange);" class="color-stripe"></div>

@@ -235,7 +235,6 @@ const calendarOptions = ref({
   eventClick: function (event) {
     event.jsEvent.preventDefault(); // Prevent the default behavior of clicking a link
     clickedEvent.value = event;
-    console.log(JSON.stringify(clickedEvent.value));
     openEventModal();
   },
 

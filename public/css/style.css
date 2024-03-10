@@ -140,17 +140,24 @@ fc-theme-standard td,
 }
 
 .window-box-effect {
+  font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
   border: 1px solid var(--border-outer); 
   background: var(--background-alt);
   box-shadow: 1px 2px var(--border-outer), inset 1px 1px 0px 0px var(--border-inner), inset -1px -1px 0px 0px var(--button-hover);
-  padding: 0px 0.3em;
+  padding: 0.1em 0.3em 0.2em;
   display:inline-block;
   align-items: center;
-  padding: 0.25em;
+  padding: 0.35em 0.25em 0.45em 0.25em;
+  white-space: nowrap;
+}
+
+.no-toppy {
+  padding-top: 0 !important;
 }
 
 .window-box-inner {
-  padding:0em 0.5em;
+  white-space: nowrap;
+  padding: 0.1em 0.5em 0.2em;
   margin: 2px 4px 4px 4px;
   border: 1px solid var(--border-outer);
   background-color: var(--background-inner);
