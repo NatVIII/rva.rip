@@ -125,7 +125,8 @@
 			"name": "Richmond Grows Gardens",
 			"url": "https://www.richmondgrowsgardens.org/events?format=json",
 			"city": "Oakland",
-			"prefixTitle": "🏮 "
+			"prefixTitle": ":RVAGrowsGardens1: ",
+			"suffixTitle": ":RVAGrowsGardens2:"
 		}
 	]
 }
