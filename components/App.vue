@@ -571,10 +571,9 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             <li>Like sports? Sign up for <a href="https://stonewallrichmond.leagueapps.com/leagues/">stonewall sports</a>!!! Hot athletic gays!!!!!</li>
             <li>Don't wanna go outside? Play <a href="https://play.half.earth//">half earth socialism</a>!!!</li>
             <li>Wanna find more groups? Check out our <a href="/list">list of organizations and groups</a> in RVA</li>
-            <li>Looking for a reddit alternative? <a href="https://hexbear.net/">Check out this dope ass bear</a>.</li>
           </ul></p>
         <p>Not in Richmond??? Check out our sibling sites <a href="https://anarchism.nyc/">anarchism.nyc</a>, 
-        <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://readymouse.github.io/AnarchistEventsBOS//">anarchism.bos</a>.
+        <a href="https://bay.lgbt/">bay.lgbt</a>, and <a href="https://anarchism.boston/">anarchism.boston</a>.
         This site wouldn't exist without them, and we're all run by trans folks.</p>
         <p>Want your event listed here? Start making a <a href="/contributing">public google calendar</a> for your events. 
           Once published, request inclusion of your event feed by sending your Google Calendar ID via a 
