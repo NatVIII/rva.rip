@@ -16,4 +16,5 @@ export const badgeMap: { [key: string]: string } = {
     ':RVAGrowsGardens1:': '<img src="/badges/RVAGrowsGardens1.svg" class="badge-shadow-b">',
     ':RVAGrowsGardens2:': '<img src="/badges/RVAGrowsGardens2.svg" class="badge">',
     ':studiotwothree:': '<img src="/badges/studiotwothree.svg" class="badge invert-dark">',
+    ':BSB:': '<img src="/badges/BSB.svg" class="badge-shadow-b">',
   };
