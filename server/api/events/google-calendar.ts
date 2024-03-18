@@ -17,8 +17,12 @@ export default defineCachedEventHandler(async (event) => {
 
 // Function to replace Google tracking URLs with the actual URL
 function replaceGoogleTrackingUrls(description: string): string {
-	const googleTrackingUrlRegex = /https:\/\/www\.google\.com\/url\?q=(https[^&]+)&.*/g;
-	return description.replace(googleTrackingUrlRegex, (match, p1) => decodeURIComponent(p1));
+	const googleTrackingUrlRegex = /https:\/\/www\.google\.com\/url\?q=(https[^&]+)&amp;.*?" target="_blank">(.*?)<\/a>/g;
+	return description.replace(googleTrackingUrlRegex, (match, p1, p2) => {
+	  const decodedUrl = decodeURIComponent(p1);
+	  // Rebuild the anchor tag with the decoded URL and the original link text
+	  return `<a href="${decodedUrl}" target="_blank">${p2}</a>`;
+	});
   }
 
 function findImageUrls(description: string): string[] {

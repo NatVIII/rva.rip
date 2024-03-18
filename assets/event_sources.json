@@ -124,6 +124,12 @@
 			"googleCalendarId": "4ce2fe20599863c927fb7a6a6ec6e0e10a50b438de070948b4daeafc9731e73f@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":BSB:"
+		},
+		{
+			"name": "Sunrise Movement RVA",
+			"googleCalendarId": "9848cc3a6ebfce17fb9a2f5aa72ae2ad315cf96e323e071540de5c5a6de2c701@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":sunrise: "
 		}
 	],
 	"squarespace": [
