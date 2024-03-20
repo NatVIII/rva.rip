@@ -130,6 +130,12 @@
 			"googleCalendarId": "9848cc3a6ebfce17fb9a2f5aa72ae2ad315cf96e323e071540de5c5a6de2c701@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":sunrise: "
+		},
+		{
+			"name": "RVA Roll Patrol",
+			"googleCalendarId": "rva.roll.patrol@gmail.com",
+			"city": "Oakland",
+			"prefixTitle": "🛼"
 		}
 	],
 	"squarespace": [
