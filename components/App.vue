@@ -68,15 +68,34 @@ const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 :
 
 const calendarOptions: Ref<CalendarOptions | undefined> = ref()
 
+const disabledEventSources = new Map()
+
+function enableEventSource(name: string) {
+  if (!calendarOptions.value?.eventSources) return
+  if (calendarOptions.value.eventSources.some(eventSource => name === eventSource)) return
+  const source = disabledEventSources.get(name)
+  calendarOptions.value.eventSources.push(source)
+}
+
 function disableEventSource(name: string) {
-  if (calendarOptions.value?.eventSources) {
-    calendarOptions.value.eventSources = calendarOptions.value.eventSources.filter(eventSource => name !== eventSource.name)
-  }
+  if (!calendarOptions.value?.eventSources) return
+  const newEventSources = []
+
+  calendarOptions.value.eventSources.forEach(eventSource => {
+    if (name === eventSource.name) {
+      disabledEventSources.set(name, eventSource)
+    } else {
+      newEventSources.push(eventSource)
+    }
+  })
+
+  calendarOptions.value.eventSources = newEventSources
 }
 
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
+    enableEventSource,
     disableEventSource,
     onConfirm() {
       closeFilterModal()

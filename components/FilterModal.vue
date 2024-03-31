@@ -3,6 +3,7 @@ import { VueFinalModal } from 'vue-final-modal'
 import eventSourcesFromFile from '@/assets/event_sources.json'
 
 const { disableEventSource } = defineProps<{
+  enableEventSource: (name: string) => void
   disableEventSource: (name: string) => void
 }>()
 const emit = defineEmits<{
@@ -31,7 +32,7 @@ sources.sort((a, b) => {
   <VueFinalModal class="popper-box-wrapper" content-class="popper-box-inner" overlay-transition="vfm-fade"
     content-transition="vfm-fade">
     <CountyFilterItem v-for="source in sources" :key="source.name" :label="source.name"
-      @on-no="disableEventSource(source.name)" />
+      @on-no="disableEventSource(source.name)" @on-yes="enableEventSource(source.name)" />
     <div class="bottom">
       <button @click="emit('confirm')">
         Done
