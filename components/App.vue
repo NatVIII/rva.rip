@@ -72,7 +72,7 @@ const disabledEventSources = new Map()
 
 function enableEventSource(name: string) {
   if (!calendarOptions.value?.eventSources) return
-  if (calendarOptions.value.eventSources.some(eventSource => name === eventSource)) return
+  if (calendarOptions.value.eventSources.some(eventSource => name === eventSource.name)) return
   const source = disabledEventSources.get(name)
   calendarOptions.value.eventSources.push(source)
 }
