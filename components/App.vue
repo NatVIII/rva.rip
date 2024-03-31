@@ -12,7 +12,7 @@ import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { replaceBadgePlaceholders } from '~~/utils/util';
-import { type CalendarOptions, type EventClickArg } from '@fullcalendar/core/index.js';
+import { type CalendarOptions, type EventClickArg, type EventSourceInput } from '@fullcalendar/core/index.js';
 
 const clickedEvent: Ref<EventClickArg | null> = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
@@ -66,20 +66,20 @@ const updateWeekNumbers = () => {
 // -1 indicates that there is no limit.
 const updateDayMaxEventRows = () => { return isUsingDayMaxEventRows.value ? -1 : Math.floor(getWindowHeight() / 75) };
 
-const calendarOptions: Ref<CalendarOptions | undefined> = ref()
+const calendarOptions = ref<CalendarOptions | undefined>()
 
-const disabledEventSources = new Map()
+const disabledEventSources = new Map<string, EventSourceInput>()
 
 function enableEventSource(name: string) {
   if (!calendarOptions.value?.eventSources) return
   if (calendarOptions.value.eventSources.some(eventSource => name === eventSource.name)) return
   const source = disabledEventSources.get(name)
-  calendarOptions.value.eventSources.push(source)
+  if (source) calendarOptions.value.eventSources.push(source)
 }
 
 function disableEventSource(name: string) {
   if (!calendarOptions.value?.eventSources) return
-  const newEventSources = []
+  const newEventSources: EventSourceInput[] = []
 
   calendarOptions.value.eventSources.forEach(eventSource => {
     if (name === eventSource.name) {
