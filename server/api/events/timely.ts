@@ -42,6 +42,7 @@ async function fetchTimelyEvents() {
 					return {
 						events: [],
 						city: source.city,
+						name: source.name,
 					};
 				}
 
@@ -62,7 +63,8 @@ async function fetchTimelyEvents() {
 
 				return {
 					events,
-					city: source.city
+					city: source.city,
+					name: source.name,
 				};
 			})
 		);

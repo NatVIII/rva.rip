@@ -62,7 +62,8 @@ async function fetchWixEvents() {
 					console.error(`Error fetching Wix events for ${source.name}: ${response.status} ${response.statusText}`);
 					return {
 						events: [],
-						city: source.city
+						city: source.city,
+						name: source.name,
 					} as EventNormalSource;
 				}
 
@@ -79,7 +80,8 @@ async function fetchWixEvents() {
 
 				return {
 					events: events,
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			}
 			));

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     // This ignores errors on build too.
     typeCheck: false,
   },
-  modules: ["nuxt-security"],
+  modules: ["nuxt-security", "@nuxt/test-utils/module"],
   // See https://nuxt-security.vercel.app/getting-started/quick-start for info on security.
   security: {
     rateLimiter: {
