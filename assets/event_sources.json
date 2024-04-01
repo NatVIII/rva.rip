@@ -136,6 +136,16 @@
 			"googleCalendarId": "rva.roll.patrol@gmail.com",
 			"city": "Oakland",
 			"prefixTitle": "🛼"
+		},
+		{
+			"name": "Rag and Bones Bicycle Cooperative",
+			"googleCalendarId": "ragandbonesvolunteers@gmail.com",
+			"city": "Oakland",
+			"prefixTitle": "🛠🚲 ",
+			"suffixTitle": " | Rag & Bones Bicycle Cooperative",
+			"defaultLocation": "2916 North Avenue, Richmond VA 23230",
+			"suffixDescription": "<br /> <a href=\"https://ragandbonesrva.org/\">Website</a> | <a href=\"https://www.instagram.com/ragandbonesrva/\">Instagram</a> | <a href=\"https://www.facebook.com/RagBonesBicycleCoOp/\">Facebook</a>"
+			
 		}
 	],
 	"squarespace": [
