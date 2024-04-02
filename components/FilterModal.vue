@@ -2,7 +2,7 @@
 import { VueFinalModal } from 'vue-final-modal'
 import eventSourcesFromFile from '@/assets/event_sources.json'
 
-const { disableEventSource } = defineProps<{
+const { enableEventSource, disableEventSource } = defineProps<{
   enableEventSource: (name: string) => void
   disableEventSource: (name: string) => void
 }>()
