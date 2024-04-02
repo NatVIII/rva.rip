@@ -74,7 +74,10 @@ function enableEventSource(name: string) {
   if (!calendarOptions.value?.eventSources) return
   if (calendarOptions.value.eventSources.some(eventSource => name === eventSource.name)) return
   const source = disabledEventSources.get(name)
-  if (source) calendarOptions.value.eventSources.push(source)
+  if (source) {
+    calendarOptions.value.eventSources.push(source)
+    disabledEventSources.delete(name)
+  }
 }
 
 function disableEventSource(name: string) {
