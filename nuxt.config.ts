@@ -46,13 +46,7 @@ export default defineNuxtConfig({
   css: ["vue-final-modal/style.css"],
   nitro: {
     routeRules: {
-      "/": {
-        cache: {
-          swr: true,
-          maxAge: serverCacheMaxAgeSeconds,
-          staleMaxAge: serverStaleWhileInvalidateSeconds,
-        },
-      },
+      
     },
   },
 });
