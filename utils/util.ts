@@ -13,10 +13,10 @@ interface Event {
 	extendedProps?: Object;
 }
 
-export const clientCacheMaxAgeSeconds = 60;
+export const clientCacheMaxAgeSeconds = 20 * 60;
 export const clientStaleWhileInvalidateSeconds = 12 * 3600;
 
-export const serverCacheMaxAgeSeconds = 60;
+export const serverCacheMaxAgeSeconds = 20 * 60;
 // For how long can a server use an invalidated response (during which it will revalidate for the next request).
 // But it appears that the Nitro server (Nuxt's backend) supports a specific flag for always using stale-while-revalidating if set to -1.
 // https://nitro.unjs.io/guide/introduction/cache
