@@ -1,21 +1,3 @@
-
-// The Event object is based on https://fullcalendar.io/docs/event-object, as well as 
-interface Event {
-	title: string | null;
-	start: Date | null;
-	end: Date | null;
-	url: string;
-	display?: string;
-	backgroundColor?: string;
-	borderColor?: string;
-	textColor?: string;
-	classNames?: string[];
-	extendedProps?: Object;
-}
-
-
-export const toCorsProxy = (url: string) => 'https://corsproxy.io/?' + encodeURIComponent(url);
-
 export const clientCacheMaxAgeSeconds = 20 * 60;
 export const clientStaleWhileInvalidateSeconds = 12 * 3600;
 
