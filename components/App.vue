@@ -11,7 +11,6 @@ import FullCalendar from '@fullcalendar/vue3'
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import FilterModal from './FilterModal.vue'
 import EventModal from './EventModal.vue'
-import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { replaceBadgePlaceholders } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
@@ -344,12 +343,9 @@ async function getEventSources() {
     '/api/events/wix',
     */
   ];
-  const clientHeaders = {
-    'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
-  };
   // This is to preventing the UI changes from each fetch result to cause more fetches to occur.,
   Promise.allSettled(endpoints.map(async (endpoint) => {
-    const { data: response } = await useLazyFetch(endpoint, { headers: clientHeaders });
+    const { data: response } = await useLazyFetch(endpoint);
     return addEventSources(transformEventSourcesResponse(response));
   }));
 }

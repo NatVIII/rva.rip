@@ -1,19 +1,14 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
-import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '@/utils/util';
-import { url } from 'inspector';
+import { logTimeElapsedSince } from '@/utils/util';
 import { DateTime } from 'luxon';
 
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async () => {
 	const startTime = new Date();
 	const body = await fetchElfsightEvents();
 	logTimeElapsedSince(startTime.getTime(), 'Elfsight: events fetched.');
 	return {
 		body
 	}
-}, {
-	maxAge: serverCacheMaxAgeSeconds,
-	staleMaxAge: serverStaleWhileInvalidateSeconds,
-	swr: true,
 });
 
 function formatTitleAndDateToID(inputDate: any, title: string) {
@@ -52,7 +47,7 @@ async function fetchElfsightEvents() {
 		elfsightSources = await Promise.all(
 			eventSourcesJSON.elfsight.map(async (source) => {
 				// Add current date in milliseconds to the URL to get events starting from this moment.
-				const response = await fetch(source.url, { headers: serverFetchHeaders });
+				const response = await fetch(source.url);
 				if (!response.ok) {
 					console.error('[Elfsight] Error: could not fetch events from', source.url);
 					return {

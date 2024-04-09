@@ -1,7 +1,7 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
-import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '@/utils/util';
+import { logTimeElapsedSince } from '@/utils/util';
 
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async () => {
 	// export default defineEventHandler(async (event) => {
 	const startTime = new Date();
 	const body = await fetchGoogleCalendarEvents();
@@ -9,10 +9,6 @@ export default defineCachedEventHandler(async (event) => {
 	return {
 		body
 	}
-}, {
-	maxAge: serverCacheMaxAgeSeconds,
-	staleMaxAge: serverStaleWhileInvalidateSeconds,
-	swr: true,
 });
 
 // Function to replace Google tracking URLs with the actual URL
@@ -79,8 +75,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
   
 		  const res = await fetch(
 			`https://www.googleapis.com/calendar/v3/calendars/${source.googleCalendarId}/events?key=${process.env.GOOGLE_CALENDAR_API_KEY}`
-			+ `&${searchParams.toString()}`,
-			{ headers: serverFetchHeaders }
+			+ `&${searchParams.toString()}`
 		  );
 		  
 		  if (!res.ok) {

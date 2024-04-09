@@ -1,8 +1,3 @@
-import {
-  serverCacheMaxAgeSeconds,
-  serverStaleWhileInvalidateSeconds,
-} from "./utils/util";
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   typescript: {
@@ -44,4 +39,10 @@ export default defineNuxtConfig({
   },
   plugins: [{ src: "~/plugins/vercel.ts", mode: "client" }],
   css: ["vue-final-modal/style.css"],
+  routeRules: {
+    "/": { isr: true },
+    "/api/**": { cors: true, isr: 60 },
+    "/contributing": { isr: true },
+    "/list": { isr: true },
+  },
 });

@@ -1,7 +1,6 @@
-import { H3Event } from "h3";
 import axios from "axios";
 
-export default eventHandler(async (event: H3Event) => {
+export default defineEventHandler(async (event) => {
   const { url } = getQuery(event);
 
   if (typeof url !== "string") {
@@ -36,9 +35,6 @@ export default eventHandler(async (event: H3Event) => {
 
   // Set appropriate headers and return an image response
   setHeader(event, "content-type", type);
-
-  // Add caching headers
-  setHeader(event, "Cache-Control", "public, max-age=31536000, immutable"); // Cache for a year and don't revalidate
 
   return Buffer.from(response.data, "binary");
 });
