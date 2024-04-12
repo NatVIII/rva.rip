@@ -185,6 +185,9 @@
 				["Artist Markets", "🛍️"],
 				["Private Events", "🔒"],
 				["Community Organizing Event", "📢"]
+			],
+			"eventDefault": [
+				"", ""
 			]
 		},
 		{
