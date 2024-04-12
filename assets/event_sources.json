@@ -110,7 +110,8 @@
 			"prefixTitle": ":goldlion: ",
 			"filters": [
 				["hidden", "undefined", "title"],
-				["hidden", "Concert", "title"]
+				["hidden", "Concert", "title"],
+				["hidden", "Community Meditation with Meg", "title"]
 			]
 		},
 		{
@@ -184,6 +185,21 @@
 				["Artist Markets", "🛍️"],
 				["Private Events", "🔒"],
 				["Community Organizing Event", "📢"]
+			]
+		},
+		{
+			"name": "Diversity Richmond",
+			"url": "https://core.service.elfsight.com/p/boot/?page=https://www.diversityrichmond.org/events&w=3ef9dd43-ad54-43ff-ae47-41037c180d59",
+			"key": "3ef9dd43-ad54-43ff-ae47-41037c180d59",
+			"city": "Oakland",
+			"eventTypes": [
+				["Iridian Gallery ", ":diversityiridian:"],
+				["Virginia Pride", ":diversitypride:"],
+				["Diversity Richmond", ":diversityrichmond:"],
+				["Diversity Thrift", ":diversitythrift:"]
+			],
+			"eventDefault": [
+				"Diversity Richmond", ":diversityrichmond:"
 			]
 		}
 	]
