@@ -152,6 +152,13 @@
 			"city": "Oakland",
 			"prefixTitle": "📽️",
 			"suffixDescription": "<br /><a href=\"https://www.instagram.com/newhabitcinema/\">Instagram</a>"
+		},
+		{
+			"name": "Continuity Press",
+			"googleCalendarId": "de72cf999d4da30155c68eb7040ede22c0540275b3a884e355482100ec744765@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "♾️ ",
+			"suffixTitle": " | Continuity Press"
 		}
 	],
 	"squarespace": [
