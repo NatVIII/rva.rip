@@ -16,7 +16,7 @@
     "@fullcalendar/list": "^6.1.10",
     "@fullcalendar/timegrid": "^6.1.10",
     "@fullcalendar/vue3": "^6.1.10",
-    "@google-cloud/vision": "^3.1.4",
+    "@google-cloud/vision": "^4.2.0",
     "@prisma/client": "^4.16.2",
     "@vercel/analytics": "^0.1.11",
     "axios": "^1.6.7",
