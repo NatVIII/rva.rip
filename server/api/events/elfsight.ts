@@ -87,23 +87,31 @@ function convertElfsightEventToFullCalendarEvent(e, source, eventTypes, eventLoc
     let location = "";
     let url = "";
 
-    // Find the event type by its id in the eventTypes array, use default if null
-    const eventType = e.eventType ? eventTypes.find(type => type.id === e.eventType) : source.eventDefault;
-    
-    // Function to find the emoji for a given event type name
-    const findEmojiForEventType = (eventName, sourceEventTypes) => {
-        // Search for the event name in the sourceEventTypes array
-        const eventTypePair = sourceEventTypes.find(([name, emoji]) => name === eventName);
-    
-        // If found, return the emoji, otherwise return an empty string or a default emoji
-        return eventTypePair ? eventTypePair[1] : '';
-    };
-    
-    // Prepend the event type name to the title if found
-    if (eventType) { 
-        const emoji = findEmojiForEventType(eventType[0], source.eventTypes);
-        description = 'Event Type: ' + emoji + eventType[0] + '  <br />' + description;
-        title = emoji + " " + title;
+    if(e.eventType) //Check if the eventtype exists for an event, if it does, add indicators to the event
+    {
+        // Find the event type by its id in the eventTypes array
+        const eventType = eventTypes.find(type => type.id === e.eventType);
+        
+        // Function to find the emoji for a given event type name
+        const findEmojiForEventType = (eventName, sourceEventTypes) => {
+            // Search for the event name in the sourceEventTypes array
+            const eventTypePair = sourceEventTypes.find(([name, emoji]) => name === eventName);
+        
+            // If found, return the emoji, otherwise return an empty string or a default emoji
+            return eventTypePair ? eventTypePair[1] : '';
+        };
+        
+        // Prepend the event type name to the title if found
+        if (eventType) { 
+            const emoji = findEmojiForEventType(eventType.name, source.eventTypes);
+            description = 'Event Type: ' + emoji + ' ' + eventType.name + '  <br />' + description;
+            title = emoji + " " + title;
+        }
+    }
+    else if(source.eventDefault) //If eventtype is not on the event, check if there's eventDefault info, if so add it, if not ignore it
+    {
+        description = 'Event Type: ' + source.eventDefault[1] + ' ' + source.eventDefault[0] + '  <br />' + description;
+        title = source.eventDefault[1] + " " + title;
     }
 
     // Find the event location by its id in the eventLocations array
