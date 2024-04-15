@@ -18,7 +18,7 @@ const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
 
 
-const tagsToHide = ['hidden', 'internal']; // Tags that should hide events
+const tagsToHide = ['hidden', 'internal', 'invisible']; // Tags that should hide events
 
 function isDisplayingBasedOnTags(event) {
   // Check if the event has any tag that requires it to be hidden

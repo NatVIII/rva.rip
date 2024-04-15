@@ -1,5 +1,5 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
-import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '@/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders, applyEventTags } from '@/utils/util';
 import { url } from 'inspector';
 import { DateTime } from 'luxon';
 
@@ -125,6 +125,8 @@ function convertElfsightEventToFullCalendarEvent(e, source, eventTypes, eventLoc
     // Append or prepend text if specified in the source
     if (source.prefixTitle) { title = source.prefixTitle + title; }
 
+    const tags = applyEventTags(source, title, description);
+
     return {
         id: formatTitleAndDateToID(start.toUTC().toJSDate(), title),
         title: title,
@@ -135,5 +137,6 @@ function convertElfsightEventToFullCalendarEvent(e, source, eventTypes, eventLoc
         description: description,
         images: e.image.type && e.image.type.includes("image") ? [e.image.url] : [],//if it's an image, attach it
         location: location,
+        tags,
     };
 }

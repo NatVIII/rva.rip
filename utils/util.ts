@@ -25,3 +25,46 @@ export const replaceBadgePlaceholders = (text: string): string => {
 	return text.replace(/:\w+:/g, (match) => badgeMap[match] || match);
   };
   
+//Tagging script that's reused multiple times
+export function applyEventTags(source: any, title: string, description: string): string[] {
+	const tags: string[] = [];
+	// Apply filters to add tags
+	if (source.filters) source.filters.forEach(filter => {
+		if (filter.length === 1) {
+			// If the filter has only one entry, apply it as a tag to every event
+			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];
+			for (const sourceTag of sourceTags) tags.push(sourceTag);
+		}
+		else {
+			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];	//Entry 1, the tag that will be applied. May be an array of strings or a single string
+			const regex = new RegExp(filter[1]);	//Entry 2, the regex script to be used
+			const searchFields = Array.isArray(filter[2]) ? filter[2] : [filter[2]];	//Entry 3, whether to search the "title", "description", or some other portion. May be an array of strings or a single string
+			const fallbackTag = filter.length > 3 ? filter[3] : null;	//Entry 4, an optional one, that'll apply a tag if the regex doesn't match
+
+			// Initialize a flag to track if there's a regex match
+			let regexMatch = false;
+
+			// Check if the event title or description matches the regex based off of searchFields
+			// Loop through each search field specified
+			for (const field of searchFields) {
+				if (field === 'title') { regexMatch = regex.test(title); }
+				if (field === 'description') { regexMatch = regex.test(description); }
+		
+				// Stop checking once a match is found
+				if (regexMatch) {
+					break;
+				}
+			}
+
+			// Check if the event title or description matches the regex based off of searchFields
+			if (regexMatch) {
+				for (const sourceTag of sourceTags) tags.push(sourceTag);
+			} else if (fallbackTag) {
+				tags.push(fallbackTag);
+			}
+		}
+	});
+	//Also apply name of calendar as a tag
+	tags.push('🗓️ '+source.name);
+	return tags;
+}
