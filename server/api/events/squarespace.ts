@@ -107,6 +107,7 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source)
 	}, { zone: 'America/New_York' });
 
 	const tags = applyEventTags(source, title, description);
+	title=tags.length+" "+title;
 
 	return {
 		id: formatTitleAndDateToID(actualStart.toUTC().toJSDate(), title),

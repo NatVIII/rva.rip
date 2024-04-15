@@ -5,10 +5,12 @@
 			"googleCalendarId": "1c16b938a56fea0342068f59730a90d90bec79d49d44c6fcc0b46915705b8cea@group.calendar.google.com",
 			"city": "Oakland",
 			"filters": [
-				["community"],
+				[["market","commercial"], "Market", ["title","description"]],
 				["palestine", "🇵🇸", ["title","description"]],
 				["biking", "🚲", ["title","description"]],
-				["sobriety", "🚭", "title"]
+				["sobriety", "🚭", "title"],
+				["free stuff", "Free Food", "title"],
+				["community","commercial"]
 			]
 		},
 		{
@@ -170,13 +172,21 @@
 			"prefixTitle": ":goldlion: ",
 			"filters": [
 				["invisible", "undefined", "title"],
-				[["commercial","music"], "Concert", ["title","description"]],
+				[["music"], "Concert", ["title","description"]],
 				["invisible", "Community Meditation with Meg", "title"],
 				["community", "River City Writers Meeting", ["title","description"]],
 				["community", "Dance", ["title","description"]],
 				["community", "New to RVA Meetup", ["title","description"]],
-				["commercial", "Bingo", ["title","description"]],
-				["commercial", "eventbrite", ["title","description"]]
+				["community", "Drawing", ["title","description"]],
+				["community", "Forum", ["title"]],
+				["community", "Community Morning", ["title"]],
+				[["community","music"], "Live in da Garden", ["title","description"]],
+				[["community"], "Vegan", ["title","description"]],
+				[["community","ecology"], "Enviromental", ["title","description"]],
+				[["music","karaoke"], "karaoke", ["title","description"]],
+				[["community","sports"], "yoga", "title"],
+				["commercial","community"]
+				
 			]
 		},
 		{
@@ -253,7 +263,7 @@
 			"suffixTitle": " | Continuity Press",
 			"filters": [
 				["community"],
-				["crafts"]
+				["DIY"]
 			]
 		}
 	],
@@ -289,7 +299,16 @@
 				"", ""
 			],
 			"filters": [
-				["movies", "Film Screenings", ["title","description"]]
+				[["community", "movies"], "Film", ["title","description"]],
+				[["community", "dance"], "dance", ["title"]],
+				["community", "Community Events", ["title","description"]],
+				[["palestine","community"], "palestine", ["title","description"]],
+				["free stuff", "clothing swap", ["title","description"]],
+				[["DIY"], "Courses and Workshops", ["title","description"]],
+				[["market"], "Artist Markets", ["title","description"]],
+				[["community","organizing"], "Community Organizing Event", ["title","description"]],
+				[["dance","sports"], "Choreo ", ["title","description"]],
+				["commercial","community"]
 			]
 		},
 		{
@@ -307,10 +326,10 @@
 				"Diversity Richmond", ":diversityrichmond:"
 			],
 			"filters": [
-				["community"],
-				["market", "Market", ["title","description"]],
-				["art", "Iridian Gallery", ["title","description"]],
-				["free stuff", "Pantry", ["title","description"]]
+				[["market"], "Market", ["title","description"]],
+				[["art"], "Iridian Gallery", ["title","description"]],
+				[["free stuff","community"], "Pantry", ["title","description"]],
+				["commercial","community"]
 			]
 		}
 	]

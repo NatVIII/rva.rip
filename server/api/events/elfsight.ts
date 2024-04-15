@@ -126,7 +126,8 @@ function convertElfsightEventToFullCalendarEvent(e, source, eventTypes, eventLoc
     if (source.prefixTitle) { title = source.prefixTitle + title; }
 
     const tags = applyEventTags(source, title, description);
-
+    title=tags.length+" "+title;
+    
     return {
         id: formatTitleAndDateToID(start.toUTC().toJSDate(), title),
         title: title,

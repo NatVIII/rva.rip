@@ -35,9 +35,17 @@ export function applyEventTags(source: any, title: string, description: string):
 			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];
 			for (const sourceTag of sourceTags) tags.push(sourceTag);
 		}
-		else {
+		else if (filter.length === 2) { //Future plans to have a backup tag, i.e., if a tag or series of tags in filter[1] are not present, then this tag will be applied from filter[0]
+			// Because of how this works, these entries need to be at the very end of the filters section to work properly
+			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];
+			const sourceAntiTags = Array.isArray(filter[1]) ? filter[1] : [filter[1]];
+			let sourceAntiTagFound = false;
+			for (const tag of tags) for (const sourceAntiTag of sourceAntiTags) if(tag == sourceAntiTag) sourceAntiTagFound = true;
+			if(!sourceAntiTagFound) for (const sourceTag of sourceTags) tags.push(sourceTag);
+		}
+		else if (filter.length >= 3) {
 			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];	//Entry 1, the tag that will be applied. May be an array of strings or a single string
-			const regex = new RegExp(filter[1]);	//Entry 2, the regex script to be used
+			const regex = new RegExp(filter[1], 'i');	//Entry 2, the regex script to be used
 			const searchFields = Array.isArray(filter[2]) ? filter[2] : [filter[2]];	//Entry 3, whether to search the "title", "description", or some other portion. May be an array of strings or a single string
 			const fallbackTag = filter.length > 3 ? filter[3] : null;	//Entry 4, an optional one, that'll apply a tag if the regex doesn't match
 
@@ -65,6 +73,6 @@ export function applyEventTags(source: any, title: string, description: string):
 		}
 	});
 	//Also apply name of calendar as a tag
-	tags.push('🗓️ '+source.name);
+	//tags.push('🗓️ '+source.name);
 	return tags;
 }

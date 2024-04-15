@@ -97,6 +97,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			if (source.suffixDescription) { description += source.suffixDescription; }
 
 			const tags = applyEventTags(source, title, description);
+			title=tags.length+" "+title;
 
 			return {
 			  id: formatTitleAndDateToID(item.start.dateTime, title),
