@@ -553,7 +553,9 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
       </tbody>
     </table>
     <div class="blurb-text" style="padding-left:10%;padding-right:10%;">
-      We're hosting an 🚲 alley cat, 🎥 movie showing, and 🍰 bake sale on May 2nd and on May 4th to benefit Bread for our Neighbors. <a href="https://rva.rip/cuba">Check it out here</a>
+      <a style="color:var(--rip-red);"> ⛺ LIBERATION ZONE HAS BEEN ACTIVATED ⛺ </a> <br> 
+      🇵🇸 JOIN THE ENCAMPMENT ON VCU CAMPUS NOW 🇵🇸 <br>
+      THIS IS NOT A JOKE OR EXAGGERATION, IT'S HAPPENING RIGHT NOW
     </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
