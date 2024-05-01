@@ -4,6 +4,17 @@ import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalida
 export default defineCachedEventHandler(async (event) => {
 	// export default defineEventHandler(async (event) => {
 	const startTime = new Date();
+	//Adding .env processing
+	if (typeof process.env.EVENT_SOURCES_ENV === 'string') {
+		try {
+			const eventSourcesENV = JSON.parse(String(process.env.EVENT_SOURCES_ENV));
+			eventSourcesJSON.googleCalendar = [...eventSourcesJSON.googleCalendar, ...eventSourcesENV.googleCalendar];
+		} catch (error) {
+			console.error('Failed to parse EVENT_SOURCES_ENV:', error);
+		}
+	} else {
+		console.error('EVENT_SOURCES_ENV is not set or is not a valid string.');
+	}
 	const body = await fetchGoogleCalendarEvents();
 	logTimeElapsedSince(startTime.getTime(), 'Google Calendar: events fetched.');
 	return {
