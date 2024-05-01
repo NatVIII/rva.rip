@@ -546,7 +546,7 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
             </div>
             <div class="blurb-sub">
               Stop scrolling insta to find the move!<br>
-              🇵🇸 <a href="https://decolonizepalestine.com/">Long Live Palestine</a> 🇵🇸
+              🇵🇸 <a href="https://ceasefiretoday.com/">CEASEFIRE NOW</a> 🇵🇸
             </div>
           </td>
         </tr>
