@@ -552,9 +552,6 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         </tr>
       </tbody>
     </table>
-    <div class="blurb-text" style="padding-left:10%;padding-right:10%;">
-      We're hosting an 🚲 alley cat, 🎥 movie showing, and 🍰 bake sale on May 2nd and on May 4th to benefit 🇨🇺 Bread for our Neighbors 🇨🇺. <a href="https://rva.rip/cuba">Check it out here</a>
-    </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc" style="padding-bottom: 0;">
