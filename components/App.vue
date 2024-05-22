@@ -23,7 +23,7 @@ const tagsToHide = ['hidden', 'internal']; // Tags that should hide events
 function isDisplayingBasedOnTags(event) {
   // Check if the event has any tag that requires it to be hidden
   const shouldHideEvent = event.tags && event.tags.some(tag => tagsToHide.includes(tag));
-  return shouldHideEvent ? 'none' : 'auto'; // Return 'none' to hide, 'auto' to show
+  return shouldHideEvent ? 'none' : 'list-item'; // Return 'none' to hide, 'auto' to show
 }
 
 const { theme } = useTheme();
