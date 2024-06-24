@@ -58,6 +58,7 @@ async function fetchElfsightEvents() {
 					return {
 						events: [],
 						city: source.city,
+						name: source.name,
 					} as EventNormalSource;
 				}
 				const elfsightJson = await response.json();
@@ -68,7 +69,8 @@ async function fetchElfsightEvents() {
 				const elfsightLocations = firstWidget.data.settings.locations;
 				return {
 					events: elfsightEvents.map(event => convertElfsightEventToFullCalendarEvent(event, source, elfsightEventTypes, elfsightLocations)),
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			})
 		);

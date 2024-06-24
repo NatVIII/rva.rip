@@ -148,7 +148,8 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 
 		  return {
 			events,
-			city: source.city
+			city: source.city,
+			name: source.name,
 		  };
 		})
 	  );

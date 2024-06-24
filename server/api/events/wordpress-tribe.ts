@@ -29,7 +29,8 @@ async function fetchWordPressTribeEvents() {
 			}
 			return {
 				events: wpEvents.map(convertWordpressTribeEventToFullCalendarEvent),
-				city: source.city
+				city: source.city,
+				name: source.name,
 			} as EventNormalSource;
 		}
 		));
