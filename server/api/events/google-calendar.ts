@@ -1,5 +1,6 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders, applyEventTags } from '@/utils/util';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export default defineCachedEventHandler(async (event) => {
 	// export default defineEventHandler(async (event) => {
@@ -108,7 +109,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			if (source.suffixDescription) { description += source.suffixDescription; }
 
 			const tags = applyEventTags(source, title, description);
-			title=tags.length+" "+title;
+			if (isDevelopment) title=tags.length+" "+title;
 
 			return {
 			  id: formatTitleAndDateToID(item.start.dateTime, title),

@@ -2,6 +2,7 @@ import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders, applyEventTags } from '@/utils/util';
 import { url } from 'inspector';
 import { DateTime } from 'luxon';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export default defineCachedEventHandler(async (event) => {
 	const startTime = new Date();
@@ -107,7 +108,7 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source)
 	}, { zone: 'America/New_York' });
 
 	const tags = applyEventTags(source, title, description);
-	title=tags.length+" "+title;
+	if (isDevelopment) title=tags.length+" "+title;
 
 	return {
 		id: formatTitleAndDateToID(actualStart.toUTC().toJSDate(), title),
