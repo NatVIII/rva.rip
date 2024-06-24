@@ -25,3 +25,54 @@ export const replaceBadgePlaceholders = (text: string): string => {
 	return text.replace(/:\w+:/g, (match) => badgeMap[match] || match);
   };
   
+//Tagging script that's reused multiple times
+export function applyEventTags(source: any, title: string, description: string): string[] {
+	const tags: string[] = [];
+	// Apply filters to add tags
+	if (source.filters) source.filters.forEach(filter => {
+		if (filter.length === 1) {
+			// If the filter has only one entry, apply it as a tag to every event
+			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];
+			for (const sourceTag of sourceTags) tags.push(sourceTag);
+		}
+		else if (filter.length === 2) { //Future plans to have a backup tag, i.e., if a tag or series of tags in filter[1] are not present, then this tag will be applied from filter[0]
+			// Because of how this works, these entries need to be at the very end of the filters section to work properly
+			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];
+			const sourceAntiTags = Array.isArray(filter[1]) ? filter[1] : [filter[1]];
+			let sourceAntiTagFound = false;
+			for (const tag of tags) for (const sourceAntiTag of sourceAntiTags) if(tag == sourceAntiTag) sourceAntiTagFound = true;
+			if(!sourceAntiTagFound) for (const sourceTag of sourceTags) tags.push(sourceTag);
+		}
+		else if (filter.length >= 3) {
+			const sourceTags = Array.isArray(filter[0]) ? filter[0] : [filter[0]];	//Entry 1, the tag that will be applied. May be an array of strings or a single string
+			const regex = new RegExp(filter[1], 'i');	//Entry 2, the regex script to be used
+			const searchFields = Array.isArray(filter[2]) ? filter[2] : [filter[2]];	//Entry 3, whether to search the "title", "description", or some other portion. May be an array of strings or a single string
+			const fallbackTag = filter.length > 3 ? filter[3] : null;	//Entry 4, an optional one, that'll apply a tag if the regex doesn't match
+
+			// Initialize a flag to track if there's a regex match
+			let regexMatch = false;
+
+			// Check if the event title or description matches the regex based off of searchFields
+			// Loop through each search field specified
+			for (const field of searchFields) {
+				if (field === 'title') { regexMatch = regex.test(title); }
+				if (field === 'description') { regexMatch = regex.test(description); }
+		
+				// Stop checking once a match is found
+				if (regexMatch) {
+					break;
+				}
+			}
+
+			// Check if the event title or description matches the regex based off of searchFields
+			if (regexMatch) {
+				for (const sourceTag of sourceTags) tags.push(sourceTag);
+			} else if (fallbackTag) {
+				tags.push(fallbackTag);
+			}
+		}
+	});
+	//Also apply name of calendar as a tag
+	//tags.push('🗓️ '+source.name);
+	return tags;
+}

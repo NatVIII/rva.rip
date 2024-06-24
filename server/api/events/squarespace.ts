@@ -1,5 +1,5 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
-import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '@/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders, applyEventTags } from '@/utils/util';
 import { url } from 'inspector';
 import { DateTime } from 'luxon';
 
@@ -106,6 +106,9 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source)
 		minute: end.minute,
 	}, { zone: 'America/New_York' });
 
+	const tags = applyEventTags(source, title, description);
+	title=tags.length+" "+title;
+
 	return {
 		id: formatTitleAndDateToID(actualStart.toUTC().toJSDate(), title),
 		title: title,
@@ -116,26 +119,6 @@ function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source)
 		description: description,
 		images: e.contentType && e.contentType.includes("image") ? [e.assetUrl] : [],//if it's an image, attach it
 		location: locationParts.join(", "),
-		/*location: {
-			geoJSON: {
-				type: "Point",
-				coordinates: [e.location.mapLng, e.location.mapLat]
-			},
-			eventVenue: {
-				name: e.location.addressTitle,
-				address: {
-					streetAddress: e.location.addressLine1,
-					// TODO: Some of these are not provided.
-					//                        addressLocality: e.location.addressLine2.split(',')[0].trim(),
-					//                        addressRegion: e.location.addressLine2.split(',')[1].trim(),
-					//                        postalCode: e.location.addressLine2.split(',')[2].trim(),
-					addressCountry: e.location.addressCountry
-				},
-				geo: {
-					latitude: e.location.mapLat,
-					longitude: e.location.mapLng,
-				}
-			},
-		},*/
+		tags,
 	};
 }
