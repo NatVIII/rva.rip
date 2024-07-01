@@ -16,7 +16,7 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
 
 const clickedEvent = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
-
+var beforeMOTDDate = (Date.now() < Date.parse('07/11/2024 7:30:00 PM'));//For hiding the MOTD, a better system will be implemented in the future!
 
 const tagsToHide = ['hidden', 'internal', 'invisible']; // Tags that should hide events
 
@@ -552,6 +552,9 @@ function updateCityIsEnabledSetting(newIsEnabled: boolean, cityId: string) {
         </tr>
       </tbody>
     </table>
+    <div class="motd" v-if="beforeMOTDDate">
+      Interested in organizing to fight capitalism, racism, and imperialism? @pslvirginia is hosting an interest meeting on Thursday, July 11th, in Sefton Coffee at 7pm, with a presentation on the struggle for a better world in the 21st century and how a revolutionary socialist party can fit into it! <a style="color: #fdfdfd;" href="https://www.instagram.com/p/C8pqLl8Svn7/">More Info Here</a>
+    </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc" style="padding-bottom: 0;">

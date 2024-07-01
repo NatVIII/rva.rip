@@ -117,7 +117,8 @@ fc-theme-standard td,
 }
 
 
-.fc-media-screen {
+.fc-media-screen,
+.motd {
   margin-top: 1vw;
   margin-left: 1vw;
   margin-right: 1vw;
@@ -125,7 +126,8 @@ fc-theme-standard td,
 
 .fc-media-screen,
 .fc .fc-popover,
-.popper-box-inner {
+.popper-box-inner,
+.motd {
   max-height: 90vh; /* Adjust the max height as needed */
   overflow-y: auto;
   z-index: 2;
@@ -293,15 +295,15 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
 }
 
 .blurb-image {
-    color: var(--text-normal);
-      text-decoration: none !important;
-    font-size: min(5vw, 3em);
-    font-family: sans-serif;
-    letter-spacing: 0.15rem;
-    text-transform: lowercase;
-  }
+  color: var(--text-normal);
+  text-decoration: none !important;
+  font-size: min(5vw, 3em);
+  font-family: sans-serif;
+  letter-spacing: 0.15rem;
+  text-transform: lowercase;
+}
   
-  .blurb-text {
+.blurb-text {
   font-family: 'OpenDyslexic';
   font-size: min(4vw, 2em);
   text-align: center;
@@ -309,11 +311,25 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
   color: var(--text-normal);
 }
 
-  .blurb-sub {
+.blurb-sub {
   font-size: min(1.2em);
   text-align: center;
   color: var(--text-normal);
-  }
+}
+
+.motd {
+  font-size: min(1.2em);
+  text-align: center;
+  color: #fdfdfd;
+  background-color: #da1100;
+  padding-left:10%;
+  padding-right:10%;
+  border-radius: 0.1vw;;
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
 
 .desc {
   /* This causes issues with fc-h-events */
