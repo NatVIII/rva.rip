@@ -131,7 +131,7 @@
 			"defaultLocation": "2026A Dabney Road, Richmond VA 23230",
 			"filters": [
 				["community"],
-				["DIY"]
+				["diy"]
 			]
 		},
 		{
@@ -261,24 +261,42 @@
 			"city": "Oakland",
 			"prefixTitle": "♾️ ",
 			"suffixTitle": " | Continuity Press",
-      "filters": [
-        ["community"],
-        ["DIY"]
-      ]
+			"filters": [
+				["community"],
+				["diy"]
+			]
 		},
 		{
 			"name": "James River Anarchist Black Cross",
 			"googleCalendarId": "jrabc1312@gmail.com",
 			"city": "Oakland",
 			"prefixTitle": ":jrabc: ",
-			"suffixTitle": ""
+			"suffixTitle": "",
+			"filters": [
+				["community"],
+				["organizing"],
+				["socialism"]
+			]
 		},
 		{
 			"name": "Girlspit",
 			"googleCalendarId": "6beec3f66bcf6792c6920b8a59f5e1e8a736582c613a9e74e8189008f47d6dd6@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": "",
-			"suffixTitle": ""
+			"suffixTitle": "",
+			"filters": [
+				["community"],
+				["music"]
+			]
+		},
+		{
+			"name": "🎵 RVA Community Sing",
+			"googleCalendarId": "905d99152584dc38b5565e9cdd3beb88b30e02bb8998164fc489563414795bbb@group.calendar.google.com",
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["music"]
+			]
 		}
 	],
 	"squarespace": [
@@ -318,7 +336,7 @@
 				["community", "Community Events", ["title","description"]],
 				[["palestine","community"], "palestine", ["title","description"]],
 				["free stuff", "clothing swap", ["title","description"]],
-				[["DIY"], "Courses and Workshops", ["title","description"]],
+				[["diy"], "Courses and Workshops", ["title","description"]],
 				[["market"], "Artist Markets", ["title","description"]],
 				[["community","organizing"], "Community Organizing Event", ["title","description"]],
 				[["dance","sports"], "Choreo ", ["title","description"]],

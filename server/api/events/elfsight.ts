@@ -137,7 +137,7 @@ function convertElfsightEventToFullCalendarEvent(e, source, eventTypes, eventLoc
         end: end.toUTC().toJSDate(),
         url: url,
         description: description,
-        images: e.image.type && e.image.type.includes("image") ? [e.image.url] : [],//if it's an image, attach it
+        images: e.image && typeof e.image === 'object' && e.image.type && e.image.type.includes("image") ? [e.image.url] : [],//if it's an image, attach it
         location: location,
         tags,
     };
