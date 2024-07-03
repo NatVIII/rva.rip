@@ -13,7 +13,7 @@ useHead({
   link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
   script: [
     {
-      src: 'https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces6%2Ces5',
+      src: 'https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=default%2Ces2015%2Ces6%2Ces5',
       crossorigin: 'anonymous',
     },
   ],
