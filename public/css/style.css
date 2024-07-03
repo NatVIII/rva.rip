@@ -320,8 +320,8 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
 .motd {
   font-size: min(1.2em);
   text-align: center;
-  color: #fdfdfd;
-  background-color: #da1100;
+  color: var(--text-white);
+  background-color: var(--rip-red);
   padding-left:10%;
   padding-right:10%;
   border-radius: 0.1vw;;
