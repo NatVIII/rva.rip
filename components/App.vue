@@ -336,7 +336,8 @@ async function getEventSources() {
     '/api/events/instagram',
     */'/api/events/google-calendar',
     '/api/events/squarespace',
-    '/api/events/elfsight',/*
+    '/api/events/elfsight',
+    '/api/events/libcal',/*
     '/api/events/tockify',
     '/api/events/with-friends',
     '/api/events/wordpress-tribe',

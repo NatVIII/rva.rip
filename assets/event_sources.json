@@ -364,5 +364,36 @@
 				["commercial","community"]
 			]
 		}
+	],
+	"libcal": [
+		{
+			"name": "Richmond Public Libraries",
+			"url": "https://rvalibrary.libcal.com/process_search.php?site_id=12885&perpage=100&audience=4466",
+			"city": "Oakland",
+			"prefixTitle": ":rvalibrary: ",
+			"suffixTitle": "",
+			"filters": [
+				["nonprofit"],
+				["library"],
+				["invisible", "Board Meeting", "title"],
+				["invisible", "STAFF PLANNING", "title"],
+				["invisible", "Small Business Legal Workshop", "title"],
+				["invisible", "Office Hours", "title"],
+				["invisible", "Family Law", "title"],
+				["invisible", "Senior", "title"],
+				["invisible", "CANCELLED", "title"]
+			],
+			"calendarToLocation": [
+				["Main","Main Library - Richmond Public Library"],
+				["Belmont","Belmont Branch - Richmond Public Library"],
+				["Broad Rock","Broad Rock Branch - Richmond Public Library"],
+				["East End","East End Branch - Richmond Public Library"],
+				["Ginter Park","Ginter Park Branch - Richmond Public Library"],
+				["Hull Street","Hull Street Branch - Richmond Public Library"],
+				["North Avenue","North Avenue Branch - Richmond Public Library"],
+				["West End","West End Branch - Richmond Public Library"],
+				["Westover Hills","Westover Hills Branch - Richmond Public Library"]
+			]
+		}
 	]
 }
