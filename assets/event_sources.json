@@ -170,6 +170,7 @@
 			"googleCalendarId": "c_0e01d5366281ee1230a34c41e4f988fac5cb94324aec20d86f035457d14722df@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":goldlion: ",
+			"defaultLocation": "1012 Hull St, Richmond, VA 23224, USA",
 			"filters": [
 				["invisible", "undefined", "title"],
 				[["music"], "Concert", ["title","description"]],
