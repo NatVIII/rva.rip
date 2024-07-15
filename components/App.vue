@@ -16,13 +16,14 @@ import { type CalendarOptions, type EventClickArg, type EventSourceInput } from 
 
 const clickedEvent: Ref<EventClickArg | null> = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
+var beforeMOTDDate = (Date.now() < Date.parse('07/11/2024 7:30:00 PM'));//For hiding the MOTD, a better system will be implemented in the future!
 
-const tagsToHide = ['hidden', 'internal']; // Tags that should hide events
+const tagsToHide = ['hidden', 'internal', 'invisible']; // Tags that should hide events
 
 function isDisplayingBasedOnTags(event) {
   // Check if the event has any tag that requires it to be hidden
   const shouldHideEvent = event.tags && event.tags.some(tag => tagsToHide.includes(tag));
-  return shouldHideEvent ? 'none' : 'auto'; // Return 'none' to hide, 'auto' to show
+  return shouldHideEvent ? 'none' : 'list-item'; // Return 'none' to hide, 'auto' to show
 }
 
 const { theme } = useTheme();
@@ -254,6 +255,22 @@ const endpoints = [
 ];
 
 async function getEventSources() {
+  const endpoints = [
+    /*
+    '/api/events/eventbrite',
+    '/api/events/forbidden-tickets',
+    '/api/events/instagram',
+    */'/api/events/google-calendar',
+    '/api/events/squarespace',
+    '/api/events/elfsight',
+    '/api/events/libcal',/*
+    '/api/events/tockify',
+    '/api/events/with-friends',
+    '/api/events/wordpress-tribe',
+    '/api/events/timely',
+    '/api/events/wix',
+    */
+  ];
   const clientHeaders = {
     'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
   };
@@ -395,12 +412,15 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
             </div>
             <div class="blurb-sub">
               Stop scrolling insta to find the move!<br>
-              🇵🇸 <a href="https://decolonizepalestine.com/">Long Live Palestine</a> 🇵🇸
+              🇵🇸 <a href="https://linktr.ee/sjpvcu">Support your local SJP</a> 🇵🇸
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+    <div class="motd" v-if="beforeMOTDDate">
+      Interested in organizing to fight capitalism, racism, and imperialism? @pslvirginia is hosting an interest meeting on Thursday, July 11th, in Sefton Coffee at 7pm, with a presentation on the struggle for a better world in the 21st century and how a revolutionary socialist party can fit into it! <a style="color: #fdfdfd;" href="https://www.instagram.com/p/C8pqLl8Svn7/">More Info Here</a>
+    </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc" style="padding-bottom: 0;">

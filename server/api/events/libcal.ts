@@ -6,8 +6,8 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 export default defineCachedEventHandler(async (event) => {
 	const startTime = new Date();
-	const body = await fetchSquarespaceEvents();
-	logTimeElapsedSince(startTime.getTime(), 'Squarespace: events fetched.');
+	const body = await fetchlibcalEvents();
+	logTimeElapsedSince(startTime.getTime(), 'libcal: events fetched.');
 	return {
 		body
 	}
@@ -44,84 +44,76 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
     const titlePrefix = getFirstThreeUrlCompatibleChars(title);
   
 	return `${year}${month}${day}${hours}${minutes}${titlePrefix}`;
-  }
+}
 
-async function fetchSquarespaceEvents() {
-	console.log('Fetching Squarespace events...')
-	let squarespaceSources = await useStorage().getItem('squarespaceSources');
+function formatCalendartoLocation(calendarName: string, calendarToLocationArray: string[]) { //In Richmond the Calendar Name is the easiest way to find what the address location of this event is, in order to get the address we use this function
+	for (let pair of calendarToLocationArray) { //Loop through each value in the calendarToLocationArray
+		if (pair[0] == calendarName) {
+			return pair[1];
+		}
+	}
+	return "Error on server side processing, please alert this instance's maintainers! ";
+}
+
+async function fetchlibcalEvents() {
+	console.log('Fetching libcal events...')
+	let libcalSources = await useStorage().getItem('libcalSources');
 	try {
-		squarespaceSources = await Promise.all(
-			eventSourcesJSON.squarespace.map(async (source) => {
+		libcalSources = await Promise.all(
+			eventSourcesJSON.libcal.map(async (source) => {
 				// Add current date in milliseconds to the URL to get events starting from this moment.
 				const response = await fetch(source.url, { headers: serverFetchHeaders });
 				if (!response.ok) {
-					console.error('[Squarespace] Error: could not fetch events from', source.url);
+					console.error('[libcal] Error: could not fetch events from', source.url);
 					return {
 						events: [],
 						city: source.city,
-						name: source.name,
 					} as EventNormalSource;
 				}
-				const squarespaceJson = await response.json();
-				const squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
+				const libcalJson = await response.json();
+				const libcalEvents = libcalJson.results;
 				return {
-					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(squarespaceJson.website.timeZone, event, source)),
-					city: source.city,
-					name: source.name,
+					events: libcalEvents.map(event => convertlibcalEventToFullCalendarEvent(libcalJson.timezone, event, source)),
+					city: source.city
 				} as EventNormalSource;
 			})
 		);
-		await useStorage().setItem('squarespaceSources', squarespaceSources);
+		await useStorage().setItem('libcalSources', libcalSources);
 	} catch (e) {
-		console.log('Error fetching Squarespace events: ', e);
+		console.log('Error fetching libcal events: ', e);
 	}
-	return squarespaceSources;
+	return libcalSources;
 };
 
-function convertSquarespaceEventToFullCalendarEvent(timeZone: string, e, source) {
-	let start = DateTime.fromMillis(e.startDate).setZone(timeZone);
-	let end = DateTime.fromMillis(e.endDate).setZone(timeZone);
-	let url = new URL(source.url).origin + e.fullUrl;
+function convertlibcalEventToFullCalendarEvent(timeZone: string, e, source) {
+	let start = DateTime.fromSQL(e.startdt).setZone(timeZone);
+	let end = DateTime.fromSQL(e.enddt).setZone(timeZone);
+	let url = e.url;
 	let title = e.title;
-	let description = e.body + '<br /><a href="'+url+'">More Info</a>';
-	let locationParts = [
-		e.location.addressTitle,
-		e.location.addressLine1,
-		e.location.addressLine2,
-		e.location.addressCountry
-	  ].filter(part => part && part.trim() !== ''); // Remove any empty or undefined parts
+	let description = e.shortdesc;
+	if	(('online_registration' in e && 'in_person_registration' in e && 'registration_enabled' in e) && //If you have to register
+		(e.online_registration||e.in_person_registration||e.registration_enabled))
+		description = description + '<br /><a href="'+url+'">For more information and to register check out the full page here!</a>';
+	else description = description + '<br /><a href="'+url+'">For more information check out the full page here!</a>';
+	let location = formatCalendartoLocation(e.calendar, source.calendarToLocation); // Use the formatCalendartoLocation function to get an address.
 	// Append or prepend text if specified in the source
 	if (source.prefixTitle) { title = source.prefixTitle + title; }
 	if (source.suffixTitle) { title += source.suffixTitle; }
-	// Get raw times because some calendars have incorrect time zones (i.e. America/New_York), even though they're in California.
-	const actualStart = DateTime.fromObject({
-		day: start.day,
-		month: start.month,
-		year: start.year,
-		hour: start.hour,
-		minute: start.minute,
-	}, { zone: 'America/New_York' });
-	const actualEnd = DateTime.fromObject({
-		day: end.day,
-		month: end.month,
-		year: end.year,
-		hour: end.hour,
-		minute: end.minute,
-	}, { zone: 'America/New_York' });
 
 	const tags = applyEventTags(source, title, description);
 	if (isDevelopment) title=tags.length+" "+title;
+	if (e.location) description = 'Location: <br />'+description;
 
 	return {
-		id: formatTitleAndDateToID(actualStart.toUTC().toJSDate(), title),
+		id: formatTitleAndDateToID(start.toUTC().toJSDate(), title),
 		title: title,
-		org: source.name,
-		start: actualStart.toUTC().toJSDate(),
-		end: actualEnd.toUTC().toJSDate(),
+		org: source.name+": "+e.calendar,
+		start: start.toUTC().toJSDate(),
+		end: end.toUTC().toJSDate(),
 		url: url,
 		description: description,
-		images: e.contentType && e.contentType.includes("image") ? [e.assetUrl] : [],//if it's an image, attach it
-		location: locationParts.join(", "),
+		images: e.featured_image ? [e.featured_image] : [],//if it's an image, attach it (add checking logic later)
+		location: location,
 		tags,
 	};
 }

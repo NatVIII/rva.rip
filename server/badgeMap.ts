@@ -17,4 +17,12 @@ export const badgeMap: { [key: string]: string } = {
     ':RVAGrowsGardens2:': '<img src="/badges/RVAGrowsGardens2.svg" class="badge">',
     ':studiotwothree:': '<img src="/badges/studiotwothree.svg" class="badge invert-dark">',
     ':BSB:': '<img src="/badges/BSB.svg" class="badge-shadow-b">',
+    ':diversityiridian:': '<img src="/badges/diversityiridian.svg" class="badge">',
+    ':diversitypride:': '<img src="/badges/diversitypride.svg" class="badge-shadow-b">',
+    ':diversityrichmond:': '<img src="/badges/diversityrichmond.svg" class="badge">',
+    ':diversitythrift:': '<img src="/badges/diversitythrift.svg" class="badge">',
+    ':jrabc:': '<img src="/badges/jrabc.svg" class="badge invert-dark">',
+    ':girlspit:': '<img src="/badges/girlspit.svg" class="badge invert-dark">',
+    ':rvalibrary:': '<img src="/badges/rvalibrary.svg" class="badge-shadow-w">',
+    ':layersofchange:': '<img src="/badges/layersofchange.svg" class="badge">',
   };

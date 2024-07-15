@@ -1,9 +1,21 @@
 import eventSourcesJSON from '@/assets/event_sources.json';
-import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders } from '@/utils/util';
+import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders, applyEventTags } from '@/utils/util';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export default defineCachedEventHandler(async (event) => {
 	// export default defineEventHandler(async (event) => {
 	const startTime = new Date();
+	//Adding .env processing
+	if (typeof process.env.EVENT_SOURCES_ENV === 'string') {
+		try {
+			const eventSourcesENV = JSON.parse(String(process.env.EVENT_SOURCES_ENV));
+			eventSourcesJSON.googleCalendar = [...eventSourcesJSON.googleCalendar, ...eventSourcesENV.googleCalendar];
+		} catch (error) {
+			console.error('Failed to parse EVENT_SOURCES_ENV:', error);
+		}
+	} else {
+		console.error('EVENT_SOURCES_ENV is not set or is not a valid string.');
+	}
 	const body = await fetchGoogleCalendarEvents();
 	logTimeElapsedSince(startTime.getTime(), 'Google Calendar: events fetched.');
 	return {
@@ -91,35 +103,13 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 		  const events = data.items.map((item) => {
 			let title = item.summary;
 			let description = item.description ? replaceGoogleTrackingUrls(item.description.toString()) : '';
-			let tags = [];
 			// Append or prepend text if specified in the source
 			if (source.prefixTitle) { title = source.prefixTitle + title; }
 			if (source.suffixTitle) { title += source.suffixTitle; }
 			if (source.suffixDescription) { description += source.suffixDescription; }
 
-			// Apply filters to add tags
-			if (source.filters) source.filters.forEach(filter => {
-				const tag = filter[0];					//Entry 1, the tag that will be applied
-				const regex = new RegExp(filter[1]);	//Entry 2, the regex script to be used
-				const searchField = filter[2];			//Entry 3, whether to search the "title", "body", or "both". If none of those are in filter[2] then it'll fail always.
-				const fallbackTag = filter.length > 3 ? filter[3] : null;	//Entry 4, an optional one, that'll apply a tag if the regex doesn't match
-
-				// Check if the event title or description matches the regex based off of searchField
-				let regexMatch = false;
-				if (searchField === 'title') {
-					regexMatch = regex.test(title);
-				} else if (searchField === 'body') {
-					regexMatch = regex.test(description);
-				} else if (searchField === 'both') {
-					regexMatch = regex.test(title) || regex.test(description);
-				}
-				// Check if the event title or description matches the regex based off of searchField
-				if (regexMatch) {
-					tags.push(tag);
-				} else if (fallbackTag) {
-					tags.push(fallbackTag);
-				}
-			});
+			const tags = applyEventTags(source, title, description);
+			if (isDevelopment) title=tags.length+" "+title;
 
 			return {
 			  id: formatTitleAndDateToID(item.start.dateTime, title),

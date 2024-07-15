@@ -1,81 +1,126 @@
 {
 	"googleCalendar": [
 		{
-			"name": "DFL",
-			"googleCalendarId": "1bfaa6ca59045a2e667db8c0c258041246f5cc69031737e2a84796da54656810@group.calendar.google.com",
-			"city": "Oakland"
-		},
-		{
 			"name": "rva.rip Manually Added Events",
 			"googleCalendarId": "1c16b938a56fea0342068f59730a90d90bec79d49d44c6fcc0b46915705b8cea@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"filters": [
+				[["market","commercial"], "Market", ["title","description"]],
+				["palestine", "🇵🇸", ["title","description"]],
+				["biking", "🚲", ["title","description"]],
+				["sobriety", "🚭", "title"],
+				["free stuff", "Free Food", "title"],
+				["community","commercial"]
+			]
 		},
 		{
 			"name": "Burning Van",
 			"googleCalendarId": "burningvan69@gmail.com",
-			"city": "Oakland"
-		},
-		{
-			"name": "Recess Forever",
-			"googleCalendarId": "a0357682aab2b461272bbba85acfbbf079e05e8225392bc1e3f30eff896329a0@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["biking"]
+			]
 		},
 		{
 			"name": "Anonymous Contributor CB",
 			"googleCalendarId": "657b8cf1729356210e21d20c93e7696cd90fc8c06e32e22b0bc137318b8b0c00@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["theater", "PLAY", "title"]
+			]
 		},
 		{
 			"name": "Food Not Bombs",
 			"googleCalendarId": "2eb28d433a637a4d0ba2d2969fa9ccbd7042d83f5992ff0aaafb01d70a299884@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["free stuff", "Free", "title"],
+				["volunteering", "Volunteer", "title"]
+			]
 		},
 		{
 			"name": "RVA Queer Soccer",
 			"googleCalendarId": "rvaqueersoccer@gmail.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["sports"]
+			]
 		},
 		{
 			"name": "Dykes on Bikes RVA",
 			"googleCalendarId": "0443449fed4f78e2434616b80b74c88bd6a942328e8583fa7f35fecdc1df97ca@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":dykes_on_bikes: "
+			"prefixTitle": ":dykes_on_bikes: ",
+			"filters": [
+				["community"],
+				["biking"]
+			]
 		},
 		{
 			"name": "James River Park Cleanup",
 			"googleCalendarId": "029ddcdb1317ef7c5c4aa1ea53964073e72ae633462e014c83332f6ba0c91b41@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":fojrp: "
+			"prefixTitle": ":fojrp: ",
+			"filters": [
+				["ecology"],
+				["volunteering"]
+			]
 		},
 		{
 			"name": "RVA.RIP Major Update Announcements",
 			"googleCalendarId": "2847685acc28b260c69a05bd948038fffe1b00cc12424b6a35ef39480a3900c1@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":ripple: "
+			"prefixTitle": ":ripple: ",
+			"filters": [
+				["community"],
+				["announcement"]
+			]
 		},
 		{
 			"name": "MADRVA",
 			"googleCalendarId": "7332d16dfa04b8b3e944e462f6dc832d5559036dbc9f15d9803f04d61ce5ad7d@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":madrva:"
+			"prefixTitle": ":madrva:",
+			"filters": [
+				["community"],
+				["volunteering", "Free Store", "title"],
+				["free stuff", "Free Store", "title"]
+			]
 		},
 		{
 			"name": "C's Weekly Rides Calendar",
 			"googleCalendarId": "999072f138be452067352af67a3cc0370c7594ef8b8ae19fd4d73d3cd9471032@group.calendar.google.com",
-			"city": "Oakland"
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["biking"],
+				["sobriety", "🚭", "title"]
+			]
 		},
 		{
 			"name": "Reasonable Morning Ride",
 			"googleCalendarId": "56042348356c1aa89c4783614ea1ffe2414edd1717568c161e0c6ab4415c4423@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": "☕🚲 "
+			"prefixTitle": "☕🚲 ",
+			"filters": [
+				["community"],
+				["biking"]
+			]
 		},
 		{
 			"name": "Coalition Theater",
 			"googleCalendarId": "r1funfuomjmgs47jph9faksu32iu7ktb@import.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":coalition_theater: ",
-			"suffixTitle": ""
+			"suffixTitle": "",
+			"filters": [
+				["community"],
+				["theater"]
+			]
 		},
 		{
 			"name": "hackRVA",
@@ -83,59 +128,108 @@
 			"city": "Oakland",
 			"prefixTitle": ":hackrva: ",
 			"suffixDescription": "<br /><hr>HackRVA is a member-run and organized non-profit makerspace in Richmond, Virginia. HackRVA is a space filled with tools, computers, and people who like to build, invent, tinker, expand their minds, and learn and share new skills. You’ll find a diverse group of individuals who are into electronics, woodworking, embedded software, metalworking, coding (programming), music, art, video, photography, 3D printing, sewing, textiles, and virtual reality—and that’s for starters. HackRVA members have access to the makerspace, tools, community and learning opportunities through member-led workshops, events, and projects. For more information check out our website <a href=\"https://www.hackrva.org/\">ww.hackrva.org</a>!<br /><br /><a href=\"https://wiki.hackrva.org/images/a/ab/HackRVA-Front_alt3a.gif/\">Poster</a>",
-			"defaultLocation": "2026A Dabney Road, Richmond VA 23230"
+			"defaultLocation": "2026A Dabney Road, Richmond VA 23230",
+			"filters": [
+				[["community","diy"], "Open", ["title","description"]],
+				["invisible", "community"]
+			]
 		},
 		{
 			"name": "Kasama Collective",
 			"googleCalendarId": "c0ba770604500783fe65753bbbdd682b55b6bd50ad656c92706426758e5251b8@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":kasamacollective: "
+			"prefixTitle": ":kasamacollective: ",
+			"filters": [
+				["commercial"],
+				["market"]
+			]
 		},
 		{
 			"name": "Outpost Adventure Club Calendar",
 			"googleCalendarId": "info@outpostrichmond.com",
 			"city": "Oakland",
-			"prefixTitle": ":outpost: "
+			"prefixTitle": ":outpost: ",
+			"filters": [
+				["community"],
+				["biking"]
+			]
 		},
 		{
 			"name": "PSL Virginia @pslvirginia",
 			"googleCalendarId": "7c07b5d92633673b1409ee65d643ddfde18cf257323136f95c9ceb3e5afda5de@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":psl:"
+			"prefixTitle": ":psl:",
+			"filters": [
+				["community"],
+				["socialism"],
+				["organizing"]
+			]
 		},
 		{
 			"name": "Gold Lion Cafe",
 			"googleCalendarId": "c_0e01d5366281ee1230a34c41e4f988fac5cb94324aec20d86f035457d14722df@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": ":goldlion: ",
+			"defaultLocation": "1012 Hull St, Richmond, VA 23224, USA",
 			"filters": [
-				["hidden", "undefined", "title"],
-				["hidden", "Concert", "title"]
+				["invisible", "undefined", "title"],
+				[["music"], "Concert", ["title","description"]],
+				["invisible", "Community Meditation with Meg", "title"],
+				["community", "River City Writers Meeting", ["title","description"]],
+				["community", "Dance", ["title","description"]],
+				["community", "New to RVA Meetup", ["title","description"]],
+				["community", "Drawing", ["title","description"]],
+				["community", "Forum", ["title"]],
+				["community", "Community Morning", ["title"]],
+				[["community","music"], "Live in da Garden", ["title","description"]],
+				[["community"], "Vegan", ["title","description"]],
+				[["community","ecology"], "Enviromental", ["title","description"]],
+				[["music","karaoke"], "karaoke", ["title","description"]],
+				[["community","sports"], "yoga", "title"],
+				["commercial","community"]
+				
 			]
 		},
 		{
 			"name": "@rvaqueerbookclub",
 			"googleCalendarId": "63b6eb40d80e3feaec30d2d5bfcf3450aeb45bae641366a91c37bbc422be3bb1@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": "🌈📚 "
+			"prefixTitle": "🌈📚 ",
+			"filters": [
+				[["community","books"]]
+			]
 		},
 		{
 			"name": "@broadstreetbullies804",
 			"googleCalendarId": "4ce2fe20599863c927fb7a6a6ec6e0e10a50b438de070948b4daeafc9731e73f@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":BSB:"
+			"prefixTitle": ":BSB:",
+			"filters": [
+				["community"],
+				["biking"]
+			]
 		},
 		{
 			"name": "Sunrise Movement RVA",
 			"googleCalendarId": "9848cc3a6ebfce17fb9a2f5aa72ae2ad315cf96e323e071540de5c5a6de2c701@group.calendar.google.com",
 			"city": "Oakland",
-			"prefixTitle": ":sunrise: "
+			"prefixTitle": ":sunrise: ",
+			"filters": [
+				["community"],
+				["organizing"],
+				["ecology"]
+			]
 		},
 		{
 			"name": "RVA Roll Patrol",
 			"googleCalendarId": "rva.roll.patrol@gmail.com",
 			"city": "Oakland",
-			"prefixTitle": "🛼"
+			"prefixTitle": "🛼",
+			"filters": [
+				["community"],
+				["skating"],
+				["sports"]
+			]
 		},
 		{
 			"name": "Rag and Bones Bicycle Cooperative",
@@ -144,14 +238,77 @@
 			"prefixTitle": "🛠🚲 ",
 			"suffixTitle": " | Rag & Bones Bicycle Cooperative",
 			"defaultLocation": "2916 North Avenue, Richmond VA 23230",
-			"suffixDescription": "<br /> <a href=\"https://ragandbonesrva.org/\">Website</a> | <a href=\"https://www.instagram.com/ragandbonesrva/\">Instagram</a> | <a href=\"https://www.facebook.com/RagBonesBicycleCoOp/\">Facebook</a>"
+			"suffixDescription": "<br /> <a href=\"https://ragandbonesrva.org/\">Website</a> | <a href=\"https://www.instagram.com/ragandbonesrva/\">Instagram</a> | <a href=\"https://www.facebook.com/RagBonesBicycleCoOp/\">Facebook</a>",
+			"filters": [
+				["community"],
+				["volunteering", "Open Hours", "title", "party"],
+				["music", "Benefit", ["title","description"]]
+			]
 		},
 		{
 			"name": "New Habit Cinema",
 			"googleCalendarId": "01cd966b384a29a5d1f8f341f8bb7aa56cad3b0233d0b20402a30ac640691690@group.calendar.google.com",
 			"city": "Oakland",
 			"prefixTitle": "📽️",
-			"suffixDescription": "<br /><a href=\"https://www.instagram.com/newhabitcinema/\">Instagram</a>"
+			"suffixDescription": "<br /><a href=\"https://www.instagram.com/newhabitcinema/\">Instagram</a>",
+			"filters": [
+				["community"],
+				["movies"]
+			]
+		},
+		{
+			"name": "Continuity Press",
+			"googleCalendarId": "de72cf999d4da30155c68eb7040ede22c0540275b3a884e355482100ec744765@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "♾️ ",
+			"suffixTitle": " | Continuity Press",
+			"filters": [
+				["community"],
+				["diy"]
+			]
+		},
+		{
+			"name": "James River Anarchist Black Cross",
+			"googleCalendarId": "jrabc1312@gmail.com",
+			"city": "Oakland",
+			"prefixTitle": ":jrabc: ",
+			"suffixTitle": "",
+			"filters": [
+				["community"],
+				["organizing"],
+				["socialism"]
+			]
+		},
+		{
+			"name": "Girlspit",
+			"googleCalendarId": "6beec3f66bcf6792c6920b8a59f5e1e8a736582c613a9e74e8189008f47d6dd6@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "",
+			"suffixTitle": "",
+			"filters": [
+				["community"],
+				["music"]
+			]
+		},
+		{
+			"name": "🎵 RVA Community Sing",
+			"googleCalendarId": "905d99152584dc38b5565e9cdd3beb88b30e02bb8998164fc489563414795bbb@group.calendar.google.com",
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["music"]
+			]
+		},
+		{
+			"name": "🏳️‍⚧️ Layers of Change",
+			"googleCalendarId": "6c7cd3cc0e9ff43a606292aafed9b215b100cab9d53c4892e651651abe13cf07@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":layersofchange: ",
+			"filters": [
+				["community"],
+				["support"],
+				["transgender"]
+			]
 		}
 	],
 	"squarespace": [
@@ -160,7 +317,11 @@
 			"url": "https://www.richmondgrowsgardens.org/events?format=json",
 			"city": "Oakland",
 			"prefixTitle": ":RVAGrowsGardens1: ",
-			"suffixTitle": ":RVAGrowsGardens2:"
+			"suffixTitle": ":RVAGrowsGardens2:",
+			"filters": [
+				["community"],
+				["ecology"]
+			]
 		}
 	],
 	"elfsight": [
@@ -177,6 +338,85 @@
 				["Artist Markets", "🛍️"],
 				["Private Events", "🔒"],
 				["Community Organizing Event", "📢"]
+			],
+			"eventDefault": [
+				"", ""
+			],
+			"filters": [
+				[["community", "movies"], "Film", ["title","description"]],
+				[["community", "dance"], "dance", ["title"]],
+				["community", "Community Events", ["title","description"]],
+				[["palestine","community"], "palestine", ["title","description"]],
+				["free stuff", "clothing swap", ["title","description"]],
+				[["diy"], "Courses and Workshops", ["title","description"]],
+				[["market"], "Artist Markets", ["title","description"]],
+				[["community","organizing"], "Community Organizing Event", ["title","description"]],
+				[["dance","sports"], "Choreo ", ["title","description"]],
+				["commercial","community"]
+			]
+		},
+		{
+			"name": "Diversity Richmond",
+			"url": "https://core.service.elfsight.com/p/boot/?page=https://www.diversityrichmond.org/events&w=3ef9dd43-ad54-43ff-ae47-41037c180d59",
+			"key": "3ef9dd43-ad54-43ff-ae47-41037c180d59",
+			"city": "Oakland",
+			"eventTypes": [
+				["Iridian Gallery ", ":diversityiridian:"],
+				["Virginia Pride", ":diversitypride:"],
+				["Diversity Richmond", ":diversityrichmond:"],
+				["Diversity Thrift", ":diversitythrift:"]
+			],
+			"eventDefault": [
+				"Diversity Richmond", ":diversityrichmond:"
+			],
+			"filters": [
+				[["market"], "Market", ["title","description"]],
+				[["art"], "Iridian Gallery", ["title","description"]],
+				[["free stuff","community"], "Pantry", ["title","description"]],
+				["commercial","community"]
+			]
+		}
+	],
+	"libcal": [
+		{
+			"name": "Richmond Public Libraries",
+			"url": "https://rvalibrary.libcal.com/process_search.php?site_id=12885&perpage=100&audience=4466",
+			"city": "Oakland",
+			"prefixTitle": ":rvalibrary: ",
+			"suffixTitle": "",
+			"filters": [
+				["nonprofit"],
+				["library"],
+				["invisible", "Board Meeting", "title"],
+				["invisible", "STAFF PLANNING", "title"],
+				["invisible", "Small Business Legal Workshop", "title"],
+				["invisible", "Office Hours", "title"],
+				["invisible", "Family Law", "title"],
+				["invisible", "Senior", "title"],
+				["invisible", "CANCELLED", "title"],
+				["invisible", "legal resources", "title"],
+				["invisible", "Blood Pressure", "title"],
+				["invisible", "Memory Lab", "title"],
+				["invisible", "Computer Basics", "title"],
+				["invisible", "Tech Tuesday", "title"],
+				["invisible", "Extended Hours", "title"],
+				["invisible", "Richmond Community Sing", "title"],
+				["invisible", "Civic Association Meeting", "title"],
+				["invisible", "Information Session", "title"],
+				["invisible", "Board of Trustee Meeting", "title"],
+				["invisible", "Affordable Housing Workshop", "title"],
+				["invisible", "Virginia Housing", "title"]
+			],
+			"calendarToLocation": [
+				["Main","Main Library - Richmond Public Library"],
+				["Belmont","Belmont Branch - Richmond Public Library"],
+				["Broad Rock","Broad Rock Branch - Richmond Public Library"],
+				["East End","East End Branch - Richmond Public Library"],
+				["Ginter Park","Ginter Park Branch - Richmond Public Library"],
+				["Hull Street","Hull Street Branch - Richmond Public Library"],
+				["North Avenue","North Avenue Branch - Richmond Public Library"],
+				["West End","West End Branch - Richmond Public Library"],
+				["Westover Hills","Westover Hills Branch - Richmond Public Library"]
 			]
 		}
 	]
