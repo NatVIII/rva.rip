@@ -329,6 +329,7 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
   padding-bottom: 0.5vw;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
+  display: inline-block;
 }
 
 .desc {
