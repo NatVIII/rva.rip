@@ -405,7 +405,9 @@
 				["invisible", "Information Session", "title"],
 				["invisible", "Board of Trustee Meeting", "title"],
 				["invisible", "Affordable Housing Workshop", "title"],
-				["invisible", "Virginia Housing", "title"]
+				["invisible", "Virginia Housing", "title"],
+				["invisible", "Internet", "title"],
+				["invisible", "USDOJ", "title"]
 			],
 			"calendarToLocation": [
 				["Main","Main Library - Richmond Public Library"],
