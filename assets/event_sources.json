@@ -309,6 +309,22 @@
 				["support"],
 				["transgender"]
 			]
+		},
+		{
+			"name": "Anonymous Contributor Mycelium",
+			"googleCalendarId": "fgucrprcbjr861qqa2t1r0qjvs@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "🍄‍🟫 ",
+			"filters": [
+				["community"],
+				["invisible", "Broadrock", "title"],
+				["invisible", "Gilpin", "title"],
+				["invisible", "FOJRP", "title"],
+				["invisible", "PSL", "title"],
+				["invisible", "Fnb", "title"],
+				["invisible", "James River Park System", "description"],
+				["activism", "red", "title"]
+			]
 		}
 	],
 	"squarespace": [
