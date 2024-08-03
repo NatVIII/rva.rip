@@ -325,6 +325,16 @@
 				["invisible", "James River Park System", "description"],
 				["activism", "red", "title"]
 			]
+		},
+		{
+			"name": "🏳️‍⚧️ Trans Jam Events",
+			"googleCalendarId": "ff1e734c712e4c89069f15ee40a875e77f8e12844a1e398dae8ea19964407d70@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":transjam:🏳️‍⚧️ ",
+			"filters": [
+				["community"],
+				["transgender"]
+			]
 		}
 	],
 	"squarespace": [
