@@ -309,6 +309,51 @@
 				["support"],
 				["transgender"]
 			]
+		},
+		{
+			"name": "Anonymous Contributor Mycelium",
+			"googleCalendarId": "fgucrprcbjr861qqa2t1r0qjvs@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "🍄‍🟫 ",
+			"filters": [
+				["community"],
+				["invisible", "Broadrock", "title"],
+				["invisible", "Gilpin", "title"],
+				["invisible", "FOJRP", "title"],
+				["invisible", "PSL", "title"],
+				["invisible", "Fnb", "title"],
+				["invisible", "James River Park System", "description"],
+				["activism", "red", "title"]
+			]
+		},
+		{
+			"name": "🏳️‍⚧️ Trans Jam Events",
+			"googleCalendarId": "ff1e734c712e4c89069f15ee40a875e77f8e12844a1e398dae8ea19964407d70@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": ":transjam:🏳️‍⚧️ ",
+			"filters": [
+				["community"],
+				["transgender"]
+			]
+		},
+		{
+			"name": "🚲🕯️ Secret Bike Club",
+			"googleCalendarId": "6d2ce8d9e9d3821a56e2ef91cadbbd8791bf34891a90380787874cbb8c60aa45@group.calendar.google.com",
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["biking"]
+			]
+		},
+		{
+			"name": "Known Contributor Rebel Rouser",
+			"googleCalendarId": "3940f9dd4d7b006ada3c8643edafb9846fa182792ed08f376c107e18d05b3289@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "👠 ",
+			"filters": [
+				["commercial"],
+				["drag"]
+			]
 		}
 	],
 	"squarespace": [
@@ -405,7 +450,9 @@
 				["invisible", "Information Session", "title"],
 				["invisible", "Board of Trustee Meeting", "title"],
 				["invisible", "Affordable Housing Workshop", "title"],
-				["invisible", "Virginia Housing", "title"]
+				["invisible", "Virginia Housing", "title"],
+				["invisible", "Internet", "title"],
+				["invisible", "USDOJ", "title"]
 			],
 			"calendarToLocation": [
 				["Main","Main Library - Richmond Public Library"],
