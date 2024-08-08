@@ -59,13 +59,15 @@ async function fetchSquarespaceEvents() {
 					return {
 						events: [],
 						city: source.city,
+						name: source.name,
 					} as EventNormalSource;
 				}
 				const squarespaceJson = await response.json();
 				const squarespaceEvents = squarespaceJson.upcoming || squarespaceJson.items;
 				return {
 					events: squarespaceEvents.map(event => convertSquarespaceEventToFullCalendarEvent(squarespaceJson.website.timeZone, event, source)),
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			})
 		);
