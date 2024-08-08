@@ -335,6 +335,15 @@
 				["community"],
 				["transgender"]
 			]
+		},
+		{
+			"name": "🚲🕯️ Secret Bike Club",
+			"googleCalendarId": "6d2ce8d9e9d3821a56e2ef91cadbbd8791bf34891a90380787874cbb8c60aa45@group.calendar.google.com",
+			"city": "Oakland",
+			"filters": [
+				["community"],
+				["biking"]
+			]
 		}
 	],
 	"squarespace": [
