@@ -34,7 +34,8 @@ async function fetchEventbriteEvents() {
 							console.error(`Error fetching Eventbrite events for ${source.name}: ${res.status} ${res.statusText}`);
 							return {
 								events: [],
-								city: source.city
+								city: source.city,
+								name: source.name,
 							} as EventNormalSource;
 						}
 						return res;
@@ -59,7 +60,8 @@ async function fetchEventbriteEvents() {
 
 						return {
 							events: newEvents,
-							city: source.city
+							city: source.city,
+							name: source.name,
 						} as EventNormalSource;
 					});
 			}));
@@ -68,7 +70,8 @@ async function fetchEventbriteEvents() {
 				const eventsSeries = (await getEventSeries(source.url)).map(event => convertEventbriteAPIEventToFullCalendarEvent(event, source.sourceName));
 				return {
 					events: eventsSeries,
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			}));
 		const allEventbriteSources = eventbriteSources.concat(eventbriteSingleEventSeries);

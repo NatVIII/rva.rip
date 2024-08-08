@@ -29,6 +29,7 @@ async function fetchForbiddenTicketsEvents() {
 					return {
 						events: [],
 						city: source.city,
+						name: source.name,
 					};
 				}
 
@@ -47,7 +48,8 @@ async function fetchForbiddenTicketsEvents() {
 
 				return {
 					events,
-					city: source.city
+					city: source.city,
+					name: source.name,
 				};
 			})
 		);

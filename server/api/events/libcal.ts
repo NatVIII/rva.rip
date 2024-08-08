@@ -68,13 +68,15 @@ async function fetchlibcalEvents() {
 					return {
 						events: [],
 						city: source.city,
+						name: source.name,
 					} as EventNormalSource;
 				}
 				const libcalJson = await response.json();
 				const libcalEvents = libcalJson.results;
 				return {
 					events: libcalEvents.map(event => convertlibcalEventToFullCalendarEvent(libcalJson.timezone, event, source)),
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			})
 		);
