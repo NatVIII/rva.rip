@@ -344,6 +344,16 @@
 				["community"],
 				["biking"]
 			]
+		},
+		{
+			"name": "Known Contributor Rebel Rouser",
+			"googleCalendarId": "3940f9dd4d7b006ada3c8643edafb9846fa182792ed08f376c107e18d05b3289@group.calendar.google.com",
+			"city": "Oakland",
+			"prefixTitle": "👠 ",
+			"filters": [
+				["commercial"],
+				["drag"]
+			]
 		}
 	],
 	"squarespace": [
