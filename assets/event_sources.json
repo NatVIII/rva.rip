@@ -6,13 +6,8 @@
             ["activism","palestine","socialism", "ecology"],
             ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing"],
             ["performance", "theater", "music", "drag", "movies"],
-            "sobriety",
-            "free stuff",
-            "volunteering",
             ["hobby", "diy", "books"],
-            "market",
-            "transgender",
-            "library"
+            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library"]
         ]
     },
     "googleCalendar": [

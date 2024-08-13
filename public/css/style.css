@@ -427,6 +427,28 @@ body.no-scroll {
     linear-gradient(to bottom right, var(--rip-red), var(--rip-orange), var(--rip-yellow), var(--rip-green), var(--rip-blue), var(--rip-purple));
 }
 
+.county-input {
+  margin: 2px;
+  font-size: 12px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  text-indent: -1.6px;
+  /* background-image:
+    linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff); */
+  border: 1px solid var(--border-outer);
+}
+
+.county-input:active {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  /* Start transition for longer press. Note: since the popper itself has a transition it is probably using that. */
+  transition: 0s;
+  background-image:
+    linear-gradient(to bottom right, var(--rip-red), var(--rip-orange), var(--rip-yellow), var(--rip-green), var(--rip-blue), var(--rip-purple));
+}
+
 :root .fc .fc-daygrid-day-number {
   text-decoration: dashed underline;
   color: var(--text-normal);
