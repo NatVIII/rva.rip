@@ -6,8 +6,8 @@ defineProps({
 <template>
 	<div class="county-header">
 		<span>
-			<button class="county-input" @click.passive="$emit('onYes')">Y</button>
-			<button class="county-input" @click.passive="$emit('onNo')">N</button>
+			<button class="county-input" @click.passive="$emit('onYes')">+</button>
+			<button class="county-input" @click.passive="$emit('onNo')">-</button>
 			{{ label }}
 		</span>
 			<slot></slot>

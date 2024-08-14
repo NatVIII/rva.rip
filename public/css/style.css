@@ -391,6 +391,14 @@ body.no-scroll {
   margin-left: 25px;
 }
 
+.popper-box-inner input {
+  background-image: linear-gradient(to bottom right,#999,#aaa,#bbb,#ccc,#ddd,#eee,#fff);
+  border: 1px solid #222;
+  box-shadow: inset 1px 1px #ccc,inset -1px -1px #888;
+  text-indent: -99999em;
+  transform: scale(1.55);
+}
+
 .popper-box-wrapper {
   display: flex;
   justify-content: center;
