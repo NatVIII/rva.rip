@@ -1,19 +1,20 @@
-<script setup lang="ts">
-import { computed, onUpdated } from 'vue';
-const props = defineProps({ label: String, modelValue: Boolean });
-const emit = defineEmits(['update:modelValue', 'onInput']);
-const value = computed({
-	get() {
-		return props.modelValue
-	},
-	set(checked) {
-		emit('update:modelValue', checked)
-	}
-})
+<script setup>
+const props = defineProps({
+  label: String,
+  modelValue: Boolean,
+  visible: Boolean
+});
+const emit = defineEmits(['update:modelValue']);
+
+// Emitting visibility changes if needed
+function updateVisibility(checked) {
+  emit('update:modelValue', checked);
+}
 </script>
 
 <template>
-	<label class="city-header">
-		<input type="checkbox" v-model="value" @click.passive="$emit('onInput', $event)"> {{ label }}
-	</label>
+  <label class="city-header" :class="{ 'is-hidden': !props.visible }">
+    <input type="checkbox" :checked="props.modelValue" @change="updateVisibility($event.target.checked)">
+    {{ props.label }}
+  </label>
 </template>

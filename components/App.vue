@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch, provide } from 'vue'
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -14,9 +14,13 @@ import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/
 import { replaceBadgePlaceholders } from '~~/utils/util';
 import { type CalendarOptions, type EventClickArg, type EventSourceInput } from '@fullcalendar/core/index.js';
 import eventSourcesJSON from '@/assets/event_sources.json';
+import { getAllTags } from '@/server/tagsListServe'; //Function that gives all tags utilized from event_sources.json
 
 const clickedEvent: Ref<EventClickArg | null> = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
+const tags = ref(getAllTags()); // Ref for serving a full list of tags found in event_sources.json
+provide('tags', tags); //Serves the tags array globally, allowing it to be accessed in FilterModal.vue
+
 var beforeMOTDDate = (Date.now() < Date.parse('07/24/2024 9:30:00 AM'));//For hiding the MOTD, a better system will be implemented in the future!
 
 const tagsToHide = ['hidden', 'internal', 'invisible']; // Tags that should hide events

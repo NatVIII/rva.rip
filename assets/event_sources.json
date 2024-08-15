@@ -10,7 +10,7 @@
             ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library"]
         ],
         "eventApiToGrab": [
-            "/api/events/google-calendar",
+            "/api/events/googleCalendar",
             "/api/events/squarespace",
             "/api/events/elfsight",
             "/api/events/libcal"
