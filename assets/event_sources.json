@@ -8,7 +8,13 @@
             ["performance", "theater", "music", "drag", "movies"],
             ["hobby", "diy", "books"],
             ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library"]
-        ]
+        ],
+        "eventApiToGrab": [
+            "/api/events/google-calendar",
+            "/api/events/squarespace",
+            "/api/events/elfsight",
+            "/api/events/libcal"
+          ]
     },
     "googleCalendar": [
         {

@@ -13,6 +13,7 @@ import EventModal from './EventModal.vue'
 import { clientCacheMaxAgeSeconds, clientStaleWhileInvalidateSeconds } from '~~/utils/util';
 import { replaceBadgePlaceholders } from '~~/utils/util';
 import { type CalendarOptions, type EventClickArg, type EventSourceInput } from '@fullcalendar/core/index.js';
+import eventSourcesJSON from '@/assets/event_sources.json';
 
 const clickedEvent: Ref<EventClickArg | null> = ref(null); // For storing the clickedEvent data
 const calendarRef = ref(null); // Ref for the FullCalendar instance
@@ -246,22 +247,7 @@ function moveListViewScrollbarToTodayAndColor(retryCount = 5) {//Default retry c
 }
 
 async function getEventSources() {
-  const endpoints = [
-    /*
-    '/api/events/eventbrite',
-    '/api/events/forbidden-tickets',
-    '/api/events/instagram',
-    */'/api/events/google-calendar',
-    '/api/events/squarespace',
-    '/api/events/elfsight',
-    '/api/events/libcal',/*
-    '/api/events/tockify',
-    '/api/events/with-friends',
-    '/api/events/wordpress-tribe',
-    '/api/events/timely',
-    '/api/events/wix',
-    */
-  ];
+  const endpoints = eventSourcesJSON.appConfig.eventApiToGrab;
   const clientHeaders = {
     'Cache-Control': `max-age=${clientCacheMaxAgeSeconds}, stale-while-revalidate=${clientStaleWhileInvalidateSeconds}`,
   };
