@@ -1,7 +1,7 @@
 {
-    "tags": {
-        "headerTags": ["community", "commercial"],
-        "hiddenTags": ["hidden", "invisible", "internal"],
+    "appConfig": {
+        "tagsHeader": ["community", "commercial"],
+        "tagsHidden": ["hidden", "invisible", "internal"],
         "tagsToShow": [
             ["activism","palestine","socialism", "ecology"],
             ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing"],

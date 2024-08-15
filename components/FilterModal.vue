@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { VueFinalModal } from 'vue-final-modal';
-import eventSourcesFromFile from '@/assets/event_sources.json';
+import eventSourcesJSON from '@/assets/event_sources.json';
 
 const { enableEventSource, disableEventSource } = defineProps<{
   enableEventSource: (name: string) => void;
@@ -13,11 +13,11 @@ const emit = defineEmits<{
 }>();
 
 // Accessing tags from the imported JSON
-const headerTags = ref(eventSourcesFromFile.tags.headerTags);
-const tagsToShow = ref(eventSourcesFromFile.tags.tagsToShow);
+const tagsHeader = ref(eventSourcesJSON.appConfig.tagsHeader);
+const tagsToShow = ref(eventSourcesJSON.appConfig.tagsToShow);
 
-// Sorting the headerTags alphabetically
-headerTags.value.sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase()));
+// Sorting the tagsHeader alphabetically
+tagsHeader.value.sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase()));
 
 function handleEventSourceChange(tag: string, isEnabled: boolean) {
   if (isEnabled) {
@@ -33,7 +33,7 @@ function handleEventSourceChange(tag: string, isEnabled: boolean) {
     <span class="event-headers">
       Event Purpose
     </span>
-    <TagFilterItem v-for="tag in headerTags" :key="tag" class="tag-group" :label="tag">
+    <TagFilterItem v-for="tag in tagsHeader" :key="tag" class="tag-group" :label="tag">
     </TagFilterItem>
     <span class="event-headers">
       Event Type
