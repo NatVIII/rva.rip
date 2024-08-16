@@ -27,7 +27,9 @@
                 ["biking", "🚲", ["title","description"]],
                 ["sobriety", "🚭", "title"],
                 ["free stuff", "Free Food", "title"],
-                ["community","commercial"]
+                ["community","commercial"],
+                ["music", "sundown", "title"],
+                ["music", "Dogwood Dell", "title"]
             ]
         },
         {
@@ -83,6 +85,7 @@
             "city": "Oakland",
             "prefixTitle": ":fojrp: ",
             "filters": [
+                ["nonprofit"],
                 ["ecology"],
                 ["volunteering"]
             ]
