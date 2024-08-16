@@ -26,12 +26,34 @@ const emit = defineEmits<{
   (e: 'confirm'): void;
 }>();
 
+// Development environment flag
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 // Accessing tags from the imported JSON
 const tagsHeader = ref(eventSourcesJSON.appConfig.tagsHeader);
+const tagsHidden = ref(eventSourcesJSON.appConfig.tagsHidden);
 const tagsToShow = ref(eventSourcesJSON.appConfig.tagsToShow);
 
-// Sorting the tagsHeader alphabetically
-tagsHeader.value.sort((a, b) => a.toUpperCase().localeCompare(b.toUpperCase()));
+// Computed property to flatten tagsToShow into a 1D array of strings, for the purpose of debugging to make sure there's no tags missing
+const tagsAllShown = computed(() => {
+  let flattened = [];
+  for (let i = 0; i < tagsToShow.value.length; i++) {
+    if (tagsToShow.value[i].length === 1) {
+      flattened.push(tagsToShow.value[i][0]);
+    } else {
+      flattened.push(...tagsToShow.value[i].slice(1)); // Skip the first element (label) and add rest
+    }
+  }
+  flattened.push(...tagsHeader.value); //Add the tagsHeader values to the array, ensuring that they're not left out from the list of ALL TAGS SHOWN
+  flattened.push(...tagsHidden.value); //Add the tagsHidden values to the array, ensuring that they're not left out from the list of ALL TAGS SHOWN
+  return flattened;
+});
+
+//
+const tagsNotShown = computed(() => { //A 1D array of tags that aren't featured in tagsAllShown but ARE featured in tags; used to show any tags that maybe should be visible in the UI or should be wiped from event_sources.json altogether.
+  const shownSet = new Set(tagsAllShown.value);
+  return tags.value.filter(tag => !shownSet.has(tag.name));
+});
 
 function handleEventSourceChange(tag: string, isEnabled: boolean) {
   if (isEnabled) {
@@ -56,7 +78,7 @@ function toggleTagVisibility(tagName: string) {
     <span class="event-headers">
       Event Purpose
     </span>
-    <TagFilterItem v-for="tag in tagsHeader" :key="tag" class="tag-group" :label="tag">
+    <TagFilterItem v-for="tag in tagsHeader" :key="tag" class="tag-group" :label="tag" :modelValue="getTagVisibility(tag)" @update:modelValue="updateTagVisibility(tag, $event)">
     </TagFilterItem>
     <span class="event-headers">
       Event Type
@@ -73,14 +95,16 @@ function toggleTagVisibility(tagName: string) {
         </TagFilterItem>
       </template>
     </div>
-    <span class="event-headers">
-      Debug Info
+    <span v-if="isDevelopment">
+      <span class="event-headers">
+        Tags Not Shown
+      </span>
+      <div v-for="tag in tagsNotShown" :key="tag">
+        <input type="checkbox" 
+              :checked="getTagVisibility(tag.name)" 
+              @change="updateTagVisibility(tag.name, $event.target.checked)" /> {{ tag.name }}
+      </div>
     </span>
-    <div v-for="tag in tags" :key="tag.name">
-      <label :class="{ 'is-hidden': !tag.visible }">
-        <input type="checkbox" v-model="tag.visible" /> {{ tag.name }}
-      </label>
-    </div>
     <div class="bottom">
       <button @click="emit('confirm')">Apply</button>
     </div>

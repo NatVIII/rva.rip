@@ -1,13 +1,13 @@
 {
     "appConfig": {
-        "tagsHeader": ["community", "commercial"],
+        "tagsHeader": ["community", "commercial", "nonprofit"],
         "tagsHidden": ["hidden", "invisible", "internal"],
         "tagsToShow": [
-            ["activism","palestine","socialism", "ecology"],
+            ["activism","palestine","socialism", "ecology","organizing"],
             ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing"],
             ["performance", "theater", "music", "drag", "movies"],
             ["hobby", "diy", "books"],
-            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library"]
+            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library", "art", "announcement"]
         ],
         "eventApiToGrab": [
             "/api/events/googleCalendar",
@@ -178,8 +178,8 @@
             "prefixTitle": ":psl:",
             "filters": [
                 ["community"],
-                ["socialism"],
-                ["organizing"]
+                ["organizing"],
+                ["socialism"]
             ]
         },
         {
@@ -244,8 +244,7 @@
             "prefixTitle": "🛼",
             "filters": [
                 ["community"],
-                ["skating"],
-                ["sports"]
+                ["skating"]
             ]
         },
         {
@@ -323,7 +322,6 @@
             "prefixTitle": ":layersofchange: ",
             "filters": [
                 ["community"],
-                ["support"],
                 ["transgender"]
             ]
         },
@@ -413,7 +411,7 @@
                 [["diy"], "Courses and Workshops", ["title","description"]],
                 [["market"], "Artist Markets", ["title","description"]],
                 [["community","organizing"], "Community Organizing Event", ["title","description"]],
-                [["dance","sports"], "Choreo ", ["title","description"]],
+                [["dance"], "Choreo ", ["title","description"]],
                 ["commercial","community"]
             ]
         },
