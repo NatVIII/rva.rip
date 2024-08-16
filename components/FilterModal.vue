@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue';
 import { VueFinalModal } from 'vue-final-modal';
+import TopicFilterItem from './TopicFilterItem.vue';
+import TagFilterItem from './TagFilterItem.vue';
 import eventSourcesJSON from '@/assets/event_sources.json';
 
 const tags = inject('tags'); //Grabs the 'tags' array, which features all tags and whether they're hidden, from App.vue
@@ -15,6 +17,15 @@ function updateTagVisibility(tagName, visibility) {
   if (tag) {
     tag.visible = visibility;
   }
+}
+
+function setVisibilityForGroup(tagsInGroup, visibility) {
+  tagsInGroup.forEach(tagName => {
+    const tag = tags.value.find(t => t.name === tagName);
+    if (tag) {
+      tag.visible = visibility;
+    }
+  });
 }
 
 const { enableEventSource, disableEventSource } = defineProps<{
@@ -85,7 +96,7 @@ function toggleTagVisibility(tagName: string) {
     </span>
     <div v-for="group in tagsToShow" :key="group[0] || group" class="tag-group">
       <template v-if="Array.isArray(group)">
-        <TopicFilterItem class="tag-header" :label="group[0]">
+        <TopicFilterItem class="tag-header" :label="group[0]" @checkAll="setVisibilityForGroup(group.slice(1), true)" @uncheckAll="setVisibilityForGroup(group.slice(1), false)">
           <TagFilterItem v-for="tag in group.slice(1)" :key="tag" :label="tag" :modelValue="getTagVisibility(tag)" @update:modelValue="updateTagVisibility(tag, $event)">
           </TagFilterItem>
         </TopicFilterItem>
