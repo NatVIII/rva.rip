@@ -92,14 +92,21 @@ function disableEventSource(name: string) {
   calendarOptions.value.eventSources = newEventSources
 }
 
-function isDisplayingBasedOnTags(event) { //Function that parses the tags on a passed event, and returns whether it should be hidden or not.
-  // Check if the event has any tag that requires it to be hidden by checking the tags ref array
-  const shouldShowEvent = event.tags && event.tags.some(tagEvent => 
-    tags.value.some(tagFilter =>
-      (tagEvent == tagFilter.name) && tagFilter.isVisible
-    )
-  );
-  return shouldShowEvent ? 'list-item' : 'none'; // Return 'none' to hide, 'auto' to show
+function isDisplayingBasedOnTags(event) {
+  let shouldHidefromHidden = false; // Whether the event should be hidden due to it having a tag with isHidden set to true
+  let shouldShowfromHeader = false; // Whether the event contains a tag of a tagHeader, which is a pre-requisite to being visible
+  let shouldShowfromTags = false; //Whether the event contains atleast one tag which is being searched for rn, has to be true.
+  // Iterate over all tags of the event
+  event.tags?.forEach(tagEvent => {
+    tags.value.forEach(tagFilter => {
+      if (tagFilter.isHidden && tagEvent === tagFilter.name) { shouldHidefromHidden = true; } // This tag dictates the event should be hidden
+      if (tagFilter.isHeader && tagEvent === tagFilter.name) { shouldShowfromHeader = true; } // This tag is a header and is required to show the event
+      if (tagEvent === tagFilter.name && tagFilter.isVisible && !tagFilter.isHeader) { shouldShowfromTags = true; } // This tag allows the event to be shown
+    });
+  });
+
+  // Determine the final display status based on the conditions evaluated
+  return ((shouldShowfromHeader && shouldShowfromTags) && !shouldHidefromHidden) ? 'list-item' : 'none';
 }
 
 const updateDisplayingBasedOnTags = () => { //Function that re-renders the calendar by updating the display value of each event and resetting it altogether

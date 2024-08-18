@@ -7,7 +7,7 @@
             ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing"],
             ["performance", "theater", "music", "drag", "movies"],
             ["hobby", "diy", "books"],
-            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library", "art", "announcement"]
+            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library", "art", "announcement", "unknownType"]
         ],
         "eventApiToGrab": [
             "/api/events/googleCalendar",
@@ -29,7 +29,8 @@
                 ["free stuff", "Free Food", "title"],
                 ["community","commercial"],
                 ["music", "sundown", "title"],
-                ["music", "Dogwood Dell", "title"]
+                ["music", "Dogwood Dell", "title"],
+                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
             ]
         },
         {
@@ -138,7 +139,7 @@
             "prefixTitle": ":coalition_theater: ",
             "suffixTitle": "",
             "filters": [
-                ["community"],
+                ["nonprofit"],
                 ["theater"]
             ]
         },
