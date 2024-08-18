@@ -96,7 +96,7 @@ function isDisplayingBasedOnTags(event) { //Function that parses the tags on a p
   // Check if the event has any tag that requires it to be hidden by checking the tags ref array
   const shouldShowEvent = event.tags && event.tags.some(tagEvent => 
     tags.value.some(tagFilter =>
-      (tagEvent == tagFilter.name) && tagFilter.visible
+      (tagEvent == tagFilter.name) && tagFilter.isVisible
     )
   );
   return shouldShowEvent ? 'list-item' : 'none'; // Return 'none' to hide, 'auto' to show

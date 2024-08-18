@@ -9,13 +9,13 @@ const tags = inject('tags'); //Grabs the 'tags' array, which features all tags a
 
 function getTagVisibility(tagName) {
   const tag = tags.value.find(t => t.name === tagName);
-  return tag ? tag.visible : false;
+  return tag ? tag.isVisible : false;
 }
 
 function updateTagVisibility(tagName, visibility) {
   const tag = tags.value.find(t => t.name === tagName);
   if (tag) {
-    tag.visible = visibility;
+    tag.isVisible = visibility;
   }
 }
 
@@ -23,7 +23,7 @@ function setVisibilityForGroup(tagsInGroup, visibility) {
   tagsInGroup.forEach(tagName => {
     const tag = tags.value.find(t => t.name === tagName);
     if (tag) {
-      tag.visible = visibility;
+      tag.isVisible = visibility;
     }
   });
 }
@@ -78,7 +78,7 @@ function handleEventSourceChange(tag: string, isEnabled: boolean) {
 function toggleTagVisibility(tagName: string) {
   const tag = tags.value.find(t => t.name === tagName);
   if (tag) {
-    tag.visible = !tag.visible;
+    tag.isVisible = !tag.isVisible;
   }
 }
 

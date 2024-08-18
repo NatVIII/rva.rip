@@ -2,7 +2,7 @@ import eventSourcesJSON from '@/assets/event_sources.json';
 
 export interface Tag {
   name: string;
-  visible: boolean;
+  isVisible: boolean;
 }
 
 // Helper function to extract source names from URLs
@@ -44,11 +44,11 @@ export function getAllTags(): Tag[] {
     }
   });
 
-  const hiddenTags = new Set(eventSourcesJSON.appConfig.tagsHidden);
+  const tagsHidden = new Set(eventSourcesJSON.appConfig.tagsHidden);
 
-  // Convert the set of tags into an array of Tag objects, setting visibility based on hiddenTags
+  // Convert the set of tags into an array of Tag objects, setting visibility based on tagsHidden
   return Array.from(tagsSet).map(tag => ({
     name: tag,
-    visible: !hiddenTags.has(tag)
+    isVisible: !tagsHidden.has(tag)
   }));
 }
