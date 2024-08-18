@@ -104,7 +104,8 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
     enableEventSource,
     disableEventSource,
     onConfirm() {
-      closeFilterModal()
+      console.log(calendarOptions.value.eventSources); //💩 SHIT CODE REMOVEME LOL JUST DEBUGGING TO SEE IF WE CAN ACCESS ALL EVENTS WITHIN THE CALENDAR
+      closeFilterModal();
     },
   },
 })
