@@ -25,12 +25,6 @@ var beforeMOTDDate = (Date.now() < Date.parse('07/24/2024 9:30:00 AM'));//For hi
 
 const tagsToHide = ['hidden', 'internal', 'invisible']; // Tags that should hide events
 
-function isDisplayingBasedOnTags(event) {
-  // Check if the event has any tag that requires it to be hidden
-  const shouldHideEvent = event.tags && event.tags.some(tag => tagsToHide.includes(tag));
-  return shouldHideEvent ? 'none' : 'list-item'; // Return 'none' to hide, 'auto' to show
-}
-
 const { theme } = useTheme();
 watch(theme, () => {
   nextTick(() => {
@@ -98,13 +92,40 @@ function disableEventSource(name: string) {
   calendarOptions.value.eventSources = newEventSources
 }
 
+function isDisplayingBasedOnTags(event) { //Function that parses the tags on a passed event, and returns whether it should be hidden or not.
+  // Check if the event has any tag that requires it to be hidden by checking the tags ref array
+  const shouldShowEvent = event.tags && event.tags.some(tagEvent => 
+    tags.value.some(tagFilter =>
+      (tagEvent == tagFilter.name) && tagFilter.visible
+    )
+  );
+  return shouldShowEvent ? 'list-item' : 'none'; // Return 'none' to hide, 'auto' to show
+}
+
+const updateDisplayingBasedOnTags = () => { //Function that re-renders the calendar by updating the display value of each event and resetting it altogether
+  // Map over eventSources to create a new array with updated items
+  const updatedEventSources = calendarOptions.value.eventSources.map(source => {
+    const events = source.events?.map(event => ({
+      ...event,
+      display: isDisplayingBasedOnTags(event)
+    })) || source.events;
+
+    return { ...source, events };
+  });
+
+  // Replace the original eventSources with the new array to trigger reactivity
+  calendarOptions.value.eventSources = updatedEventSources;
+};
+
 const { open: openFilterModal, close: closeFilterModal } = useModal({
   component: FilterModal,
   attrs: {
     enableEventSource,
     disableEventSource,
     onConfirm() {
+      updateDisplayingBasedOnTags();
       console.log(calendarOptions.value.eventSources); //💩 SHIT CODE REMOVEME LOL JUST DEBUGGING TO SEE IF WE CAN ACCESS ALL EVENTS WITHIN THE CALENDAR
+      console.log(tags);
       closeFilterModal();
     },
   },
