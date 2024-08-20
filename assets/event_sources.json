@@ -4,10 +4,10 @@
         "tagsHidden": ["hidden", "invisible", "internal"],
         "tagsToShow": [
             ["activism","palestine","socialism", "ecology","organizing"],
-            ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing"],
+            ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing", "exercise"],
             ["performance", "theater", "music", "drag", "movies"],
-            ["hobby", "diy", "books"],
-            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library", "art", "announcement", "unknownType"]
+            ["interests", "diy", "books", "food", "art", "discussion"],
+            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "library", "festival", "announcement", "unknownType"]
         ],
         "eventApiToGrab": [
             "/api/events/googleCalendar",
@@ -30,6 +30,8 @@
                 ["community","commercial"],
                 ["music", "sundown", "title"],
                 ["music", "Dogwood Dell", "title"],
+                [["ecology","food","free stuff"], "Fonticello FF", "title"],
+                [["art"], "First Fridays", "title"],
                 ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
             ]
         },
@@ -57,7 +59,7 @@
             "city": "Oakland",
             "filters": [
                 ["community"],
-                ["free stuff", "Free", "title"],
+                [["free stuff","food"], "Free", "title"],
                 ["volunteering", "Volunteer", "title"]
             ]
         },
@@ -196,17 +198,25 @@
                 ["invisible", "undefined", "title"],
                 [["music"], "Concert", ["title","description"]],
                 ["invisible", "Community Meditation with Meg", "title"],
-                ["community", "River City Writers Meeting", ["title","description"]],
-                ["community", "Dance", ["title","description"]],
-                ["community", "New to RVA Meetup", ["title","description"]],
+                [["community","art"], "write", ["title","description"]],
+                [["community","dance"], "Dance", ["title","description"]],
+                [["community","discussion"], "meetup", ["title","description"]],
                 ["community", "Drawing", ["title","description"]],
                 ["community", "Forum", ["title"]],
                 ["community", "Community Morning", ["title"]],
                 [["community","music"], "Live in da Garden", ["title","description"]],
                 [["community"], "Vegan", ["title","description"]],
                 [["community","ecology"], "Enviromental", ["title","description"]],
-                [["music","karaoke"], "karaoke", ["title","description"]],
-                [["community","yoga"], "yoga", "title"],
+                [["karaoke"], "karaoke", ["title","description"]],
+                [["yoga"], "yoga", "title"],
+                [["drag"], "drag", "title"],
+                [["movies"], "Bollywood", "title"],
+                [["drag"], "king", "title"],
+                [["invisible"], "chamber", "title"],
+                [["art"], "just femme & dandy", "title"],
+                [["food"], "Brunch Show", "title"],
+                [["drag"], "Cabaret", "title"],
+                [["yoga"], "Sound Bath", "title"],
                 ["commercial","community"]
                 
             ]
@@ -342,7 +352,9 @@
                 ["invisible", "PSL", "title"],
                 ["invisible", "Fnb", "title"],
                 ["invisible", "James River Park System", "description"],
-                ["socialism", "red", "title"]
+                ["socialism", "red", "title"],
+                ["food", "dinner", "title"],
+                [["volunteering","ecology"], "JRP", "title"]
             ]
         },
         {
@@ -410,12 +422,14 @@
                 [["community", "movies"], "Film", ["title","description"]],
                 [["community", "dance"], "dance", ["title"]],
                 ["community", "Community Events", ["title","description"]],
+                [["community","free stuff"], "Creative Mornings", ["title","description"]],
                 [["palestine","community"], "palestine", ["title","description"]],
                 ["free stuff", "clothing swap", ["title","description"]],
                 [["diy"], "Courses and Workshops", ["title","description"]],
                 [["market"], "Artist Markets", ["title","description"]],
                 [["community","organizing"], "Community Organizing Event", ["title","description"]],
                 [["dance"], "Choreo ", ["title","description"]],
+                [["invisible"], "Nonprofit ", ["title"]],
                 ["commercial","community"]
             ]
         },
@@ -437,6 +451,12 @@
                 [["market"], "Market", ["title","description"]],
                 [["art"], "Iridian Gallery", ["title","description"]],
                 [["free stuff","community"], "Pantry", ["title","description"]],
+                [["invisible"], "Shop daily", ["description"]],
+                [["art"], "exhibition", ["description"]],
+                [["market","festival"], "big gay", ["title"]],
+                [["market","festival"], "bash", ["title"]],
+                [["market","festival"], "party", ["title"]],
+                [["free stuff"], "money management course", ["title"]],
                 ["commercial","community"]
             ]
         }
@@ -449,7 +469,6 @@
             "prefixTitle": ":rvalibrary: ",
             "suffixTitle": "",
             "filters": [
-                ["nonprofit"],
                 ["library"],
                 ["invisible", "Board Meeting", "title"],
                 ["invisible", "STAFF PLANNING", "title"],
@@ -471,7 +490,12 @@
                 ["invisible", "Affordable Housing Workshop", "title"],
                 ["invisible", "Virginia Housing", "title"],
                 ["invisible", "Internet", "title"],
-                ["invisible", "USDOJ", "title"]
+                ["invisible", "USDOJ", "title"],
+                ["invisible", "eviction", "title"],
+                ["exercise", "fitness", "title"],
+                ["invisible", "tech talk", "title"],
+                ["invisible", "canceled", "title"],
+                ["nonprofit", "community"]
             ],
             "calendarToLocation": [
                 ["Main","Main Library - Richmond Public Library"],
