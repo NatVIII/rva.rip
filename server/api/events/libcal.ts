@@ -104,7 +104,8 @@ function convertlibcalEventToFullCalendarEvent(timeZone: string, e, source) {
 
 	const tags = applyEventTags(source, title, description);
 	if (isDevelopment) title=tags.length+" "+title;
-	if (e.location) description = 'Location: <br />'+description;
+	if (e.location) description = 'Location: '+e.location+'<br />'+description;
+	if (e.categories_arr) e.categories_arr.forEach(category => { description = description + '<br />Category: '+category.name});
 
 	return {
 		id: formatTitleAndDateToID(start.toUTC().toJSDate(), title),
