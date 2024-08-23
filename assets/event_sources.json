@@ -50,7 +50,7 @@
                 {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
                 {"name": "festival", "fullName": "🎪 Festival", "defaultValue": "true"},
                 {"name": "announcement", "fullName": "🗣️ Announcements!!!!", "defaultValue": "true"},
-                {"name": "unknownType", "fullName": "🤷 Misc Events Not Tagged", "defaultValue": "true"}
+                {"name": "unknownType", "fullName": "🤷 idk", "defaultValue": "true"}
             ]
         ],
         "eventApiToGrab": [

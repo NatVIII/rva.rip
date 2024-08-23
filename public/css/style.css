@@ -383,14 +383,14 @@ body.no-scroll {
   display: flex;
   flex-direction: column;
   margin-top: 2px;
-  font-size: min(1.25em);
+  font-size: min(2em);
 }
 .popper-box-wrapper .popper-box-inner .city-header {
   vertical-align: middle;
   float: right;
-  line-height: 20px;
-  margin-left: 25px;
-  font-size: min(0.8em);
+  line-height: 30px;
+  margin-left: 40px;
+  font-size: min(0.75em);
 }
 
 .popper-box-inner input {
@@ -398,7 +398,7 @@ body.no-scroll {
   border: 1px solid #222;
   box-shadow: inset 1px 1px #ccc,inset -1px -1px #888;
   text-indent: -99999em;
-  transform: scale(1.55);
+  transform: scale(2.14286);
 }
 
 .popper-box-wrapper {
@@ -439,9 +439,9 @@ body.no-scroll {
 
 .county-input {
   margin: 2px;
-  font-size: 12px;
-  height: 20px;
-  width: 20px;
+  font-size: 18px;
+  height: 30px;
+  width: 30px;
   text-align: center;
   text-indent: -1.6px;
   /* background-image:
@@ -453,9 +453,6 @@ body.no-scroll {
 }
 
 .county-input:active {
-  height: 20px;
-  width: 20px;
-  text-align: center;
   /* Start transition for longer press. Note: since the popper itself has a transition it is probably using that. */
   transition: 0s;
   background-image:
