@@ -89,8 +89,10 @@ function toggleTagVisibility(tagName: string) {
     <span class="event-headers">
       Event Purpose
     </span>
-    <TagFilterItem v-for="tag in tagsHeader" :key="tag.name" class="tag-group" :label="tag.fullName" :modelValue="getTagVisibility(tag.name)" @update:modelValue="updateTagVisibility(tag.name, $event)">
-    </TagFilterItem>
+    <div class="county-header">
+      <TagFilterItem v-for="tag in tagsHeader" :key="tag.name" class="tag-group" :label="tag.fullName" :modelValue="getTagVisibility(tag.name)" @update:modelValue="updateTagVisibility(tag.name, $event)">
+      </TagFilterItem>
+    </div>
     <span class="event-headers">
       Event Type
     </span>
@@ -102,7 +104,7 @@ function toggleTagVisibility(tagName: string) {
         </TopicFilterItem>
       </template>
       <template v-else>
-        <TagFilterItem class="tag-sub-item" :label="group" :modelValue="getTagVisibility(group)" @update:modelValue="updateTagVisibility(group, $event)">
+        <TagFilterItem class="tag-sub-item" :label="group.fullName" :modelValue="getTagVisibility(group.name)" @update:modelValue="updateTagVisibility(group.name, $event)">
         </TagFilterItem>
       </template>
     </div>

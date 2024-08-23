@@ -383,12 +383,14 @@ body.no-scroll {
   display: flex;
   flex-direction: column;
   margin-top: 2px;
+  font-size: min(1.25em);
 }
 .popper-box-wrapper .popper-box-inner .city-header {
   vertical-align: middle;
   float: right;
   line-height: 20px;
   margin-left: 25px;
+  font-size: min(0.8em);
 }
 
 .popper-box-inner input {
@@ -445,6 +447,9 @@ body.no-scroll {
   /* background-image:
     linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff); */
   border: 1px solid var(--border-outer);
+  vertical-align: text-bottom;
+  padding: 0;
+  line-height: 18px;
 }
 
 .county-input:active {

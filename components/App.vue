@@ -94,13 +94,13 @@ function disableEventSource(name: string) {
 
 function isDisplayingBasedOnTags(event) {
   let shouldHidefromHidden = false; // Whether the event should be hidden due to it having a tag with isHidden set to true
-  let shouldShowfromHeader = false; // Whether the event contains a tag of a tagHeader, which is a pre-requisite to being visible
+  let shouldShowfromHeader = false; // Whether the event contains a tag of a tagHeader whis isVisible, which is a pre-requisite to being visible
   let shouldShowfromTags = false; //Whether the event contains atleast one tag which is being searched for rn, has to be true.
   // Iterate over all tags of the event
   event.tags?.forEach(tagEvent => {
     tags.value.forEach(tagFilter => {
       if (tagFilter.isHidden && tagEvent === tagFilter.name) { shouldHidefromHidden = true; } // This tag dictates the event should be hidden
-      if (tagFilter.isHeader && tagEvent === tagFilter.name) { shouldShowfromHeader = true; } // This tag is a header and is required to show the event
+      if (tagFilter.isHeader && tagEvent === tagFilter.name && tagFilter.isVisible) { shouldShowfromHeader = true; } // This tag is a header and is required to show the event
       if (tagEvent === tagFilter.name && tagFilter.isVisible && !tagFilter.isHeader) { shouldShowfromTags = true; } // This tag allows the event to be shown
     });
   });
@@ -131,6 +131,7 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
     disableEventSource,
     onConfirm() {
       updateDisplayingBasedOnTags();
+      moveListViewScrollbarToTodayAndColor();
       closeFilterModal();
     },
   },
