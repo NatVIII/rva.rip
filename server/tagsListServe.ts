@@ -47,7 +47,7 @@ export function getAllTags(): Tag[] {
   });
 
   const tagsHidden = new Set(eventSourcesJSON.appConfig.tagsHidden);
-  const tagsHeader = new Set(eventSourcesJSON.appConfig.tagsHeader);
+  const tagsHeader = new Set(eventSourcesJSON.appConfig.tagsHeader.map(tag => tag.name));
 
   // Convert the set of tags into an array of Tag objects, setting visibility based on tagsHidden
   return Array.from(tagsSet).map(tag => ({

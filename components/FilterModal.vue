@@ -21,7 +21,7 @@ function updateTagVisibility(tagName, visibility) {
 
 function setVisibilityForGroup(tagsInGroup, visibility) {
   tagsInGroup.forEach(tagName => {
-    const tag = tags.value.find(t => t.name === tagName);
+    const tag = tags.value.find(t => t.name === tagName.name);
     if (tag) {
       tag.isVisible = visibility;
     }
@@ -89,15 +89,15 @@ function toggleTagVisibility(tagName: string) {
     <span class="event-headers">
       Event Purpose
     </span>
-    <TagFilterItem v-for="tag in tagsHeader" :key="tag" class="tag-group" :label="tag" :modelValue="getTagVisibility(tag)" @update:modelValue="updateTagVisibility(tag, $event)">
+    <TagFilterItem v-for="tag in tagsHeader" :key="tag.name" class="tag-group" :label="tag.fullName" :modelValue="getTagVisibility(tag.name)" @update:modelValue="updateTagVisibility(tag.name, $event)">
     </TagFilterItem>
     <span class="event-headers">
       Event Type
     </span>
     <div v-for="group in tagsToShow" :key="group[0] || group" class="tag-group">
       <template v-if="Array.isArray(group)">
-        <TopicFilterItem class="tag-header" :label="group[0]" @checkAll="setVisibilityForGroup(group.slice(1), true)" @uncheckAll="setVisibilityForGroup(group.slice(1), false)">
-          <TagFilterItem v-for="tag in group.slice(1)" :key="tag" :label="tag" :modelValue="getTagVisibility(tag)" @update:modelValue="updateTagVisibility(tag, $event)">
+        <TopicFilterItem class="tag-header" :label="group[0].fullName" @checkAll="setVisibilityForGroup(group.slice(1), true)" @uncheckAll="setVisibilityForGroup(group.slice(1), false)">
+          <TagFilterItem v-for="tag in group.slice(1)" :key="tag.name" :label="tag.fullName" :modelValue="getTagVisibility(tag.name)" @update:modelValue="updateTagVisibility(tag.name, $event)">
           </TagFilterItem>
         </TopicFilterItem>
       </template>
