@@ -131,8 +131,6 @@ const { open: openFilterModal, close: closeFilterModal } = useModal({
     disableEventSource,
     onConfirm() {
       updateDisplayingBasedOnTags();
-      console.log(calendarOptions.value.eventSources); //💩 SHIT CODE REMOVEME LOL JUST DEBUGGING TO SEE IF WE CAN ACCESS ALL EVENTS WITHIN THE CALENDAR
-      console.log(tags);
       closeFilterModal();
     },
   },

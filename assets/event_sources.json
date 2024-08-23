@@ -175,7 +175,7 @@
             "filters": [
                 ["community"],
                 ["biking"],
-                [["invisible"], "microsoft teams", "description"],
+                [["invisible"], "microsoft teams", "description"]
             ]
         },
         {
