@@ -1,13 +1,57 @@
 {
     "appConfig": {
-        "tagsHeader": ["community", "commercial", "nonprofit"],
+        "tagsHeader": [
+            {"name": "community", "fullName": "🫂 Community", "defaultValue": "true"},
+            {"name": "commercial", "fullName": "🎩 Commercial", "defaultValue": "true"},
+            {"name": "nonprofit", "fullName": "🏛️ Nonprofit", "defaultValue": "true"}
+        ],
         "tagsHidden": ["hidden", "invisible", "internal"],
         "tagsToShow": [
-            ["activism","palestine","socialism", "ecology","organizing"],
-            ["activities", "soccer", "biking", "dance", "karaoke", "yoga", "skating", "singing", "exercise", "games"],
-            ["performance", "theater", "music", "drag", "movies"],
-            ["interests", "diy", "books", "food", "art", "discussion"],
-            ["other", "sobriety", "free stuff", "volunteering", "market", "transgender", "festival", "announcement", "unknownType"]
+            [
+                {"name": "activism", "fullName": "Critical Work", "defaultValue": "true"},
+                {"name": "palestine", "fullName": "🇵🇸 Palestine", "defaultValue": "true"},
+                {"name": "socialism", "fullName": "🚩 Socialism", "defaultValue": "true"},
+                {"name": "ecology", "fullName": "🌿 Ecology", "defaultValue": "true"},
+                {"name": "organizing", "fullName": "🤝 Organizing", "defaultValue": "true"}
+            ],
+            [
+                {"name": "activities", "fullName": "Activities", "defaultValue": "true"},
+                {"name": "soccer", "fullName": "⚽ Soccer", "defaultValue": "true"},
+                {"name": "biking", "fullName": "🚲 Biking", "defaultValue": "true"},
+                {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
+                {"name": "karaoke", "fullName": "🎤 Karaoke", "defaultValue": "true"},
+                {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
+                {"name": "skating", "fullName": "🛼🛹 Skating", "defaultValue": "true"},
+                {"name": "singing", "fullName": "🎵 Singing", "defaultValue": "true"},
+                {"name": "exercise", "fullName": "💪 Exercise", "defaultValue": "true"},
+                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
+            ],
+            [
+                {"name": "performance", "fullName": "Performances", "defaultValue": "true"},
+                {"name": "theater", "fullName": "🎭 Theater", "defaultValue": "true"},
+                {"name": "music", "fullName": "🎸 Music", "defaultValue": "true"},
+                {"name": "drag", "fullName": "👠 Drag", "defaultValue": "true"},
+                {"name": "movies", "fullName": "📽️ Film & Movies", "defaultValue": "true"}
+            ],
+            [
+                {"name": "interests", "fullName": "Interest & Hobbies", "defaultValue": "true"},
+                {"name": "diy", "fullName": "🔧 DIY", "defaultValue": "true"},
+                {"name": "books", "fullName": "📚 Books", "defaultValue": "true"},
+                {"name": "food", "fullName": "🍲 Food", "defaultValue": "true"},
+                {"name": "art", "fullName": "🎨 Art", "defaultValue": "true"},
+                {"name": "discussion", "fullName": "🗨️ Yapping & Talking", "defaultValue": "true"}
+            ],
+            [
+                {"name": "other", "fullName": "Other", "defaultValue": "true"},
+                {"name": "sobriety", "fullName": "🚭 Sobriety", "defaultValue": "true"},
+                {"name": "free stuff", "fullName": "Free Stuff", "defaultValue": "true"},
+                {"name": "volunteering", "fullName": "♻️ Volunteering", "defaultValue": "true"},
+                {"name": "market", "fullName": "🎪 Market", "defaultValue": "true"},
+                {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
+                {"name": "festival", "fullName": "🎪 Festival", "defaultValue": "true"},
+                {"name": "announcement", "fullName": "🗣️ Announcements!!!!", "defaultValue": "true"},
+                {"name": "unknownType", "fullName": "🤷 Misc Events Not Tagged", "defaultValue": "true"}
+            ]
         ],
         "eventApiToGrab": [
             "/api/events/googleCalendar",
