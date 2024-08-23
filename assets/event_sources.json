@@ -39,12 +39,12 @@
                 {"name": "books", "fullName": "📚 Books", "defaultValue": "true"},
                 {"name": "food", "fullName": "🍲 Food", "defaultValue": "true"},
                 {"name": "art", "fullName": "🎨 Art", "defaultValue": "true"},
-                {"name": "discussion", "fullName": "🗨️ Yapping & Talking", "defaultValue": "true"}
+                {"name": "discussion", "fullName": "🗨️ Yapping & Talking", "defaultValue": "true"},
+                {"name": "sobriety", "fullName": "🚭 Sobriety", "defaultValue": "true"}
             ],
             [
-                {"name": "other", "fullName": "Other", "defaultValue": "true"},
-                {"name": "sobriety", "fullName": "🚭 Sobriety", "defaultValue": "true"},
-                {"name": "free stuff", "fullName": "Free Stuff", "defaultValue": "true"},
+                {"name": "other", "fullName": "Misc", "defaultValue": "true"},
+                {"name": "free stuff", "fullName": "🈶 Free Stuff", "defaultValue": "true"},
                 {"name": "volunteering", "fullName": "♻️ Volunteering", "defaultValue": "true"},
                 {"name": "market", "fullName": "🎪 Market", "defaultValue": "true"},
                 {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
