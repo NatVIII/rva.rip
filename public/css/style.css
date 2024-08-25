@@ -389,7 +389,7 @@ body.no-scroll {
   vertical-align: middle;
   float: right;
   line-height: 30px;
-  margin-left: 40px;
+  margin-left: 36px;
   font-size: min(0.75em);
 }
 
@@ -577,4 +577,44 @@ body.no-scroll {
 .cont-bad{
   color: var(--rip-red); 
   filter: hue-rotate(300deg);
+}
+
+/* Using this guide: https://moderncss.dev/pure-css-custom-checkbox-style/ */
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: var(--background-inner);
+  /* Not removed via appearance */
+  margin: 0;
+
+  font: inherit;
+  color: var(--background-alt);
+  width: 30px;
+  height: 30px;
+  transform: translateY(-0.075em);
+
+  display: inline-grid;
+  place-content: center;
+
+  border-radius: 3px;
+  border: 1px solid var(--border-outer);
+  box-shadow: var(--button-box-shadow);
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 1.2em;
+  height: 1.2em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--text-black);
+
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
 }
