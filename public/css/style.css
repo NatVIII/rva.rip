@@ -219,7 +219,7 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
 .popper-box-inner button {
   color: var(--border-outer);
   font-family: 'ChicagoFLF';
-  font-size: min(3.5vw, 1.2em);
+  font-size: min(1.2em);
   background-color: var(--background-inner);
   display: inline-block;
   margin-bottom: 0px;
