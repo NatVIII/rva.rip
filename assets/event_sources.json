@@ -264,6 +264,7 @@
                 [["drag"], "cabaret", "title"],
                 [["yoga"], "sound bath", "title"],
                 [["invisible"], "financial", "title"],
+                [["invisible"], "team meeting", "title"],
                 ["commercial","community"]
                 
             ]
@@ -475,7 +476,7 @@
                 [["diy"], "Courses and Workshops", ["title","description"]],
                 [["market"], "Artist Markets", ["title","description"]],
                 [["community","organizing"], "Community Organizing Event", ["title","description"]],
-                [["dance"], "Choreo ", ["title","description"]],
+                [["dance"], "Choreo", ["title","description"]],
                 [["invisible"], "Nonprofit ", ["title"]],
                 [["market"], "palooza ", ["title"]],
                 [["ecology"], "pollinator ", ["title"]],
@@ -507,6 +508,8 @@
                 [["market","festival"], "party", ["title"]],
                 [["free stuff"], "money management course", ["title"]],
                 [["drag"], "drag", ["title"]],
+                [["invisible"], "modlin center", ["title"]],
+                [["festival"], "prideFest", ["title"]],
                 ["commercial","community"]
             ]
         }
@@ -577,6 +580,14 @@
                 [["diy"], "arpillera", ["description","title"]],
                 [["music"], "category: performances", ["description","title"]],
                 [["music"], "e-resource", ["description","title"]],
+                [["diy"], "crafting hour", ["description","title"]],
+                [["books"], "category: book discussion", ["description","title"]],
+                [["invisible"], "medicare", ["title"]],
+                [["invisible"], "genealogy", ["title"]],
+                [["invisible"], "childcare provider workshop", ["title"]],
+                [["invisible"], "adult english class", ["title"]],
+                [["invisible"], "family flicks!", ["title"]],
+                [["invisible"], "financieros", ["title"]],
                 ["nonprofit", "community"]
             ],
             "calendarToLocation": [

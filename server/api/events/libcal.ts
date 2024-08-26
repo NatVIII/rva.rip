@@ -102,10 +102,10 @@ function convertlibcalEventToFullCalendarEvent(timeZone: string, e, source) {
 	if (source.prefixTitle) { title = source.prefixTitle + title; }
 	if (source.suffixTitle) { title += source.suffixTitle; }
 
-	const tags = applyEventTags(source, title, description);
-	if (isDevelopment) title=tags.length+" "+title;
 	if (e.location) description = 'Location: '+e.location+'<br />'+description;
 	if (e.categories_arr) e.categories_arr.forEach(category => { description = description + '<br />Category: '+category.name});
+	const tags = applyEventTags(source, title, description);
+	if (isDevelopment) title=tags.length+" "+title;
 
 	return {
 		id: formatTitleAndDateToID(start.toUTC().toJSDate(), title),
