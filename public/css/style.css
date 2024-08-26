@@ -395,9 +395,8 @@ body.no-scroll {
 }
 
 .popper-box-inner input {
-  background-image: linear-gradient(to bottom right,#999,#aaa,#bbb,#ccc,#ddd,#eee,#fff);
-  border: 1px solid #222;
-  box-shadow: inset 1px 1px #ccc,inset -1px -1px #888;
+  border: 1px solid var(--border-outer);
+  box-shadow: inset 1px 1px var(--background-alt),inset -1px -1px var(--text-faded);
   text-indent: -99999em;
   transform: scale(2.14286);
 }
@@ -445,8 +444,6 @@ body.no-scroll {
   width: 30px;
   text-align: center;
   text-indent: -1.6px;
-  /* background-image:
-    linear-gradient(to bottom right, #999, #aaa, #bbb, #ccc, #ddd, #eee, #fff); */
   border: 1px solid var(--border-outer);
   vertical-align: text-bottom;
   padding: 0;
@@ -601,12 +598,12 @@ input[type="checkbox"] {
 
   border-radius: 3px;
   border: 1px solid var(--border-outer);
-  box-shadow: inset 1px 1px #ccc,inset -1px -1px #888;
+  box-shadow: inset 1px 1px var(--background-alt),inset -1px -1px var(--text-faded);
   background-image: none;
 }
 
 input[type="checkbox"]:checked {
-  box-shadow: inset -1px -1px #ccc,inset 1px 1px #888;
+  box-shadow: inset -1px -1px var(--background-alt),inset 1px 1px var(--text-faded);
 }
 
 
