@@ -73,6 +73,7 @@ body {
   font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
   font-size: 12px;
   font-weight: normal;
+  color: var(--text-normal);
 }
 
 a {
@@ -600,8 +601,14 @@ input[type="checkbox"] {
 
   border-radius: 3px;
   border: 1px solid var(--border-outer);
-  box-shadow: var(--button-box-shadow);
+  box-shadow: inset 1px 1px #ccc,inset -1px -1px #888;
+  background-image: none;
 }
+
+input[type="checkbox"]:checked {
+  box-shadow: inset -1px -1px #ccc,inset 1px 1px #888;
+}
+
 
 input[type="checkbox"]::before {
   content: "";
@@ -609,7 +616,7 @@ input[type="checkbox"]::before {
   height: 1.2em;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--text-black);
+  box-shadow: inset 1em 1em var(--text-normal);
 
   transform-origin: bottom left;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
@@ -617,4 +624,11 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   transform: scale(1);
+}
+
+.filterButton button {
+  font-size: 1.5em;
+  width: 100%;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }

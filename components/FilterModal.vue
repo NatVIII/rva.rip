@@ -118,7 +118,7 @@ function toggleTagVisibility(tagName: string) {
               @change="updateTagVisibility(tag.name, $event.target.checked)" /> {{ tag.name }}
       </div>
     </span>
-    <div class="bottom">
+    <div class="bottom filterButton">
       <button @click="emit('confirm')">Apply</button>
     </div>
   </VueFinalModal>
