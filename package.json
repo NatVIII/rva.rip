@@ -19,7 +19,7 @@
     "@google-cloud/vision": "^4.2.0",
     "@prisma/client": "^4.16.2",
     "@vercel/analytics": "^0.1.11",
-    "axios": "^1.6.7",
+    "axios": "^1.7.5",
     "dompurify": "^3.0.8",
     "jquery": "^3.7.1",
     "jsdom": "^21.1.2",
