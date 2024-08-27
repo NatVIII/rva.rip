@@ -73,6 +73,7 @@ body {
   font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
   font-size: 12px;
   font-weight: normal;
+  color: var(--text-normal);
 }
 
 a {
@@ -219,7 +220,7 @@ div.fc-scrollgrid-sync-inner:not(.fc-daygrid-day-frame) {
 .popper-box-inner button {
   color: var(--border-outer);
   font-family: 'ChicagoFLF';
-  font-size: min(3.5vw, 1.2em);
+  font-size: min(1.2em);
   background-color: var(--background-inner);
   display: inline-block;
   margin-bottom: 0px;
@@ -383,12 +384,21 @@ body.no-scroll {
   display: flex;
   flex-direction: column;
   margin-top: 2px;
+  font-size: min(2em);
 }
 .popper-box-wrapper .popper-box-inner .city-header {
   vertical-align: middle;
   float: right;
-  line-height: 20px;
-  margin-left: 25px;
+  line-height: 30px;
+  margin-left: 36px;
+  font-size: min(0.75em);
+}
+
+.popper-box-inner input {
+  border: 1px solid var(--border-outer);
+  box-shadow: inset 1px 1px var(--background-alt),inset -1px -1px var(--text-faded);
+  text-indent: -99999em;
+  transform: scale(2.14286);
 }
 
 .popper-box-wrapper {
@@ -423,6 +433,26 @@ body.no-scroll {
 }
 .popper-box-inner .bottom button:active {
   transition: 0s 1s;
+  background-image:
+    linear-gradient(to bottom right, var(--rip-red), var(--rip-orange), var(--rip-yellow), var(--rip-green), var(--rip-blue), var(--rip-purple));
+}
+
+.county-input {
+  margin: 2px;
+  font-size: 18px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  text-indent: -1.6px;
+  border: 1px solid var(--border-outer);
+  vertical-align: text-bottom;
+  padding: 0;
+  line-height: 18px;
+}
+
+.county-input:active {
+  /* Start transition for longer press. Note: since the popper itself has a transition it is probably using that. */
+  transition: 0s;
   background-image:
     linear-gradient(to bottom right, var(--rip-red), var(--rip-orange), var(--rip-yellow), var(--rip-green), var(--rip-blue), var(--rip-purple));
 }
@@ -545,4 +575,57 @@ body.no-scroll {
 .cont-bad{
   color: var(--rip-red); 
   filter: hue-rotate(300deg);
+}
+
+/* Using this guide: https://moderncss.dev/pure-css-custom-checkbox-style/ */
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: var(--background-inner);
+  /* Not removed via appearance */
+  margin: 0;
+
+  font: inherit;
+  color: var(--background-alt);
+  width: 30px;
+  height: 30px;
+  transform: translateY(-0.075em);
+
+  display: inline-grid;
+  place-content: center;
+
+  border-radius: 3px;
+  border: 1px solid var(--border-outer);
+  box-shadow: inset 1px 1px var(--background-alt),inset -1px -1px var(--text-faded);
+  background-image: none;
+}
+
+input[type="checkbox"]:checked {
+  box-shadow: inset -1px -1px var(--background-alt),inset 1px 1px var(--text-faded);
+}
+
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 1.2em;
+  height: 1.2em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--text-normal);
+
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.filterButton button {
+  font-size: 1.5em;
+  width: 100%;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
