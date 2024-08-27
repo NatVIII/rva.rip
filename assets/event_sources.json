@@ -433,6 +433,24 @@
                 ["commercial"],
                 ["drag"]
             ]
+        },
+        {
+            "name": "RVA4Palestine Coalition Events",
+            "googleCalendarId": "rva4palestine@gmail.com",
+            "city": "Oakland",
+            "prefixTitle": "🇵🇸 ",
+            "filters": [
+                ["community"],
+                ["palestine"],
+                ["art", "chalk", "title"],
+                ["organizing", "teach-in", "title"],
+                ["organizing", "city council", "title"],
+                ["organizing", "meeting", "title"],
+                ["organizing", "tenant", "title"],
+                ["organizing", "training", "title"],
+                ["socialism", "rwa", "title"],
+                ["socialism", "richmond worker", ["title","description"]]
+            ]
         }
     ],
     "squarespace": [
