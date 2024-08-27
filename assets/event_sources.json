@@ -354,7 +354,8 @@
             "filters": [
                 ["community"],
                 ["organizing"],
-                ["socialism"]
+                ["socialism"],
+                ["discussion", "salon", "title"]
             ]
         },
         {
@@ -448,8 +449,9 @@
                 ["organizing", "meeting", "title"],
                 ["organizing", "tenant", "title"],
                 ["organizing", "training", "title"],
-                ["socialism", "rwa", "title"],
-                ["socialism", "richmond worker", ["title","description"]]
+                ["socialism", " rwa", "title"],
+                ["socialism", "richmond worker", ["title","description"]],
+                ["exercise", "team hind", ["title","description"]]
             ]
         }
     ],
