@@ -68,13 +68,15 @@ async function fetchlibcalEvents() {
 					return {
 						events: [],
 						city: source.city,
+						name: source.name,
 					} as EventNormalSource;
 				}
 				const libcalJson = await response.json();
 				const libcalEvents = libcalJson.results;
 				return {
 					events: libcalEvents.map(event => convertlibcalEventToFullCalendarEvent(libcalJson.timezone, event, source)),
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			})
 		);
@@ -100,9 +102,10 @@ function convertlibcalEventToFullCalendarEvent(timeZone: string, e, source) {
 	if (source.prefixTitle) { title = source.prefixTitle + title; }
 	if (source.suffixTitle) { title += source.suffixTitle; }
 
+	if (e.location) description = 'Location: '+e.location+'<br />'+description;
+	if (e.categories_arr) e.categories_arr.forEach(category => { description = description + '<br />Category: '+category.name});
 	const tags = applyEventTags(source, title, description);
 	if (isDevelopment) title=tags.length+" "+title;
-	if (e.location) description = 'Location: <br />'+description;
 
 	return {
 		id: formatTitleAndDateToID(start.toUTC().toJSDate(), title),

@@ -643,6 +643,7 @@ async function fetchInstagramEvents() {
 				return {
 					events,
 					city: source.city,
+					name: source.name,
 				};
 
 			}));

@@ -28,14 +28,16 @@ async function fetchTockifyEvents() {
 					console.error(`Error fetching Tockify events for ${source.name}: ${res.status} ${res.statusText}`);
 					return {
 						events: [],
-						city: source.city
+						city: source.city,
+						name: source.name,
 					} as EventNormalSource;
 				}
 				let tockifyJson = await res.json();
 				let tockifyEvents = tockifyJson.events;
 				return {
 					events: tockifyEvents.map(event => convertTockifyEventToFullCalendarEvent(event, url, source.name)),
-					city: source.city
+					city: source.city,
+					name: source.name,
 				} as EventNormalSource;
 			}
 			)

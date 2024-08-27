@@ -74,5 +74,9 @@ export function applyEventTags(source: any, title: string, description: string):
 	});
 	//Also apply name of calendar as a tag
 	//tags.push('🗓️ '+source.name);
+
+	// Adds the default tag `unknownType` if there's less than two tags on an event (each tag is ALWAYS assigned a header tag, so this is an easy way to check if it's been given any non-Header tags)
+	if (tags.length < 2) tags.push('unknownType');
+
 	return tags;
 }
