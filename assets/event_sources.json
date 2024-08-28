@@ -319,7 +319,7 @@
             "suffixDescription": "<br /> <a href=\"https://ragandbonesrva.org/\">Website</a> | <a href=\"https://www.instagram.com/ragandbonesrva/\">Instagram</a> | <a href=\"https://www.facebook.com/RagBonesBicycleCoOp/\">Facebook</a>",
             "filters": [
                 ["community"],
-                ["volunteering", "Open Hours", "title", "party"],
+                [["diy","biking"], "Open Hours", "title"],
                 ["music", "Benefit", ["title","description"]]
             ]
         },
