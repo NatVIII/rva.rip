@@ -439,7 +439,7 @@
             "name": "RVA4Palestine Coalition Events",
             "googleCalendarId": "rva4palestine@gmail.com",
             "city": "Oakland",
-            "prefixTitle": "🇵🇸 ",
+            "prefixTitle": ":rva4pal: ",
             "filters": [
                 ["community"],
                 ["palestine"],
