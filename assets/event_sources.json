@@ -443,6 +443,17 @@
                 ["socialism", "richmond worker", ["title","description"]],
                 ["exercise", "team hind", ["title","description"]]
             ]
+        },
+        {
+            "name": "RVA Participatory Budgeting Public Calendar https://rvapb.org",
+            "googleCalendarId": "c_c7163d30a9f2e96724bf3856aa814f56e83300945a648bd5a04f2fb291da6917@group.calendar.google.com",
+            "city": "Oakland",
+            "prefixTitle": ":rvapb: ",
+            "filters": [
+                ["nonprofit"],
+                ["organizing"],
+                ["volunteering"]
+            ]
         }
     ],
     "squarespace": [
