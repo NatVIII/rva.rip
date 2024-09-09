@@ -22,8 +22,7 @@
                 {"name": "exercise", "fullName": "💪 Exercise", "defaultValue": "true"},
                 {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
                 {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
-                {"name": "karaoke", "fullName": "🎤 Karaoke", "defaultValue": "true"},
-                {"name": "singing", "fullName": "🎵 Singing", "defaultValue": "true"},
+                {"name": "singing", "fullName": "🎤 Singing/Karaoke", "defaultValue": "true"},
                 {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
             ],
             [
@@ -243,7 +242,7 @@
                 [["community","music"], "Live in da Garden", ["title","description"]],
                 [["community"], "Vegan", ["title","description"]],
                 [["community","ecology"], "Enviromental", ["title","description"]],
-                [["karaoke"], "karaoke", ["title","description"]],
+                [["singing"], "karaoke", ["title","description"]],
                 [["yoga"], "yoga", "title"],
                 [["drag"], "drag", "title"],
                 [["movies"], "Bollywood", "title"],
@@ -255,6 +254,9 @@
                 [["yoga"], "sound bath", "title"],
                 [["invisible"], "financial", "title"],
                 [["invisible"], "team meeting", "title"],
+                [["palestine"], "palestine", "title"],
+                [["theater"], "comedy event", "title"],
+                [["books"], "book", "title"],
                 ["commercial","community"]
                 
             ]
@@ -280,13 +282,14 @@
         },
         {
             "name": "Sunrise Movement RVA",
-            "googleCalendarId": "9848cc3a6ebfce17fb9a2f5aa72ae2ad315cf96e323e071540de5c5a6de2c701@group.calendar.google.com",
+            "googleCalendarId": "sunriserva@gmail.com",
             "city": "Oakland",
             "prefixTitle": ":sunrise: ",
             "filters": [
                 ["community"],
                 ["organizing"],
-                ["ecology"]
+                ["ecology"],
+                ["movies", "screening", ["title", "description"]]
             ]
         },
         {
@@ -501,6 +504,7 @@
                 [["invisible"], "Nonprofit ", ["title"]],
                 [["market"], "palooza ", ["title"]],
                 [["ecology"], "pollinator ", ["title"]],
+                [["books"], "book signing ", ["title","description"]],
                 ["commercial","community"]
             ]
         },
@@ -609,6 +613,10 @@
                 [["invisible"], "adult english class", ["title"]],
                 [["invisible"], "family flicks!", ["title"]],
                 [["invisible"], "financieros", ["title"]],
+                [["invisible"], "voter registration", ["title"]],
+                [["diy"], "craft", ["title"]],
+                [["diy"], "canva", ["title"]],
+                [["diy"], "diy", ["title"]],
                 ["nonprofit", "community"]
             ],
             "calendarToLocation": [
