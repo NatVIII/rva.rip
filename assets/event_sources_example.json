@@ -1,0 +1,252 @@
+{
+    "appConfig": {
+        "tagsHeader": [
+            {"name": "community", "fullName": "🫂 Community", "defaultValue": "true"},
+            {"name": "commercial", "fullName": "🎩 Commercial", "defaultValue": "true"},
+            {"name": "nonprofit", "fullName": "🏛️ Nonprofit", "defaultValue": "true"}
+        ],
+        "tagsHidden": ["hidden", "invisible", "internal"],
+        "tagsToShow": [
+            [
+                {"name": "activism", "fullName": "Critical Work", "defaultValue": "true"},
+                {"name": "palestine", "fullName": "🇵🇸 Palestine", "defaultValue": "true"},
+                {"name": "socialism", "fullName": "🚩 Socialism", "defaultValue": "true"},
+                {"name": "anarchism", "fullname": "🏴 Anarchism", "defaultValue": "true"},
+                {"name": "ecology", "fullName": "🌿 Ecology", "defaultValue": "true"},
+                {"name": "organizing", "fullName": "🤝 Organizing", "defaultValue": "true"}
+            ],
+            [
+                {"name": "activities", "fullName": "Activities", "defaultValue": "true"},
+                {"name": "soccer", "fullName": "⚽ Soccer", "defaultValue": "true"},
+                {"name": "biking", "fullName": "🚲 Biking", "defaultValue": "true"},
+                {"name": "skating", "fullName": "🛼🛹 Skating", "defaultValue": "true"},
+                {"name": "exercise", "fullName": "💪 Exercise", "defaultValue": "true"},
+                {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
+                {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
+                {"name": "karaoke", "fullName": "🎤 Karaoke", "defaultValue": "true"},
+                {"name": "singing", "fullName": "🎵 Singing", "defaultValue": "true"},
+                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
+            ],
+            [
+                {"name": "performance", "fullName": "Performances", "defaultValue": "true"},
+                {"name": "theater", "fullName": "🎭 Theater", "defaultValue": "true"},
+                {"name": "music", "fullName": "🎸 Music", "defaultValue": "true"},
+                {"name": "drag", "fullName": "👠 Drag", "defaultValue": "true"},
+                {"name": "movies", "fullName": "📽️ Film & Movies", "defaultValue": "true"}
+            ],
+            [
+                {"name": "interests", "fullName": "Interest & Hobbies", "defaultValue": "true"},
+                {"name": "diy", "fullName": "🔧 DIY", "defaultValue": "true"},
+                {"name": "books", "fullName": "📚 Books", "defaultValue": "true"},
+                {"name": "food", "fullName": "🍲 Food", "defaultValue": "true"},
+                {"name": "art", "fullName": "🎨 Art", "defaultValue": "true"},
+                {"name": "discussion", "fullName": "🗨️ Yapping & Talking", "defaultValue": "true"},
+                {"name": "sobriety", "fullName": "🚭 Sobriety", "defaultValue": "true"}
+            ],
+            [
+                {"name": "other", "fullName": "Misc", "defaultValue": "true"},
+                {"name": "free stuff", "fullName": "🈶 Free Stuff", "defaultValue": "true"},
+                {"name": "volunteering", "fullName": "♻️ Volunteering", "defaultValue": "true"},
+                {"name": "market", "fullName": "🛍️ Market", "defaultValue": "true"},
+                {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
+                {"name": "festival", "fullName": "🎪 Festival", "defaultValue": "true"},
+                {"name": "announcement", "fullName": "🗣️ Announcements!!!!", "defaultValue": "true"},
+                {"name": "unknownType", "fullName": "🤷 idk", "defaultValue": "true"}
+            ]
+        ],
+        "eventApiToGrab": [
+            "/api/events/googleCalendar",
+            "/api/events/squarespace",
+            "/api/events/elfsight",
+            "/api/events/libcal"
+          ]
+    },
+    "googleCalendar": [
+        {
+            "name": "Manually Added Events",
+            "googleCalendarId": "info@trianglemutualaid.org",
+            "city": "Triangle, NC",
+            "filters": [
+                [["market","commercial"], "Market", ["title","description"]],
+                ["palestine", "🇵🇸", ["title","description"]],
+                ["biking", "🚲", ["title","description"]],
+                ["sobriety", "🚭", "title"],
+                ["free stuff", "Free Food", "title"],
+                ["community","commercial"],
+                ["music", "sundown", "title"],
+                ["music", "Dogwood Dell", "title"],
+                [["ecology","food","free stuff"], "Fonticello FF", "title"],
+                [["art"], "First Fridays", "title"],
+                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+            ]
+        }
+    ],
+    "squarespace": [
+        {
+            "name": "Richmond Grows Gardens",
+            "url": "https://www.richmondgrowsgardens.org/events?format=json",
+            "city": "Oakland",
+            "prefixTitle": ":RVAGrowsGardens1: ",
+            "suffixTitle": ":RVAGrowsGardens2:",
+            "filters": [
+                ["community"],
+                ["ecology"]
+            ]
+        }
+    ],
+    "elfsight": [
+        {
+            "name": "Studio Two Three",
+            "url": "https://core.service.elfsight.com/p/boot/?page=https%3A%2F%2Fwww.studiotwothree.org%2Fcommunity-events&w=24ddbed9-c732-4102-abd2-02990fae125b",
+            "key": "24ddbed9-c732-4102-abd2-02990fae125b",
+            "city": "Oakland",
+            "prefixTitle": ":studiotwothree:",
+            "eventTypes": [
+                ["Courses and Workshops", "📔"],
+                ["Film Screenings", "📽"],
+                ["Community Events", "🤝"],
+                ["Artist Markets", "🛍️"],
+                ["Private Events", "🔒"],
+                ["Community Organizing Event", "📢"]
+            ],
+            "eventDefault": [
+                "", ""
+            ],
+            "filters": [
+                [["community", "movies"], "Film", ["title","description"]],
+                [["community", "dance"], "dance", ["title"]],
+                ["community", "Community Events", ["title","description"]],
+                [["community","free stuff"], "Creative Mornings", ["title","description"]],
+                [["palestine","community"], "palestine", ["title","description"]],
+                ["free stuff", "clothing swap", ["title","description"]],
+                [["diy"], "Courses and Workshops", ["title","description"]],
+                [["market"], "Artist Markets", ["title","description"]],
+                [["community","organizing"], "Community Organizing Event", ["title","description"]],
+                [["dance"], "Choreo", ["title","description"]],
+                [["invisible"], "Nonprofit ", ["title"]],
+                [["market"], "palooza ", ["title"]],
+                [["ecology"], "pollinator ", ["title"]],
+                ["commercial","community"]
+            ]
+        },
+        {
+            "name": "Diversity Richmond",
+            "url": "https://core.service.elfsight.com/p/boot/?page=https://www.diversityrichmond.org/events&w=3ef9dd43-ad54-43ff-ae47-41037c180d59",
+            "key": "3ef9dd43-ad54-43ff-ae47-41037c180d59",
+            "city": "Oakland",
+            "eventTypes": [
+                ["Iridian Gallery ", ":diversityiridian:"],
+                ["Virginia Pride", ":diversitypride:"],
+                ["Diversity Richmond", ":diversityrichmond:"],
+                ["Diversity Thrift", ":diversitythrift:"]
+            ],
+            "eventDefault": [
+                "Diversity Richmond", ":diversityrichmond:"
+            ],
+            "filters": [
+                [["market"], "Market", ["title","description"]],
+                [["art"], "Iridian Gallery", ["title","description"]],
+                [["free stuff","community"], "Pantry", ["title","description"]],
+                [["invisible"], "Shop daily", ["description"]],
+                [["art"], "exhibition", ["description"]],
+                [["market","festival"], "big gay", ["title"]],
+                [["market","festival"], "bash", ["title"]],
+                [["market","festival"], "party", ["title"]],
+                [["free stuff"], "money management course", ["title"]],
+                [["drag"], "drag", ["title"]],
+                [["invisible"], "modlin center", ["title"]],
+                [["festival"], "prideFest", ["title"]],
+                ["commercial","community"]
+            ]
+        }
+    ],
+    "libcal": [
+        {
+            "name": "Richmond Public Libraries",
+            "url": "https://rvalibrary.libcal.com/process_search.php?site_id=12885&perpage=100&audience=4466",
+            "city": "Oakland",
+            "prefixTitle": ":rvalibrary: ",
+            "suffixTitle": "",
+            "filters": [
+                ["invisible", "Board Meeting", "title"],
+                ["invisible", "STAFF PLANNING", "title"],
+                ["invisible", "Small Business Legal Workshop", "title"],
+                ["invisible", "Office Hours", "title"],
+                ["invisible", "Family Law", "title"],
+                ["invisible", "Senior", "title"],
+                ["invisible", "CANCELLED", "title"],
+                ["invisible", "legal resources", "title"],
+                ["invisible", "Blood Pressure", "title"],
+                ["invisible", "Memory Lab", "title"],
+                ["invisible", "Computer Basics", "title"],
+                ["invisible", "Tech Tuesday", "title"],
+                ["invisible", "Extended Hours", "title"],
+                ["invisible", "Richmond Community Sing", "title"],
+                ["invisible", "Civic Association Meeting", "title"],
+                ["invisible", "Information Session", "title"],
+                ["invisible", "Board of Trustee Meeting", "title"],
+                ["invisible", "Affordable Housing Workshop", "title"],
+                ["invisible", "Virginia Housing", "title"],
+                ["invisible", "Internet", "title"],
+                ["invisible", "USDOJ", "title"],
+                ["invisible", "eviction", "title"],
+                ["exercise", "fitness", "title"],
+                ["invisible", "tech talk", "title"],
+                ["invisible", "canceled", "title"],
+                ["invisible", "G.E.D", "title"],
+                [["community","movies"], "Movie", "title"],
+                ["diy", "yarn", "title"],
+                [["community","books"], "page turners", "title"],
+                ["invisible", "public law", "description"],
+                ["invisible", "Estate", "title"],
+                [["community","books"], "book club", ["title","description"]],
+                ["invisible", "english language acquisition", "title"],
+                ["movies", "air conditioned cinema", "title"],
+                ["invisible", "help1rva", "title"],
+                ["invisible", "101", "title"],
+                ["games", "board game", "title"],
+                ["games", "boardgame", "title"],
+                ["invisible", "suicide", "title"],
+                ["diy", "crafters", "title"],
+                ["invisible", "financial", "title"],
+                ["organizing", "organizing 101", "description"],
+                ["organizing", "ACLU", ["description","title"]],
+                ["diy", "printing", ["description","title"]],
+                ["books", "author talk", ["description","title"]],
+                ["books", "book banter", ["description","title"]],
+                ["invisible", "help desk", ["description","title"]],
+                ["invisible", "law", "title"],
+                [["market", "food"], "shalom farm", "title"],
+                [["diy"], "special collections", ["description","title"]],
+                [["diy"], "sewing", ["description","title"]],
+                [["movies"], "films", ["title"]],
+                [["diy"], "sashiko", ["description","title"]],
+                [["diy"], "visible mending", ["description","title"]],
+                [["invisible"], "category: law", ["description","title"]],
+                [["diy"], "arpillera", ["description","title"]],
+                [["music"], "category: performances", ["description","title"]],
+                [["music"], "e-resource", ["description","title"]],
+                [["diy"], "crafting hour", ["description","title"]],
+                [["books"], "category: book discussion", ["description","title"]],
+                [["invisible"], "medicare", ["title"]],
+                [["invisible"], "genealogy", ["title"]],
+                [["invisible"], "childcare provider workshop", ["title"]],
+                [["invisible"], "adult english class", ["title"]],
+                [["invisible"], "family flicks!", ["title"]],
+                [["invisible"], "financieros", ["title"]],
+                ["nonprofit", "community"]
+            ],
+            "calendarToLocation": [
+                ["Main","Main Library - Richmond Public Library"],
+                ["Belmont","Belmont Branch - Richmond Public Library"],
+                ["Broad Rock","Broad Rock Branch - Richmond Public Library"],
+                ["East End","East End Branch - Richmond Public Library"],
+                ["Ginter Park","Ginter Park Branch - Richmond Public Library"],
+                ["Hull Street","Hull Street Branch - Richmond Public Library"],
+                ["North Avenue","North Avenue Branch - Richmond Public Library"],
+                ["West End","West End Branch - Richmond Public Library"],
+                ["Westover Hills","Westover Hills Branch - Richmond Public Library"]
+            ]
+        }
+    ]
+}

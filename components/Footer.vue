@@ -24,7 +24,7 @@ onMounted(() => {
           <a href="/">home</a> |
           <a href="/list">list of cool groups</a> |
           <a href="/contributing">how to contribute</a> | 
-          <a href="https://github.com/natviii/rva.rip/">source code</a> 
+          <a href="https://github.com/NacreData/calendar">source code</a> 
         </div>
         <div class="desc no-toppy">
           <span class="window-box-effect">theme:  

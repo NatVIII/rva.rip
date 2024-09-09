@@ -1,12 +1,12 @@
 <script setup lang="ts">
 
 useHead({
-  title: 'rva.rip',
+  title: 'Triangle Radical Calendar',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     {
       hid: 'description',
-      name: 'rva.rip',
+      name: 'Triangle Radical Calendar',
       content: '',
     },
   ],

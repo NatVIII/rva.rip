@@ -302,11 +302,12 @@ onMounted(() => {
   // Expose the calendar instance to the window object for debugging
   if (calendarRef.value) window.myCalendar = calendarRef.value.getApi();
   //For the svgGrave rendering
-  async function fetchGrave() {
-    const svgResponse = await fetch('/css/gravestone.svg');
-    svgGrave.value = await svgResponse.text();
-  }
-  fetchGrave();
+  // LOGO GOES HERE
+//   async function fetchGrave() {
+//     const svgResponse = await fetch('/css/gravestone.svg');
+//     svgGrave.value = await svgResponse.text();
+//   }
+//   fetchGrave();
 });
 onUpdated(() => {
 });
@@ -417,11 +418,10 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
           <td class="blurb-image"> <div v-html="svgGrave"></div> </td>
           <td>
             <div class="blurb-text">
-              A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
+              A communal board for DIY events around the Triangle area of NC
             </div>
             <div class="blurb-sub">
-              Stop scrolling insta to find the move!<br>
-              🇵🇸 <a href="https://linktr.ee/sjpvcu">Support your local SJP</a> 🇵🇸
+              Stop scrolling insta to find the move!
             </div>
           </td>
         </tr>
@@ -429,14 +429,17 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
     </table>
     <div style="text-align: center;" v-if="beforeMOTDDate">
       <div class="motd">
+<!-- 
         🇵🇸 Want to get to DC on July 24th to protest Benjamin Netanyahu's visit to U.S. Congress?
         PSL Virginia is hosting a bus to help get people there,
-        <a style="color: var(--text-white);" href="https://www.instagram.com/pslvirginia/p/C9cnAaAuojQ/">More Info Here!</a> 🇵🇸
+        <a style="color: var(~~text-white);" href="https://www.instagram.com/pslvirginia/p/C9cnAaAuojQ/">More Info Here!</a> 🇵🇸
+ -->
       </div>
     </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc" style="padding-bottom: 0;">
+<!-- 
         <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various 
           <a href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
@@ -461,6 +464,7 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
           Once published, request inclusion of your event feed by sending your Google Calendar ID via a 
           <a href="https://github.com/natviii/rva.rip/issues">new GitHub issue</a> or by emailing me at host@rva.rip! 
           You may also provide feedback, fixes, or improvements through either means</p>
+ -->
       </div>
     </div>
     <Footer />
