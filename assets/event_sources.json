@@ -55,7 +55,7 @@
             ]
         ],
         "eventApiToGrab": [
-            "/api/events/googleCalendar",
+            "/api/events/googleCalendar"
           ]
     },
     "googleCalendar": [
