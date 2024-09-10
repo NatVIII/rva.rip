@@ -78,10 +78,22 @@
             ]
         },
         {
-          "name" : "Raleigh United Mutual Aid Hub", 
-          "googleCalendarId": "9e40ef8bf31101230505e352e34bd9078973320b4c00328e1dd6e1a9b65e6870@group.calendar.google.com",
-          "city": "Raleigh, NC",
-          "filters": []
+            "name" : "Raleigh United Mutual Aid Hub (RUMAH)", 
+            "googleCalendarId": "9e40ef8bf31101230505e352e34bd9078973320b4c00328e1dd6e1a9b65e6870@group.calendar.google.com",
+            "city": "Raleigh, NC",
+            "filters": [
+                [["market","commercial"], "Market", ["title","description"]],
+                ["palestine", "🇵🇸", ["title","description"]],
+                ["biking", "🚲", ["title","description"]],
+                ["sobriety", "🚭", "title"],
+                ["free stuff", "Free Food", "title"],
+                ["community","commercial"],
+                ["music", "sundown", "title"],
+                ["music", "Dogwood Dell", "title"],
+                [["ecology","food","free stuff"], "Fonticello FF", "title"],
+                [["art"], "First Fridays", "title"],
+                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+            ]
         }
     ],
     "squarespace": [
