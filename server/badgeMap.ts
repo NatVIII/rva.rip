@@ -27,4 +27,5 @@ export const badgeMap: { [key: string]: string } = {
     ':layersofchange:': '<img src="/badges/layersofchange.svg" class="badge">',
     ':transjam:': '<img src="/badges/transjam.svg" class="badge">',
     ':rva4pal:': '<img src="/badges/rva4pal.svg" class="badge invert-dark">',
+    ':rvapb:': '<img src="/badges/rvapb.svg" class="badge">',
   };

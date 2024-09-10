@@ -22,8 +22,7 @@
                 {"name": "exercise", "fullName": "💪 Exercise", "defaultValue": "true"},
                 {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
                 {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
-                {"name": "karaoke", "fullName": "🎤 Karaoke", "defaultValue": "true"},
-                {"name": "singing", "fullName": "🎵 Singing", "defaultValue": "true"},
+                {"name": "singing", "fullName": "🎤 Singing/Karaoke", "defaultValue": "true"},
                 {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
             ],
             [
@@ -114,16 +113,6 @@
             "filters": [
                 ["community"],
                 ["soccer"]
-            ]
-        },
-        {
-            "name": "Dykes on Bikes RVA",
-            "googleCalendarId": "0443449fed4f78e2434616b80b74c88bd6a942328e8583fa7f35fecdc1df97ca@group.calendar.google.com",
-            "city": "Oakland",
-            "prefixTitle": ":dykes_on_bikes: ",
-            "filters": [
-                ["community"],
-                ["biking"]
             ]
         },
         {
@@ -253,7 +242,7 @@
                 [["community","music"], "Live in da Garden", ["title","description"]],
                 [["community"], "Vegan", ["title","description"]],
                 [["community","ecology"], "Enviromental", ["title","description"]],
-                [["karaoke"], "karaoke", ["title","description"]],
+                [["singing"], "karaoke", ["title","description"]],
                 [["yoga"], "yoga", "title"],
                 [["drag"], "drag", "title"],
                 [["movies"], "Bollywood", "title"],
@@ -265,6 +254,9 @@
                 [["yoga"], "sound bath", "title"],
                 [["invisible"], "financial", "title"],
                 [["invisible"], "team meeting", "title"],
+                [["palestine"], "palestine", "title"],
+                [["theater"], "comedy event", "title"],
+                [["books"], "book", "title"],
                 ["commercial","community"]
                 
             ]
@@ -290,13 +282,14 @@
         },
         {
             "name": "Sunrise Movement RVA",
-            "googleCalendarId": "9848cc3a6ebfce17fb9a2f5aa72ae2ad315cf96e323e071540de5c5a6de2c701@group.calendar.google.com",
+            "googleCalendarId": "sunriserva@gmail.com",
             "city": "Oakland",
             "prefixTitle": ":sunrise: ",
             "filters": [
                 ["community"],
                 ["organizing"],
-                ["ecology"]
+                ["ecology"],
+                ["movies", "screening", ["title", "description"]]
             ]
         },
         {
@@ -453,6 +446,17 @@
                 ["socialism", "richmond worker", ["title","description"]],
                 ["exercise", "team hind", ["title","description"]]
             ]
+        },
+        {
+            "name": "RVA Participatory Budgeting Public Calendar https://rvapb.org",
+            "googleCalendarId": "c_c7163d30a9f2e96724bf3856aa814f56e83300945a648bd5a04f2fb291da6917@group.calendar.google.com",
+            "city": "Oakland",
+            "prefixTitle": ":rvapb: ",
+            "filters": [
+                ["nonprofit"],
+                ["organizing"],
+                ["volunteering"]
+            ]
         }
     ],
     "squarespace": [
@@ -500,6 +504,7 @@
                 [["invisible"], "Nonprofit ", ["title"]],
                 [["market"], "palooza ", ["title"]],
                 [["ecology"], "pollinator ", ["title"]],
+                [["books"], "book signing ", ["title","description"]],
                 ["commercial","community"]
             ]
         },
@@ -608,6 +613,10 @@
                 [["invisible"], "adult english class", ["title"]],
                 [["invisible"], "family flicks!", ["title"]],
                 [["invisible"], "financieros", ["title"]],
+                [["invisible"], "voter registration", ["title"]],
+                [["diy"], "craft", ["title"]],
+                [["diy"], "canva", ["title"]],
+                [["diy"], "diy", ["title"]],
                 ["nonprofit", "community"]
             ],
             "calendarToLocation": [
