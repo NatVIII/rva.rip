@@ -63,7 +63,7 @@
     },
     "googleCalendar": [
         {
-            "name": "Manually Added Events",
+            "name": "Triangle Mutual Aid",
             "googleCalendarId": "info@trianglemutualaid.org",
             "city": "Triangle, NC",
             "filters": [
@@ -79,6 +79,12 @@
                 [["art"], "First Fridays", "title"],
                 ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
             ]
+        },
+        {
+          "name" : "Raleigh United Mutual Aid Hub", 
+          "googleCalendarId": "9e40ef8bf31101230505e352e34bd9078973320b4c00328e1dd6e1a9b65e6870@group.calendar.google.com",
+          "city": "Raleigh, NC",
+          "filters": []
         }
     ],
     "squarespace": [
