@@ -100,7 +100,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 		  }
 		  const data = await res.json()
   
-		  const events = data.items.map((item) => {
+		  const events = data.items.reduce((list, item) => {
 			let title = item.summary;
 			let description = item.description ? replaceGoogleTrackingUrls(item.description.toString()) : '';
 			// Append or prepend text if specified in the source
@@ -111,19 +111,23 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 			const tags = applyEventTags(source, title, description);
 			if (isDevelopment) title=tags.length+" "+title;
 
-			return {
-			  id: formatTitleAndDateToID(item.start.dateTime, title),
-			  title: title,
-			  org: source.name,
-			  start: item.start.dateTime,
-			  end: item.end.dateTime,
-			  url: item.htmlLink,
-			  location: item.location || source.defaultLocation || 'Location not specified',
-			  description: description,
-			  images: findImageUrls(description),
-			  tags,
-			};
-		  });
+      if (title) {
+        list.push({
+          id: formatTitleAndDateToID(item.start.dateTime, title),
+          title: title,
+          org: source.name,
+          start: item.start.dateTime,
+          end: item.end.dateTime,
+          url: item.htmlLink,
+          location: item.location || source.defaultLocation || 'Location not specified',
+          description: description,
+          images: findImageUrls(description),
+          tags,
+        });
+      }
+			
+			return list;
+		  }, []);
 
 		  return {
 			events,
