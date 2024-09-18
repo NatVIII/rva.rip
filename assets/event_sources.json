@@ -61,7 +61,7 @@
     "googleCalendar": [
         {
             "name": "Triangle Public Events, See Event for Details",
-            "googleCalendarId": "c_dbd5efdcf0ae6beefa1f09cd5a2d95b7c683e3202c1a107cbf28278e00dbd2aa@group.calendar.google.com",
+            "googleCalendarId": "triangleradicalevents@gmail.com",
             "city": "Triangle, NC",
             "filters": [
                 [["market","commercial"], "Market", ["title","description"]],
