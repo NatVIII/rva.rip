@@ -289,7 +289,9 @@
                 ["community"],
                 ["organizing"],
                 ["ecology"],
-                ["movies", "screening", ["title", "description"]]
+                ["movies", "screening", ["title", "description"]],
+                ["invisible", "Undetermined", ["title"]],
+                ["invisible", "Member", ["title"]]
             ]
         },
         {
