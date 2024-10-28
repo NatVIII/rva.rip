@@ -21,7 +21,7 @@ const calendarRef = ref(null); // Ref for the FullCalendar instance
 const tags = ref(getAllTags()); // Ref for serving a full list of tags found in event_sources.json
 provide('tags', tags); //Serves the tags array globally, allowing it to be accessed in FilterModal.vue
 
-var beforeMOTDDate = (Date.now() < Date.parse('07/24/2024 9:30:00 AM'));//For hiding the MOTD, a better system will be implemented in the future!
+var beforeMOTDDate = (Date.now() < Date.parse('11/02/2024 2:30:00 PM'));//For hiding the MOTD, a better system will be implemented in the future!
 
 const tagsToHide = ['hidden', 'internal', 'invisible']; // Tags that should hide events
 
@@ -429,9 +429,10 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
     </table>
     <div style="text-align: center;" v-if="beforeMOTDDate">
       <div class="motd">
-        🇵🇸 Want to get to DC on July 24th to protest Benjamin Netanyahu's visit to U.S. Congress?
-        PSL Virginia is hosting a bus to help get people there,
-        <a style="color: var(--text-white);" href="https://www.instagram.com/pslvirginia/p/C9cnAaAuojQ/">More Info Here!</a> 🇵🇸
+        🇵🇸 This Saturday ShutItDown4Palestine is hosting a national day of action to say
+        NO VOTES FOR GENOCIDE. Want to join in RVA? Check out the upcoming rally 
+        <a style="color: var(--text-white);" href="https://www.instagram.com/pslvirginia/p/DBobeMEuC8D/">here!</a> 🇵🇸 
+        <br > 🗓️ Nov 2 | 🕑 2pm | 📍 Monroe Park
       </div>
     </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
