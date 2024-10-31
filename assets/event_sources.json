@@ -23,7 +23,8 @@
                 {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
                 {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
                 {"name": "singing", "fullName": "🎤 Singing/Karaoke", "defaultValue": "true"},
-                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
+                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"},
+                {"name": "motorcycles", "fullName": "🏍️ Motorcycles VROOM VROOM", "defaultValue": "true"}
             ],
             [
                 {"name": "performance", "fullName": "Performances", "defaultValue": "true"},
@@ -47,6 +48,7 @@
                 {"name": "volunteering", "fullName": "♻️ Volunteering", "defaultValue": "true"},
                 {"name": "market", "fullName": "🛍️ Market", "defaultValue": "true"},
                 {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
+                {"name": "lgbtq", "fullName": "🏳️‍🌈 LGBTQ", "defaultValue": "true"},
                 {"name": "festival", "fullName": "🎪 Festival", "defaultValue": "true"},
                 {"name": "announcement", "fullName": "🗣️ Announcements!!!!", "defaultValue": "true"},
                 {"name": "unknownType", "fullName": "🤷 idk", "defaultValue": "true"}
@@ -112,7 +114,7 @@
             "city": "Oakland",
             "filters": [
                 ["community"],
-                ["soccer"]
+                ["soccer", "lgbtq"]
             ]
         },
         {
@@ -267,7 +269,7 @@
             "city": "Oakland",
             "prefixTitle": "🌈📚 ",
             "filters": [
-                [["community","books"]]
+                [["community","books", "lgbtq"]]
             ]
         },
         {
@@ -361,7 +363,7 @@
             "suffixTitle": "",
             "filters": [
                 ["community"],
-                ["music"]
+                [["music", "lgbtq"]]
             ]
         },
         {
@@ -380,7 +382,7 @@
             "prefixTitle": ":layersofchange: ",
             "filters": [
                 ["community"],
-                ["transgender"]
+                [["transgender", "lgbtq"]]
             ]
         },
         {
@@ -390,7 +392,7 @@
             "prefixTitle": ":transjam:🏳️‍⚧️ ",
             "filters": [
                 ["community"],
-                ["transgender"]
+                [["transgender", "lgbtq"]]
             ]
         },
         {
@@ -410,6 +412,17 @@
             "filters": [
                 ["commercial"],
                 ["drag"]
+            ]
+        },
+        {
+            "name": "Queer Moto Club",
+            "googleCalendarId": "c_9efc326dbf0b9bc343d75d0192ff495be45a2f82c9c3b98dbe5c59fa059a6118@group.calendar.google.com",
+            "city": "Oakland",
+            "prefixTitle": "🏍️ ",
+            "filters": [
+                [["community", "interests", "hobbies", "activities"]],
+                [["lgbtq", "motorcycles"]],
+                ["Invisible", "Members Only", ["title"]]
             ]
         },
         {
