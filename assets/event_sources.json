@@ -114,7 +114,7 @@
             "city": "Oakland",
             "filters": [
                 ["community"],
-                ["soccer"]
+                ["soccer", "lgbtq"]
             ]
         },
         {
@@ -269,7 +269,7 @@
             "city": "Oakland",
             "prefixTitle": "🌈📚 ",
             "filters": [
-                [["community","books"]]
+                [["community","books", "lgbtq"]]
             ]
         },
         {
@@ -363,7 +363,7 @@
             "suffixTitle": "",
             "filters": [
                 ["community"],
-                ["music"]
+                [["music", "lgbtq"]]
             ]
         },
         {
@@ -382,7 +382,7 @@
             "prefixTitle": ":layersofchange: ",
             "filters": [
                 ["community"],
-                ["transgender"]
+                [["transgender", "lgbtq"]]
             ]
         },
         {
@@ -392,7 +392,7 @@
             "prefixTitle": ":transjam:🏳️‍⚧️ ",
             "filters": [
                 ["community"],
-                ["transgender"]
+                [["transgender", "lgbtq"]]
             ]
         },
         {
