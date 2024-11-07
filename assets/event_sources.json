@@ -77,6 +77,8 @@
                 ["music", "Dogwood Dell", "title"],
                 [["ecology","food","free stuff"], "Fonticello FF", "title"],
                 [["art"], "First Fridays", "title"],
+                [["lgbtq"], "🏳️‍🌈", "title"],
+                [["transgender"], "🏳️‍⚧️", "title"],
                 ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
             ]
         },
@@ -114,7 +116,8 @@
             "city": "Oakland",
             "filters": [
                 ["community"],
-                ["soccer", "lgbtq"]
+                ["soccer"],
+                ["lgbtq"]
             ]
         },
         {
@@ -156,7 +159,8 @@
             "filters": [
                 ["community"],
                 ["biking"],
-                ["sobriety", "🚭", "title"]
+                ["sobriety", "🚭", "title"],
+                [["lgbtq"], "🏳️‍🌈", "title"]
             ]
         },
         {
@@ -269,7 +273,9 @@
             "city": "Oakland",
             "prefixTitle": "🌈📚 ",
             "filters": [
-                [["community","books", "lgbtq"]]
+                ["community"],
+                ["books"],
+                ["lgbtq"]
             ]
         },
         {
@@ -363,7 +369,8 @@
             "suffixTitle": "",
             "filters": [
                 ["community"],
-                [["music", "lgbtq"]]
+                ["music"],
+                ["lgbtq"]
             ]
         },
         {
@@ -382,7 +389,8 @@
             "prefixTitle": ":layersofchange: ",
             "filters": [
                 ["community"],
-                [["transgender", "lgbtq"]]
+                ["transgender"],
+                ["lgbtq"]
             ]
         },
         {
@@ -392,7 +400,8 @@
             "prefixTitle": ":transjam:🏳️‍⚧️ ",
             "filters": [
                 ["community"],
-                [["transgender", "lgbtq"]]
+                ["transgender"],
+                ["lgbtq"]
             ]
         },
         {
@@ -420,8 +429,9 @@
             "city": "Oakland",
             "prefixTitle": "🏍️ ",
             "filters": [
-                [["community", "interests", "hobbies", "activities"]],
-                [["lgbtq", "motorcycles"]],
+                ["community"],
+                ["lgbtq"],
+                ["motorcycles"],
                 ["Invisible", "Members Only", ["title"]]
             ]
         },
@@ -520,6 +530,7 @@
                 "Diversity Richmond", ":diversityrichmond:"
             ],
             "filters": [
+                ["lgbtq"],
                 [["market"], "Market", ["title","description"]],
                 [["art"], "Iridian Gallery", ["title","description"]],
                 [["free stuff","community"], "Pantry", ["title","description"]],
