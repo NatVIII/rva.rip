@@ -23,7 +23,8 @@
                 {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
                 {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
                 {"name": "singing", "fullName": "🎤 Singing/Karaoke", "defaultValue": "true"},
-                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
+                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"},
+                {"name": "motorcycles", "fullName": "🏍️ Motorcycles VROOM VROOM", "defaultValue": "true"}
             ],
             [
                 {"name": "performance", "fullName": "Performances", "defaultValue": "true"},
@@ -47,6 +48,7 @@
                 {"name": "volunteering", "fullName": "♻️ Volunteering", "defaultValue": "true"},
                 {"name": "market", "fullName": "🛍️ Market", "defaultValue": "true"},
                 {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
+                {"name": "lgbtq", "fullName": "🏳️‍🌈 LGBTQ", "defaultValue": "true"},
                 {"name": "festival", "fullName": "🎪 Festival", "defaultValue": "true"},
                 {"name": "announcement", "fullName": "🗣️ Announcements!!!!", "defaultValue": "true"},
                 {"name": "unknownType", "fullName": "🤷 idk", "defaultValue": "true"}
@@ -75,6 +77,8 @@
                 ["music", "Dogwood Dell", "title"],
                 [["ecology","food","free stuff"], "Fonticello FF", "title"],
                 [["art"], "First Fridays", "title"],
+                [["lgbtq"], "🏳️‍🌈", "title"],
+                [["transgender"], "🏳️‍⚧️", "title"],
                 ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
             ]
         },
@@ -112,7 +116,8 @@
             "city": "Oakland",
             "filters": [
                 ["community"],
-                ["soccer"]
+                ["soccer"],
+                ["lgbtq"]
             ]
         },
         {
@@ -154,7 +159,8 @@
             "filters": [
                 ["community"],
                 ["biking"],
-                ["sobriety", "🚭", "title"]
+                ["sobriety", "🚭", "title"],
+                [["lgbtq"], "🏳️‍🌈", "title"]
             ]
         },
         {
@@ -267,7 +273,9 @@
             "city": "Oakland",
             "prefixTitle": "🌈📚 ",
             "filters": [
-                [["community","books"]]
+                ["community"],
+                ["books"],
+                ["lgbtq"]
             ]
         },
         {
@@ -361,7 +369,8 @@
             "suffixTitle": "",
             "filters": [
                 ["community"],
-                ["music"]
+                ["music"],
+                ["lgbtq"]
             ]
         },
         {
@@ -380,7 +389,8 @@
             "prefixTitle": ":layersofchange: ",
             "filters": [
                 ["community"],
-                ["transgender"]
+                ["transgender"],
+                ["lgbtq"]
             ]
         },
         {
@@ -390,7 +400,8 @@
             "prefixTitle": ":transjam:🏳️‍⚧️ ",
             "filters": [
                 ["community"],
-                ["transgender"]
+                ["transgender"],
+                ["lgbtq"]
             ]
         },
         {
@@ -410,6 +421,18 @@
             "filters": [
                 ["commercial"],
                 ["drag"]
+            ]
+        },
+        {
+            "name": "Queer Moto Club",
+            "googleCalendarId": "c_9efc326dbf0b9bc343d75d0192ff495be45a2f82c9c3b98dbe5c59fa059a6118@group.calendar.google.com",
+            "city": "Oakland",
+            "prefixTitle": "🏍️ ",
+            "filters": [
+                ["community"],
+                ["lgbtq"],
+                ["motorcycles"],
+                ["Invisible", "Members Only", ["title"]]
             ]
         },
         {
@@ -507,6 +530,7 @@
                 "Diversity Richmond", ":diversityrichmond:"
             ],
             "filters": [
+                ["lgbtq"],
                 [["market"], "Market", ["title","description"]],
                 [["art"], "Iridian Gallery", ["title","description"]],
                 [["free stuff","community"], "Pantry", ["title","description"]],
