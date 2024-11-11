@@ -15,6 +15,7 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
         <h2>One-time Quick-add events:</h2>
             <p>While the prefered method is to set up your own calendar and have this software read and combine those events into this calendar, that may not be necessary or 
             accessible to everyone. You can also <a href="mailto:triangleradicalevents@gmail.com">email us details about your event (triangleradicalevents@gmail.com)</a> - please give us several days do see your email and get it posted.
+            </p>
         <h2>Publishing Google Calendar events</h2>
             <ul>
                 <li><a href="https://accounts.google.com">Create a Google Account</a> for your events if one doesn't already exist. The email address associated with the
