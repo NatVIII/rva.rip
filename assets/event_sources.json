@@ -112,6 +112,25 @@
                 [["art"], "First Fridays", "title"],
                 ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
             ]
+        },
+        {
+            "name" : "Comrades in the Commons",
+            "googleCalendarId" : "comradesinthecommons@gmail.com",
+            "city" : "Durham, NC",
+            "filters": [
+                [["market","commercial"], "Market", ["title","description"]],
+                ["palestine", "🇵🇸", ["title","description"]],
+                ["biking", "🚲", ["title","description"]],
+                ["sobriety", "🚭", "title"],
+                ["free stuff", "Free Food", "title"],
+                ["community","commercial"],
+                ["music", "sundown", "title"],
+                ["music", "Dogwood Dell", "title"],
+                [["ecology","food","free stuff"], "Fonticello FF", "title"],
+                [["art"], "First Fridays", "title"],
+                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+            ]
+            
         }
     ],
     "squarespace": [

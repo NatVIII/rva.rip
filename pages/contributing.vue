@@ -12,6 +12,9 @@ import { replaceBadgePlaceholders } from '~~/utils/util';
             <p>There are a couple different ways to contribute events to the calendar, but the main way that'll be gone over in this
             guide will be by using Google Calendar. If you have your events hosted via another service or software package online feel free to email this project's
             maintainers to discuss integrating those to minimize your work required.</p>
+        <h2>One-time Quick-add events:</h2>
+            <p>While the prefered method is to set up your own calendar and have this software read and combine those events into this calendar, that may not be necessary or 
+            accessible to everyone. You can also <a href="mailto:triangleradicalevents@gmail.com">email us details about your event (triangleradicalevents@gmail.com)</a> - please give us several days do see your email and get it posted.
         <h2>Publishing Google Calendar events</h2>
             <ul>
                 <li><a href="https://accounts.google.com">Create a Google Account</a> for your events if one doesn't already exist. The email address associated with the
