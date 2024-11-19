@@ -421,7 +421,7 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
               A communal board for DIY events around the Triangle area of NC
             </div>
             <div class="blurb-sub">
-              Stop scrolling insta to find the move!
+              North Carolina Triangle Radical Event Ecosystem - NCTree.xyz
             </div>
           </td>
         </tr>
