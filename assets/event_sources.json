@@ -464,6 +464,17 @@
                 ["organizing"],
                 ["volunteering"]
             ]
+        },
+        {
+            "name": "Backyard Art Market by @alaedw on insta!!!!",
+            "googleCalendarId": "backyardartmarket@gmail.com",
+            "city": "Oakland",
+            "prefixTitle": "🛍️🎨 ",
+            "filters": [
+                ["community"],
+                ["art"],
+                ["market"]
+            ]
         }
     ],
     "squarespace": [
