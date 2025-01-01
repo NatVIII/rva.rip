@@ -1,62 +1,19 @@
 {
     "appConfig": {
-        "tagsHeader": [
-            {"name": "community", "fullName": "🫂 Community", "defaultValue": "true"},
-            {"name": "commercial", "fullName": "🎩 Commercial", "defaultValue": "true"},
-            {"name": "nonprofit", "fullName": "🏛️ Nonprofit", "defaultValue": "true"}
-        ],
+        "tagsHeader": [],
         "tagsHidden": ["hidden", "invisible", "internal"],
         "tagsToShow": [
             [
-                {"name": "activism", "fullName": "Critical Work", "defaultValue": "true"},
-                {"name": "palestine", "fullName": "🇵🇸 Palestine", "defaultValue": "true"},
-                {"name": "socialism", "fullName": "🚩 Socialism", "defaultValue": "true"},
-                {"name": "anarchism", "fullname": "🏴 Anarchism", "defaultValue": "true"},
-                {"name": "ecology", "fullName": "🌿 Ecology", "defaultValue": "true"},
-                {"name": "organizing", "fullName": "🤝 Organizing", "defaultValue": "true"}
-            ],
-            [
-                {"name": "activities", "fullName": "Activities", "defaultValue": "true"},
-                {"name": "soccer", "fullName": "⚽ Soccer", "defaultValue": "true"},
-                {"name": "biking", "fullName": "🚲 Biking", "defaultValue": "true"},
-                {"name": "skating", "fullName": "🛼🛹 Skating", "defaultValue": "true"},
-                {"name": "exercise", "fullName": "💪 Exercise", "defaultValue": "true"},
-                {"name": "yoga", "fullName": "🧘 Yoga", "defaultValue": "true"},
-                {"name": "dance", "fullName": "🪩 Dancing", "defaultValue": "true"},
-                {"name": "karaoke", "fullName": "🎤 Karaoke", "defaultValue": "true"},
-                {"name": "singing", "fullName": "🎵 Singing", "defaultValue": "true"},
-                {"name": "games", "fullName": "🀄🖥️ Games", "defaultValue": "true"}
-            ],
-            [
-                {"name": "performance", "fullName": "Performances", "defaultValue": "true"},
-                {"name": "theater", "fullName": "🎭 Theater", "defaultValue": "true"},
-                {"name": "music", "fullName": "🎸 Music", "defaultValue": "true"},
-                {"name": "drag", "fullName": "👠 Drag", "defaultValue": "true"},
-                {"name": "movies", "fullName": "📽️ Film & Movies", "defaultValue": "true"}
-            ],
-            [
-                {"name": "interests", "fullName": "Interest & Hobbies", "defaultValue": "true"},
-                {"name": "diy", "fullName": "🔧 DIY", "defaultValue": "true"},
-                {"name": "books", "fullName": "📚 Books", "defaultValue": "true"},
-                {"name": "food", "fullName": "🍲 Food", "defaultValue": "true"},
-                {"name": "art", "fullName": "🎨 Art", "defaultValue": "true"},
-                {"name": "discussion", "fullName": "🗨️ Yapping & Talking", "defaultValue": "true"},
-                {"name": "sobriety", "fullName": "🚭 Sobriety", "defaultValue": "true"}
-            ],
-            [
-                {"name": "other", "fullName": "Misc", "defaultValue": "true"},
-                {"name": "free stuff", "fullName": "🈶 Free Stuff", "defaultValue": "true"},
-                {"name": "volunteering", "fullName": "♻️ Volunteering", "defaultValue": "true"},
-                {"name": "market", "fullName": "🛍️ Market", "defaultValue": "true"},
-                {"name": "transgender", "fullName": "🏳️‍⚧️ Transgeder :3", "defaultValue": "true"},
-                {"name": "festival", "fullName": "🎪 Festival", "defaultValue": "true"},
-                {"name": "announcement", "fullName": "🗣️ Announcements!!!!", "defaultValue": "true"},
-                {"name": "unknownType", "fullName": "🤷 idk", "defaultValue": "true"}
+                { "name": "location", "fullName": "📍 Location", "defaultValue": "true" },
+                { "name": "triangle", "fullName": "Triangle", "defaultValue": "true" },
+                { "name": "raleigh", "fullName": "Raleigh", "defaultValue": "true" },
+                { "name": "durham", "fullName": "Durham", "defaultValue": "true" },
+                { "name": "hillsborough", "fullName": "Hillsborough", "defaultValue": "true" }
             ]
         ],
         "eventApiToGrab": [
             "/api/events/googleCalendar"
-          ]
+        ]
     },
     "googleCalendar": [
         {
@@ -64,17 +21,7 @@
             "googleCalendarId": "triangleradicalevents@gmail.com",
             "city": "Triangle, NC",
             "filters": [
-                [["market","commercial"], "Market", ["title","description"]],
-                ["palestine", "🇵🇸", ["title","description"]],
-                ["biking", "🚲", ["title","description"]],
-                ["sobriety", "🚭", "title"],
-                ["free stuff", "Free Food", "title"],
-                ["community","commercial"],
-                ["music", "sundown", "title"],
-                ["music", "Dogwood Dell", "title"],
-                [["ecology","food","free stuff"], "Fonticello FF", "title"],
-                [["art"], "First Fridays", "title"],
-                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+                ["triangle"]
             ]
         },
         {
@@ -82,17 +29,7 @@
             "googleCalendarId": "9e40ef8bf31101230505e352e34bd9078973320b4c00328e1dd6e1a9b65e6870@group.calendar.google.com",
             "city": "Raleigh, NC",
             "filters": [
-                [["market","commercial"], "Market", ["title","description"]],
-                ["palestine", "🇵🇸", ["title","description"]],
-                ["biking", "🚲", ["title","description"]],
-                ["sobriety", "🚭", "title"],
-                ["free stuff", "Free Food", "title"],
-                ["community","commercial"],
-                ["music", "sundown", "title"],
-                ["music", "Dogwood Dell", "title"],
-                [["ecology","food","free stuff"], "Fonticello FF", "title"],
-                [["art"], "First Fridays", "title"],
-                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+                ["raleigh"]
             ]
         },
         {
@@ -100,17 +37,7 @@
             "googleCalendarId": "0820dd07ac269b6604c0deddeabea3568fcf6ebdc18996c9bdbb3e0aa3184cd5@group.calendar.google.com",
             "city": "Durham, NC",
             "filters": [
-                [["market","commercial"], "Market", ["title","description"]],
-                ["palestine", "🇵🇸", ["title","description"]],
-                ["biking", "🚲", ["title","description"]],
-                ["sobriety", "🚭", "title"],
-                ["free stuff", "Free Food", "title"],
-                ["community","commercial"],
-                ["music", "sundown", "title"],
-                ["music", "Dogwood Dell", "title"],
-                [["ecology","food","free stuff"], "Fonticello FF", "title"],
-                [["art"], "First Fridays", "title"],
-                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+                ["durham"]
             ]
         },
         {
@@ -118,17 +45,7 @@
             "googleCalendarId" : "comradesinthecommons@gmail.com",
             "city" : "Durham, NC",
             "filters": [
-                [["market","commercial"], "Market", ["title","description"]],
-                ["palestine", "🇵🇸", ["title","description"]],
-                ["biking", "🚲", ["title","description"]],
-                ["sobriety", "🚭", "title"],
-                ["free stuff", "Free Food", "title"],
-                ["community","commercial"],
-                ["music", "sundown", "title"],
-                ["music", "Dogwood Dell", "title"],
-                [["ecology","food","free stuff"], "Fonticello FF", "title"],
-                [["art"], "First Fridays", "title"],
-                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+                ["durham"]
             ]            
         },
         {
@@ -136,17 +53,7 @@
             "googleCalendarId" : "28970aa42f82774cab9dbf1dc4b1d1ee18ce9c9f22bbf8de1c0b747646b97f7d@group.calendar.google.com",
             "city" : "Hillsborough",
             "filters": [
-                [["market","commercial"], "Market", ["title","description"]],
-                ["palestine", "🇵🇸", ["title","description"]],
-                ["biking", "🚲", ["title","description"]],
-                ["sobriety", "🚭", "title"],
-                ["free stuff", "Free Food", "title"],
-                ["community","commercial"],
-                ["music", "sundown", "title"],
-                ["music", "Dogwood Dell", "title"],
-                [["ecology","food","free stuff"], "Fonticello FF", "title"],
-                [["art"], "First Fridays", "title"],
-                ["unknownType", "This is a tag inserted for code purposes, this tag represents all tags which won't be categorized", "title"]
+                ["hillsborough"]
             ]            
         }
     ],

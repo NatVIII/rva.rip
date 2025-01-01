@@ -94,19 +94,21 @@ function disableEventSource(name: string) {
 
 function isDisplayingBasedOnTags(event) {
   let shouldHidefromHidden = false; // Whether the event should be hidden due to it having a tag with isHidden set to true
-  let shouldShowfromHeader = false; // Whether the event contains a tag of a tagHeader whis isVisible, which is a pre-requisite to being visible
+  // let shouldShowfromHeader = false; // Whether the event contains a tag of a tagHeader whis isVisible, which is a pre-requisite to being visible
   let shouldShowfromTags = false; //Whether the event contains atleast one tag which is being searched for rn, has to be true.
   // Iterate over all tags of the event
   event.tags?.forEach(tagEvent => {
     tags.value.forEach(tagFilter => {
       if (tagFilter.isHidden && tagEvent === tagFilter.name) { shouldHidefromHidden = true; } // This tag dictates the event should be hidden
-      if (tagFilter.isHeader && tagEvent === tagFilter.name && tagFilter.isVisible) { shouldShowfromHeader = true; } // This tag is a header and is required to show the event
-      if (tagEvent === tagFilter.name && tagFilter.isVisible && !tagFilter.isHeader) { shouldShowfromTags = true; } // This tag allows the event to be shown
+      // if (tagFilter.isHeader && tagEvent === tagFilter.name && tagFilter.isVisible) { shouldShowfromHeader = true; } // This tag is a header and is required to show the event
+      // if (tagEvent === tagFilter.name && tagFilter.isVisible && !tagFilter.isHeader) { shouldShowfromTags = true; } // This tag allows the event to be shown
+      if (tagEvent === tagFilter.name && tagFilter.isVisible) { shouldShowfromTags = true; } // This tag allows the event to be shown
     });
   });
 
   // Determine the final display status based on the conditions evaluated
-  return ((shouldShowfromHeader && shouldShowfromTags) && !shouldHidefromHidden) ? 'list-item' : 'none';
+  // return ((shouldShowfromHeader && shouldShowfromTags) && !shouldHidefromHidden) ? 'list-item' : 'none';
+  return (shouldShowfromTags && !shouldHidefromHidden) ? 'list-item' : 'none';
 }
 
 const updateDisplayingBasedOnTags = () => { //Function that re-renders the calendar by updating the display value of each event and resetting it altogether
@@ -439,7 +441,7 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
     <div style="display: flex; align-items: center; flex-direction: row;">
       <div class="desc" style="padding-bottom: 0;">
-<!-- 
+        <!-- 
         <p>rva.rip was built with the personal hope that no person in richmond should be without community. The site will
           always be free, without frills, and remain a public utility. The events here are drawn from various 
           <a href="https://github.com/natviii/rva.rip/blob/main/assets/event_sources.json">organizer listings</a> that
