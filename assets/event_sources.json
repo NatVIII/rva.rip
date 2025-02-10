@@ -8,7 +8,9 @@
                 { "name": "triangle", "fullName": "Triangle", "defaultValue": "true" },
                 { "name": "raleigh", "fullName": "Raleigh", "defaultValue": "true" },
                 { "name": "durham", "fullName": "Durham", "defaultValue": "true" },
-                { "name": "hillsborough", "fullName": "Hillsborough", "defaultValue": "true" }
+                { "name": "hillsborough", "fullName": "Hillsborough", "defaultValue": "true" },
+                { "name": "chapel hill", "fullName": "Chapel Hill", "defaultValue": "true"},
+                { "name": "carrboro", "fullName": "Carrboro", "defaultValue": "true"}
             ]
         ],
         "eventApiToGrab": [
@@ -62,6 +64,14 @@
             "city" : "Triangle, NC",
             "filters": [
                 ["triangle", "raleigh", "durham", "hillsborough"]
+            ]
+        }, 
+        {
+            "name" : "Community Justice and Abolition Collective",
+            "googleCalendarId": "c4fba5532c4fbf1ba4bf76f0366031ac61aad6ec7b411a0747600431028bfb87@group.calendar.google.com",
+            "city": "Chapel Hill",
+            "filters" : [
+              ["chapel hill", "carrboro"]
             ]
         }
     ],
