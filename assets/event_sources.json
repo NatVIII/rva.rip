@@ -441,6 +441,25 @@
                 ["art"],
                 ["market"]
             ]
+        },
+        {
+            "name": "DAB RVA (Disabled And Beginner Riders) @dab_rva",
+            "googleCalendarId": "dabrvabikegroup@gmail.com",
+            "prefixTitle": "♿🚲 ",
+            "filters": [
+                ["community"],
+                ["biking"]
+            ]
+        },
+        {
+            "name": "Anyfolk RVA",
+            "googleCalendarId": "e3b3ff88ada63b5664ef49f839af2418d867649f97641fc19f7afab986957439@group.calendar.google.com",
+            "prefixTitle": "🎻🖤 ",
+            "filters": [
+                ["community"],
+                ["art"],
+                ["music"]
+            ]
         }
     ],
     "squarespace": [
