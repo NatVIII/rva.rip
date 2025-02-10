@@ -21,7 +21,7 @@
             "googleCalendarId": "triangleradicalevents@gmail.com",
             "city": "Triangle, NC",
             "filters": [
-                ["triangle"]
+                ["triangle", "raleigh", "durham", "hillsborough"]
             ]
         },
         {
@@ -55,6 +55,14 @@
             "filters": [
                 ["hillsborough"]
             ]            
+        }, 
+        {
+            "name" : "Triangle Anarchist Reading Circle",
+            "googleCalendarId" : "trianglereadingcircle@gmail.com",
+            "city" : "Triangle, NC",
+            "filters": [
+                ["triangle", "raleigh", "durham", "hillsborough"]
+            ]
         }
     ],
     "squarespace": [
