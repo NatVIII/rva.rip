@@ -73,6 +73,14 @@
             "filters" : [
               ["chapel hill"]
             ]
+        },
+        {
+            "name" : "North Durham Tool Library",
+            "googleCalendarId" : "northdurhamtoollibrary@gmail.com",
+            "city" : "durham",
+            "filters" : [
+              ["durham"]
+            ]
         }
     ],
     "squarespace": [
