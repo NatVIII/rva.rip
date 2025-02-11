@@ -23,7 +23,7 @@
             "googleCalendarId": "triangleradicalevents@gmail.com",
             "city": "Triangle, NC",
             "filters": [
-                ["triangle", "raleigh", "durham", "hillsborough"]
+                ["durham"]
             ]
         },
         {
@@ -63,7 +63,7 @@
             "googleCalendarId" : "trianglereadingcircle@gmail.com",
             "city" : "Triangle, NC",
             "filters": [
-                ["triangle", "raleigh", "durham", "hillsborough"]
+                ["durham"]
             ]
         }, 
         {
@@ -71,7 +71,7 @@
             "googleCalendarId": "c4fba5532c4fbf1ba4bf76f0366031ac61aad6ec7b411a0747600431028bfb87@group.calendar.google.com",
             "city": "Chapel Hill",
             "filters" : [
-              ["chapel hill", "carrboro"]
+              ["chapel hill"]
             ]
         }
     ],
