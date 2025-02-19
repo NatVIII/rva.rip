@@ -9,7 +9,7 @@
                 { "name": "raleigh", "fullName": "Raleigh", "defaultValue": "true" },
                 { "name": "durham", "fullName": "Durham", "defaultValue": "true" },
                 { "name": "hillsborough", "fullName": "Hillsborough", "defaultValue": "true" },
-                { "name": "chapel hill", "fullName": "Chapel Hill", "defaultValue": "true"},
+                { "name": "chapel_hill", "fullName": "Chapel Hill", "defaultValue": "true"},
                 { "name": "carrboro", "fullName": "Carrboro", "defaultValue": "true"}
             ]
         ],
@@ -23,7 +23,7 @@
             "googleCalendarId": "triangleradicalevents@gmail.com",
             "city": "Triangle, NC",
             "filters": [
-                ["triangle"]
+                { "tags": ["triangle", "raleigh", "durham", "hillsborough", "chapel_hill", "carrboro"] }
             ]
         },
         {
@@ -31,7 +31,7 @@
             "googleCalendarId": "9e40ef8bf31101230505e352e34bd9078973320b4c00328e1dd6e1a9b65e6870@group.calendar.google.com",
             "city": "Raleigh, NC",
             "filters": [
-                ["raleigh"]
+                { "tags": ["raleigh", "triangle"] }
             ]
         },
         {
@@ -39,7 +39,7 @@
             "googleCalendarId": "0820dd07ac269b6604c0deddeabea3568fcf6ebdc18996c9bdbb3e0aa3184cd5@group.calendar.google.com",
             "city": "Durham, NC",
             "filters": [
-                ["durham"]
+                { "tags": ["durham", "triangle"] }
             ]
         },
         {
@@ -47,15 +47,15 @@
             "googleCalendarId" : "comradesinthecommons@gmail.com",
             "city" : "Durham, NC",
             "filters": [
-                ["durham"]
-            ]            
+                { "tags": ["durham", "triangle"] }
+            ]
         },
         {
             "name" : "Milkweed Mutual Aid",
             "googleCalendarId" : "28970aa42f82774cab9dbf1dc4b1d1ee18ce9c9f22bbf8de1c0b747646b97f7d@group.calendar.google.com",
-            "city" : "Hillsborough",
+            "city" : "Hillsborough, NC",
             "filters": [
-                ["hillsborough"]
+                { "tags": ["hillsborough", "triangle"] }
             ]            
         }, 
         {
@@ -63,30 +63,29 @@
             "googleCalendarId" : "trianglereadingcircle@gmail.com",
             "city" : "Triangle, NC",
             "filters": [
-                ["durham"]
+                { "tags": ["durham", "triangle"] }
             ]
         }, 
         {
             "name" : "Community Justice and Abolition Collective",
             "googleCalendarId": "c4fba5532c4fbf1ba4bf76f0366031ac61aad6ec7b411a0747600431028bfb87@group.calendar.google.com",
-            "city": "Chapel Hill",
-            "filters" : [
-              ["chapel hill"]
+            "city": "Chapel Hill, NC",
+            "filters": [
+                { "tags": ["chapel_hill", "carrboro", "triangle"] }
             ]
         },
         {
             "name" : "North Durham Tool Library",
             "googleCalendarId" : "northdurhamtoollibrary@gmail.com",
-            "city" : "durham",
-            "filters" : [
-              ["durham"]
+            "city" : "Durham, NC",
+            "filters": [
+                { "tags": ["durham", "triangle"] }
             ]
         }
     ],
     "squarespace": [
     ],
     "elfsight": [
-
     ],
     "libcal": [
     ]
