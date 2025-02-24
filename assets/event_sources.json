@@ -280,7 +280,8 @@
                 ["ecology"],
                 ["movies", "screening", ["title", "description"]],
                 ["invisible", "Undetermined", ["title"]],
-                ["invisible", "Member", ["title"]]
+                ["invisible", "Member", ["title"]],
+                ["invisible", "RVA Community Fridges", ["title"]]
             ]
         },
         {
