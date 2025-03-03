@@ -2,6 +2,8 @@ import eventSourcesJSON from '@/assets/event_sources.json';
 import { logTimeElapsedSince, serverCacheMaxAgeSeconds, serverStaleWhileInvalidateSeconds, serverFetchHeaders, applyEventTags } from '@/utils/util';
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+const typedEventSourcesJSON : { [key: string]: any } = eventSourcesJSON;
+
 export default defineCachedEventHandler(async (event) => {
 	// export default defineEventHandler(async (event) => {
 	const startTime = new Date();
@@ -9,7 +11,7 @@ export default defineCachedEventHandler(async (event) => {
 	if (typeof process.env.EVENT_SOURCES_ENV === 'string') {
 		try {
 			const eventSourcesENV = JSON.parse(String(process.env.EVENT_SOURCES_ENV));
-			eventSourcesJSON.googleCalendar = [...eventSourcesJSON.googleCalendar, ...eventSourcesENV.googleCalendar];
+			typedEventSourcesJSON.googleCalendar = [...typedEventSourcesJSON.googleCalendar, ...eventSourcesENV.googleCalendar];
 		} catch (error) {
 			console.error('Failed to parse EVENT_SOURCES_ENV:', error);
 		}
@@ -81,7 +83,7 @@ function formatTitleAndDateToID(inputDate: any, title: string) {
 	  }
   
 	  googleCalendarSources = await Promise.all(
-		eventSourcesJSON.googleCalendar.map(async (source) => {
+			typedEventSourcesJSON.googleCalendar.map(async (source: Source) => {
 		  const searchParams = new URLSearchParams({
 			singleEvents: 'true',
 			maxResults: '9999',
