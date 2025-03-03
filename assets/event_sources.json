@@ -5,7 +5,6 @@
         "tagsToShow": [
             [
                 { "name": "location", "fullName": "📍 Location", "defaultValue": "true" },
-                { "name": "triangle", "fullName": "Triangle", "defaultValue": "true" },
                 { "name": "raleigh", "fullName": "Raleigh", "defaultValue": "true" },
                 { "name": "durham", "fullName": "Durham", "defaultValue": "true" },
                 { "name": "hillsborough", "fullName": "Hillsborough", "defaultValue": "true" },
@@ -23,7 +22,7 @@
             "googleCalendarId": "triangleradicalevents@gmail.com",
             "city": "Triangle, NC",
             "filters": [
-                { "tags": ["triangle", "raleigh", "durham", "hillsborough", "chapel_hill", "carrboro"] }
+                { "tags": ["raleigh", "durham", "hillsborough", "chapel_hill", "carrboro"] }
             ]
         },
         {
@@ -31,7 +30,7 @@
             "googleCalendarId": "9e40ef8bf31101230505e352e34bd9078973320b4c00328e1dd6e1a9b65e6870@group.calendar.google.com",
             "city": "Raleigh, NC",
             "filters": [
-                { "tags": ["raleigh", "triangle"] }
+                { "tags": ["raleigh"] }
             ]
         },
         {
@@ -39,7 +38,7 @@
             "googleCalendarId": "0820dd07ac269b6604c0deddeabea3568fcf6ebdc18996c9bdbb3e0aa3184cd5@group.calendar.google.com",
             "city": "Durham, NC",
             "filters": [
-                { "tags": ["durham", "triangle"] }
+                { "tags": ["durham"] }
             ]
         },
         {
@@ -47,7 +46,7 @@
             "googleCalendarId" : "comradesinthecommons@gmail.com",
             "city" : "Durham, NC",
             "filters": [
-                { "tags": ["durham", "triangle"] }
+                { "tags": ["durham"] }
             ]
         },
         {
@@ -55,7 +54,7 @@
             "googleCalendarId" : "28970aa42f82774cab9dbf1dc4b1d1ee18ce9c9f22bbf8de1c0b747646b97f7d@group.calendar.google.com",
             "city" : "Hillsborough, NC",
             "filters": [
-                { "tags": ["hillsborough", "triangle"] }
+                { "tags": ["hillsborough"] }
             ]            
         }, 
         {
@@ -63,7 +62,7 @@
             "googleCalendarId" : "trianglereadingcircle@gmail.com",
             "city" : "Triangle, NC",
             "filters": [
-                { "tags": ["durham", "triangle"] }
+                { "tags": ["durham"] }
             ]
         }, 
         {
@@ -71,7 +70,7 @@
             "googleCalendarId": "c4fba5532c4fbf1ba4bf76f0366031ac61aad6ec7b411a0747600431028bfb87@group.calendar.google.com",
             "city": "Chapel Hill, NC",
             "filters": [
-                { "tags": ["chapel_hill", "carrboro", "triangle"] }
+                { "tags": ["chapel_hill", "carrboro"] }
             ]
         },
         {
@@ -79,7 +78,7 @@
             "googleCalendarId" : "northdurhamtoollibrary@gmail.com",
             "city" : "Durham, NC",
             "filters": [
-                { "tags": ["durham", "triangle"] }
+                { "tags": ["durham"] }
             ]
         }
     ],
