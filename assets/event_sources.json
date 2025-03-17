@@ -271,20 +271,6 @@
             ]
         },
         {
-            "name": "Sunrise Movement RVA",
-            "googleCalendarId": "sunriserva@gmail.com",
-            "prefixTitle": ":sunrise: ",
-            "filters": [
-                ["community"],
-                ["organizing"],
-                ["ecology"],
-                ["movies", "screening", ["title", "description"]],
-                ["invisible", "Undetermined", ["title"]],
-                ["invisible", "Member", ["title"]],
-                ["invisible", "RVA Community Fridges", ["title"]]
-            ]
-        },
-        {
             "name": "RVA Roll Patrol",
             "googleCalendarId": "rva.roll.patrol@gmail.com",
             "prefixTitle": "🛼",
