@@ -80,6 +80,14 @@
             "filters": [
                 { "tags": ["durham"] }
             ]
+        },
+        {
+            "name" : "Possibilities: A Durham Radical Autonomous Bulletin",
+            "googleCalendarId" : "drabpossibilities@gmail.com",
+            "city" : "Durham, NC",
+            "filters": [
+                { "tags": ["durham"] }
+            ]
         }
     ],
     "squarespace": [
