@@ -438,6 +438,15 @@
                 ["art"],
                 ["music"]
             ]
+        },
+        {
+            "name": "Richmond Cycling Corps ⚫️⚪️🔵",
+            "googleCalendarId": "c_8be5f8a4870dd5c7c18956e5e85e4d7346e27f391f06a7fb7070987ef03795fc@group.calendar.google.com",
+            "prefixTitle": "🚲️ ",
+            "filters": [
+                ["nonprofit"],
+                ["biking"]
+            ]
         }
     ],
     "squarespace": [
