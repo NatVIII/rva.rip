@@ -447,6 +447,15 @@
                 ["nonprofit"],
                 ["biking"]
             ]
+        },
+        {
+            "name": "Contributor Cracks Fringe",
+            "googleCalendarId": "cracksfringe@gmail.com",
+            "prefixTitle": "🎭️ ",
+            "filters": [
+                ["community"],
+                ["theater"]
+            ]
         }
     ],
     "squarespace": [
