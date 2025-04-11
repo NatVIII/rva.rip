@@ -17,6 +17,9 @@ useHead({
       crossorigin: 'anonymous',
     },
   ],
+  htmlAttrs: {
+    lang: "en",
+  },
 })
 </script>
 
