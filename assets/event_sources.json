@@ -456,6 +456,15 @@
                 ["community"],
                 ["theater"]
             ]
+        },
+        {
+            "name": "Contributor Laura Bryant",
+            "googleCalendarId": "36ce8cf59bee050a3596907293a0d7be3c7049b1a9c786769bd5bf4e0111ca86@group.calendar.google.com",
+            "prefixTitle": "🎨🍷 ",
+            "filters": [
+                ["commercial"],
+                ["art"]
+            ]
         }
     ],
     "squarespace": [
