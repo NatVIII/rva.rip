@@ -465,6 +465,16 @@
                 ["commercial"],
                 ["art"]
             ]
+        },
+        {
+            "name": "Nowhere Cinema",
+            "googleCalendarId": "welcometonowherecinema@gmail.com",
+            "prefixTitle": "📽️",
+            "suffixDescription": "<br /><a href=\"https://www.instagram.com/nowhere.cinema\">Instagram</a>",
+            "filters": [
+                ["community"],
+                ["movies"]
+            ]
         }
     ],
     "squarespace": [
