@@ -420,8 +420,8 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
               A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
             </div>
             <div class="blurb-sub">
-              Stop scrolling insta to find the move!<br>
-              🇵🇸 <a href="https://linktr.ee/sjpvcu">Support your local SJP</a> 🇵🇸
+              Stop scrolling insta to find the move!<br><br>
+              🇵🇸 The VRS has invested more than $300m in companies like Maersk enabling the genocide against Gaza. Join us at <a href="https://www.vrsdivest.org/">VRS: No Pensions For Genocide</a> to demand change! 🇵🇸
             </div>
           </td>
         </tr>
