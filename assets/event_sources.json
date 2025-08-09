@@ -181,7 +181,7 @@
             "defaultLocation": "2026A Dabney Road, Richmond VA 23230",
             "filters": [
                 [["community","diy"], "Open", ["title","description"]],
-                ["invisible", "community"]
+                ["invisible"]
             ]
         },
         {
