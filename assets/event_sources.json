@@ -126,6 +126,15 @@
             ]
         },
         {
+            "name": "Climate Changemakers RVA Hour of Action",
+            "googleCalendarId": "aef3d39928f2674e701021dc227ae12707d579fc56fa8e8a3c05d41135e8eef5@group.calendar.google.com",
+            "filters": [
+                ["nonprofit"],
+                ["ecology"],
+                ["volunteering"]
+            ]
+        },
+        {
             "name": "RVA.RIP Major Update Announcements",
             "googleCalendarId": "2847685acc28b260c69a05bd948038fffe1b00cc12424b6a35ef39480a3900c1@group.calendar.google.com",
             "prefixTitle": ":ripple: ",
