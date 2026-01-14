@@ -476,6 +476,16 @@
                 ["community"],
                 ["movies"]
             ]
+        },
+        {
+            "name": "RVA Bike Polo",
+            "googleCalendarId": "bikepolorva@gmail.com",
+            "prefixTitle": "🥅",
+            "suffixDescription": "<br /><a href=\"https://www.instagram.com/rvabikepolo\">Instagram</a>",
+            "filters": [
+                ["community"],
+                ["biking"]
+            ]
         }
     ],
     "squarespace": [
