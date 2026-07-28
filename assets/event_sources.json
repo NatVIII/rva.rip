@@ -380,24 +380,6 @@
             ]
         },
         {
-            "name": "RVA4Palestine Coalition Events",
-            "googleCalendarId": "rva4palestine@gmail.com",
-            "prefixTitle": ":rva4pal: ",
-            "filters": [
-                ["community"],
-                ["palestine"],
-                ["art", "chalk", "title"],
-                ["organizing", "teach-in", "title"],
-                ["organizing", "city council", "title"],
-                ["organizing", "meeting", "title"],
-                ["organizing", "tenant", "title"],
-                ["organizing", "training", "title"],
-                ["socialism", " rwa", "title"],
-                ["socialism", "richmond worker", ["title","description"]],
-                ["exercise", "team hind", ["title","description"]]
-            ]
-        },
-        {
             "name": "RVA Participatory Budgeting Public Calendar https://rvapb.org",
             "googleCalendarId": "c_c7163d30a9f2e96724bf3856aa814f56e83300945a648bd5a04f2fb291da6917@group.calendar.google.com",
             "prefixTitle": ":rvapb: ",
