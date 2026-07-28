@@ -270,19 +270,6 @@
             ]
         },
         {
-            "name": "Rag and Bones Bicycle Cooperative",
-            "googleCalendarId": "ragandbonesvolunteers@gmail.com",
-            "prefixTitle": "🛠🚲 ",
-            "suffixTitle": " | Rag & Bones Bicycle Cooperative",
-            "defaultLocation": "2916 North Avenue, Richmond VA 23230",
-            "suffixDescription": "<br /> <a href=\"https://ragandbonesrva.org/\">Website</a> | <a href=\"https://www.instagram.com/ragandbonesrva/\">Instagram</a> | <a href=\"https://www.facebook.com/RagBonesBicycleCoOp/\">Facebook</a>",
-            "filters": [
-                ["community"],
-                [["diy","biking"], "Open Hours", "title"],
-                ["music", "Benefit", ["title","description"]]
-            ]
-        },
-        {
             "name": "New Habit Cinema",
             "googleCalendarId": "01cd966b384a29a5d1f8f341f8bb7aa56cad3b0233d0b20402a30ac640691690@group.calendar.google.com",
             "prefixTitle": "📽️",
