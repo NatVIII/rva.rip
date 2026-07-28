@@ -313,18 +313,6 @@
             ]
         },
         {
-            "name": "James River Anarchist Black Cross",
-            "googleCalendarId": "jrabc1312@gmail.com",
-            "prefixTitle": ":jrabc: ",
-            "suffixTitle": "",
-            "filters": [
-                ["community"],
-                ["organizing"],
-                ["socialism"],
-                ["discussion", "salon", "title"]
-            ]
-        },
-        {
             "name": "Girlspit",
             "googleCalendarId": "6beec3f66bcf6792c6920b8a59f5e1e8a736582c613a9e74e8189008f47d6dd6@group.calendar.google.com",
             "prefixTitle": "",

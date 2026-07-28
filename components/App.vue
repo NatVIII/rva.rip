@@ -421,7 +421,10 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
             </div>
             <div class="blurb-sub">
               Stop scrolling insta to find the move!<br><br>
-              🇵🇸 The VRS has invested more than $300m in companies like Maersk enabling the genocide against Gaza. Join us at <a href="https://www.vrsdivest.org/">VRS: No Pensions For Genocide</a> to demand change! 🇵🇸
+              rva.rip is dying, but you (yes you!) can help bring it back to life<br>
+              don't let the billionaires win! join our <a href="https://t.me/+BgY90TOLGeQ1OTI5">💬 telegram channel 💬</a> for updates<br>
+              🩵🩷🤍🩷🩵 || ❤️🧡💛💚💙💜 || 🇵🇸🚩<br>
+              (if you'd like to reach out to <a href="https://www.styleweekly.com/the-queer-agenda/">me</a>, message me <a href="https://signal.me/#eu/rIdQgmXC_Bo1bmDZgZDEL2IWz7PVTPiys_tFaz--IKGxEckD8BNIPK1dDCzGLHaa">on signal</a>)
             </div>
           </td>
         </tr>
