@@ -428,6 +428,10 @@ body.no-scroll {
   overflow: visible;
 }
 
+.nowrap{
+  white-space: nowrap;
+}
+
 .popper-box-inner .bottom button {
   font-size: 14px;
 }

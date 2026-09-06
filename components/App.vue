@@ -420,22 +420,17 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
               A communal board for DIY events all around RVA; queer, radical, and STINKY!!!
             </div>
             <div class="blurb-sub">
-              Stop scrolling insta to find the move!<br><br>
-              rva.rip is dying, but you (yes you!) can help bring it back to life<br>
-              don't let the billionaires win! join our <a href="https://t.me/+BgY90TOLGeQ1OTI5">💬 telegram channel 💬</a> for updates<br>
-              🩵🩷🤍🩷🩵 || ❤️🧡💛💚💙💜 || 🇵🇸🚩<br>
-              (if you'd like to reach out to <a href="https://www.styleweekly.com/the-queer-agenda/">me</a>, message me <a href="https://signal.me/#eu/rIdQgmXC_Bo1bmDZgZDEL2IWz7PVTPiys_tFaz--IKGxEckD8BNIPK1dDCzGLHaa">on signal</a>)
+              Stop scrolling insta to find the move!<br>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <div style="text-align: center;" v-if="beforeMOTDDate">
+    <div style="text-align: center;">
       <div class="motd">
-        🇵🇸 This Saturday ShutItDown4Palestine is hosting a national day of action to say
-        NO VOTES FOR GENOCIDE. Want to join in RVA? Check out the upcoming rally 
-        <a style="color: var(--text-white);" href="https://www.instagram.com/pslvirginia/p/DBobeMEuC8D/">here!</a> 🇵🇸 
-        <br > 🗓️ Nov 2 | 🕑 2pm | 📍 Monroe Park
+            ⚠️ rva.rip is under <a style="white-space: nowrap;" href="https://1804books.com/products/socialist-reconstruction-a-better-future">reconstruction</a>!!! ⚠️<br><br>
+            rva.rip is being rewritten to run better. please join our <a style="white-space: nowrap;" href="https://t.me/+BgY90TOLGeQ1OTI5">🡆telegram channel🡄</a> for updates.<br>
+            (want to talk? text <a href="https://www.styleweekly.com/the-queer-agenda/">me</a> on <a href="https://signal.me/#eu/rIdQgmXC_Bo1bmDZgZDEL2IWz7PVTPiys_tFaz--IKGxEckD8BNIPK1dDCzGLHaa">💬signal</a>) <tbody class="nowrap">ദ്ദി(˵ •̀ ᴗ - ˵ )</tbody>
       </div>
     </div>
     <FullCalendar ref="calendarRef" :options='calendarOptions' />
