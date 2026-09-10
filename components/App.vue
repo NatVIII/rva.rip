@@ -428,7 +428,7 @@ const transformEventSourcesResponse = (eventSources: Ref<Record<string, any>>) =
     </table>
     <div style="text-align: center;">
       <div class="motd">
-            ⚠️ rva.rip is under <a style="white-space: nowrap;" href="https://1804books.com/products/socialist-reconstruction-a-better-future">reconstruction</a>!!! ⚠️<br><br>
+            ⚠️ rva.rip is under <a style="white-space: nowrap;" href="https://en.wikipedia.org/wiki/Black_Reconstruction_in_America">reconstruction</a>!!! ⚠️<br><br>
             rva.rip is being rewritten to run better. please join our <a style="white-space: nowrap;" href="https://t.me/+BgY90TOLGeQ1OTI5">🡆telegram channel🡄</a> for updates.<br>
             (want to talk? text <a href="https://www.styleweekly.com/the-queer-agenda/">me</a> on <a href="https://signal.me/#eu/rIdQgmXC_Bo1bmDZgZDEL2IWz7PVTPiys_tFaz--IKGxEckD8BNIPK1dDCzGLHaa">💬signal</a>) <tbody class="nowrap">ദ്ദി(˵ •̀ ᴗ - ˵ )</tbody>
       </div>

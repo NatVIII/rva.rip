@@ -7,6 +7,7 @@ import {
 export default defineNuxtConfig({
   routeRules: {
     '/cuba': { redirect: 'https://secure.givelively.org/donate/peoples-forum-inc/let-cuba-live-bread-for-our-neighbors/let-cuba-live-rva' },
+    '/psl': { redirect: 'https://theyeisblind.substack.com/p/the-eyes-is-blind-that-will-not-see' },
   },
   typescript: {
     // This ignores errors on build too.
